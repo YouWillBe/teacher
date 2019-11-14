@@ -1,0 +1,77 @@
+{
+    "name": "science_cloud_teacher",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@emotion/core": "^10.0.22",
+        "@emotion/styled": "^10.0.23",
+        "@matejmazur/react-katex": "^3.0.2",
+        "@reach/router": "^1.2.1",
+        "@types/echarts": "^4.4.1",
+        "@types/is-hotkey": "^0.1.1",
+        "@types/jest": "^24.0.21",
+        "@types/js-cookie": "^2.2.4",
+        "@types/node": "^12.12.3",
+        "@types/ramda": "^0.26.33",
+        "@types/reach__router": "^1.2.6",
+        "@types/react": "16.9.11",
+        "@types/react-dom": "16.9.3",
+        "@types/react-slider": "^0.8.1",
+        "@types/slate": "^0.47.3",
+        "@types/slate-react": "^0.22.6",
+        "axios": "^0.19.0",
+        "create-react-class": "^15.6.3",
+        "dayjs": "^1.8.16",
+        "echarts": "^4.4.0",
+        "emotion-theming": "^10.0.19",
+        "is-hotkey": "^0.1.6",
+        "js-cookie": "^2.2.1",
+        "katex": "^0.11.1",
+        "konva": "^4.0.16",
+        "mobx": "^5.14.2",
+        "mobx-react": "^6.1.4",
+        "ramda": "^0.26.1",
+        "re-resizable": "^6.1.0",
+        "react": "^16.11.0",
+        "react-dom": "^16.11.0",
+        "react-icons": "^3.8.0",
+        "react-konva": "^16.10.1-0",
+        "react-mathquill": "^0.1.9",
+        "react-player": "^1.13.0",
+        "react-scripts": "3.2.0",
+        "react-slider": "^1.0.1",
+        "screenfull": "^5.0.0",
+        "slate": "^0.47.8",
+        "slate-react": "^0.22.9",
+        "ts-optchain": "^0.1.8",
+        "typescript": "3.6.4",
+        "use-onclickoutside": "^0.3.1"
+    },
+    "scripts": {
+        "start": "react-app-rewired start",
+        "build": "react-app-rewired build",
+        "test": "react-app-rewired test --env=jsdom",
+        "eject": "react-scripts eject"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "devDependencies": {
+        "babel-plugin-emotion": "^10.0.23",
+        "customize-cra": "^0.8.0",
+        "react-app-rewired": "^2.1.4"
+    },
+    "proxy": "http://192.168.0.104:8080/step"
+}
