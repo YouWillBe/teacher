@@ -122,7 +122,6 @@ class ClassTableStore implements IClassTableStore {
                 week: week,
             })
             if (res.success) {
-                console.log(res)
                 this.amCourses = res.data.filter((v: Course) => v.courseType === 1)
                 this.pmCourses = res.data.filter((v: Course) => v.courseType === 2)
                 this.nightCourses = res.data.filter((v: Course) => v.courseType === 3)
@@ -167,7 +166,6 @@ class ClassTableStore implements IClassTableStore {
         this.gettingProcessingCourse = true
         try {
             const res = await api.classTable.getProcessingCourse()
-            console.log('processing', res)
             if (res.success) {
                 this.comingCourse = res.data.plan
                 this.processingCourse = res.data.underway

@@ -70,6 +70,10 @@ const Nav: FC<RouteComponentProps> = () => {
                 <Text isActive={current === 5}>学情分析</Text>
                 <Line isActive={current === 5} />
             </Item>
+            <Item to='analysis/knowledge' getProps={() => checkActive('/analysis/knowledge', 6)}>
+                <Text isActive={current === 6}>知识结构</Text>
+                <Line isActive={current === 6} />
+            </Item>
         </Container>
     )
 }

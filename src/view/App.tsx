@@ -16,6 +16,10 @@ import Task from '../view/Course/Task'
 import Examination from '../view/Course/Examination'
 import VolumeDetail from './Volume/detail'
 import Analysis from './Analysis'
+import OverallAnalysis from './Analysis/Overall'
+import PersonalAnalysis from './Course/PersonalAnalysis'
+import ClassAnalysis from './Analysis/Overall/Class'
+import KnowledgeAnalysis from './Analysis/Knowledge'
 
 const MyRouter = styled(Router)`
     height: 100%;
@@ -39,7 +43,12 @@ const App: FC = () => {
             </Course>
             <VolumeDetail path='see/volume/:id'></VolumeDetail>
             <NewPreparation path='/course/:courseId/preparation/new'></NewPreparation>
-            <Analysis path='analysis'></Analysis>
+            <KnowledgeAnalysis path='/analysis/knowledge'></KnowledgeAnalysis>
+            <Analysis path='/analysis'>
+                <OverallAnalysis path='/'></OverallAnalysis>
+                <PersonalAnalysis path='student/:studentId'></PersonalAnalysis>
+                <ClassAnalysis path='class/:studentId'></ClassAnalysis>
+            </Analysis>
         </MyRouter>
     )
 }

@@ -57,7 +57,6 @@ const Detail: FC = props => {
     //查看试卷
     const handleClickSee = () => {
         navigate(`task/analysis/${courseTaskStore.task!.id}`)
-        console.log('跳转路由，跟查看分析是一样')
     }
 
     const stopButton = {

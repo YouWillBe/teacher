@@ -18,6 +18,7 @@ const MySpan = styled.span`
 interface IProps {
     data: {
         url: string | undefined
+        returnLine: string | undefined
     }
 }
 
@@ -29,7 +30,13 @@ const Back: FC<IProps> = props => {
 
     const handleClickLink1 = () => {
         let urlArr = props.data.url!.split('/')
-        navigate(`/${urlArr[1]}/${urlArr[2]}/${urlArr[3]}/${urlArr[4]}`)
+        if (urlArr[4]) {
+            navigate(`/${urlArr[1]}/${urlArr[2]}/${urlArr[3]}/${urlArr[4]}`)
+        } else if (props.data.returnLine) {
+            navigate(props.data.returnLine)
+        } else {
+            navigate(`/${urlArr[1]}`)
+        }
     }
 
     const setRouterName = (): { name: string; name1: string } => {
@@ -40,8 +47,10 @@ const Back: FC<IProps> = props => {
             return { name: '返回随堂测', name1: '返回上一层' }
         } else if (urlArr[3] === 'task') {
             return { name: '返回作业', name1: '返回上一层' }
-        } else {
+        } else if (urlArr[3] === 'test') {
             return { name: '返回测试', name1: '返回上一层' }
+        } else {
+            return { name: '返回分析', name1: '返回上一层' }
         }
     }
 
@@ -53,12 +62,15 @@ const Back: FC<IProps> = props => {
         HColor: '#3a93df',
         HBorder: '1px solid #3a93df',
     }
+
     return (
         <Container>
-            <Button options={buttonOption} onClick={handleClickLink}>
-                <TiArrowBackOutline></TiArrowBackOutline>
-                <MySpan>{setRouterName().name}</MySpan>
-            </Button>
+            {props.data.url!.split('/')[4] && (
+                <Button options={buttonOption} onClick={handleClickLink}>
+                    <TiArrowBackOutline></TiArrowBackOutline>
+                    <MySpan>{setRouterName().name}</MySpan>
+                </Button>
+            )}
             <Button options={buttonOption} onClick={handleClickLink1}>
                 <TiArrowBackOutline></TiArrowBackOutline>
                 <MySpan>{setRouterName().name1}</MySpan>

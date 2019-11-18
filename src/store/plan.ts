@@ -103,12 +103,11 @@ class PlanStore implements IPlanStore {
     }
     @action async updatePlan() {
         try {
-            const res = await api.plan.updatePlan({
+            await api.plan.updatePlan({
                 id: this.plan.id,
                 title: this.plan.title,
                 content: JSON.stringify(this.plan.content.toJS()),
             })
-            console.log(res)
         } catch (error) {}
     }
     @action async getPlan(id: number) {

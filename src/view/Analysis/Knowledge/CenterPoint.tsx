@@ -1,8 +1,8 @@
 import React, { FC, useState } from 'react'
 import { Shape, Circle, Text } from 'react-konva'
 
-import { getPoints } from '../../utils/getPonits'
-import { rotateTransform } from '../../utils/rotateTransform'
+import { getPoints } from '../../../utils/getPonits'
+import { rotateTransform } from '../../../utils/rotateTransform'
 
 import Point from './Point'
 import Connector from './Connector'

@@ -9,6 +9,7 @@ import { isNil } from 'ramda'
 
 import { IStore } from '../../store'
 import Loading from '../../components/Loading'
+import CourseInfo from './CourseInfo'
 
 import blank from '../Plan/blank.png'
 
@@ -28,10 +29,7 @@ const Title = styled.div`
     text-align: center;
     margin-top: 30px;
 `
-const Course = styled.div``
-const Time = styled.div``
-const Section = styled.div``
-const Class = styled.div``
+
 const Blank = styled.div`
     background-image: url(${blank});
     width: 100px;
@@ -45,9 +43,7 @@ const Text = styled.div`
     color: #666;
 `
 
-const sectionList = ['上午', '下午', '晚间']
-
-const ProcessingCourse: FC = () => {
+const ProcessingCourse: FC = props => {
     const { classTableStore } = useContext<IStore>(MobXProviderContext)
     return useObserver(() => (
         <Container>
@@ -60,18 +56,14 @@ const ProcessingCourse: FC = () => {
                     <Text>没有正在进行的课程</Text>
                 </>
             ) : (
-                <>
-                    <Course>
-                        <Time>
-                            周{dayjs(oc(classTableStore).processingCourse.courseClassTime(0) * 1000).format('dd MM-DD')}
-                        </Time>
-                        <Section>
-                            {sectionList[oc(classTableStore).processingCourse.courseType(0) - 1]} 第
-                            {oc(classTableStore).processingCourse.courseSection()}节
-                        </Section>
-                    </Course>
-                    <Class>{oc(classTableStore).processingCourse.teamFullName()}</Class>
-                </>
+                <CourseInfo
+                    color='#749611'
+                    date={oc(classTableStore).processingCourse.courseClassTime(0) * 1000}
+                    section={oc(classTableStore).processingCourse.courseType(0) - 1}
+                    index={oc(classTableStore).processingCourse.courseSection(0)}
+                    nameOfClass={oc(classTableStore).processingCourse.teamFullName('')}
+                    courseId={oc(classTableStore).processingCourse.courseId(0)}
+                ></CourseInfo>
             )}
         </Container>
     ))

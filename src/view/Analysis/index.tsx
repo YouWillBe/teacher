@@ -1,85 +1,137 @@
-import React, { FC, useState, useEffect, useContext } from 'react'
+import React, { FC, useState, useContext } from 'react'
 import styled from '@emotion/styled'
-import { Stage, Layer } from 'react-konva'
-import { KonvaEventObject } from 'konva/types/Node'
-import { RouteComponentProps, Link } from '@reach/router'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
+import { RouteComponentProps, navigate } from '@reach/router'
+import { TiArrowBackOutline } from 'react-icons/ti'
 
 import { IStore } from '../../store'
+import Button from '../../components/Button'
 
-import CenterPoint from './CenterPoint'
-import Spinner from '../../components/Spinner'
-
+// const Container = styled.div`
+//     width: 1440px;
+//     margin: 0 auto;
+// `
 const Container = styled.div`
+    box-sizing: border-box;
     width: 100%;
     height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    background-color: #000;
-    & > div {
-        background-color: #000;
+    overflow: auto;
+    &::-webkit-scrollbar-button {
+        background-color: #fff;
+    }
+    &::-webkit-scrollbar {
+        background-color: #fff;
+        width: 8px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: rgba(66, 88, 99, 0.4);
+        border-radius: 10px;
+    }
+    &::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background-color: #ddd;
     }
 `
-const Button = styled(Link)`
-    color: #ccc;
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.1s linear;
-    background-color: #000;
-    z-index: 11;
-    &:hover {
-        color: #ccc;
-        border-color: #ccc;
-    }
+const Package = styled.div`
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    padding-right: 5px;
+`
+const Wrap = styled.div`
+    box-sizing: border-box;
+    width: 1260px;
+    margin: 0 auto;
 `
 
-const App: FC<RouteComponentProps> = () => {
-    const [scale, setScale] = useState(1)
+const NavWrap = styled.ul`
+    width: 100%;
+    height: 40px;
+    display: flex;
+    background-color: rgba(245, 247, 250, 1);
+`
+const MySpan = styled.span`
+    margin-left: 8px;
+`
+const Li = styled.li<{ setStyle: boolean }>`
+    width: 110px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 14px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    cursor: pointer;
+    color: ${props => (props.setStyle ? '#3C94DF' : '#666')};
+    background-color: ${props => (props.setStyle ? '#DFEDF9' : '#F5F7FA')};
+    & ::after {
+        border-right: 20px solid red;
+    }
+`
+const ButtonWrap = styled.li`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+`
+
+const AnalysisWrap: FC<RouteComponentProps> = props => {
     const { analysisStore } = useContext<IStore>(MobXProviderContext)
-    const handleScale = (event: KonvaEventObject<WheelEvent>) => {
-        if (event.evt.deltaY < 0) {
-            if (scale <= 2) {
-                setScale(scale + 0.2)
-            }
+    const [currenLink, setCurrenLink] = useState(props.location!.pathname)
+
+    const handleClickLink = (link: string) => {
+        if (currenLink === link) {
+            return
         } else {
-            if (scale >= 0.6) {
-                setScale(scale - 0.2)
-            }
+            navigate(link)
+            setCurrenLink(link)
         }
     }
-    useEffect(() => {
-        analysisStore.getKnowleggePoint()
-        // eslint-disable-next-line
-    }, [])
-    return useObserver(() => (
-        <Container>
-            <Button to='/'>返回首页</Button>
-            {analysisStore.nodesReady ? (
-                <Stage
-                    width={window.innerWidth}
-                    height={window.innerHeight}
-                    scale={{ x: scale, y: scale }}
-                    draggable
-                    onWheel={handleScale}
-                >
-                    <Layer>
-                        <CenterPoint text='高中数学' data={analysisStore.nodes} />
-                    </Layer>
-                </Stage>
-            ) : (
-                <Spinner></Spinner>
-            )}
-        </Container>
-    ))
+
+    const buttonOption = {
+        color: '#3C94DF',
+        size: '16px',
+        height: '40px',
+        bgColor: '#f5f7fa',
+        HbgColor: '#fff',
+    }
+
+    return useObserver(() => {
+        return (
+            <Package>
+                <Container>
+                    {props.location!.pathname.split('/')[2] !== 'student' && (
+                        <NavWrap>
+                            <ButtonWrap>
+                                <Button options={buttonOption} onClick={() => handleClickLink('/')}>
+                                    <TiArrowBackOutline></TiArrowBackOutline>
+                                    <MySpan>返回首页</MySpan>
+                                </Button>
+                            </ButtonWrap>
+                            <Li
+                                onClick={() => handleClickLink('/analysis')}
+                                setStyle={props.location!.pathname === '/analysis'}
+                            >
+                                总体分析
+                            </Li>
+                            {analysisStore.teacherTeams.map(item => (
+                                <Li
+                                    key={item.id}
+                                    onClick={() => handleClickLink(`/analysis/class/${item.id}`)}
+                                    setStyle={props.location!.pathname === `/analysis/class/${item.id}`}
+                                >
+                                    {item.className}
+                                </Li>
+                            ))}
+                        </NavWrap>
+                    )}
+
+                    <Wrap> {props.children}</Wrap>
+                </Container>
+            </Package>
+        )
+    })
 }
 
-export default App
+export default AnalysisWrap

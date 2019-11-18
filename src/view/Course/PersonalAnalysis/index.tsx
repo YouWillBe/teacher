@@ -158,7 +158,7 @@ const PersonalAnalysis: FC<RouteComponentProps<IProps>> = props => {
                 <Container>
                     <Wrap>
                         <Header>
-                            <Back data={{ url: props.uri }}></Back>
+                            <Back data={{ url: props.uri, returnLine: props.location!.state.returnLine }}></Back>
                             <StudentInfo>
                                 <Student>
                                     <StudentType>学生</StudentType>
