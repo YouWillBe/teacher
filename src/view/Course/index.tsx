@@ -26,6 +26,7 @@ const TabWrap = styled.div`
     height: 50px;
     display: flex;
     border-bottom: 1px solid #eee;
+    position: relative;
 `
 
 const ItemWrap = styled.div`
@@ -81,13 +82,36 @@ const Back = styled(Link)`
 const Content = styled(Router)`
     height: calc(100% - 50px);
 `
+const Button = styled(Link)`
+    position: absolute;
+    right: 6px;
+    bottom: 6px;
+    border: 1px solid #999;
+    color: #777;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.1s linear;
+    &:hover {
+        color: #00a6f3;
+        border-color: #00a6f3;
+    }
+`
 
 interface IParams {
     courseId: string
 }
 
 const Course: FC<RouteComponentProps<IParams>> = props => {
-    const [active, setActive] = useState([false, false, false, false, false, false])
+    const [active, setActive] = useState([
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+    ])
     const checkActive = (isCurrent: boolean, index: number) => {
         if (active[index] !== isCurrent) {
             setActive(update(index, isCurrent, active))
@@ -104,7 +128,9 @@ const Course: FC<RouteComponentProps<IParams>> = props => {
                     <TabItem isActive={active[0]}>
                         <Item
                             to={`/course/${props.courseId}/plan`}
-                            getProps={({ isCurrent }) => checkActive(isCurrent, 0)}
+                            getProps={({ isCurrent }) =>
+                                checkActive(isCurrent, 0)
+                            }
                         >
                             教案
                         </Item>
@@ -112,7 +138,9 @@ const Course: FC<RouteComponentProps<IParams>> = props => {
                     <TabItem isActive={active[1]}>
                         <Item
                             to={`/course/${props.courseId}/preparation`}
-                            getProps={({ isCurrent }) => checkActive(isCurrent, 1)}
+                            getProps={({ isCurrent }) =>
+                                checkActive(isCurrent, 1)
+                            }
                         >
                             课前准备
                         </Item>
@@ -120,7 +148,9 @@ const Course: FC<RouteComponentProps<IParams>> = props => {
                     <TabItem isActive={active[2]}>
                         <Item
                             to={`/course/${props.courseId}/preview`}
-                            getProps={({ isCurrent }) => checkActive(isCurrent, 2)}
+                            getProps={({ isCurrent }) =>
+                                checkActive(isCurrent, 2)
+                            }
                         >
                             预习
                         </Item>
@@ -128,7 +158,9 @@ const Course: FC<RouteComponentProps<IParams>> = props => {
                     <TabItem isActive={active[3]}>
                         <Item
                             to={`/course/${props.courseId}/classTest`}
-                            getProps={({ isCurrent }) => checkActive(isCurrent, 3)}
+                            getProps={({ isCurrent }) =>
+                                checkActive(isCurrent, 3)
+                            }
                         >
                             随堂测
                         </Item>
@@ -136,7 +168,9 @@ const Course: FC<RouteComponentProps<IParams>> = props => {
                     <TabItem isActive={active[4]}>
                         <Item
                             to={`/course/${props.courseId}/task`}
-                            getProps={({ isCurrent }) => checkActive(isCurrent, 4)}
+                            getProps={({ isCurrent }) =>
+                                checkActive(isCurrent, 4)
+                            }
                         >
                             作业
                         </Item>
@@ -144,12 +178,17 @@ const Course: FC<RouteComponentProps<IParams>> = props => {
                     <TabItem isActive={active[5]}>
                         <Item
                             to={`/course/${props.courseId}/examination`}
-                            getProps={({ isCurrent }) => checkActive(isCurrent, 5)}
+                            getProps={({ isCurrent }) =>
+                                checkActive(isCurrent, 5)
+                            }
                         >
                             测试
                         </Item>
                     </TabItem>
                 </ItemWrap>
+                <Button to={`/course/${props.courseId}/white-board`}>
+                    白板
+                </Button>
             </TabWrap>
             <Content>
                 <Plan path='plan' />

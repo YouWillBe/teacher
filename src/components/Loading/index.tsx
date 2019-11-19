@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import styled from '@emotion/styled'
-import { FaSpinner } from 'react-icons/fa'
+
+import Spinner from '../Spinner'
 
 const Container = styled.div`
     width: 100%;
@@ -16,13 +17,13 @@ const Container = styled.div`
 const Text = styled.div`
     font-size: 14px;
     margin-top: 30px;
-    color: #999;
+    color: #00a6f3;
 `
 
 const Loading: FC = () => {
     return (
         <Container>
-            <FaSpinner />
+            <Spinner/>
             <Text>loading ...</Text>
         </Container>
     )

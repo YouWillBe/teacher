@@ -10,8 +10,8 @@ import { store } from './store'
 
 // 添加公式相关的样式
 import 'katex/dist/katex.min.css'
-import { addStyles as addMathquillStyles } from 'react-mathquill'
-addMathquillStyles()
+import { addStyles as addMathQuillStyles } from 'react-mathquill'
+addMathQuillStyles()
 
 const GlobalStyle = css`
     html,

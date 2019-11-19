@@ -19,7 +19,7 @@ const Package = styled.div`
     box-sizing: border-box;
     width: 100%;
     min-height: 200px;
-    box-shadow: 0px 2px 4px 0px rgba(100, 115, 219, 0.09);
+    box-shadow: 0 2px 4px 0 rgba(100, 115, 219, 0.09);
     border-radius: 4px;
     padding: 20px;
     margin-bottom: 20px;
@@ -27,7 +27,7 @@ const Package = styled.div`
 const Package1 = styled.div`
     width: 100%;
     min-height: 200px;
-    box-shadow: 0px 2px 4px 0px rgba(100, 115, 219, 0.09);
+    box-shadow: 0 2px 4px 0 rgba(100, 115, 219, 0.09);
     border-radius: 4px;
     margin-bottom: 20px;
 `
@@ -40,7 +40,7 @@ const KnowledgeWrap = styled.div`
     margin: 20px 0;
 `
 
-const Overall: FC<RouteComponentProps> = props => {
+const Overall: FC<RouteComponentProps> = () => {
     const { analysisStore } = useContext<IStore>(MobXProviderContext)
 
     useEffect(() => {
@@ -88,7 +88,7 @@ const Overall: FC<RouteComponentProps> = props => {
                             seriesData: analysisStore.testTotalAnalysisGrade.classAccuracyList.map(t => t.accuracy),
                             titleText: '班级总体正确率',
                         }}
-                    ></BarClass>
+                    />
                 </Package>
                 <Package>
                     <MultiLine
@@ -98,7 +98,7 @@ const Overall: FC<RouteComponentProps> = props => {
                             metaDate: latelyClassTestAccuracyList.metaDate,
                             titleText: '班级最近7周测试情况',
                         }}
-                    ></MultiLine>
+                    />
                 </Package>
                 <Package>
                     <BarStackedStrip
@@ -111,7 +111,7 @@ const Overall: FC<RouteComponentProps> = props => {
                             poor: latelyClassOneTestAccuracyList.poor,
                             bad: latelyClassOneTestAccuracyList.bad,
                         }}
-                    ></BarStackedStrip>
+                    />
                 </Package>
                 <KnowledgeWrap>
                     <Package>
@@ -123,7 +123,7 @@ const Overall: FC<RouteComponentProps> = props => {
                                     index,
                                     colorArr: ['#23710C', '#219600', '#29C000', '#6FD554', '#9EE379'],
                                 }}
-                            ></LoreList>
+                            />
                         ))}
                     </Package>
                     <Package>
@@ -135,7 +135,7 @@ const Overall: FC<RouteComponentProps> = props => {
                                     index,
                                     colorArr: ['#780000', '#AF0F0F', '#E33939', '#F66868', '#F18787'],
                                 }}
-                            ></LoreList>
+                            />
                         ))}
                     </Package>
                 </KnowledgeWrap>
@@ -147,7 +147,7 @@ const Overall: FC<RouteComponentProps> = props => {
                             url: '',
                             studentList: analysisStore.testTotalAnalysisGrade.bestStudentList,
                         }}
-                    ></StudentList>
+                    />
                 </Package1>
                 <Package1>
                     <StudentList
@@ -157,7 +157,7 @@ const Overall: FC<RouteComponentProps> = props => {
                             url: '',
                             studentList: analysisStore.testTotalAnalysisGrade.worstStudentList,
                         }}
-                    ></StudentList>
+                    />
                 </Package1>
             </Container>
         )

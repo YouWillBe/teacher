@@ -11,7 +11,7 @@ const Container = styled.div`
 const Title = styled.div`
     box-sizing: border-box;
     font-size: 24px;
-    font-family: PingFangSC;
+    font-family: PingFangSC, sans-serif;
     font-weight: 500;
     color: rgba(51, 51, 51, 1);
     border-bottom: 1px solid #979797;
@@ -49,7 +49,7 @@ const StudentName = styled.span`
     line-height: 40px;
     text-align: center;
     font-size: 16px;
-    font-family: PingFangSC-Regular;
+    font-family: PingFangSC-Regular, sans-serif;
     font-weight: 400;
     color: rgba(79, 157, 252, 1);
 `
@@ -111,7 +111,7 @@ const StudentList: FC<IParams> = props => {
                         </TestDTOS>
                     ))
                 ) : (
-                    <NoData></NoData>
+                    <NoData />
                 )}
             </Wrap>
         </Container>

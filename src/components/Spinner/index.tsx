@@ -16,7 +16,6 @@ const Container = styled.div`
     height: 40px;
     width: 40px;
     animation: ${spin} 2s infinite linear;
-    color: #fff;
     font-size: 40px;
     color: #00a6f3;
 `
@@ -24,7 +23,7 @@ const Container = styled.div`
 const Spinner: FC = () => {
     return (
         <Container>
-            <FaSpinner></FaSpinner>
+            <FaSpinner/>
         </Container>
     )
 }

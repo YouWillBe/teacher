@@ -83,97 +83,97 @@ const ToolBar: FC<IProps> = props => {
                 check={props.currentColor === '#000'}
                 onClick={() => props.changeColor('#000')}
             >
-                <Color color='#000'></Color>
+                <Color color='#000'/>
             </Wrap>
             <Wrap
                 check={props.currentColor === '#fff'}
                 onClick={() => props.changeColor('#fff')}
             >
-                <Color color='#fff'></Color>
+                <Color color='#fff'/>
             </Wrap>
             <Wrap
                 check={props.currentColor === '#00a6f3'}
                 onClick={() => props.changeColor('#00a6f3')}
             >
-                <Color color='#00a6f3'></Color>
+                <Color color='#00a6f3'/>
             </Wrap>
             <Wrap
                 check={props.currentColor === '#c00'}
                 onClick={() => props.changeColor('#c00')}
             >
-                <Color color='#c00'></Color>
+                <Color color='#c00'/>
             </Wrap>
             <Wrap
                 check={props.currentColor === '#0c0'}
                 onClick={() => props.changeColor('#0c0')}
             >
-                <Color color='#0c0'></Color>
+                <Color color='#0c0'/>
             </Wrap>
             <Wrap
                 check={props.currentColor === '#fc0'}
                 onClick={() => props.changeColor('#fc0')}
             >
-                <Color color='#fc0'></Color>
+                <Color color='#fc0'/>
             </Wrap>
-            <Line></Line>
+            <Line/>
             <Wrap
                 check={props.currentWeight === 4}
                 onClick={() => props.changeWeight(4)}
                 title='较细'
             >
-                <Weight weight={4}></Weight>
+                <Weight weight={4}/>
             </Wrap>
             <Wrap
                 check={props.currentWeight === 8}
                 onClick={() => props.changeWeight(8)}
                 title='中等'
             >
-                <Weight weight={8}></Weight>
+                <Weight weight={8}/>
             </Wrap>
             <Wrap
                 check={props.currentWeight === 12}
                 onClick={() => props.changeWeight(12)}
                 title='较粗'
             >
-                <Weight weight={12}></Weight>
+                <Weight weight={12}/>
             </Wrap>
-            <Line></Line>
+            <Line/>
             <Wrap
                 title='笔'
                 onClick={() => props.changeTool('pencil')}
                 check={props.currentTool === 'pencil'}
             >
-                <FiEdit2></FiEdit2>
+                <FiEdit2/>
             </Wrap>
             <Wrap
                 title='指针'
                 onClick={() => props.changeTool('select')}
                 check={props.currentTool === 'select'}
             >
-                <FiMousePointer></FiMousePointer>
+                <FiMousePointer/>
             </Wrap>
             <Wrap
                 title='移动'
                 onClick={() => props.changeTool('pan')}
                 check={props.currentTool === 'pan'}
             >
-                <FiMove></FiMove>
+                <FiMove/>
             </Wrap>
-            <Line></Line>
+            <Line/>
             <Wrap title='文字' check={false} onClick={() => props.addText()}>
-                <FiType></FiType>
+                <FiType/>
             </Wrap>
             <Wrap title='撤销' check={false} onClick={() => props.undo()}>
-                <FiRotateCcw></FiRotateCcw>
+                <FiRotateCcw/>
             </Wrap>
             <Wrap title='清除' onClick={() => props.clear()} check={false}>
-                <FiTrash2></FiTrash2>
+                <FiTrash2/>
             </Wrap>
             <Wrap title='保存' check={false} onClick={() => props.save()}>
-                <FiSave></FiSave>
+                <FiSave/>
             </Wrap>
             <Wrap title='退出' check={false} onClick={() => props.exit()}>
-                <FiLogOut></FiLogOut>
+                <FiLogOut/>
             </Wrap>
         </Container>
     )

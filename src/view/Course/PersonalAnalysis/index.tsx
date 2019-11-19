@@ -66,7 +66,7 @@ const Student = styled.div`
 `
 const StudentName = styled.span`
     font-size: 18px;
-    font-family: PingFangSC-Regular, PingFang SC;
+    font-family: PingFangSC-Regular, PingFang SC, sans-serif;
     font-weight: 400;
     color: rgba(51, 51, 51, 1);
 `
@@ -76,7 +76,7 @@ const StudentType = styled.span`
     border-right: 1px solid rgba(20, 78, 94, 1);
     text-align: center;
     font-size: 16px;
-    font-family: PingFangSC-Medium, PingFang SC;
+    font-family: PingFangSC-Medium, PingFang SC, sans-serif;
     font-weight: 500;
     color: rgba(20, 78, 94, 1);
     margin-right: 20px;
@@ -86,7 +86,7 @@ const RadarWrap = styled.div`
     box-sizing: border-box;
     width: 510px;
     height: 300px;
-    box-shadow: 0px 2px 4px 0px rgba(100, 115, 219, 0.09);
+    box-shadow: 0 2px 4px 0 rgba(100, 115, 219, 0.09);
     border-radius: 4px;
     padding: 20px;
 `
@@ -109,7 +109,7 @@ const Knowledge = styled.div`
     box-sizing: border-box;
     height: 300px;
     padding: 20px;
-    box-shadow: 0px 2px 4px 0px rgba(100, 115, 219, 0.09);
+    box-shadow: 0 2px 4px 0 rgba(100, 115, 219, 0.09);
     border-radius: 4px;
 `
 const Knowledge1 = styled.div`
@@ -120,14 +120,14 @@ const Knowledge2 = styled.div`
     box-sizing: border-box;
     height: 150px;
     padding: 20px;
-    box-shadow: 0px 2px 4px 0px rgba(100, 115, 219, 0.09);
+    box-shadow: 0 2px 4px 0 rgba(100, 115, 219, 0.09);
     border-radius: 4px;
 `
 const Package = styled.div`
     width: 100%;
     box-sizing: border-box;
     background-color: rgba(255, 255, 255, 0.9);
-    box-shadow: 0px 2px 4px 0px rgba(31, 122, 171, 0.2);
+    box-shadow: 0 2px 4px 0 rgba(31, 122, 171, 0.2);
     border-radius: 6px;
     padding: 20px;
     margin-bottom: 20px;
@@ -138,7 +138,7 @@ const LineWrap = styled.div`
 `
 const LoreName = styled.div`
     font-size: 14px;
-    font-family: PingFangSC-Regular, PingFang SC;
+    font-family: PingFangSC-Regular, PingFang SC, sans-serif;
     font-weight: 400;
     color: rgba(153, 153, 153, 1);
     margin-bottom: 20px;
@@ -158,7 +158,7 @@ const PersonalAnalysis: FC<RouteComponentProps<IProps>> = props => {
                 <Container>
                     <Wrap>
                         <Header>
-                            <Back data={{ url: props.uri, returnLine: props.location!.state.returnLine }}></Back>
+                            <Back data={{ url: props.uri, returnLine: props.location!.state.returnLine }} />
                             <StudentInfo>
                                 <Student>
                                     <StudentType>学生</StudentType>
@@ -166,7 +166,7 @@ const PersonalAnalysis: FC<RouteComponentProps<IProps>> = props => {
                                         {courseIndexStore.testAcademicAnalysisStudent.studentName}
                                     </StudentName>
                                 </Student>
-                                <Student></Student>
+                                <Student />
                             </StudentInfo>
                         </Header>
                         <KnowledgeWrap>
@@ -177,7 +177,7 @@ const PersonalAnalysis: FC<RouteComponentProps<IProps>> = props => {
                                         id: courseIndexStore.testAcademicAnalysisStudent.totalAccuracy,
                                         avgAccuracy: courseIndexStore.testAcademicAnalysisStudent.totalAccuracy,
                                     }}
-                                ></Pie>
+                                />
                             </Knowledge>
                             <Knowledge1>
                                 <Knowledge2>
@@ -188,7 +188,7 @@ const PersonalAnalysis: FC<RouteComponentProps<IProps>> = props => {
                                             typeText: '名',
                                             setColor: '#FFC821',
                                         }}
-                                    ></LoreNumber>
+                                    />
                                 </Knowledge2>
                                 <Knowledge2>
                                     <LoreNumber
@@ -198,7 +198,7 @@ const PersonalAnalysis: FC<RouteComponentProps<IProps>> = props => {
                                             typeText: '名',
                                             setColor: '#42C3D0',
                                         }}
-                                    ></LoreNumber>
+                                    />
                                 </Knowledge2>
                             </Knowledge1>
                             <Knowledge>
@@ -209,7 +209,7 @@ const PersonalAnalysis: FC<RouteComponentProps<IProps>> = props => {
                                         typeText: '个',
                                         setColor: '#6D8DD2',
                                     }}
-                                ></LoreNumber>
+                                />
                                 <LoreNumber
                                     data={{
                                         text: '薄弱知识点',
@@ -217,7 +217,7 @@ const PersonalAnalysis: FC<RouteComponentProps<IProps>> = props => {
                                         typeText: '个',
                                         setColor: '#996DD2',
                                     }}
-                                ></LoreNumber>
+                                />
                             </Knowledge>
                             <RadarWrap>
                                 <Radar
@@ -241,13 +241,13 @@ const PersonalAnalysis: FC<RouteComponentProps<IProps>> = props => {
                                             titleText: '章节知识点正确率雷达图',
                                         },
                                     }}
-                                ></Radar>
+                                />
                             </RadarWrap>
                         </KnowledgeWrap>
                         <Package>
                             <LoreName>总体知识点正确率变化</LoreName>
                             <LineWrap>
-                                <Line data={courseIndexStore.testAcademicAnalysisStudent.loreAccuracyChange}></Line>
+                                <Line data={courseIndexStore.testAcademicAnalysisStudent.loreAccuracyChange} />
                             </LineWrap>
                         </Package>
                         <KnowledgeWrap1>
@@ -260,7 +260,7 @@ const PersonalAnalysis: FC<RouteComponentProps<IProps>> = props => {
                                             index,
                                             colorArr: ['#23710C', '#219600', '#29C000', '#6FD554', '#9EE379'],
                                         }}
-                                    ></LoreList>
+                                    />
                                 ))}
                             </Knowledge>
                             <Knowledge>
@@ -272,7 +272,7 @@ const PersonalAnalysis: FC<RouteComponentProps<IProps>> = props => {
                                             index,
                                             colorArr: ['#780000', '#AF0F0F', '#E33939', '#F66868', '#F18787'],
                                         }}
-                                    ></LoreList>
+                                    />
                                 ))}
                             </Knowledge>
                         </KnowledgeWrap1>

@@ -53,7 +53,7 @@ const Spinner = styled.div`
 const Plan: FC<RouteComponentProps<IParams>> = props => {
     const { coursePlanStore } = useContext<IStore>(MobXProviderContext)
     useEffect(() => {
-        props.courseId && coursePlanStore.getPlan(props.courseId)
+        coursePlanStore.getPlan(props.courseId as string)
         // eslint-disable-next-line
     }, [])
     const handleClick = (id: number) => {
@@ -77,7 +77,10 @@ const Plan: FC<RouteComponentProps<IParams>> = props => {
         } else {
             return (
                 <Package>
-                    <Editor value={Value.fromJSON(coursePlanStore.plan.content)} readonly></Editor>
+                    <Editor
+                        value={Value.fromJSON(coursePlanStore.plan.content)}
+                        readonly
+                    ></Editor>
                 </Package>
             )
         }

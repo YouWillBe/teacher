@@ -76,7 +76,7 @@ const App: FC<RouteComponentProps> = () => {
                     </Layer>
                 </Stage>
             ) : (
-                <Spinner></Spinner>
+                <Spinner />
             )}
         </Container>
     ))

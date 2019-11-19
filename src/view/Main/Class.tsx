@@ -38,7 +38,13 @@ interface IProps {
 const Class: FC<IProps> = props => {
     return (
         <Container>
-            {props.data ? <Content to={`/course/${props.data.courseId}/plan`}>{props.data.teamFullName}</Content> : ''}
+            {props.data ? (
+                <Content to={`/course/${props.data.courseId}/plan`}>
+                    {props.data.teamFullName}
+                </Content>
+            ) : (
+                ''
+            )}
         </Container>
     )
 }

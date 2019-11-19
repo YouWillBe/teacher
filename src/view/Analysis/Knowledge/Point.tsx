@@ -43,7 +43,7 @@ const Point: FC<IProps> = ({ point, title, id, onClick, path, avgAccuracy }) => 
                             stroke='#fff'
                             strokeWidth={1}
                             rotation={45}
-                        ></Ellipse>
+                        />
                         <Ellipse
                             x={point.x}
                             y={point.y}
@@ -52,17 +52,10 @@ const Point: FC<IProps> = ({ point, title, id, onClick, path, avgAccuracy }) => 
                             stroke='#fff'
                             strokeWidth={1}
                             rotation={-45}
-                        ></Ellipse>
+                        />
                     </>
                 ) : path.length === 3 ? (
-                    <RegularPolygon
-                        sides={3}
-                        x={point.x}
-                        y={point.y}
-                        strokeWidth={1}
-                        stroke='#fff'
-                        radius={60}
-                    ></RegularPolygon>
+                    <RegularPolygon sides={3} x={point.x} y={point.y} strokeWidth={1} stroke='#fff' radius={60} />
                 ) : null}
                 {path.length <= 5 ? (
                     <Circle
@@ -72,7 +65,7 @@ const Point: FC<IProps> = ({ point, title, id, onClick, path, avgAccuracy }) => 
                         fill='#000'
                         stroke='#fff'
                         strokeWidth={1}
-                    ></Circle>
+                    />
                 ) : null}
 
                 <Ring
@@ -81,7 +74,7 @@ const Point: FC<IProps> = ({ point, title, id, onClick, path, avgAccuracy }) => 
                     innerRadius={15}
                     outerRadius={path.length === 1 ? 54 : path.length === 3 ? 42 : path.length === 5 ? 29 : 26}
                     fill='#333'
-                ></Ring>
+                />
                 <Arc
                     x={point.x}
                     y={point.y}
@@ -98,20 +91,20 @@ const Point: FC<IProps> = ({ point, title, id, onClick, path, avgAccuracy }) => 
                             : '#0A9B47'
                     }
                     rotation={90}
-                ></Arc>
+                />
                 <Circle
                     x={point.x}
                     y={point.y}
                     radius={path.length === 1 ? 40 : path.length === 3 ? 30 : 20}
                     fill='#000'
-                ></Circle>
+                />
                 <Text
                     text={`${avgAccuracy.toFixed(0)}%`}
                     x={path.length === 1 ? point.x - 29 : path.length === 3 ? point.x - 18 : point.x - 12}
                     y={path.length === 1 ? point.y - 12 : path.length === 3 ? point.y - 8 : point.y - 5}
                     fill='#fff'
                     fontSize={path.length === 1 ? 30 : path.length === 3 ? 20 : path.length === 5 ? 14 : 12}
-                ></Text>
+                />
                 {showLable ? (
                     <Label x={point.x + 24} y={point.y} ref={labelRef} width={100}>
                         <Tag
@@ -122,13 +115,13 @@ const Point: FC<IProps> = ({ point, title, id, onClick, path, avgAccuracy }) => 
                             stroke='#3A93DF'
                             strokeWidth={2}
                             cornerRadius={4}
-                        ></Tag>
+                        />
                         <Text
                             text={title}
                             fill='#3A93DF'
                             padding={10}
                             fontSize={path.length === 1 ? 22 : path.length === 3 ? 16 : 14}
-                        ></Text>
+                        />
                     </Label>
                 ) : null}
             </Group>

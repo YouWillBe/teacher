@@ -19,7 +19,7 @@ const Container = styled.div`
     height: 250px;
     width: 100%;
     border-radius: 4px;
-    box-shadow: rgba(0, 0, 0, 0.12) 0px 3px 13px 1px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0 3px 13px 1px;
     background-color: #fff;
 `
 const Title = styled.div`
@@ -43,13 +43,13 @@ const Text = styled.div`
     color: #666;
 `
 
-const ProcessingCourse: FC = props => {
+const ProcessingCourse: FC = () => {
     const { classTableStore } = useContext<IStore>(MobXProviderContext)
     return useObserver(() => (
         <Container>
             <Title>正在进行</Title>
             {classTableStore.gettingProcessingCourse ? (
-                <Loading></Loading>
+                <Loading />
             ) : isNil(classTableStore.processingCourse) ? (
                 <>
                     <Blank />
@@ -63,7 +63,7 @@ const ProcessingCourse: FC = props => {
                     index={oc(classTableStore).processingCourse.courseSection(0)}
                     nameOfClass={oc(classTableStore).processingCourse.teamFullName('')}
                     courseId={oc(classTableStore).processingCourse.courseId(0)}
-                ></CourseInfo>
+                />
             )}
         </Container>
     ))

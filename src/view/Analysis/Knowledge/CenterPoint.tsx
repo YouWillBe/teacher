@@ -84,8 +84,8 @@ const CenterPointer: FC<IProps> = ({ text, data }) => {
                 stroke='#3A4760'
                 strokeWidth={4}
             />
-            <Circle x={x} y={y} radius={100} fill='#0DC2A5'></Circle>
-            <Text text={text} x={x} y={y} fill='#fff' offsetX={60} offsetY={14} fontSize={32}></Text>
+            <Circle x={x} y={y} radius={100} fill='#0DC2A5' />
+            <Text text={text} x={x} y={y} fill='#fff' offsetX={60} offsetY={14} fontSize={32} />
             {data
                 .filter(x => x.path.length > 1)
                 .map(v => (
@@ -94,7 +94,7 @@ const CenterPointer: FC<IProps> = ({ text, data }) => {
                         point={rotateTransform(center, v.absoluteDelta, v.rotate)}
                         parent={rotateTransform(center, v.parentAbsoluteDelta, v.rotate)}
                         corner={rotateTransform(center, v.absoluteCorner, v.rotate)}
-                    ></Connector>
+                    />
                 ))}
             {data.map(v => (
                 <Point
@@ -105,7 +105,7 @@ const CenterPointer: FC<IProps> = ({ text, data }) => {
                     onClick={handleClickNode}
                     path={v.path}
                     avgAccuracy={v.avgAccuracy}
-                ></Point>
+                />
             ))}
             {showBacktrace
                 ? backtracePointList
@@ -116,7 +116,7 @@ const CenterPointer: FC<IProps> = ({ text, data }) => {
                               point={rotateTransform(center, v.absoluteDelta, v.rotate)}
                               parent={rotateTransform(center, v.parentAbsoluteDelta, v.rotate)}
                               corner={rotateTransform(center, v.absoluteCorner, v.rotate)}
-                          ></Highlight>
+                          />
                       ))
                 : null}
             {showBacktrace
@@ -129,7 +129,7 @@ const CenterPointer: FC<IProps> = ({ text, data }) => {
                           onClick={handleClickNode}
                           path={v.path}
                           avgAccuracy={v.avgAccuracy}
-                      ></HighlightPoint>
+                      />
                   ))
                 : null}
         </>

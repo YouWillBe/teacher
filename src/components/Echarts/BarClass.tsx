@@ -77,7 +77,7 @@ const BarClass: FC<IProps> = props => {
         myChart.setOption(option)
         // eslint-disable-next-line
     }, [props.data.seriesData, props.data.yAxisData])
-    return <Container id={`BarClass`} setHeight={'200px'}></Container>
+    return <Container id={`BarClass`} setHeight={'200px'} />
 }
 
 export default BarClass

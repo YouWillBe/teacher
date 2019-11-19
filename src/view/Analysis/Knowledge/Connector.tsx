@@ -13,9 +13,7 @@ interface IProps {
 }
 
 const Connector: FC<IProps> = ({ point, parent, corner }) => {
-    return (
-        <Line points={[point.x, point.y, corner.x, corner.y, parent.x, parent.y]} strokeWidth={2} stroke='#666'></Line>
-    )
+    return <Line points={[point.x, point.y, corner.x, corner.y, parent.x, parent.y]} strokeWidth={2} stroke='#666' />
 }
 
 export default Connector

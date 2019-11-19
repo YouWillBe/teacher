@@ -67,12 +67,12 @@ const Back: FC<IProps> = props => {
         <Container>
             {props.data.url!.split('/')[4] && (
                 <Button options={buttonOption} onClick={handleClickLink}>
-                    <TiArrowBackOutline></TiArrowBackOutline>
+                    <TiArrowBackOutline />
                     <MySpan>{setRouterName().name}</MySpan>
                 </Button>
             )}
             <Button options={buttonOption} onClick={handleClickLink1}>
-                <TiArrowBackOutline></TiArrowBackOutline>
+                <TiArrowBackOutline />
                 <MySpan>{setRouterName().name1}</MySpan>
             </Button>
         </Container>

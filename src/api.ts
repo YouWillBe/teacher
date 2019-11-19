@@ -149,15 +149,15 @@ const volume = {
     getVolumeList: (data: any) => request.get('/volume-lists', data),
     deleteVolume: (id: number) => request.del(`/volumes/delete/${id}`),
     getVolumeTemplateList: (data: any) =>
-        request.get(`/volumes/template-lists`, data),
-    createVolumeTemplate: () => request.post(`/volumes/template-create`),
+        request.get('/volumes/template-lists', data),
+    createVolumeTemplate: () => request.post('/volumes/template-create'),
     deleteVolumeTemplate: (id: number) =>
         request.del(`/volumes/template-delete/${id}`),
     getVolumeTemplateDetail: (id: number) =>
         request.get(`/volumes/template-detail/${id}`),
     updateVolumeTemplate: (data: any) =>
         request.put('/volumes/template-update', data),
-    createVolume: (data: any) => request.post(`/volumes`, data),
+    createVolume: (data: any) => request.post('/volumes', data),
     getVolume: (id: number) => request.get(`/volumes/${id}`),
     getVolumeProblem: (id: number) => request.get(`/volumes/problem/${id}`),
     removeVolumeProblem: (data: any) =>
@@ -169,7 +169,7 @@ const volume = {
         request.get(`/volumes/problem-all/${id}`),
     getVolumeOutline: (id: number) => request.get(`/volumes/outline/${id}`),
     getVolumeProblemState: (data: any) =>
-        request.get(`/volumes/problem-state`, data),
+        request.get('/volumes/problem-state', data),
     getVolumeProblemSimple: (id: number) =>
         request.get(`volumes/problem-simple/${id}`),
     updateVolumeOutline: (data: any) =>
@@ -178,12 +178,12 @@ const volume = {
 }
 
 const exercise = {
-    getProblemList: (data: any) => request.get(`/problem-lists`, data),
-    getProblemTypeList: (data: any) => request.get(`/problem-type-lists`, data),
+    getProblemList: (data: any) => request.get('/problem-lists', data),
+    getProblemTypeList: (data: any) => request.get('/problem-type-lists', data),
     getProblem: (id: number) => request.get(`/problems/${id}`),
     addProblem: (data: any) => request.post('/problems', data),
     editProblem: (data: any) => request.put('/problems/update', data),
-    getLoreList: (data?: any) => request.get(`/lore-list`, data),
+    getLoreList: (data?: any) => request.get('/lore-list', data),
 }
 
 const course = {
@@ -206,9 +206,9 @@ const course = {
     bindingExamination: (data: any) => request.post('/tests/3', data),
     publishVolume: (id: number) => request.put(`/tests/publish/${id}`),
     testsStudentCheck: (data: any) =>
-        request.put(` /tests/students/check`, data),
-    preparationCreate: (data: any) => request.post(`/preparation/create`, data),
-    getVolumeLore: () => request.get(`/volumes-lore`),
+        request.put('/tests/students/check', data),
+    preparationCreate: (data: any) => request.post('/preparation/create', data),
+    getVolumeLore: () => request.get('/volumes-lore'),
     testOver: (id: number) => request.put(`/tests/over/${id}`),
     getStudentTest: (id: number) => request.get(`/course/student-test/${id}`),
     getStudentTestProblem: (data: any) =>
@@ -217,9 +217,12 @@ const course = {
     getTestProblem: (data: any) =>
         request.get(`/tests/problem/${data.testId}/${data.id}`),
     getTestAcademicAnalysisVolume: (data: any) =>
-        request.get(`/tests/academic-analysis/volume`, data),
+        request.get('/tests/academic-analysis/volume', data),
     getTestAcademicAnalysisStudent: (data: any) =>
-        request.get(`/tests/academic-analysis/student`, data),
+        request.get('/tests/academic-analysis/student', data),
+
+    getWhiteBoard: (id: number) => request.get(`/black-board/get/${id}`),
+    upsertWhiteBoadr: (data: any) => request.post('/black-board/upsert', data),
 }
 const lore = {
     getProblemLoreLlist: (problemId: number) =>
@@ -230,7 +233,7 @@ const lore = {
         ),
     deleteProblemLore: (data: any) =>
         request.del(`/problem/${data.problemId}/lores/${data.loreId}`),
-    getLore: (data: any) => request.get(`/lore-top-ten`, data),
+    getLore: (data: any) => request.get('/lore-top-ten', data),
     createLore: (data: any) => request.post('/lore/create', data),
     removeLore: (data: any) =>
         request.del(`/lore/delete-connect/${data.id}/${data.programId}`),

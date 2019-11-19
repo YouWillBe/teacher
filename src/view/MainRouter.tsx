@@ -39,11 +39,11 @@ const MainRouter: FC<RouteComponentProps> = () => {
                 <Main path='/' />
                 <Plan path='plan' />
                 <Volume path='volume'>
-                    <VolumeTemplet path='templet'></VolumeTemplet>
+                    <VolumeTemplet path='templet'/>
                 </Volume>
                 <Exercise path='exercise'>
-                    <NetExercise path='net'></NetExercise>
-                    <NewExercise path='new'></NewExercise>
+                    <NetExercise path='net'/>
+                    <NewExercise path='new'/>
                 </Exercise>
             </Content>
         </Container>

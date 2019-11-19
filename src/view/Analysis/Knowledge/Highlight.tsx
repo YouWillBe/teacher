@@ -13,9 +13,7 @@ interface IProps {
 }
 
 const Hightlight: FC<IProps> = ({ point, parent, corner }) => {
-    return (
-        <Line points={[point.x, point.y, corner.x, corner.y, parent.x, parent.y]} strokeWidth={5} stroke='#fff'></Line>
-    )
+    return <Line points={[point.x, point.y, corner.x, corner.y, parent.x, parent.y]} strokeWidth={5} stroke='#fff' />
 }
 
 export default Hightlight
