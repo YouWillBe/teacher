@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx'
+import { action, observable } from 'mobx'
 // import { navigate } from '@reach/router'
 import { Value } from 'slate'
 
@@ -586,9 +586,10 @@ class CourseIndexStore implements ICourseIndexStore {
     }
 
     @action async getWhiteBoard(courseId: number) {
+        this.whiteBoardReady = false
         const res = await api.course.getWhiteBoard(courseId)
         if(res.success) {
-            this.whiteBoard = JSON.parse(res.data.content) || ''
+            this.whiteBoard = res.data ? JSON.parse(res.data.content) : ''
             this.whiteBoardReady = true
         }
     }
