@@ -1,4 +1,4 @@
-import React, { FC, MouseEvent, ChangeEvent } from 'react'
+import React, { MouseEvent, ChangeEvent, forwardRef, Ref } from 'react'
 import styled from '@emotion/styled'
 import Cookies from 'js-cookie'
 import { Editor } from 'slate-react'
@@ -22,7 +22,7 @@ interface IProps {
     editor: Editor | null
 }
 
-const Uploader: FC<IProps> = props => {
+const Uploader = forwardRef((props: IProps, ref: Ref<HTMLInputElement> ) => {
     const handleClick = (event: MouseEvent) => {
         // @ts-ignore
         event.target.value = null
@@ -52,9 +52,9 @@ const Uploader: FC<IProps> = props => {
             type='file'
             accept='image/*'
             onChange={handleFileUpload}
-            id='editor-image-input'
+            ref={ref}
         />
     )
-}
+})
 
 export default Uploader
