@@ -66,17 +66,16 @@ const Student: FC<RouteComponentProps> = props => {
     return useObserver(() => {
         return (
             <Container>
-                {courseExaminationStore.doExaminationInfo &&
-                    courseExaminationStore.doExaminationInfo.testDTOS.map((v, i) => (
-                        <TestDTOS
-                            key={i}
-                            onClick={() => handleClickLink(v)}
-                            title={v.studentStatus === 3 ? '已交卷' : '未交卷'}
-                        >
-                            <StudentImg bgColor={v.studentStatus === 3 ? '#4CDF78' : '#ef6666'} Image={v.studentSex} />
-                            <StudentName>{v.studentName}</StudentName>
-                        </TestDTOS>
-                    ))}
+                {courseExaminationStore.doExaminationInfo!.testDTOS.map((v, i) => (
+                    <TestDTOS
+                        key={i}
+                        onClick={() => handleClickLink(v)}
+                        title={v.studentStatus === 3 ? '已交卷' : '未交卷'}
+                    >
+                        <StudentImg bgColor={v.studentStatus === 3 ? '#4CDF78' : '#ef6666'} Image={v.studentSex} />
+                        <StudentName>{v.studentName}</StudentName>
+                    </TestDTOS>
+                ))}
             </Container>
         )
     })

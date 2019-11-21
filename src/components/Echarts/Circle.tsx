@@ -1,6 +1,10 @@
-import React, { useEffect, FC } from 'react'
+import React, { useEffect, FC, useRef } from 'react'
 import styled from '@emotion/styled'
-import Echart from 'echarts'
+import Echart from 'echarts/lib/echarts'
+import 'echarts/lib/component/tooltip'
+import 'echarts/lib/component/title'
+import 'echarts/lib/chart/pie'
+import 'echarts/lib/component/legend'
 
 const Container = styled.div`
     width: 100%;
@@ -10,14 +14,14 @@ interface IProps {
     data: {
         accuracy: number
         type: string
-        circleId: string
     }
 }
 
 const Circle: FC<IProps> = props => {
+    const circleRef = useRef(null)
     useEffect(() => {
         const ec = Echart as any
-        let myChart = ec.init(document.getElementById(props.data.circleId))
+        let myChart = ec.init(circleRef.current)
         let colorList = ['#E4E4E4', '#FF8C8C', '#FFC821', '#CEA7E9', '#9EE379', '#68DCE7', '#FFEDE0']
         let dataIndex = 0
 
@@ -83,8 +87,8 @@ const Circle: FC<IProps> = props => {
         }
         myChart.setOption(option)
         // eslint-disable-next-line
-    }, [props.data.accuracy, props.data.circleId])
-    return <Container id={props.data.circleId}></Container>
+    }, [])
+    return <Container ref={circleRef}></Container>
 }
 
 export default Circle

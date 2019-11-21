@@ -69,9 +69,12 @@ const VolumeView: FC = () => {
     }
 
     //发布
-    const handleClickSave = () => {
+    const handleClickSave = (data: any) => {
         if (courseClassTestStore.classTest) {
-            courseClassTestStore.publishVolume(courseClassTestStore.classTest.id, courseClassTestStore.courseId)
+            courseClassTestStore.publishVolume(
+                { id: courseClassTestStore.classTest.id, workType: data.currenType },
+                courseClassTestStore.courseId
+            )
         }
     }
 
@@ -118,116 +121,84 @@ const VolumeView: FC = () => {
     return useObserver(() => {
         return (
             <>
-                {courseClassTestStore.classTest && (
-                    <TypeArr
-                        typeArrData={courseClassTestStore.typeArr}
-                        data={{
-                            currentStatu,
-                            totalScore: courseClassTestStore.classTest.totalScore,
-                            totalProblem: courseClassTestStore.classTest.totalProblem,
-                        }}
-                        onClickSave={handleClickSave}
-                        onClick={handleClickType}
-                    />
-                )}
+                <TypeArr
+                    title='发布随堂测'
+                    typeArrData={courseClassTestStore.typeArr}
+                    data={{
+                        currentStatu,
+                        name: courseClassTestStore.classTest!.name,
+                        totalScore: courseClassTestStore.classTest!.totalScore,
+                        totalProblem: courseClassTestStore.classTest!.totalProblem,
+                    }}
+                    onClickSave={handleClickSave}
+                    onClick={handleClickType}
+                />
                 <Container>
                     <LeftWrap>
                         <ScrollbarWrap>
-                            {courseClassTestStore.classTest && (
+                            {currentStatu === 0 && (
                                 <>
-                                    {currentStatu === 0 && (
-                                        <>
-                                            {courseClassTestStore.classTest.choiceProblems.length > 0 ? (
-                                                <>
-                                                    {courseClassTestStore.classTest.choiceProblems.map(
-                                                        (item, index) => (
-                                                            <ProblemWrap key={item.id}>
-                                                                <ChoiceProblem data={problemList({ ...item, index })} />
-                                                            </ProblemWrap>
-                                                        )
-                                                    )}
-                                                </>
-                                            ) : null}
-                                            {courseClassTestStore.classTest.checkboxProblems.length > 0 ? (
-                                                <>
-                                                    {courseClassTestStore.classTest.checkboxProblems.map(
-                                                        (item, index) => (
-                                                            <ProblemWrap key={item.id}>
-                                                                <ChoiceProblem data={problemList({ ...item, index })} />
-                                                            </ProblemWrap>
-                                                        )
-                                                    )}
-                                                </>
-                                            ) : null}
-                                            {courseClassTestStore.classTest.judgeProblems.length > 0 ? (
-                                                <>
-                                                    {courseClassTestStore.classTest.judgeProblems.map((item, index) => (
-                                                        <ProblemWrap key={item.id}>
-                                                            <JudgeProblem data={problemList({ ...item, index })} />
-                                                        </ProblemWrap>
-                                                    ))}
-                                                </>
-                                            ) : null}
-                                            {courseClassTestStore.classTest.fillingProblems.length > 0 ? (
-                                                <>
-                                                    {courseClassTestStore.classTest.fillingProblems.map(
-                                                        (item, index) => (
-                                                            <ProblemWrap key={item.id}>
-                                                                <FillingProblem
-                                                                    data={problemList({ ...item, index })}
-                                                                />
-                                                            </ProblemWrap>
-                                                        )
-                                                    )}
-                                                </>
-                                            ) : null}
-                                            {courseClassTestStore.classTest.shortAnswerProblems.length > 0 ? (
-                                                <>
-                                                    {courseClassTestStore.classTest.shortAnswerProblems.map(
-                                                        (item, index) => (
-                                                            <ProblemWrap key={item.id}>
-                                                                <ShortAnswerProblem
-                                                                    data={problemList({ ...item, index })}
-                                                                />
-                                                            </ProblemWrap>
-                                                        )
-                                                    )}
-                                                </>
-                                            ) : null}
-                                        </>
-                                    )}
-                                    {currentStatu === 1 &&
-                                        courseClassTestStore.classTest.choiceProblems.map((item, index) => (
-                                            <ProblemWrap key={item.id}>
-                                                <ChoiceProblem data={problemList({ ...item, index })} />
-                                            </ProblemWrap>
-                                        ))}
-                                    {currentStatu === 2 &&
-                                        courseClassTestStore.classTest.checkboxProblems.map((item, index) => (
-                                            <ProblemWrap key={item.id}>
-                                                <ChoiceProblem data={problemList({ ...item, index })} />
-                                            </ProblemWrap>
-                                        ))}
-                                    {currentStatu === 3 &&
-                                        courseClassTestStore.classTest.judgeProblems.map((item, index) => (
-                                            <ProblemWrap key={item.id}>
-                                                <JudgeProblem data={problemList({ ...item, index })} />
-                                            </ProblemWrap>
-                                        ))}
-                                    {currentStatu === 4 &&
-                                        courseClassTestStore.classTest.fillingProblems.map((item, index) => (
-                                            <ProblemWrap key={item.id}>
-                                                <FillingProblem data={problemList({ ...item, index })} />
-                                            </ProblemWrap>
-                                        ))}
-                                    {currentStatu === 5 &&
-                                        courseClassTestStore.classTest.shortAnswerProblems.map((item, index) => (
-                                            <ProblemWrap key={item.id}>
-                                                <ShortAnswerProblem data={problemList({ ...item, index })} />
-                                            </ProblemWrap>
-                                        ))}
+                                    {courseClassTestStore.classTest!.choiceProblems.map((item, index) => (
+                                        <ProblemWrap key={item.id}>
+                                            <ChoiceProblem data={problemList({ ...item, index })} />
+                                        </ProblemWrap>
+                                    ))}
+
+                                    {courseClassTestStore.classTest!.checkboxProblems.map((item, index) => (
+                                        <ProblemWrap key={item.id}>
+                                            <ChoiceProblem data={problemList({ ...item, index })} />
+                                        </ProblemWrap>
+                                    ))}
+
+                                    {courseClassTestStore.classTest!.judgeProblems.map((item, index) => (
+                                        <ProblemWrap key={item.id}>
+                                            <JudgeProblem data={problemList({ ...item, index })} />
+                                        </ProblemWrap>
+                                    ))}
+
+                                    {courseClassTestStore.classTest!.fillingProblems.map((item, index) => (
+                                        <ProblemWrap key={item.id}>
+                                            <FillingProblem data={problemList({ ...item, index })} />
+                                        </ProblemWrap>
+                                    ))}
+
+                                    {courseClassTestStore.classTest!.shortAnswerProblems.map((item, index) => (
+                                        <ProblemWrap key={item.id}>
+                                            <ShortAnswerProblem data={problemList({ ...item, index })} />
+                                        </ProblemWrap>
+                                    ))}
                                 </>
                             )}
+                            {currentStatu === 1 &&
+                                courseClassTestStore.classTest!.choiceProblems.map((item, index) => (
+                                    <ProblemWrap key={item.id}>
+                                        <ChoiceProblem data={problemList({ ...item, index })} />
+                                    </ProblemWrap>
+                                ))}
+                            {currentStatu === 2 &&
+                                courseClassTestStore.classTest!.checkboxProblems.map((item, index) => (
+                                    <ProblemWrap key={item.id}>
+                                        <ChoiceProblem data={problemList({ ...item, index })} />
+                                    </ProblemWrap>
+                                ))}
+                            {currentStatu === 3 &&
+                                courseClassTestStore.classTest!.judgeProblems.map((item, index) => (
+                                    <ProblemWrap key={item.id}>
+                                        <JudgeProblem data={problemList({ ...item, index })} />
+                                    </ProblemWrap>
+                                ))}
+                            {currentStatu === 4 &&
+                                courseClassTestStore.classTest!.fillingProblems.map((item, index) => (
+                                    <ProblemWrap key={item.id}>
+                                        <FillingProblem data={problemList({ ...item, index })} />
+                                    </ProblemWrap>
+                                ))}
+                            {currentStatu === 5 &&
+                                courseClassTestStore.classTest!.shortAnswerProblems.map((item, index) => (
+                                    <ProblemWrap key={item.id}>
+                                        <ShortAnswerProblem data={problemList({ ...item, index })} />
+                                    </ProblemWrap>
+                                ))}
                         </ScrollbarWrap>
                     </LeftWrap>
                     <RightWrap />

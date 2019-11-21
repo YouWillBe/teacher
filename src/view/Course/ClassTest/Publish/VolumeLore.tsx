@@ -96,18 +96,18 @@ const Lore = styled.div`
 
 const VolumeLore: FC = () => {
     const { courseClassTestStore } = useContext<IStore>(MobXProviderContext)
+
     const handleClickVolumeLore = (id: number) => {
         courseClassTestStore.bindingClassTest(courseClassTestStore.courseId, id)
     }
+
     return useObserver(() => {
         return (
             <>
                 {courseClassTestStore.volumeLore.slice(0, 2).map(item => (
                     <Container
                         key={item.id}
-                        currentStyle={
-                            item.id === (courseClassTestStore.classTest && courseClassTestStore.classTest.useVolumeId)
-                        }
+                        currentStyle={item.id === courseClassTestStore.classTest!.useVolumeId}
                         onClick={() => handleClickVolumeLore(item.id)}
                     >
                         <Title title={item.name}>{item.name}</Title>

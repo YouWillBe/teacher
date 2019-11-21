@@ -51,12 +51,9 @@ const ShowVacancyButton = styled.button`
 `
 const Space = styled.span`
     display: inline-block;
-    width: 20px;
-    height: 20px;
-    line-height: 20px;
-    color: #fff;
-    background-color: #3a93df;
-    text-align: center;
+    width: 60px;
+    height: 18px;
+    border-bottom: 2px solid #072979;
     margin: 0 8px;
 `
 

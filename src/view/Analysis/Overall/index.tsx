@@ -22,7 +22,7 @@ const Package = styled.div`
     box-shadow: 0 2px 4px 0 rgba(100, 115, 219, 0.09);
     border-radius: 4px;
     padding: 20px;
-    margin-bottom: 20px;
+    margin-top: 20px;
 `
 const Package1 = styled.div`
     width: 100%;
@@ -30,6 +30,10 @@ const Package1 = styled.div`
     box-shadow: 0 2px 4px 0 rgba(100, 115, 219, 0.09);
     border-radius: 4px;
     margin-bottom: 20px;
+`
+const BarStackedStripWrap = styled.div`
+    width: 100%;
+    height: 200px;
 `
 
 const KnowledgeWrap = styled.div`
@@ -82,36 +86,44 @@ const Overall: FC<RouteComponentProps> = () => {
         return (
             <Container>
                 <Package>
-                    <BarClass
-                        data={{
-                            yAxisData: analysisStore.testTotalAnalysisGrade.classAccuracyList.map(t => t.className),
-                            seriesData: analysisStore.testTotalAnalysisGrade.classAccuracyList.map(t => t.accuracy),
-                            titleText: '班级总体正确率',
-                        }}
-                    />
+                    {analysisStore.testTotalAnalysisGradeReady ? (
+                        <BarClass
+                            data={{
+                                yAxisData: analysisStore.testTotalAnalysisGrade.classAccuracyList.map(t => t.className),
+                                seriesData: analysisStore.testTotalAnalysisGrade.classAccuracyList.map(t => t.accuracy),
+                                titleText: '班级总体正确率',
+                            }}
+                        ></BarClass>
+                    ) : null}
                 </Package>
                 <Package>
-                    <MultiLine
-                        data={{
-                            nameData: latelyClassTestAccuracyList.nameData,
-                            xAxisData: latelyClassTestAccuracyList.weekList,
-                            metaDate: latelyClassTestAccuracyList.metaDate,
-                            titleText: '班级最近7周测试情况',
-                        }}
-                    />
+                    {analysisStore.testTotalAnalysisGradeReady ? (
+                        <MultiLine
+                            data={{
+                                nameData: latelyClassTestAccuracyList.nameData,
+                                xAxisData: latelyClassTestAccuracyList.weekList,
+                                metaDate: latelyClassTestAccuracyList.metaDate,
+                                titleText: '班级最近7周测试情况',
+                            }}
+                        ></MultiLine>
+                    ) : null}
                 </Package>
                 <Package>
-                    <BarStackedStrip
-                        data={{
-                            yAxisData: latelyClassOneTestAccuracyList.yAxisData,
-                            titleText: '最近一次测试 成绩分布',
-                            excellent: latelyClassOneTestAccuracyList.excellent,
-                            fine: latelyClassOneTestAccuracyList.fine,
-                            medium: latelyClassOneTestAccuracyList.medium,
-                            poor: latelyClassOneTestAccuracyList.poor,
-                            bad: latelyClassOneTestAccuracyList.bad,
-                        }}
-                    />
+                    <BarStackedStripWrap>
+                        {analysisStore.testTotalAnalysisGradeReady ? (
+                            <BarStackedStrip
+                                data={{
+                                    yAxisData: latelyClassOneTestAccuracyList.yAxisData,
+                                    titleText: '最近一次测试 成绩分布',
+                                    excellent: latelyClassOneTestAccuracyList.excellent,
+                                    fine: latelyClassOneTestAccuracyList.fine,
+                                    medium: latelyClassOneTestAccuracyList.medium,
+                                    poor: latelyClassOneTestAccuracyList.poor,
+                                    bad: latelyClassOneTestAccuracyList.bad,
+                                }}
+                            ></BarStackedStrip>
+                        ) : null}
+                    </BarStackedStripWrap>
                 </Package>
                 <KnowledgeWrap>
                     <Package>

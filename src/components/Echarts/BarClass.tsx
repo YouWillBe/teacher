@@ -1,8 +1,12 @@
-import React, { useEffect, FC } from 'react'
+import React, { useEffect, FC, useRef } from 'react'
 import styled from '@emotion/styled'
-import Echart from 'echarts'
+import Echart from 'echarts/lib/echarts'
+import 'echarts/lib/component/tooltip'
+import 'echarts/lib/component/title'
+import 'echarts/lib/chart/bar'
+import 'echarts/lib/component/legend'
 
-const Container = styled.div<{ setHeight: string | undefined }>`
+const Container = styled.div`
     width: 100%;
     min-height: 200px;
 `
@@ -15,9 +19,10 @@ interface IProps {
 }
 
 const BarClass: FC<IProps> = props => {
+    const barclassRef = useRef(null)
     useEffect(() => {
         const ec = Echart as any
-        let myChart = ec.init(document.getElementById(`BarClass`))
+        let myChart = ec.init(barclassRef.current)
         let colorList = ['#FF8C8C', '#FFC821', '#CEA7E9', '#68DCE7', '#9EE379']
         let dataIndex = 0
         let option = {
@@ -55,7 +60,7 @@ const BarClass: FC<IProps> = props => {
                     data: props.data.seriesData,
                     itemStyle: {
                         normal: {
-                            color: function(params: any) {
+                            color: function(params: { data: number }) {
                                 if (params.data >= 90) {
                                     dataIndex = 4
                                 } else if (params.data >= 80) {
@@ -76,8 +81,8 @@ const BarClass: FC<IProps> = props => {
         }
         myChart.setOption(option)
         // eslint-disable-next-line
-    }, [props.data.seriesData, props.data.yAxisData])
-    return <Container id={`BarClass`} setHeight={'200px'} />
+    }, [])
+    return <Container ref={barclassRef}></Container>
 }
 
 export default BarClass

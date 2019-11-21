@@ -115,12 +115,23 @@ const PaperAnalysis: FC<RouteComponentProps<IProps>> = props => {
                     </StudentInfo>
                 </Header>
                 <KnowledgeWrap>
-                    <Knowledge>
-                        <Pie text='正确率最高的' data={courseIndexStore.testAcademicAnalysisVolume.bestLore}></Pie>
-                    </Knowledge>
-                    <Knowledge>
-                        <Pie text='正确率最低的' data={courseIndexStore.testAcademicAnalysisVolume.worstLore}></Pie>
-                    </Knowledge>
+                    {courseIndexStore.gettingTestAcademicAnalysisVolume ? (
+                        <>
+                            <Knowledge>
+                                <Pie
+                                    text='正确率最高的'
+                                    data={courseIndexStore.testAcademicAnalysisVolume.bestLore}
+                                ></Pie>
+                            </Knowledge>
+                            <Knowledge>
+                                <Pie
+                                    text='正确率最低的'
+                                    data={courseIndexStore.testAcademicAnalysisVolume.worstLore}
+                                ></Pie>
+                            </Knowledge>
+                        </>
+                    ) : null}
+
                     <Knowledge>
                         <LoreNumber
                             data={{

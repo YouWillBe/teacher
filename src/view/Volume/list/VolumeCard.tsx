@@ -108,64 +108,6 @@ const Remove = styled.div`
         color: red;
     }
 `
-// const ConfirmWrap = styled.div`
-//     width: 120px;
-//     background-color: #fff;
-//     position: absolute;
-//     z-index: 10;
-//     bottom: -44px;
-//     display: flex;
-//     padding: 8px 3px;
-//     border-radius: 6px;
-//     box-shadow: rgba(16, 36, 94, 0.4) 0px 2px 6px 0px;
-//     cursor: initial;
-// `
-// const Button = styled.div`
-//     padding: 6px 12px;
-//     background-color: fff;
-//     margin-left: 5px;
-//     margin-right: 5px;
-//     font-size: 12px;
-//     color: #555;
-//     border-radius: 4px;
-//     border: 1px solid #555;
-//     cursor: pointer;
-//     &:hover {
-//         border-color: #00a6f3;
-//         color: #00a6f3;
-//     }
-// `
-// const RedButton = styled(Button)`
-//     border-color: red;
-//     color: red;
-//     &:hover {
-//         background-color: red;
-//         color: #fff;
-//         border-color: red;
-//     }
-// `
-
-// interface IConfirmProps {
-//     close(): void
-//     confirm(): void
-// }
-
-// const Confirm: FC<IConfirmProps> = props => {
-//     const ref = useRef(null)
-//     useOnClickOutside(ref, props.close)
-//     const handleConfirm = () => {
-//         props.confirm()
-//     }
-//     const handleClose = () => {
-//         props.close()
-//     }
-//     return (
-//         <ConfirmWrap ref={ref}>
-//             <RedButton onClick={handleConfirm}>删除</RedButton>
-//             <Button onClick={handleClose}>取消</Button>
-//         </ConfirmWrap>
-//     )
-// }
 
 interface IProps {
     data: {

@@ -7,9 +7,8 @@ interface IOptions {
     width?: string
     height?: string
     margin?: string
-    marginTop?: string
+    top?: string
     radius?: string
-    padding?: string
     borderBottom?: string
 }
 
@@ -35,15 +34,15 @@ const MyWrap = styled.div<IOptions>`
     box-sizing: border-box;
     width: ${props => props.width || '100%'};
     margin: ${props => props.margin || '0 auto'};
-    margin-top: ${props => props.marginTop || ''};
+    top: ${props => props.top || '100px'};
     border-radius: ${props => props.radius || '4px'};
     background-color: #fff;
-    padding: ${props => props.padding || '20px'};
 `
 
 const MyHeader = styled.header<{ borderBottom: string | undefined }>`
+    box-sizing: border-box;
     width: 100%;
-    padding-bottom: 20px;
+    padding: 16px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -65,6 +64,7 @@ const MyTitle = styled.span`
 `
 const MySection = styled.section<IOptions>`
     box-sizing: border-box;
+    padding: 20px;
     max-height: 700px;
     overflow: auto;
     &::-webkit-scrollbar-button {

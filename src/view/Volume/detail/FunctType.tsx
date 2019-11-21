@@ -260,7 +260,7 @@ function FunctType(props: IProps) {
 
     const optionDialog = {
         width: '80%',
-        marginTop: '5%',
+        // marginTop: '5%',
         borderBottom: '1px solid #e5e5e5',
     }
 

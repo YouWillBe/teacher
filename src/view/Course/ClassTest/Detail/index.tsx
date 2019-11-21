@@ -152,7 +152,7 @@ const Detail: FC = props => {
     }
     const optionDialog = {
         width: '20%',
-        marginTop: '160px ',
+        // marginTop: '160px ',
         borderBottom: ' 1px solid rgba(151, 151, 151, 0.26)',
     }
 
@@ -163,21 +163,11 @@ const Detail: FC = props => {
                     <Header>
                         <TypeName>随堂测</TypeName>
                         <Vertical>|</Vertical>
-                        <TestName>{courseClassTestStore.classTest && courseClassTestStore.classTest.name}</TestName>
+                        <TestName>{courseClassTestStore.classTest!.name}</TestName>
                     </Header>
                     <SituationWrap>
-                        <Finished
-                            text='已交'
-                            people={
-                                courseClassTestStore.doClassTestInfo && courseClassTestStore.doClassTestInfo.finished
-                            }
-                        />
-                        <Finished
-                            text='未交'
-                            people={
-                                courseClassTestStore.doClassTestInfo && courseClassTestStore.doClassTestInfo.Unfiltered
-                            }
-                        />
+                        <Finished text='已交' people={courseClassTestStore.doClassTestInfo!.finished} />
+                        <Finished text='未交' people={courseClassTestStore.doClassTestInfo!.Unfiltered} />
                     </SituationWrap>
                     <Student />
                 </Left>

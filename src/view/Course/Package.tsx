@@ -40,7 +40,6 @@ const Course: FC<RouteComponentProps<IParams>> = props => {
             <PersonalAnalysis path=':courseId/task/:testId/personal'></PersonalAnalysis>
             <PersonalAnalysis path=':courseId/classTest/:testId/personal'></PersonalAnalysis>
             <PersonalAnalysis path=':courseId/examination/:testId/personal'></PersonalAnalysis>
-            {/* <PreviewAnalysis path=':courseId/preview/:studentTestId/analysis/:testId'></PreviewAnalysis> */}
         </Content>
     )
 }

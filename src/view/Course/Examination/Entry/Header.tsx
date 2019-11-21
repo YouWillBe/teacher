@@ -85,9 +85,7 @@ const Header: FC = props => {
                 <NameWrap>
                     <Title>测试</Title>
                     <Vertical>|</Vertical>
-                    <TitleType>
-                        {courseExaminationStore.examination && courseExaminationStore.examination.name}
-                    </TitleType>
+                    <TitleType>{courseExaminationStore.examination!.name}</TitleType>
                 </NameWrap>
                 <FractionWrap>
                     <CorrectWrap>

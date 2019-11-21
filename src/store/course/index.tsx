@@ -219,9 +219,7 @@ export interface ICourseIndexStore {
     testAcademicAnalysisVolumeReady: boolean
     testAcademicAnalysisVolume: ITestAcademicAnalysisVolume
     testAcademicAnalysisVolumeID: ITestAcademicAnalysisVolumeID
-    getTestAcademicAnalysisVolume(
-        data: ITestAcademicAnalysisVolumeID
-    ): Promise<void>
+    getTestAcademicAnalysisVolume(data: ITestAcademicAnalysisVolumeID): Promise<void>
 
     gettingTestAcademicAnalysisStudent: boolean
     testAcademicAnalysisStudentReady: boolean
@@ -402,9 +400,7 @@ class CourseIndexStore implements ICourseIndexStore {
             }
 
             if (typeof res.teacherPostilion === 'string') {
-                res.teacherPostilion = Value.fromJSON(
-                    JSON.parse(res.teacherPostilion)
-                )
+                res.teacherPostilion = Value.fromJSON(JSON.parse(res.teacherPostilion))
             } else {
                 res.teacherPostilion = Value.fromJSON({
                     document: {
@@ -425,21 +421,14 @@ class CourseIndexStore implements ICourseIndexStore {
     //试卷详情
     @action async getTestProblemEntering(id: number) {
         this.gettingTestProblem = true
+        this.testProblemReady = false
         const res = await api.course.getStudentTest(id)
         if (res.success) {
-            let sessionCurrentType = sessionStorage.getItem(
-                'sessionCurrentType'
-            )
+            let sessionCurrentType = sessionStorage.getItem('sessionCurrentType')
             if (sessionCurrentType) {
                 let datas = JSON.parse(sessionCurrentType)
-                if (
-                    (res.data.studentVolume as any)[datas.type][
-                        datas.number - 1
-                    ]
-                ) {
-                    let id = (res.data.studentVolume as any)[datas.type][
-                        datas.number - 1
-                    ].id
+                if ((res.data.studentVolume as any)[datas.type][datas.number - 1]) {
+                    let id = (res.data.studentVolume as any)[datas.type][datas.number - 1].id
                     this.getStudentTestProblem({
                         id,
                         testId: res.data.studentVolume.id,
@@ -502,9 +491,7 @@ class CourseIndexStore implements ICourseIndexStore {
         })
         if (res.success) {
             this.gettingTestProblemDetail = false
-            this.testProblemDetailData = this.DataProcessing(
-                res.data.testProblem
-            )
+            this.testProblemDetailData = this.DataProcessing(res.data.testProblem)
             this.testProblemDetailReady = true
         }
     }
@@ -519,21 +506,19 @@ class CourseIndexStore implements ICourseIndexStore {
 
     //试卷情况-题目分析
     @action async getTestAccuracy(id: number) {
+        this.gettingTestAccuracy = false
         const res = await api.course.getTestAccuracy(id)
         if (res.success) {
             this.gradeDataDTO = res.data.gradeDataDTO
             this.loreDTOList = res.data.loreDTOList
             this.volumeDTO = res.data.volumeDTO
             this.studentVolume = res.data.volumeDTO
-            let sessionCurrentType = sessionStorage.getItem(
-                'sessionCurrentType'
-            )
+            this.gettingTestAccuracy = true
+            let sessionCurrentType = sessionStorage.getItem('sessionCurrentType')
             if (sessionCurrentType) {
                 let datas = JSON.parse(sessionCurrentType)
                 if ((res.data.volumeDTO as any)[datas.type][datas.number - 1]) {
-                    let id = (res.data.volumeDTO as any)[datas.type][
-                        datas.number - 1
-                    ].id
+                    let id = (res.data.volumeDTO as any)[datas.type][datas.number - 1].id
                     this.getTestProblem({ id, testId: res.data.volumeDTO.id })
                     this.currentProblemDetailData = {
                         id: datas.id,
@@ -561,26 +546,22 @@ class CourseIndexStore implements ICourseIndexStore {
     }
 
     //学情分析（试卷）
-    @action async getTestAcademicAnalysisVolume(
-        data: ITestAcademicAnalysisVolumeID
-    ) {
-        this.gettingTestAcademicAnalysisVolume = true
+    @action async getTestAcademicAnalysisVolume(data: ITestAcademicAnalysisVolumeID) {
+        this.gettingTestAcademicAnalysisVolume = false
         const res = await api.course.getTestAcademicAnalysisVolume(data)
         if (res.success) {
             this.testAcademicAnalysisVolume = res.data
-            this.gettingTestAcademicAnalysisVolume = false
+            this.gettingTestAcademicAnalysisVolume = true
             this.testAcademicAnalysisVolumeReady = true
         }
     }
     //学情分析（个人）
     @action async getTestAcademicAnalysisStudent(studentId: number) {
-        this.gettingTestAcademicAnalysisStudent = true
-        const res = await api.course.getTestAcademicAnalysisStudent({
-            studentId,
-        })
+        this.gettingTestAcademicAnalysisStudent = false
+        const res = await api.course.getTestAcademicAnalysisStudent({ studentId })
         if (res.success) {
             this.testAcademicAnalysisStudent = res.data
-            this.gettingTestAcademicAnalysisStudent = false
+            this.gettingTestAcademicAnalysisStudent = true
             this.testAcademicAnalysisStudentReady = true
         }
     }
@@ -588,7 +569,7 @@ class CourseIndexStore implements ICourseIndexStore {
     @action async getWhiteBoard(courseId: number) {
         this.whiteBoardReady = false
         const res = await api.course.getWhiteBoard(courseId)
-        if(res.success) {
+        if (res.success) {
             this.whiteBoard = res.data ? JSON.parse(res.data.content) : ''
             this.whiteBoardReady = true
         }

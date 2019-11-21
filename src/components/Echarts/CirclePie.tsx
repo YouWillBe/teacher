@@ -1,6 +1,10 @@
-import React, { useEffect, FC } from 'react'
+import React, { useEffect, FC, useRef } from 'react'
 import styled from '@emotion/styled'
-import Echart from 'echarts'
+import Echart from 'echarts/lib/echarts'
+import 'echarts/lib/component/tooltip'
+import 'echarts/lib/component/title'
+import 'echarts/lib/chart/pie'
+import 'echarts/lib/component/legend'
 
 const Container = styled.div`
     width: 100%;
@@ -8,12 +12,10 @@ const Container = styled.div`
 `
 interface IProps {
     data: {
-        id: string
         name?: {
             text: string
         }
         seriesData: object
-        avgAccuracy: number
         textStyle?: {
             color: string
         }
@@ -24,9 +26,10 @@ interface IProps {
 }
 
 const CirclePie: FC<IProps> = props => {
+    const circlePieRef = useRef(null)
     useEffect(() => {
         const ec = Echart as any
-        let myChart = ec.init(document.getElementById(`CirclePie${props.data.id}`))
+        let myChart = ec.init(circlePieRef.current)
         let colorList = props.data.itemStyle
             ? props.data.itemStyle.color
             : ['#5AD8A6', '#E4EFEB', '#FFC821', '#CEA7E9', '#9EE379', '#68DCE7', '#FFEDE0']
@@ -72,7 +75,7 @@ const CirclePie: FC<IProps> = props => {
                     },
                     itemStyle: {
                         normal: {
-                            color: function(params: any) {
+                            color: function(params: { dataIndex: number }) {
                                 if (params.dataIndex === 0) {
                                     dataIndex = 0
                                 } else if (params.dataIndex === 1) {
@@ -88,8 +91,8 @@ const CirclePie: FC<IProps> = props => {
         }
         myChart.setOption(option)
         // eslint-disable-next-line
-    }, [props.data.id, props.data.avgAccuracy])
-    return <Container id={`CirclePie${props.data.id}`}></Container>
+    }, [])
+    return <Container ref={circlePieRef}></Container>
 }
 
 export default CirclePie

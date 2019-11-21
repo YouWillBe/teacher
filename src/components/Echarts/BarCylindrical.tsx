@@ -1,14 +1,17 @@
-import React, { useEffect, FC } from 'react'
+import React, { useEffect, FC, useRef } from 'react'
 import styled from '@emotion/styled'
-import Echart from 'echarts'
+import Echart from 'echarts/lib/echarts'
+import 'echarts/lib/component/tooltip'
+import 'echarts/lib/component/title'
+import 'echarts/lib/chart/bar'
+import 'echarts/lib/component/legend'
 
-const Container = styled.div<{ setHeight: string | undefined }>`
+const Container = styled.div`
     width: 100%;
-    height: ${props => props.setHeight || '100%'};
+    height: 100%;
 `
 interface IProps {
     data: {
-        id: string
         name: {
             text: string
             subtext: string
@@ -21,9 +24,11 @@ interface IProps {
 }
 
 const BarCylindrical: FC<IProps> = props => {
+    const barcylidricalRef = useRef(null)
+
     useEffect(() => {
         const ec = Echart as any
-        let myChart = ec.init(document.getElementById(`BarCylindrical${props.data.id}`))
+        let myChart = ec.init(barcylidricalRef.current)
         let colorList = ['#FF6383', '#FF9F40', '#FFCB48', '#5C89FF', '#46BC15']
         let dataIndex = 0
         // 指定图表的配置项和数据
@@ -82,8 +87,8 @@ const BarCylindrical: FC<IProps> = props => {
         }
         myChart.setOption(option)
         // eslint-disable-next-line
-    }, [props.data.id, props.data.totalCount])
-    return <Container id={`BarCylindrical${props.data.id}`} setHeight={props.data.height}></Container>
+    }, [])
+    return <Container ref={barcylidricalRef}></Container>
 }
 
 export default BarCylindrical

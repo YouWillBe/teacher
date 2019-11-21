@@ -69,9 +69,12 @@ const VolumeView: FC = () => {
     }
 
     //发布
-    const handleClickSave = () => {
+    const handleClickSave = (data: any) => {
         if (courseTaskStore.task) {
-            courseTaskStore.publishVolume(courseTaskStore.task.id, courseTaskStore.courseId)
+            courseTaskStore.publishVolume(
+                { id: courseTaskStore.task.id, workType: data.currenType },
+                courseTaskStore.courseId
+            )
         }
     }
 
@@ -116,108 +119,83 @@ const VolumeView: FC = () => {
     }
 
     return useObserver(() => {
+        console.log(courseTaskStore.task)
         return (
             <>
-                {courseTaskStore.task && (
-                    <TypeArr
-                        typeArrData={courseTaskStore.typeArr}
-                        data={{
-                            currentStatu,
-                            totalScore: courseTaskStore.task.totalScore,
-                            totalProblem: courseTaskStore.task.totalProblem,
-                        }}
-                        onClickSave={handleClickSave}
-                        onClick={handleClickType}
-                    />
-                )}
+                <TypeArr
+                    title='发布作业'
+                    typeArrData={courseTaskStore.typeArr}
+                    data={{
+                        name: courseTaskStore.task!.name,
+                        currentStatu,
+                        totalScore: courseTaskStore.task!.totalScore,
+                        totalProblem: courseTaskStore.task!.totalProblem,
+                    }}
+                    onClickSave={handleClickSave}
+                    onClick={handleClickType}
+                />
                 <Container>
                     <LeftWrap>
                         <ScrollbarWrap>
-                            {courseTaskStore.task && (
+                            {currentStatu === 0 && (
                                 <>
-                                    {currentStatu === 0 && (
-                                        <>
-                                            {courseTaskStore.task.choiceProblems.length > 0 ? (
-                                                <>
-                                                    {courseTaskStore.task.choiceProblems.map((item, index) => (
-                                                        <ProblemWrap key={item.id}>
-                                                            <ChoiceProblem data={problemList({ ...item, index })} />
-                                                        </ProblemWrap>
-                                                    ))}
-                                                </>
-                                            ) : null}
-                                            {courseTaskStore.task.checkboxProblems.length > 0 ? (
-                                                <>
-                                                    {courseTaskStore.task.checkboxProblems.map((item, index) => (
-                                                        <ProblemWrap key={item.id}>
-                                                            <ChoiceProblem data={problemList({ ...item, index })} />
-                                                        </ProblemWrap>
-                                                    ))}
-                                                </>
-                                            ) : null}
-                                            {courseTaskStore.task.judgeProblems.length > 0 ? (
-                                                <>
-                                                    {courseTaskStore.task.judgeProblems.map((item, index) => (
-                                                        <ProblemWrap key={item.id}>
-                                                            <JudgeProblem data={problemList({ ...item, index })} />
-                                                        </ProblemWrap>
-                                                    ))}
-                                                </>
-                                            ) : null}
-                                            {courseTaskStore.task.fillingProblems.length > 0 ? (
-                                                <>
-                                                    {courseTaskStore.task.fillingProblems.map((item, index) => (
-                                                        <ProblemWrap key={item.id}>
-                                                            <FillingProblem data={problemList({ ...item, index })} />
-                                                        </ProblemWrap>
-                                                    ))}
-                                                </>
-                                            ) : null}
-                                            {courseTaskStore.task.shortAnswerProblems.length > 0 ? (
-                                                <>
-                                                    {courseTaskStore.task.shortAnswerProblems.map((item, index) => (
-                                                        <ProblemWrap key={item.id}>
-                                                            <ShortAnswerProblem
-                                                                data={problemList({ ...item, index })}
-                                                            />
-                                                        </ProblemWrap>
-                                                    ))}
-                                                </>
-                                            ) : null}
-                                        </>
-                                    )}
-                                    {currentStatu === 1 &&
-                                        courseTaskStore.task.choiceProblems.map((item, index) => (
-                                            <ProblemWrap key={item.id}>
-                                                <ChoiceProblem data={problemList({ ...item, index })} />
-                                            </ProblemWrap>
-                                        ))}
-                                    {currentStatu === 2 &&
-                                        courseTaskStore.task.checkboxProblems.map((item, index) => (
-                                            <ProblemWrap key={item.id}>
-                                                <ChoiceProblem data={problemList({ ...item, index })} />
-                                            </ProblemWrap>
-                                        ))}
-                                    {currentStatu === 3 &&
-                                        courseTaskStore.task.judgeProblems.map((item, index) => (
-                                            <ProblemWrap key={item.id}>
-                                                <JudgeProblem data={problemList({ ...item, index })} />
-                                            </ProblemWrap>
-                                        ))}
-                                    {currentStatu === 4 &&
-                                        courseTaskStore.task.fillingProblems.map((item, index) => (
-                                            <ProblemWrap key={item.id}>
-                                                <FillingProblem data={problemList({ ...item, index })} />
-                                            </ProblemWrap>
-                                        ))}
-                                    {currentStatu === 5 &&
-                                        courseTaskStore.task.shortAnswerProblems.map((item, index) => (
-                                            <ProblemWrap key={item.id}>
-                                                <ShortAnswerProblem data={problemList({ ...item, index })} />
-                                            </ProblemWrap>
-                                        ))}
+                                    {courseTaskStore.task!.choiceProblems.map((item, index) => (
+                                        <ProblemWrap key={item.id}>
+                                            <ChoiceProblem data={problemList({ ...item, index })} />
+                                        </ProblemWrap>
+                                    ))}
+                                    {courseTaskStore.task!.checkboxProblems.map((item, index) => (
+                                        <ProblemWrap key={item.id}>
+                                            <ChoiceProblem data={problemList({ ...item, index })} />
+                                        </ProblemWrap>
+                                    ))}
+                                    {courseTaskStore.task!.judgeProblems.map((item, index) => (
+                                        <ProblemWrap key={item.id}>
+                                            <JudgeProblem data={problemList({ ...item, index })} />
+                                        </ProblemWrap>
+                                    ))}
+                                    {courseTaskStore.task!.fillingProblems.map((item, index) => (
+                                        <ProblemWrap key={item.id}>
+                                            <FillingProblem data={problemList({ ...item, index })} />
+                                        </ProblemWrap>
+                                    ))}
+                                    {courseTaskStore.task!.shortAnswerProblems.map((item, index) => (
+                                        <ProblemWrap key={item.id}>
+                                            <ShortAnswerProblem data={problemList({ ...item, index })} />
+                                        </ProblemWrap>
+                                    ))}
                                 </>
                             )}
+                            {currentStatu === 1 &&
+                                courseTaskStore.task!.choiceProblems.map((item, index) => (
+                                    <ProblemWrap key={item.id}>
+                                        <ChoiceProblem data={problemList({ ...item, index })} />
+                                    </ProblemWrap>
+                                ))}
+                            {currentStatu === 2 &&
+                                courseTaskStore.task!.checkboxProblems.map((item, index) => (
+                                    <ProblemWrap key={item.id}>
+                                        <ChoiceProblem data={problemList({ ...item, index })} />
+                                    </ProblemWrap>
+                                ))}
+                            {currentStatu === 3 &&
+                                courseTaskStore.task!.judgeProblems.map((item, index) => (
+                                    <ProblemWrap key={item.id}>
+                                        <JudgeProblem data={problemList({ ...item, index })} />
+                                    </ProblemWrap>
+                                ))}
+                            {currentStatu === 4 &&
+                                courseTaskStore.task!.fillingProblems.map((item, index) => (
+                                    <ProblemWrap key={item.id}>
+                                        <FillingProblem data={problemList({ ...item, index })} />
+                                    </ProblemWrap>
+                                ))}
+                            {currentStatu === 5 &&
+                                courseTaskStore.task!.shortAnswerProblems.map((item, index) => (
+                                    <ProblemWrap key={item.id}>
+                                        <ShortAnswerProblem data={problemList({ ...item, index })} />
+                                    </ProblemWrap>
+                                ))}
                         </ScrollbarWrap>
                     </LeftWrap>
                     <RightWrap />

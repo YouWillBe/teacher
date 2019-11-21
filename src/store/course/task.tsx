@@ -96,6 +96,12 @@ interface ITestScore {
     totalScore: number
 }
 
+interface IPublishVolume {
+    id: number
+    endTime?: number
+    workType: number
+}
+
 export interface ICourseTaskStore {
     typeArr: ITypeArr[]
     courseId: string
@@ -119,7 +125,7 @@ export interface ICourseTaskStore {
     bindingTask(courseId: string, volumeId: number): Promise<void>
 
     getVolumeLore(): Promise<void>
-    publishVolume(id: number, courseId: string): Promise<void>
+    publishVolume(data: IPublishVolume, courseId: string): Promise<void>
     testOver(id: number): Promise<void>
 
     getPreviewFinished(): Promise<void>
@@ -255,9 +261,9 @@ class CourseTaskStore implements ICourseTaskStore {
         }
     }
     //发布试卷
-    @action async publishVolume(id: number, courseId: string) {
+    @action async publishVolume(data: IPublishVolume, courseId: string) {
         try {
-            const res = await api.course.publishVolume(id)
+            const res = await api.course.publishVolume(data)
             if (res.success) {
                 this.getTask(courseId)
             }

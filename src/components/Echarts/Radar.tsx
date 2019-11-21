@@ -1,6 +1,10 @@
-import React, { useEffect, FC } from 'react'
+import React, { useEffect, FC, useRef } from 'react'
 import styled from '@emotion/styled'
-import Echart from 'echarts'
+import Echart from 'echarts/lib/echarts'
+import 'echarts/lib/component/tooltip'
+import 'echarts/lib/component/title'
+import 'echarts/lib/chart/radar'
+import 'echarts/lib/component/legend'
 
 const Container = styled.div`
     width: 100%;
@@ -20,61 +24,61 @@ interface IProps {
 }
 
 const Radar: FC<IProps> = props => {
+    const radarRef = useRef(null)
+
     useEffect(() => {
         const ec = Echart as any
-        let myChart = ec.init(document.getElementById('radar1'))
+        let myChart = ec.init(radarRef.current)
         // 指定图表的配置项和数据
-        if (props.data.indicator.length) {
-            let labels = props.data.labels
+        let labels = props.data.labels
 
-            let option = {
-                title: {
-                    text: props.data.textStyle!.titleText,
-                    left: 'left',
-                    top: 0,
+        let option = {
+            title: {
+                text: props.data.textStyle!.titleText,
+                left: 'left',
+                top: 0,
+                textStyle: {
+                    color: props.data.textStyle.titleColor || '#999',
+                    fontSize: 14,
+                },
+            },
+            tooltip: {
+                formatter: function(params: any) {
+                    let results = ''
+                    for (let i = 0; i < labels.length; i++) {
+                        results += labels[i] + '：' + params.value[i] + '%<br>'
+                    }
+                    return results
+                },
+            },
+            radar: {
+                name: {
                     textStyle: {
-                        color: props.data.textStyle.titleColor || '#999',
-                        fontSize: 14,
+                        color: props.data.textStyle.nameColor || '#804774',
                     },
                 },
-                tooltip: {
-                    formatter: function(params: any) {
-                        let results = ''
-                        for (let i = 0; i < labels.length; i++) {
-                            results += labels[i] + '：' + params.value[i] + '%<br>'
-                        }
-                        return results
-                    },
-                },
-                radar: {
-                    name: {
-                        textStyle: {
-                            color: props.data.textStyle.nameColor || '#804774',
-                        },
-                    },
-                    indicator: props.data.indicator,
-                },
+                indicator: props.data.indicator,
+            },
 
-                series: [
-                    {
-                        type: 'radar',
-                        data: [
-                            {
-                                value: props.data.series,
-                            },
-                        ],
-                        areaStyle: {
-                            normal: {},
+            series: [
+                {
+                    type: 'radar',
+                    data: [
+                        {
+                            value: props.data.series,
                         },
+                    ],
+                    areaStyle: {
+                        normal: {},
                     },
-                ],
-            }
-            myChart.setOption(option)
+                },
+            ],
         }
+        myChart.setOption(option)
 
         // eslint-disable-next-line
-    }, [props.data.indicator.length])
-    return <Container id='radar1'></Container>
+    }, [])
+    return <Container ref={radarRef}></Container>
 }
 
 export default Radar

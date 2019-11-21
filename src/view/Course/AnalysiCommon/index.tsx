@@ -119,6 +119,7 @@ const ChartWrap = styled.div`
 `
 const ChartLeft = styled.div`
     flex: 1;
+    min-height: 200px;
 `
 const ChartRight = styled.div`
     width: 400px;
@@ -172,38 +173,38 @@ const PreviewAnalysis: FC<RouteComponentProps<IProps>> = props => {
                             </Header>
                             <ChartWrap>
                                 <ChartLeft>
-                                    <BarCylindrical
-                                        data={{
-                                            id: '1',
-                                            name: { text: '成绩情况', subtext: '正确率' },
-                                            yAxisName: ['0-40', '40-60', '60-80', '80-90', '90-100'],
-                                            seriesData: [
-                                                courseIndexStore.gradeDataDTO.bad,
-                                                courseIndexStore.gradeDataDTO.poor,
-                                                courseIndexStore.gradeDataDTO.medium,
-                                                courseIndexStore.gradeDataDTO.fine,
-                                                courseIndexStore.gradeDataDTO.excellent,
-                                            ],
-                                            totalCount: courseIndexStore.gradeDataDTO.totalCount,
-                                            height: '200px',
-                                        }}
-                                    ></BarCylindrical>
+                                    {courseIndexStore.gettingTestAccuracy ? (
+                                        <BarCylindrical
+                                            data={{
+                                                name: { text: '成绩情况', subtext: '正确率' },
+                                                yAxisName: ['0-40', '40-60', '60-80', '80-90', '90-100'],
+                                                seriesData: [
+                                                    courseIndexStore.gradeDataDTO.bad,
+                                                    courseIndexStore.gradeDataDTO.poor,
+                                                    courseIndexStore.gradeDataDTO.medium,
+                                                    courseIndexStore.gradeDataDTO.fine,
+                                                    courseIndexStore.gradeDataDTO.excellent,
+                                                ],
+                                                totalCount: courseIndexStore.gradeDataDTO.totalCount,
+                                            }}
+                                        ></BarCylindrical>
+                                    ) : null}
                                 </ChartLeft>
                                 <ChartRight>
-                                    <CirclePie
-                                        data={{
-                                            id: '1',
-                                            name: { text: '全班平均正确率' },
-                                            seriesData: [
-                                                { value: courseIndexStore.gradeDataDTO.avgAccuracy, name: '正确' },
-                                                {
-                                                    value: 100 - courseIndexStore.gradeDataDTO.avgAccuracy,
-                                                    name: '错误',
-                                                },
-                                            ],
-                                            avgAccuracy: courseIndexStore.gradeDataDTO.avgAccuracy,
-                                        }}
-                                    ></CirclePie>
+                                    {courseIndexStore.gettingTestAccuracy ? (
+                                        <CirclePie
+                                            data={{
+                                                name: { text: '全班平均正确率' },
+                                                seriesData: [
+                                                    { value: courseIndexStore.gradeDataDTO.avgAccuracy, name: '正确' },
+                                                    {
+                                                        value: 100 - courseIndexStore.gradeDataDTO.avgAccuracy,
+                                                        name: '错误',
+                                                    },
+                                                ],
+                                            }}
+                                        ></CirclePie>
+                                    ) : null}
                                 </ChartRight>
                             </ChartWrap>
                         </Package1>

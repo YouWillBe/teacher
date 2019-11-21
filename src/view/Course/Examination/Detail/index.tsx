@@ -107,7 +107,7 @@ const Detail: FC = props => {
     }
     const optionDialog = {
         width: '20%',
-        marginTop: '160px ',
+        // marginTop: '160px ',
         borderBottom: ' 1px solid rgba(151, 151, 151, 0.26)',
     }
 
@@ -115,20 +115,8 @@ const Detail: FC = props => {
         return (
             <Container>
                 <SituationWrap>
-                    <Finished
-                        text='已交'
-                        people={
-                            courseExaminationStore.doExaminationInfo &&
-                            courseExaminationStore.doExaminationInfo.finished
-                        }
-                    />
-                    <Finished
-                        text='未交'
-                        people={
-                            courseExaminationStore.doExaminationInfo &&
-                            courseExaminationStore.doExaminationInfo.Unfiltered
-                        }
-                    />
+                    <Finished text='已交' people={courseExaminationStore.doExaminationInfo!.finished} />
+                    <Finished text='未交' people={courseExaminationStore.doExaminationInfo!.Unfiltered} />
                 </SituationWrap>
                 <StudentWrap>
                     <Student />

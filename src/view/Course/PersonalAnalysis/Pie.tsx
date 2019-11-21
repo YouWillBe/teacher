@@ -25,7 +25,6 @@ const CirclePieWrap = styled.div`
 
 interface IProps {
     data: {
-        id: number
         avgAccuracy: number
         name?: string
     }
@@ -43,7 +42,6 @@ const Pie: FC<IProps> = props => {
             <CirclePieWrap>
                 <CirclePie
                     data={{
-                        id: props.data.id + '1',
                         seriesData: [
                             { value: props.data.avgAccuracy, name: '正确' },
                             {
@@ -51,7 +49,6 @@ const Pie: FC<IProps> = props => {
                                 name: '错误',
                             },
                         ],
-                        avgAccuracy: props.data.id,
                     }}
                 ></CirclePie>
             </CirclePieWrap>

@@ -236,7 +236,7 @@ const NetExercise: FC<RouteComponentProps<Iprops>> = props => {
 
     const optionDialog = {
         width: '70%',
-        marginTop: '100px ',
+        // marginTop: '100px ',
         borderBottom: ' 1px solid rgba(151, 151, 151, 0.26)',
     }
 

@@ -107,7 +107,7 @@ function PreviewList(props: IProps) {
     }
     const optionDialog = {
         width: '70%',
-        marginTop: '5%',
+        // marginTop: '5%',
         borderBottom: '1px solid #e5e5e5',
     }
 

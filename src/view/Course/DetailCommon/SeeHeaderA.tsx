@@ -171,16 +171,12 @@ const SeeHeaderA: FC<RouteComponentProps<IProps>> = props => {
                     <NameWrap>
                         <Title>学生</Title>
                         <Vertical>|</Vertical>
-                        <TitleType>
-                            {courseIndexStore.studentVolume && courseIndexStore.studentVolume.studentName}
-                        </TitleType>
+                        <TitleType>{courseIndexStore.studentVolume!.studentName}</TitleType>
                     </NameWrap>
                     <NameWrap>
                         <Title>{props.data!.name}</Title>
                         <Vertical>|</Vertical>
-                        <TitleType>
-                            {courseIndexStore.studentVolume && courseIndexStore.studentVolume.testName}
-                        </TitleType>
+                        <TitleType>{courseIndexStore.studentVolume!.testName}</TitleType>
                     </NameWrap>
                 </TitleWrap>
                 <FractionContainer>
@@ -197,18 +193,15 @@ const SeeHeaderA: FC<RouteComponentProps<IProps>> = props => {
                         </RutemWrap>
                     </FeaturesWrap>
                     <CircleTypeWrap>
-                        {courseIndexStore.testAccuracy.problemAccuracy.map((item, index) => (
-                            <LiItem key={index}>
-                                <CircleWrap>
-                                    <Circle
-                                        data={{
-                                            ...item,
-                                            circleId: 'circle' + index,
-                                        }}
-                                    ></Circle>
-                                </CircleWrap>
-                            </LiItem>
-                        ))}
+                        {courseIndexStore.testProblemReady
+                            ? courseIndexStore.testAccuracy.problemAccuracy.map((item, index) => (
+                                  <LiItem key={index}>
+                                      <CircleWrap>
+                                          <Circle data={item}></Circle>
+                                      </CircleWrap>
+                                  </LiItem>
+                              ))
+                            : null}
                     </CircleTypeWrap>
                     <TotalScoreWrap>
                         <TestPaperWrap>

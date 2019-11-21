@@ -1,10 +1,14 @@
-import React, { useEffect, FC } from 'react'
+import React, { useEffect, FC, useRef } from 'react'
 import styled from '@emotion/styled'
-import Echart from 'echarts'
+import Echart from 'echarts/lib/echarts'
+import 'echarts/lib/component/tooltip'
+import 'echarts/lib/component/title'
+import 'echarts/lib/chart/bar'
+import 'echarts/lib/component/legend'
 
-const Container = styled.div<{ setHeight: string | undefined }>`
+const Container = styled.div`
     width: 100%;
-    min-height: 200px;
+    height: 100%;
 `
 interface IProps {
     data: {
@@ -19,9 +23,11 @@ interface IProps {
 }
 
 const BarStackedStrip: FC<IProps> = props => {
+    const barstaskedRef = useRef(null)
+
     useEffect(() => {
         const ec = Echart as any
-        let myChart = ec.init(document.getElementById(`BarStackedStrip`))
+        let myChart = ec.init(barstaskedRef.current)
         let colorList = ['#FF8C8C', '#FFC821', '#CEA7E9', '#68DCE7', '#9EE379']
 
         let option = {
@@ -147,15 +153,8 @@ const BarStackedStrip: FC<IProps> = props => {
         }
         myChart.setOption(option)
         // eslint-disable-next-line
-    }, [
-        props.data.excellent,
-        props.data.bad,
-        props.data.fine,
-        props.data.medium,
-        props.data.poor,
-        props.data.yAxisData,
-    ])
-    return <Container id={`BarStackedStrip`} setHeight={'200px'} />
+    }, [])
+    return <Container ref={barstaskedRef}></Container>
 }
 
 export default BarStackedStrip

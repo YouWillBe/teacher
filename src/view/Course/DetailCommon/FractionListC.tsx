@@ -115,6 +115,7 @@ const FractionListC: FC = props => {
         setFraction(num)
         // eslint-disable-next-line
     }, [courseIndexStore.testProblemDetailData.id])
+
     //批注
     const handleChangePostilion = (value: Value) => {
         courseIndexStore.testProblemDetailData.teacherPostilion = value
@@ -208,18 +209,17 @@ const FractionListC: FC = props => {
                         </ButtonWrap>
                     </FractionWrap>
                     <Ul>
-                        {courseIndexStore.testProblemDetailData.fractionList &&
-                            courseIndexStore.testProblemDetailData.fractionList.map((item: any, index: number) => (
-                                <Li key={index}>
-                                    <Question>第{index + 1}题</Question>
-                                    <Input
-                                        type='text'
-                                        value={item.fraction}
-                                        onChange={e => handleChange(e, index)}
-                                        onBlur={() => handleBlur(index)}
-                                    />
-                                </Li>
-                            ))}
+                        {courseIndexStore.testProblemDetailData.fractionList.map((item: any, index: number) => (
+                            <Li key={index}>
+                                <Question>第{index + 1}题</Question>
+                                <Input
+                                    type='text'
+                                    value={item.fraction}
+                                    onChange={e => handleChange(e, index)}
+                                    onBlur={() => handleBlur(index)}
+                                />
+                            </Li>
+                        ))}
                     </Ul>
                 </Wrap>
                 <Package>

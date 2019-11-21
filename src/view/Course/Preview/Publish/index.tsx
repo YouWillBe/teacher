@@ -69,9 +69,12 @@ const VolumeView: FC = () => {
     }
 
     //发布
-    const handleClickSave = () => {
+    const handleClickSave = (data: any) => {
         if (coursePreviewStore.preview) {
-            coursePreviewStore.publishVolume(coursePreviewStore.preview.id, coursePreviewStore.courseId)
+            coursePreviewStore.publishVolume(
+                { id: coursePreviewStore.preview.id, workType: data.currenType },
+                coursePreviewStore.courseId
+            )
         }
     }
 
@@ -118,108 +121,84 @@ const VolumeView: FC = () => {
     return useObserver(() => {
         return (
             <>
-                {coursePreviewStore.preview && (
-                    <TypeArr
-                        typeArrData={coursePreviewStore.typeArr}
-                        data={{
-                            currentStatu,
-                            totalScore: coursePreviewStore.preview.totalScore,
-                            totalProblem: coursePreviewStore.preview.totalProblem,
-                        }}
-                        onClickSave={handleClickSave}
-                        onClick={handleClickType}
-                    />
-                )}
+                <TypeArr
+                    title='发布预习'
+                    typeArrData={coursePreviewStore.typeArr}
+                    data={{
+                        currentStatu,
+                        name: coursePreviewStore.preview!.name,
+                        totalScore: coursePreviewStore.preview!.totalScore,
+                        totalProblem: coursePreviewStore.preview!.totalProblem,
+                    }}
+                    onClickSave={handleClickSave}
+                    onClick={handleClickType}
+                />
                 <Container>
                     <LeftWrap>
                         <ScrollbarWrap>
-                            {coursePreviewStore.preview && (
+                            {currentStatu === 0 && (
                                 <>
-                                    {currentStatu === 0 && (
-                                        <>
-                                            {coursePreviewStore.preview.choiceProblems.length > 0 ? (
-                                                <>
-                                                    {coursePreviewStore.preview.choiceProblems.map((item, index) => (
-                                                        <ProblemWrap key={item.id}>
-                                                            <ChoiceProblem data={problemList({ ...item, index })} />
-                                                        </ProblemWrap>
-                                                    ))}
-                                                </>
-                                            ) : null}
-                                            {coursePreviewStore.preview.checkboxProblems.length > 0 ? (
-                                                <>
-                                                    {coursePreviewStore.preview.checkboxProblems.map((item, index) => (
-                                                        <ProblemWrap key={item.id}>
-                                                            <ChoiceProblem data={problemList({ ...item, index })} />
-                                                        </ProblemWrap>
-                                                    ))}
-                                                </>
-                                            ) : null}
-                                            {coursePreviewStore.preview.judgeProblems.length > 0 ? (
-                                                <>
-                                                    {coursePreviewStore.preview.judgeProblems.map((item, index) => (
-                                                        <ProblemWrap key={item.id}>
-                                                            <JudgeProblem data={problemList({ ...item, index })} />
-                                                        </ProblemWrap>
-                                                    ))}
-                                                </>
-                                            ) : null}
-                                            {coursePreviewStore.preview.fillingProblems.length > 0 ? (
-                                                <>
-                                                    {coursePreviewStore.preview.fillingProblems.map((item, index) => (
-                                                        <ProblemWrap key={item.id}>
-                                                            <FillingProblem data={problemList({ ...item, index })} />
-                                                        </ProblemWrap>
-                                                    ))}
-                                                </>
-                                            ) : null}
-                                            {coursePreviewStore.preview.shortAnswerProblems.length > 0 ? (
-                                                <>
-                                                    {coursePreviewStore.preview.shortAnswerProblems.map(
-                                                        (item, index) => (
-                                                            <ProblemWrap key={item.id}>
-                                                                <ShortAnswerProblem
-                                                                    data={problemList({ ...item, index })}
-                                                                />
-                                                            </ProblemWrap>
-                                                        )
-                                                    )}
-                                                </>
-                                            ) : null}
-                                        </>
-                                    )}
-                                    {currentStatu === 1 &&
-                                        coursePreviewStore.preview.choiceProblems.map((item, index) => (
-                                            <ProblemWrap key={item.id}>
-                                                <ChoiceProblem data={problemList({ ...item, index })} />
-                                            </ProblemWrap>
-                                        ))}
-                                    {currentStatu === 2 &&
-                                        coursePreviewStore.preview.checkboxProblems.map((item, index) => (
-                                            <ProblemWrap key={item.id}>
-                                                <ChoiceProblem data={problemList({ ...item, index })} />
-                                            </ProblemWrap>
-                                        ))}
-                                    {currentStatu === 3 &&
-                                        coursePreviewStore.preview.judgeProblems.map((item, index) => (
-                                            <ProblemWrap key={item.id}>
-                                                <JudgeProblem data={problemList({ ...item, index })} />
-                                            </ProblemWrap>
-                                        ))}
-                                    {currentStatu === 4 &&
-                                        coursePreviewStore.preview.fillingProblems.map((item, index) => (
-                                            <ProblemWrap key={item.id}>
-                                                <FillingProblem data={problemList({ ...item, index })} />
-                                            </ProblemWrap>
-                                        ))}
-                                    {currentStatu === 5 &&
-                                        coursePreviewStore.preview.shortAnswerProblems.map((item, index) => (
-                                            <ProblemWrap key={item.id}>
-                                                <ShortAnswerProblem data={problemList({ ...item, index })} />
-                                            </ProblemWrap>
-                                        ))}
+                                    {coursePreviewStore.preview!.choiceProblems.map((item, index) => (
+                                        <ProblemWrap key={item.id}>
+                                            <ChoiceProblem data={problemList({ ...item, index })} />
+                                        </ProblemWrap>
+                                    ))}
+
+                                    {coursePreviewStore.preview!.checkboxProblems.map((item, index) => (
+                                        <ProblemWrap key={item.id}>
+                                            <ChoiceProblem data={problemList({ ...item, index })} />
+                                        </ProblemWrap>
+                                    ))}
+
+                                    {coursePreviewStore.preview!.judgeProblems.map((item, index) => (
+                                        <ProblemWrap key={item.id}>
+                                            <JudgeProblem data={problemList({ ...item, index })} />
+                                        </ProblemWrap>
+                                    ))}
+
+                                    {coursePreviewStore.preview!.fillingProblems.map((item, index) => (
+                                        <ProblemWrap key={item.id}>
+                                            <FillingProblem data={problemList({ ...item, index })} />
+                                        </ProblemWrap>
+                                    ))}
+
+                                    {coursePreviewStore.preview!.shortAnswerProblems.map((item, index) => (
+                                        <ProblemWrap key={item.id}>
+                                            <ShortAnswerProblem data={problemList({ ...item, index })} />
+                                        </ProblemWrap>
+                                    ))}
                                 </>
                             )}
+                            {currentStatu === 1 &&
+                                coursePreviewStore.preview!.choiceProblems.map((item, index) => (
+                                    <ProblemWrap key={item.id}>
+                                        <ChoiceProblem data={problemList({ ...item, index })} />
+                                    </ProblemWrap>
+                                ))}
+                            {currentStatu === 2 &&
+                                coursePreviewStore.preview!.checkboxProblems.map((item, index) => (
+                                    <ProblemWrap key={item.id}>
+                                        <ChoiceProblem data={problemList({ ...item, index })} />
+                                    </ProblemWrap>
+                                ))}
+                            {currentStatu === 3 &&
+                                coursePreviewStore.preview!.judgeProblems.map((item, index) => (
+                                    <ProblemWrap key={item.id}>
+                                        <JudgeProblem data={problemList({ ...item, index })} />
+                                    </ProblemWrap>
+                                ))}
+                            {currentStatu === 4 &&
+                                coursePreviewStore.preview!.fillingProblems.map((item, index) => (
+                                    <ProblemWrap key={item.id}>
+                                        <FillingProblem data={problemList({ ...item, index })} />
+                                    </ProblemWrap>
+                                ))}
+                            {currentStatu === 5 &&
+                                coursePreviewStore.preview!.shortAnswerProblems.map((item, index) => (
+                                    <ProblemWrap key={item.id}>
+                                        <ShortAnswerProblem data={problemList({ ...item, index })} />
+                                    </ProblemWrap>
+                                ))}
                         </ScrollbarWrap>
                     </LeftWrap>
                     <RightWrap />

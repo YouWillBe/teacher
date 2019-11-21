@@ -14,6 +14,7 @@ import Line from '../../../components/Echarts/Line'
 
 const Container = styled.div`
     width: 100%;
+    height: 100%;
 `
 const KnowledgeWrap = styled.div`
     width: 100%;
@@ -85,20 +86,21 @@ const Class: FC<RouteComponentProps<IProps>> = props => {
         analysisStore.getTeacherTeams()
         analysisStore.getTeacherTotalAnalysis(Number(props.studentId))
         // eslint-disable-next-line
-    }, [])
+    }, [props.studentId])
 
     return useObserver(() => {
         return (
             <Container>
                 <KnowledgeWrap>
                     <Knowledge>
-                        <Pie
-                            text='班级正确率'
-                            data={{
-                                id: analysisStore.teacherTotalAnalysis.classAccuracy,
-                                avgAccuracy: analysisStore.teacherTotalAnalysis.classAccuracy,
-                            }}
-                        />
+                        {analysisStore.teacherTotalAnalysisReady ? (
+                            <Pie
+                                text='班级正确率'
+                                data={{
+                                    avgAccuracy: analysisStore.teacherTotalAnalysis.classAccuracy,
+                                }}
+                            ></Pie>
+                        ) : null}
                     </Knowledge>
                     <Knowledge>
                         <LoreNumber
@@ -137,28 +139,34 @@ const Class: FC<RouteComponentProps<IProps>> = props => {
                         />
                     </Knowledge>
                     <RadarWrap>
-                        <Radar
-                            data={{
-                                indicator: analysisStore.teacherTotalAnalysis.sectionLoreAccuracy.map(item => {
-                                    return { max: item.max, name: item.name }
-                                }),
-                                series: analysisStore.teacherTotalAnalysis.sectionLoreAccuracy.map(item => {
-                                    return item.accuracy
-                                }),
-                                labels: analysisStore.teacherTotalAnalysis.sectionLoreAccuracy.map(item => {
-                                    return item.name
-                                }),
-                                textStyle: {
-                                    titleText: '章节知识点正确率雷达图',
-                                },
-                            }}
-                        />
+                        {analysisStore.teacherTotalAnalysisReady ? (
+                            <Radar
+                                data={{
+                                    indicator: analysisStore.teacherTotalAnalysis.sectionLoreAccuracy.map(item => {
+                                        return { max: item.max, name: item.name }
+                                    }),
+                                    series: analysisStore.teacherTotalAnalysis.sectionLoreAccuracy.map(item => {
+                                        return item.accuracy
+                                    }),
+                                    labels: analysisStore.teacherTotalAnalysis.sectionLoreAccuracy.map(item => {
+                                        return item.name
+                                    }),
+                                    textStyle: {
+                                        titleText: '章节知识点正确率雷达图',
+                                    },
+                                }}
+                            ></Radar>
+                        ) : null}
                     </RadarWrap>
                 </KnowledgeWrap>
                 <Package>
                     <LoreName>班级最近7周正确率情况</LoreName>
                     <LineWrap>
-                        <Line data={analysisStore.teacherTotalAnalysis.latelyClassTestAccuracy.weekAccuracyList} />
+                        {analysisStore.teacherTotalAnalysisReady ? (
+                            <Line
+                                data={analysisStore.teacherTotalAnalysis.latelyClassTestAccuracy.weekAccuracyList}
+                            ></Line>
+                        ) : null}
                     </LineWrap>
                 </Package>
                 <KnowledgeWrap1>

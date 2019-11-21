@@ -105,9 +105,7 @@ const VolumeLore: FC = () => {
                 {coursePreviewStore.volumeLore.slice(0, 2).map(item => (
                     <Container
                         key={item.id}
-                        currentStyle={
-                            item.id === (coursePreviewStore.preview && coursePreviewStore.preview.useVolumeId)
-                        }
+                        currentStyle={item.id === coursePreviewStore.preview!.useVolumeId}
                         onClick={() => handleClickVolumeLore(item.id)}
                     >
                         <Title title={item.name}>{item.name}</Title>

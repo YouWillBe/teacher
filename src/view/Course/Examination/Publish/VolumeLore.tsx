@@ -105,10 +105,7 @@ const VolumeLore: FC = () => {
                 {courseExaminationStore.volumeLore.slice(0, 2).map(item => (
                     <Container
                         key={item.id}
-                        currentStyle={
-                            item.id ===
-                            (courseExaminationStore.examination && courseExaminationStore.examination.useVolumeId)
-                        }
+                        currentStyle={item.id === courseExaminationStore.examination!.useVolumeId}
                         onClick={() => handleClickVolumeLore(item.id)}
                     >
                         <Title title={item.name}>{item.name}</Title>

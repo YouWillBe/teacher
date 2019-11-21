@@ -62,6 +62,12 @@ interface ITypeArr {
     extent: number
     key: string
 }
+
+interface IPublishVolume {
+    id: number
+    endTime?: number
+    workType: number
+}
 export interface ICourseStore {
     typeArr: ITypeArr[]
     plan: IPlan | null
@@ -114,7 +120,7 @@ export interface ICourseStore {
     bindingTask(courseId: string, volumeId: number): Promise<void>
     getExamination(id: string): Promise<void>
     bindingExamination(courseId: string, volumeId: number): Promise<void>
-    publishVolume(id: number, type: number): Promise<void>
+    publishVolume(data: IPublishVolume, type: number): Promise<void>
     testOver(id: number, type: number): Promise<void>
     getVolumeLore(): Promise<void>
     // getVolumeProblemAll(id: number): Promise<void>
@@ -477,9 +483,9 @@ class CourseStore implements ICourseStore {
         } catch (error) {}
     }
     //发布试卷
-    @action async publishVolume(id: number, type: number) {
+    @action async publishVolume(data: IPublishVolume, type: number) {
         try {
-            const res = await api.course.publishVolume(id)
+            const res = await api.course.publishVolume(data)
             if (res.success) {
                 if (type === 1) {
                     this.getClassTest(this.courseId)

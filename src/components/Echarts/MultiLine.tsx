@@ -1,8 +1,12 @@
-import React, { useEffect, FC } from 'react'
+import React, { useEffect, FC, useRef } from 'react'
 import styled from '@emotion/styled'
-import Echart from 'echarts'
+import Echart from 'echarts/lib/echarts'
+import 'echarts/lib/component/tooltip'
+import 'echarts/lib/component/title'
+import 'echarts/lib/chart/line'
+import 'echarts/lib/component/legend'
 
-const Container = styled.div<{ setHeight: string | undefined }>`
+const Container = styled.div`
     width: 100%;
     min-height: 200px;
 `
@@ -16,9 +20,11 @@ interface IProps {
 }
 
 const MultiLine: FC<IProps> = props => {
+    const multiLineRef = useRef(null)
+
     useEffect(() => {
         const ec = Echart as any
-        let myChart = ec.init(document.getElementById(`MultiLine`))
+        let myChart = ec.init(multiLineRef.current)
 
         let xAxisData = props.data.xAxisData[0] || [
             '第一周',
@@ -84,8 +90,8 @@ const MultiLine: FC<IProps> = props => {
         }
         myChart.setOption(option)
         // eslint-disable-next-line
-    }, [props.data.nameData, props.data.xAxisData])
-    return <Container id={`MultiLine`} setHeight={'200px'} />
+    }, [])
+    return <Container ref={multiLineRef}></Container>
 }
 
 export default MultiLine

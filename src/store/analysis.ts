@@ -150,6 +150,7 @@ class AnalysisStore implements IAnalysisStore {
 
     //总体分析
     @action async getTestTotalAnalysisGrade() {
+        this.testTotalAnalysisGradeReady = false
         if (!this.testTotalAnalysisGradeReady) {
             try {
                 const res = await api.analysis.getTestTotalAnalysisGrade()
@@ -177,6 +178,7 @@ class AnalysisStore implements IAnalysisStore {
 
     //班级分析
     @action async getTeacherTotalAnalysis(teamId: number) {
+        this.teacherTotalAnalysisReady = false
         try {
             const res = await api.analysis.getTeacherTotalAnalysis({ teamId })
             if (res.success) {

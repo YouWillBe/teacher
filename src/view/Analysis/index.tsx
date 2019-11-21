@@ -8,10 +8,6 @@ import { TiArrowBackOutline } from 'react-icons/ti'
 import { IStore } from '../../store'
 import Button from '../../components/Button'
 
-// const Container = styled.div`
-//     width: 1440px;
-//     margin: 0 auto;
-// `
 const Container = styled.div`
     box-sizing: border-box;
     width: 100%;
@@ -39,9 +35,9 @@ const Package = styled.div`
     width: 100%;
     padding-right: 5px;
 `
-const Wrap = styled.div`
+const Wrap = styled.div<{ setType: boolean }>`
     box-sizing: border-box;
-    width: 1260px;
+    width: ${props => (props.setType ? '100%' : '1260px')};
     margin: 0 auto;
 `
 
@@ -126,8 +122,7 @@ const AnalysisWrap: FC<RouteComponentProps> = props => {
                             ))}
                         </NavWrap>
                     )}
-
-                    <Wrap> {props.children}</Wrap>
+                    <Wrap setType={props.location!.pathname.split('/')[2] === 'student'}> {props.children}</Wrap>
                 </Container>
             </Package>
         )
