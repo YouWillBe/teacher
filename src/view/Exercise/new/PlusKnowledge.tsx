@@ -40,9 +40,8 @@ const LoreListName = styled.div<{ isLoreListId: boolean }>`
     justify-content: center;
     padding: 0 6px;
     font-size: 14px;
-    font-family: PingFangSC-Regular, PingFangSC;
+    font-family: PingFangSC-Regular, PingFangSC, sans-serif;
     font-weight: 400;
-    color: rgba(153, 153, 153, 1);
     color: ${props => (props.isLoreListId ? 'rgba(58, 147, 223, 1)' : '')};
     background-color: ${props => (props.isLoreListId ? 'rgba(223, 237, 249, 1)' : '')};
     border-right: ${props => (props.isLoreListId ? '2px solid #3c94df' : '')};
@@ -71,7 +70,7 @@ const Header = styled.div`
 
 const Name = styled.span`
     font-size: 16px;
-    font-family: PingFangSC-Light, PingFangSC;
+    font-family: PingFangSC-Light, PingFangSC, sans-serif;
     font-weight: 300;
     color: rgba(51, 51, 51, 1);
 `
@@ -84,10 +83,10 @@ const Span = styled.span<{ setStyle: boolean }>`
     display: inline-block;
     height: 36px;
     line-height: 36px;
-    box-shadow: 0px 3px 6px 0px rgba(162, 185, 240, 0.19);
+    box-shadow: 0 3px 6px 0 rgba(162, 185, 240, 0.19);
     border-radius: 4px;
     font-size: 14px;
-    font-family: PingFangSC-Light, PingFangSC;
+    font-family: PingFangSC-Light, PingFangSC, sans-serif;
     font-weight: 300;
     margin-right: 8px;
     margin-bottom: 8px;
@@ -103,7 +102,7 @@ const Span = styled.span<{ setStyle: boolean }>`
 const NoData = styled.div`
     text-align: center;
     font-size: 14px;
-    font-family: PingFangSC-Regular, PingFangSC;
+    font-family: PingFangSC-Regular, PingFangSC, sans-serif;
     font-weight: 400;
     color: rgba(153, 153, 153, 1);
 `
@@ -116,11 +115,11 @@ const Added = styled.div`
     height: 40px;
     line-height: 40px;
     font-size: 14px;
-    font-family: PingFangSC-Medium, PingFang SC;
+    font-family: PingFangSC-Medium, PingFang SC, sans-serif;
     font-weight: 500;
     color: rgba(58, 147, 223, 1);
     padding: 0 10px;
-    text-align: right;
+    text-align: center;
     margin-bottom: 10px;
 `
 
@@ -138,18 +137,18 @@ const FontWrap1 = styled.div`
     }
 `
 
-const PlusKnowledge: FC = props => {
+const PlusKnowledge: FC = () => {
     const { exerciseStore } = useContext<IStore>(MobXProviderContext)
     const [isShowKnowledge, setIsShowKnowledge] = useState(false)
     const [setFont] = useState([
         {
             id: 1,
-            icon: <FaArrowDown></FaArrowDown>,
+            icon: <FaArrowDown />,
             title: '收起',
         },
         {
             id: 2,
-            icon: <FaArrowUp></FaArrowUp>,
+            icon: <FaArrowUp />,
             title: '展开',
         },
     ])
@@ -168,13 +167,12 @@ const PlusKnowledge: FC = props => {
     //侧边导航
     const handleClickLoreListName = (id: number) => {
         exerciseStore.loreList.checkedId = id
-        let data = {
+        exerciseStore.getLoreList({
             id: id,
-        }
-        exerciseStore.getLoreList(data)
+        })
     }
 
-    //展开/收起
+    // 展开/收起
     const handleClickShow = (index: number) => {
         exerciseStore.loreList.lore[index].expanded = !exerciseStore.loreList.lore[index].expanded
     }
@@ -211,13 +209,13 @@ const PlusKnowledge: FC = props => {
         return (
             <ButtonWrap>
                 <Button title='添加知识点' options={plusOption} onClick={handleClickKnowledge}>
-                    <FaPlus></FaPlus>
+                    <FaPlus />
                 </Button>
                 {isShowKnowledge && (
                     <Dialog title='添加知识点' options={optionDialog} onClickClose={handleClickClose}>
                         <LoreListWrap>
                             <Left>
-                                {exerciseStore.loreList.loreList.map((item, index) => (
+                                {exerciseStore.loreList.loreList.map(item => (
                                     <LoreListName
                                         key={item.id}
                                         isLoreListId={exerciseStore.loreList.checkedId === item.id}
@@ -264,9 +262,9 @@ const PlusKnowledge: FC = props => {
                                 <LoreList>
                                     {exerciseStore.problemData.loreList.map((item, index) => (
                                         <LoreItem key={item.id}>
-                                            <Knowledge key={item.id} data={{ ...item, index }}></Knowledge>
+                                            <Knowledge key={item.id} data={{ ...item, index }} />
                                             <FontWrap1 onClick={() => handleClickDeletLore(index)} title='删除知识点'>
-                                                <FaMinusCircle></FaMinusCircle>
+                                                <FaMinusCircle />
                                             </FontWrap1>
                                         </LoreItem>
                                     ))}

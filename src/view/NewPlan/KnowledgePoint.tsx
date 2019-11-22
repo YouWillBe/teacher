@@ -1,12 +1,13 @@
-import React, { useState, FC, KeyboardEventHandler, ChangeEventHandler } from 'react'
+import React, { useState, FC } from 'react'
 import styled from '@emotion/styled'
 import { FaExclamationTriangle, FaTimes } from 'react-icons/fa'
+import PointSelector from '../../components/PointSelector'
 
 const Container = styled.div`
     width: 100%;
     min-height: 200px;
     background-color: #fff;
-    box-shadow: rgba(16, 36, 94, 0.4) 0px 2px 6px 0px;
+    box-shadow: rgba(16, 36, 94, 0.4) 0 2px 6px 0;
     border-radius: 6px;
     box-sizing: border-box;
     padding: 15px;
@@ -47,23 +48,27 @@ const LoreWrap = styled.div`
     align-content: flex-start;
 `
 const Lore = styled.div`
-    padding: 0px 6px 0px 12px;
+    position: relative;
+    padding: 0 26px 0 12px;
     height: 35px;
     line-height: 33px;
     border: 1px solid rgba(58, 147, 223, 1);
     border-radius: 4px;
     box-sizing: border-box;
     margin-bottom: 10px;
-    margin-right: 10px;
     font-size: 12px;
     background-color: rgba(221, 237, 241, 1);
     color: #3a93df;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 100%;
 `
 const Tag = styled.div`
-    margin-left: 6px;
+top: 50%;
+margin-top: -10px;
+  right: 6px;
+  position: absolute;
     height: 20px;
     width: 20px;
     border-radius: 50%;
@@ -73,54 +78,66 @@ const Tag = styled.div`
     justify-content: center;
     cursor: pointer;
     transition: background-color 0.1s linear;
+    flex-shrink: 0;
     &:hover {
         background-color: #fff;
     }
 `
-interface ILore {
+const Button = styled.button`
+  display: block;
+    cursor: pointer;
+    padding: 8px 12px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    background-color: #fff;
+    margin: 0 auto;
+`
+interface IPoint {
     id: number
     name: string
 }
 
 interface IProps {
-    addLore(lore: string): void
-    removeLore(id: number): void
-    loreList: ILore[]
+    selectPoint(point: IPoint): void
+    selectedPoints: IPoint[]
+    selectedPointsId: number[]
 }
 
-const KnowledgePoint: FC<IProps> = props => {
-    const [value, setValue] = useState('')
-    const handleKeyDown: KeyboardEventHandler = e => {
-        if (e.which === 13) {
-            if (!value) return
-            if (!value.trim()) {
-                setValue('')
-                return
-            }
-            props.addLore(value.trim())
-            setValue('')
-        }
+const KnowledgePoint: FC<IProps> = ({selectedPointsId, selectedPoints, selectPoint}) => {
+    const [showDialog, setShowDialog] = useState(false)
+    const handleClickAddKnowledgePoint = () => {
+        setShowDialog(true)
     }
-    const handleChange: ChangeEventHandler<HTMLInputElement> = e => {
-        setValue(e.target.value)
+    const handleCloseDialog = () => {
+        setShowDialog(false)
     }
     return (
         <Container>
-            <Input placeholder='回车添加知识点' onKeyDown={handleKeyDown} value={value} onChange={handleChange} />
-            {props.loreList.length === 0 ? (
+            {showDialog && (
+                <PointSelector
+                    selectedPoints={selectedPoints}
+                    onClose={handleCloseDialog}
+                    selectPoint={selectPoint}
+                    selectedPointsId={selectedPointsId}
+                />
+            )}
+            <Button onClick={handleClickAddKnowledgePoint}>选择知识点</Button>
+            {selectedPoints.length === 0 ? (
                 <Content>
                     <Icon>
-                        <FaExclamationTriangle></FaExclamationTriangle>
+                        <FaExclamationTriangle />
                     </Icon>
                     <Text>还没有知识点，请添加</Text>
                 </Content>
             ) : (
                 <LoreWrap>
-                    {props.loreList.map((v, i) => (
+                    {selectedPoints.map(v => (
                         <Lore key={v.id}>
                             {v.name}
-                            <Tag onClick={() => props.removeLore(i)}>
-                                <FaTimes></FaTimes>
+                            <Tag onClick={() => selectPoint(v)}>
+                                <FaTimes />
                             </Tag>
                         </Lore>
                     ))}

@@ -14,12 +14,12 @@ const MyOptionLeft = styled.div`
 `
 const MySpanName = styled.span`
     font-size: 16px;
-    font-family: PingFangSC;
+    font-family: PingFangSC, sans-serif;
     font-weight: 100;
     color: rgba(58, 147, 223, 1);
 `
 
-const OptionC: FC = props => {
+const OptionC: FC = () => {
     const { exerciseStore } = useContext<IStore>(MobXProviderContext)
 
     //选项数量
@@ -43,8 +43,8 @@ const OptionC: FC = props => {
                 <MySpanName>小题数量</MySpanName>
                 <InputNumber
                     data={{
-                        statu: exerciseStore.problemData.answerCount >= 10 ? true : false,
-                        statu2: exerciseStore.problemData.answerCount === 1 ? true : false,
+                        statu: exerciseStore.problemData.answerCount >= 10,
+                        statu2: exerciseStore.problemData.answerCount === 1,
                         len: exerciseStore.problemData.answerCount,
                     }}
                     onClickAnswerNumber={handleClickAnswerNumber}

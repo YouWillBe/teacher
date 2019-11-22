@@ -8,6 +8,7 @@ const Container = styled.div`
     top: 20px;
     right: 30px;
     width: 230px;
+    z-index: 100;
 `
 const Save = styled.div`
     height: 50px;
@@ -21,24 +22,24 @@ const Save = styled.div`
     box-shadow: rgba(16, 36, 94, 0.4) 0px 2px 6px 0px;
     color: #777;
 `
-interface ILore {
+interface IPoint {
     id: number
     name: string
 }
 interface IProps {
-    addLore(lore: string): void
-    loreList: ILore[]
-    removeLore(id: number): void
+    selectPoint(point: IPoint): void
+    selectedPoints: IPoint[]
+    selectedPointsId: number[]
     canSave: boolean
     onSave: MouseEventHandler
 }
 
-const Addon: FC<IProps> = props => {
+const Addon: FC<IProps> = ({selectPoint, selectedPoints, selectedPointsId, canSave, onSave}) => {
     return (
         <Container>
-            <KnowledgePoint addLore={props.addLore} loreList={props.loreList} removeLore={props.removeLore} />
+            <KnowledgePoint selectPoint={selectPoint} selectedPointsId={selectedPointsId} selectedPoints={selectedPoints} />
             {/* <Annex /> */}
-            {props.canSave && <Save onClick={props.onSave}>保存</Save>}
+            {canSave && <Save onClick={onSave}>保存</Save>}
         </Container>
     )
 }

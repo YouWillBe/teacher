@@ -47,7 +47,7 @@ const ProblemText = styled.div`
     border-bottom: 1px solid #c4def5;
     padding-left: 10px;
     font-size: 18px;
-    font-family: PingFangSC;
+    font-family: PingFangSC, sans-serif;
     font-weight: 500;
     color: rgba(58, 147, 223, 1);
 `
@@ -63,7 +63,7 @@ const KnowledgeWrap = styled.div`
 const TopicWrap = styled.div`
     min-height: 60px;
     font-size: 16px;
-    font-family: PingFangSC-Light;
+    font-family: PingFangSC-Light, sans-serif;
     font-weight: 300;
     color: rgba(51, 51, 51, 1);
     padding-left: 22px;
@@ -75,7 +75,7 @@ const OptionWrap = styled.div`
 const SolutionWrap = styled.div`
     padding-left: 20px;
     font-size: 14px;
-    font-family: PingFangSC;
+    font-family: PingFangSC, sans-serif;
     font-weight: 300;
     color: rgba(51, 51, 51, 1);
 `
@@ -84,7 +84,7 @@ interface Iprops {
     id: string
 }
 
-const JudgeProblem: FC<RouteComponentProps<Iprops>> = props => {
+const JudgeProblem: FC<RouteComponentProps<Iprops>> = () => {
     const { exerciseStore } = useContext<IStore>(MobXProviderContext)
 
     //题干
@@ -103,9 +103,9 @@ const JudgeProblem: FC<RouteComponentProps<Iprops>> = props => {
                 <Package>
                     <ProblemText>知识点</ProblemText>
                     <KnowledgeWrap>
-                        <PlusKnowledge></PlusKnowledge>
+                        <PlusKnowledge />
                         {exerciseStore.problemData.loreList.map((item, index) => (
-                            <Knowledge key={item.id} data={{ ...item, index }}></Knowledge>
+                            <Knowledge key={item.id} data={{ ...item, index }} />
                         ))}
                     </KnowledgeWrap>
                 </Package>
@@ -118,7 +118,7 @@ const JudgeProblem: FC<RouteComponentProps<Iprops>> = props => {
                 <Package>
                     <ProblemText>选项</ProblemText>
                     <OptionWrap>
-                        <OptionB></OptionB>
+                        <OptionB />
                     </OptionWrap>
                 </Package>
                 <Package>

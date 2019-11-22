@@ -108,7 +108,10 @@ const Line = styled.div`
     background-color: #ddd;
     margin-bottom: 8px;
 `
-
+interface IPoint {
+    id: number
+    name: string
+}
 interface IProps {
     planId: string
 }
@@ -131,6 +134,10 @@ const PlanEditor: FC<RouteComponentProps<IProps>> = props => {
     const onSave = () => {
         planStore.updatePlan()
     }
+    const handleSelectPoint = (point: IPoint) => {
+        planStore.selectPoint(point)
+        if (!canSave) setCanSave(true)
+    }
 
     return useObserver(() => {
         if (planStore.gettingPlan || !planStore.planReady || props.planId !== planStore.plan.id + '') {
@@ -139,21 +146,27 @@ const PlanEditor: FC<RouteComponentProps<IProps>> = props => {
         return (
             <Wrap>
                 <Container>
-                    <Addon onSave={onSave} canSave={canSave} />
+                    <Addon
+                        onSave={onSave}
+                        canSave={canSave}
+                        selectPoint={handleSelectPoint}
+                        selectedPoints={planStore.selectedPoints}
+                        selectedPointsId={planStore.selectedPointsId}
+                    />
                     <Handler>
                         <Back to='/plan' title='返回'>
-                            <TiArrowBackOutline></TiArrowBackOutline>
+                            <TiArrowBackOutline />
                         </Back>
                         <Tag title='预览'>
-                            <TiEye></TiEye>
+                            <TiEye />
                         </Tag>
                         <Tag title='最近的教案'>
-                            <MdHistory></MdHistory>
+                            <MdHistory />
                         </Tag>
                     </Handler>
                     <Content>
                         <Title placeholder='请输入教案标题' value={planStore.plan.title} onChange={handleTitleChange} />
-                        <Line></Line>
+                        <Line />
                         <Editor value={planStore.plan.content} onChange={onChange} />
                     </Content>
                 </Container>

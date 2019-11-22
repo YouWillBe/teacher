@@ -63,7 +63,7 @@ const MyItemWrap = styled.div`
 
 const Text = styled.span`
     font-size: 18px;
-    font-family: PingFangSC;
+    font-family: PingFangSC, sans-serif;
     font-weight: 600;
     color: rgba(51, 51, 51, 1);
     transition: color 0.1s linear;
@@ -120,12 +120,12 @@ const ExerciseIndex: FC<RouteComponentProps> = props => {
                     ))}
                 </MyItemWrap>
             </RouteWrap>
-            <Container myheight={props.location!.pathname === '/exercise/new' ? true : false}>
+            <Container myheight={props.location!.pathname === '/exercise/new'}>
                 <RouterWrap>
-                    <Exercise path='/'></Exercise>
-                    <NetExercise path='net'></NetExercise>
-                    <NewExercise path='new'></NewExercise>
-                    <NewExercise path=':id'></NewExercise>
+                    <Exercise path='/' />
+                    <NetExercise path='net' />
+                    <NewExercise path='new' />
+                    <NewExercise path=':id' />
                 </RouterWrap>
             </Container>
         </>

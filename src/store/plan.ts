@@ -28,6 +28,10 @@ export interface IPlanStore {
     createLore(value: string): Promise<void>
     removeLore(index: number, id: number): Promise<void>
     addLore(data: { name: string }, current: ILore[], callback: any): Promise<void>
+
+    selectedPoints: ILore[]
+    selectedPointsId: number[]
+    selectPoint(point: ILore): void
 }
 interface IPlan {
     id: number
@@ -52,6 +56,9 @@ interface IPageInfo {
 }
 
 class PlanStore implements IPlanStore {
+    @observable selectedPoints: ILore[] = []
+    @observable selectedPointsId: number[] = []
+
     @observable planListReady = false
     @observable gettingPlanList = false
     @observable planReady = false
@@ -69,7 +76,15 @@ class PlanStore implements IPlanStore {
         loreList: [],
         content: Value.fromJSON({}),
     }
+    @action selectPoint = (point: ILore) => {
+        this.selectedPointsId = this.selectedPointsId.includes(point.id)
+            ? this.selectedPointsId.filter(x => x !== point.id)
+            : append(point.id, this.selectedPointsId)
 
+        this.selectedPoints = this.selectedPoints.includes(point)
+            ? this.selectedPoints.filter(x => x.id !== point.id)
+            : append(point, this.selectedPoints)
+    }
     @action async getPlanList(page: number) {
         this.gettingPlanList = true
         try {
@@ -107,6 +122,7 @@ class PlanStore implements IPlanStore {
                 id: this.plan.id,
                 title: this.plan.title,
                 content: JSON.stringify(this.plan.content.toJS()),
+                loreList: this.selectedPointsId
             })
         } catch (error) {}
     }
@@ -117,6 +133,8 @@ class PlanStore implements IPlanStore {
                 const res = await api.plan.getPlan(id)
                 if (res.success) {
                     this.plan = { ...res.data, content: Value.fromJSON(JSON.parse(res.data.content)) }
+                    this.selectedPoints = res.data.loreList
+                    this.selectedPointsId = res.data.loreList.map((v: any) => v.id)
                     this.gettingPlan = false
                     this.planReady = true
                 }

@@ -3,7 +3,7 @@ import { MobXProviderContext } from 'mobx-react'
 import styled from '@emotion/styled'
 import { Link, RouteComponentProps } from '@reach/router'
 import { Value } from 'slate'
-import { remove } from 'ramda'
+import { append, remove } from 'ramda'
 import { FaReply, FaRegEye, FaHistory } from 'react-icons/fa'
 
 import { IStore } from '../../store'
@@ -104,7 +104,14 @@ const Line = styled.div`
     margin-bottom: 8px;
 `
 
+interface IPoint {
+    id: number
+    name: string
+}
+
 const NewPlan: FC<RouteComponentProps> = () => {
+    const [selectedPoints, setSelectedPoints] = useState<IPoint[]>([])
+    const [selectedPointsId, setSelectedPointsId] = useState<number[]>([])
     const { planStore } = useContext<IStore>(MobXProviderContext)
     const [canSave, setCanSave] = useState(false)
     const [value, setValue] = useState(
@@ -126,7 +133,6 @@ const NewPlan: FC<RouteComponentProps> = () => {
         })
     )
     const [title, setTitle] = useState('')
-    const [loreList, setLoreList] = useState<{ id: number; name: string }[]>([])
     const handleTitleChange: ChangeEventHandler<HTMLInputElement> = e => {
         setTitle(e.target.value)
         if (!canSave) setCanSave(true)
@@ -138,23 +144,23 @@ const NewPlan: FC<RouteComponentProps> = () => {
     const onSave = () => {
         const data = {
             title: title,
-            loreListId: loreList.map(v => v.id),
+            loreListId: selectedPoints.map(v => v.id),
             content: JSON.stringify(value.toJS()),
             attachmentPOList: [],
         }
         planStore.createPlan(data)
     }
-    const handleAddLore = (value: string) => {
-        planStore.addLore(
-            {
-                name: value,
-            },
-            loreList,
-            setLoreList
+    const handleSelectPoint = (point: IPoint) => {
+        if (!canSave) setCanSave(true)
+        setSelectedPointsId(
+            selectedPointsId.includes(point.id) ? selectedPointsId.filter(x => x !== point.id) :
+                append(point.id, selectedPointsId)
         )
-    }
-    const removeLore = (index: number) => {
-        setLoreList(remove(index, 1, loreList))
+        setSelectedPoints(
+            selectedPoints.includes(point)
+                ? selectedPoints.filter(x => x.id !== point.id)
+                : append(point, selectedPoints)
+        )
     }
     return (
         <Wrap>
@@ -162,9 +168,9 @@ const NewPlan: FC<RouteComponentProps> = () => {
                 <Addon
                     onSave={onSave}
                     canSave={canSave}
-                    addLore={handleAddLore}
-                    loreList={loreList}
-                    removeLore={removeLore}
+                    selectPoint={handleSelectPoint}
+                    selectedPoints={selectedPoints}
+                    selectedPointsId={selectedPointsId}
                 />
                 <Handler>
                     <Back to='/plan' title='返回'>
@@ -179,7 +185,7 @@ const NewPlan: FC<RouteComponentProps> = () => {
                 </Handler>
                 <Content>
                     <Title placeholder='请输入教案标题' value={title} onChange={handleTitleChange} />
-                    <Line></Line>
+                    <Line />
                     <Editor value={value} onChange={onChange} />
                 </Content>
             </Container>

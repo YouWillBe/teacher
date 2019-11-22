@@ -1,16 +1,13 @@
-import React, { useState, FC, KeyboardEventHandler, ChangeEventHandler, useContext } from 'react'
+import React, { useState, FC } from 'react'
 import styled from '@emotion/styled'
-import { MobXProviderContext } from 'mobx-react'
-import { useObserver } from 'mobx-react-lite'
 import { FaExclamationTriangle, FaTimes } from 'react-icons/fa'
-
-import { IStore } from '../../store'
+import PointSelector from '../../components/PointSelector'
 
 const Container = styled.div`
     width: 100%;
     min-height: 200px;
     background-color: #fff;
-    box-shadow: rgba(16, 36, 94, 0.4) 0px 2px 6px 0px;
+    box-shadow: rgba(16, 36, 94, 0.4) 0 2px 6px 0;
     border-radius: 6px;
     box-sizing: border-box;
     padding: 15px;
@@ -51,30 +48,27 @@ const LoreWrap = styled.div`
     align-content: flex-start;
 `
 const Lore = styled.div`
-    display: flex;
-    align-items: center;
-    padding: 0px 6px 0px 12px;
+    position: relative;
+    padding: 0 26px 0 12px;
     height: 35px;
     line-height: 33px;
     border: 1px solid rgba(58, 147, 223, 1);
     border-radius: 4px;
     box-sizing: border-box;
     margin-bottom: 10px;
-    margin-right: 10px;
     font-size: 12px;
     background-color: rgba(221, 237, 241, 1);
     color: #3a93df;
-    max-width: 100%;
-`
-const LoreText = styled.div`
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    flex-grow: 1;
+    max-width: 100%;
 `
 const Tag = styled.div`
-    flex-shrink: 0;
-    margin-left: 6px;
+top: 50%;
+margin-top: -10px;
+  right: 6px;
+  position: absolute;
     height: 20px;
     width: 20px;
     border-radius: 50%;
@@ -84,51 +78,73 @@ const Tag = styled.div`
     justify-content: center;
     cursor: pointer;
     transition: background-color 0.1s linear;
+    flex-shrink: 0;
     &:hover {
         background-color: #fff;
     }
 `
+const Button = styled.button`
+  display: block;
+    cursor: pointer;
+    padding: 8px 12px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    background-color: #fff;
+    margin: 0 auto;
+`
+interface IPoint {
+    id: number
+    name: string
+}
 
-const KnowledgePoint: FC = () => {
-    const { planStore } = useContext<IStore>(MobXProviderContext)
-    const [value, setValue] = useState('')
-    const handleKeyDown: KeyboardEventHandler = e => {
-        if (e.which === 13) {
-            if (!value) return
-            planStore.createLore(value)
-            setValue('')
-        }
+interface IProps {
+    selectPoint(point: IPoint): void
+    selectedPoints: IPoint[]
+    selectedPointsId: number[]
+}
+
+const KnowledgePoint: FC<IProps> = ({selectedPointsId, selectedPoints, selectPoint}) => {
+    const [showDialog, setShowDialog] = useState(false)
+    const handleClickAddKnowledgePoint = () => {
+        setShowDialog(true)
     }
-    const handleChange: ChangeEventHandler<HTMLInputElement> = e => {
-        setValue(e.target.value)
+    const handleCloseDialog = () => {
+        setShowDialog(false)
     }
-    const handleRemove = (index: number, id: number) => {
-        planStore.removeLore(index, id)
-    }
-    return useObserver(() => (
+    return (
         <Container>
-            <Input placeholder='回车添加知识点' onKeyDown={handleKeyDown} value={value} onChange={handleChange} />
-            {planStore.plan.loreList.length === 0 ? (
+            {showDialog && (
+                <PointSelector
+                    selectedPoints={selectedPoints}
+                    onClose={handleCloseDialog}
+                    selectPoint={selectPoint}
+                    selectedPointsId={selectedPointsId}
+                />
+            )}
+            <Button onClick={handleClickAddKnowledgePoint}>选择知识点</Button>
+            {selectedPoints.length === 0 ? (
                 <Content>
                     <Icon>
-                        <FaExclamationTriangle></FaExclamationTriangle>
+                        <FaExclamationTriangle />
                     </Icon>
                     <Text>还没有知识点，请添加</Text>
                 </Content>
             ) : (
                 <LoreWrap>
-                    {planStore.plan.loreList.map((v, i) => (
+                    {selectedPoints.map(v => (
                         <Lore key={v.id}>
-                            <LoreText title={v.name}>{v.name}</LoreText>
-                            <Tag onClick={() => handleRemove(i, v.id)}>
-                                <FaTimes></FaTimes>
+                            {v.name}
+                            <Tag onClick={() => selectPoint(v)}>
+                                <FaTimes />
                             </Tag>
                         </Lore>
                     ))}
                 </LoreWrap>
             )}
         </Container>
-    ))
+    )
 }
 
 export default KnowledgePoint

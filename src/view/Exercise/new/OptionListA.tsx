@@ -10,21 +10,21 @@ import Editor from '../../../components/EditorX'
 const MyTopicTEditor = styled.div`
     min-height: 60px;
     font-size: 16px;
-    font-family: PingFangSC;
+    font-family: PingFangSC, sans-serif;
     font-weight: 300;
     color: rgba(51, 51, 51, 1);
     padding-left: 22px;
     flex-grow: 1;
 `
 
-interface Iprops {
+interface IProps {
     data: {
         value: Value
         index: number
     }
 }
 
-const OptionListA: FC<Iprops> = props => {
+const OptionListA: FC<IProps> = props => {
     const { exerciseStore } = useContext<IStore>(MobXProviderContext)
 
     const handleChangeOption = (value: Value) => {
@@ -34,7 +34,7 @@ const OptionListA: FC<Iprops> = props => {
     return useObserver(() => {
         return (
             <MyTopicTEditor>
-                <Editor value={Value.fromJSON(props.data.value)} onChange={handleChangeOption}></Editor>
+                <Editor value={Value.fromJSON(props.data.value)} onChange={handleChangeOption} />
             </MyTopicTEditor>
         )
     })

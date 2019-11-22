@@ -15,7 +15,6 @@ const AnswerItem = styled.div`
     border-radius: 4px;
     margin-top: 8px;
     margin-bottom: 8px;
-    border-radius: 4px;
     font-size: 14px;
     display: flex;
     justify-content: flex-start;
@@ -38,7 +37,7 @@ const RichTextWrap = styled.div`
     min-height: 60px;
     padding: 8px 8px 8px 20px;
     font-size: 14px;
-    font-family: PingFangSC-Light;
+    font-family: PingFangSC-Light, sans-serif;
     font-weight: 300;
     color: rgba(51, 51, 51, 1);
 `

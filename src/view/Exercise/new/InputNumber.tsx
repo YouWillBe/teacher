@@ -63,14 +63,14 @@ const NumberInput: FC<Iprops> = props => {
                     title='加一题'
                     isNumberState={props.data.statu}
                 >
-                    <FaCaretUp></FaCaretUp>
+                    <FaCaretUp />
                 </MyCaret1>
                 <MyCaret2
                     onClick={() => props.onClickAnswerNumber('减', props.data.len)}
                     title='减一题'
                     isNumberState={props.data.statu2}
                 >
-                    <FaCaretDown></FaCaretDown>
+                    <FaCaretDown />
                 </MyCaret2>
             </MyCaretWrap>
         </MyNumberInput>

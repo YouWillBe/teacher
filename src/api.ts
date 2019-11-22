@@ -207,6 +207,10 @@ const analysis = {
     getTeacherTeams: () => request.get('/teachers/teams'),
     getTeacherTotalAnalysis: (data: any) => request.get('/tests/total-analysis/class', data),
 }
+const point = {
+    getPoints: (data?: any) => request.get('/lore-list', data),
+    getTags: () => request.get('/target-list')
+}
 
 export default {
     auth,
@@ -219,4 +223,5 @@ export default {
     course,
     lore,
     analysis,
+    point,
 }

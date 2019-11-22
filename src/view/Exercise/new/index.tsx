@@ -35,7 +35,7 @@ const FunctF = styled.div`
     align-items: center;
     height: 40px;
     font-size: 18px;
-    font-family: PingFangSC;
+    font-family: PingFangSC, sans-serif;
     font-weight: 400;
     color: rgba(255, 255, 255, 1);
     background-color: rgba(58, 147, 223, 1);
@@ -245,13 +245,16 @@ const NetExercise: FC<RouteComponentProps<Iprops>> = props => {
             <Container>
                 <FunctWrap>
                     <PreviewItem onClick={() => handleClickFunct('1')}>
-                        <TiEye></TiEye>预览
+                        <TiEye />
+                        预览
                     </PreviewItem>
                     <ListItem onClick={() => handleClickFunct('2')}>
-                        <TiArrowBackOutline></TiArrowBackOutline>返回题目列表
+                        <TiArrowBackOutline />
+                        返回题目列表
                     </ListItem>
                     <SaveItem onClick={() => handleClickFunct('3')}>
-                        <MdSave></MdSave>保存
+                        <MdSave />
+                        保存
                     </SaveItem>
                 </FunctWrap>
                 {!props.id && (
@@ -262,18 +265,18 @@ const NetExercise: FC<RouteComponentProps<Iprops>> = props => {
                                 currentType,
                             }}
                             onClickType={handleClickTypeLink}
-                        ></TopicType>
+                        />
                     </TypeWrap>
                 )}
-                {exerciseStore.problemData.type === 1 && <ChoiceProblem></ChoiceProblem>}
-                {exerciseStore.problemData.type === 2 && <ChoiceProblem></ChoiceProblem>}
-                {exerciseStore.problemData.type === 3 && <JudgeProblem></JudgeProblem>}
-                {exerciseStore.problemData.type === 4 && <FillingProblem></FillingProblem>}
-                {exerciseStore.problemData.type === 5 && <ShortAnswerProblem></ShortAnswerProblem>}
+                {exerciseStore.problemData.type === 1 && <ChoiceProblem />}
+                {exerciseStore.problemData.type === 2 && <ChoiceProblem />}
+                {exerciseStore.problemData.type === 3 && <JudgeProblem />}
+                {exerciseStore.problemData.type === 4 && <FillingProblem />}
+                {exerciseStore.problemData.type === 5 && <ShortAnswerProblem />}
                 {isPreview && (
                     <Dialog title='题目预览' options={optionDialog} onClickClose={handlePreview}>
                         <PreviewWrap>
-                            <Preview data={exerciseStore.problemData}></Preview>
+                            <Preview data={exerciseStore.problemData} />
                         </PreviewWrap>
                     </Dialog>
                 )}

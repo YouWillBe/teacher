@@ -20,7 +20,7 @@ const MyOptionLeft = styled.div`
 `
 const MySpanName = styled.span`
     font-size: 16px;
-    font-family: PingFangSC;
+    font-family: PingFangSC, sans-serif;
     font-weight: 100;
     color: rgba(58, 147, 223, 1);
 `
@@ -53,7 +53,7 @@ interface ICurrentAnswer {
     name: string
 }
 
-const OptionA: FC = props => {
+const OptionA: FC = () => {
     const { exerciseStore } = useContext<IStore>(MobXProviderContext)
     const [answerOption] = useState(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'])
 
@@ -120,8 +120,8 @@ const OptionA: FC = props => {
                     <MySpanName>选项数量</MySpanName>
                     <InputNumber
                         data={{
-                            statu: exerciseStore.problemData.option.length >= 10 ? true : false,
-                            statu2: exerciseStore.problemData.option.length === 1 ? true : false,
+                            statu: exerciseStore.problemData.option.length >= 10,
+                            statu2: exerciseStore.problemData.option.length === 1,
                             len: exerciseStore.problemData.option.length,
                         }}
                         onClickAnswerNumber={handleClickAnswerNumber}

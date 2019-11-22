@@ -14,13 +14,13 @@ const MyOptionWrap = styled.div`
 
 const MySpanName = styled.span`
     font-size: 16px;
-    font-family: PingFangSC-Thin;
+    font-family: PingFangSC-Thin, sans-serif;
     font-weight: 100;
 `
 const MyAnswerOption = styled.div`
     margin-left: 30px;
 `
-const MyAnswerOptionName = styled.span<{ isStatu: boolean }>`
+const MyAnswerOptionName = styled.span<{ isStatus: boolean }>`
     display: inline-block;
     width: 40px;
     height: 40px;
@@ -31,15 +31,15 @@ const MyAnswerOptionName = styled.span<{ isStatu: boolean }>`
     font-size: 20px;
     margin-right: 10px;
     cursor: pointer;
-    background-color: ${props => (props.isStatu ? '#3A93DF' : '#fff')};
-    color: ${props => (props.isStatu ? '#fff' : '#333')};
+    background-color: ${props => (props.isStatus ? '#3A93DF' : '#fff')};
+    color: ${props => (props.isStatus ? '#fff' : '#333')};
     user-select: none;
     svg {
         font-size: 20px;
     }
 `
 
-const OptionB: FC = props => {
+const OptionB: FC = () => {
     const { exerciseStore } = useContext<IStore>(MobXProviderContext)
 
     //答案
@@ -53,16 +53,16 @@ const OptionB: FC = props => {
                 <MySpanName>正确选项</MySpanName>
                 <MyAnswerOption>
                     <MyAnswerOptionName
-                        isStatu={exerciseStore.problemData.answer === '1'}
+                        isStatus={exerciseStore.problemData.answer === '1'}
                         onClick={() => handleClickJudgeOption('1')}
                     >
-                        <FaCheck></FaCheck>
+                        <FaCheck />
                     </MyAnswerOptionName>
                     <MyAnswerOptionName
-                        isStatu={exerciseStore.problemData.answer === '0'}
+                        isStatus={exerciseStore.problemData.answer === '0'}
                         onClick={() => handleClickJudgeOption('0')}
                     >
-                        <FaTimes></FaTimes>
+                        <FaTimes />
                     </MyAnswerOptionName>
                 </MyAnswerOption>
             </MyOptionWrap>

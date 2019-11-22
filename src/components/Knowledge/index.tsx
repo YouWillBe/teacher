@@ -12,7 +12,7 @@ const Text = styled.span`
     border-radius: 4px;
     border: 1px solid rgba(58, 147, 223, 1);
     font-size: 12px;
-    font-family: PingFangSC;
+    font-family: PingFangSC,sans-serif;
     font-weight: 300;
     color: rgba(58, 147, 223, 1);
     padding: 0 10px;

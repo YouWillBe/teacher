@@ -58,7 +58,7 @@ const FontWrap = styled.div`
 
 const MyTitle = styled.span`
     font-size: 18px;
-    font-family: PingFangSC-Semibold;
+    font-family: PingFangSC-Semibold, sans-serif;
     font-weight: 500;
     color: rgba(51, 51, 51, 1);
 `
@@ -103,17 +103,13 @@ const Dialog: FC<IDialog> = props => {
         }
     }
 
-    const handleClickClose2 = () => {
-        props.onClickClose()
-    }
-
     return (
         <Container ref={ref} onClick={handleClickClose}>
             <MyWrap {...props.options}>
                 <MyHeader borderBottom={props.options.borderBottom}>
                     <MyTitle>{props.title}</MyTitle>
-                    <FontWrap onClick={handleClickClose2}>
-                        <FaTimes title='关闭'></FaTimes>
+                    <FontWrap onClick={() => props.onClickClose()}>
+                        <FaTimes title='关闭' />
                     </FontWrap>
                 </MyHeader>
                 <MySection>{props.children}</MySection>
