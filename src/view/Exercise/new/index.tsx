@@ -193,7 +193,7 @@ const NetExercise: FC<RouteComponentProps<Iprops>> = props => {
                 option: '',
                 answer: exerciseStore.problemData.answer,
                 solution: JSON.stringify(exerciseStore.problemData.solution),
-                loreIdList: exerciseStore.loreListId,
+                loreIdList: exerciseStore.selectedPointsId,
                 answerCount: exerciseStore.problemData.answerCount,
                 type: exerciseStore.problemData.type,
             }

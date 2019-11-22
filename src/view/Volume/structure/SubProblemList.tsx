@@ -17,7 +17,7 @@ const ProblemListWrap = styled.div`
     box-sizing: border-box;
     width: 100%;
     min-height: 200px;
-    max-height: 400px;
+    max-height: 380px;
     box-shadow: 0px 2px 4px 0px rgba(157, 228, 255, 0.4);
     border-radius: 10px;
     padding: 10px;

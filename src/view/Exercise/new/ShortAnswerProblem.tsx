@@ -124,7 +124,7 @@ const ShortAnswerProblem: FC<RouteComponentProps<Iprops>> = () => {
                     <ProblemText>知识点</ProblemText>
                     <KnowledgeWrap>
                         <PlusKnowledge />
-                        {exerciseStore.problemData.loreList.map((item, index) => (
+                        {exerciseStore.selectedPoints.map((item, index) => (
                             <Knowledge key={item.id} data={{ ...item, index }} />
                         ))}
                     </KnowledgeWrap>

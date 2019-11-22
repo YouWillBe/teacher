@@ -51,8 +51,7 @@ const Input = styled.input`
 `
 
 const ButtonWrap = styled.div`
-    margin-top: 30px;
-    height: 60px;
+    margin-top: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -111,8 +110,17 @@ function PreviewList(props: IProps) {
             totalScore: props.totalScore().totalScore,
             totalProblem: props.totalScore().totalNumber,
         }
-        volumeStore.updateVolumeOutline(data)
-        props.onClickClose()
+        let problemArr = [
+            data.choiceProblems,
+            data.checkboxProblems,
+            data.judgeProblems,
+            data.fillingProblems,
+            data.shortAnswerProblems,
+        ]
+        if (problemArr.some(item => item.length > 0)) {
+            volumeStore.updateVolumeOutline(data)
+            props.onClickClose()
+        }
     }
 
     const optionBotton = {

@@ -70,7 +70,27 @@ const SeeHeaderB: FC<RouteComponentProps<IProps>> = props => {
             number: 1,
             type: data.typeName,
         }
-        courseIndexStore.getTestProblemEntering(courseIndexStore.studentVolume.id)
+
+        if ((courseIndexStore.studentVolume as any)[data.typeName][0]) {
+            courseIndexStore.getStudentTestProblem({
+                id: (courseIndexStore.studentVolume as any)[data.typeName][0].id,
+                testId: courseIndexStore.studentVolume.id,
+            })
+        } else {
+            courseIndexStore.getStudentTestProblem({
+                id: courseIndexStore.studentVolume.key.id,
+                testId: courseIndexStore.studentVolume.id,
+            })
+        }
+        // this.getStudentTestProblem({
+        //     id: res.data.studentVolume.key.id,
+        //     testId: res.data.studentVolume.id,
+        // })
+        // courseIndexStore.getStudentTestProblem({
+        //     id: courseIndexStore.studentVolume.id,
+        //     testId: res.data.studentVolume.id,
+        // })
+        // courseIndexStore.getTestProblemEntering(courseIndexStore.studentVolume.id)
     }
 
     return useObserver(() => {

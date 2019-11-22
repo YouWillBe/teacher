@@ -119,7 +119,6 @@ const VolumeView: FC = () => {
     }
 
     return useObserver(() => {
-        console.log(courseTaskStore.task)
         return (
             <>
                 <TypeArr

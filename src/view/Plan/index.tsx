@@ -7,6 +7,7 @@ import { FaPlus } from 'react-icons/fa'
 
 import { IStore } from '../../store'
 import Loading from '../../components/Loading'
+import Paging from '../../components/Paging'
 import PlanCard from './PlanCard'
 import image from './blank.png'
 
@@ -98,6 +99,9 @@ const Line = styled.div`
     background-color: #ddd;
     margin-top: 10px;
 `
+const PagingWrap = styled.div`
+    margin-top: 20px;
+`
 
 const Plan: FC<RouteComponentProps> = () => {
     const { planStore } = useContext<IStore>(MobXProviderContext)
@@ -105,6 +109,12 @@ const Plan: FC<RouteComponentProps> = () => {
         planStore.getPlanList(1)
         // eslint-disable-next-line
     }, [])
+
+    //分页
+    const handleChangePaging = (value: number) => {
+        planStore.getPlanList(value)
+    }
+
     return useObserver(() => {
         if (!planStore.planListReady) {
             return <Loading />
@@ -134,6 +144,15 @@ const Plan: FC<RouteComponentProps> = () => {
                         <PlanCard data={v} key={i} deletePlan={id => planStore.deletePlan(id)} />
                     ))}
                 </Container>
+                {planStore.pageInfo.total > 8 && (
+                    <PagingWrap>
+                        <Paging
+                            onChange={handleChangePaging}
+                            current={planStore.pageInfo.page}
+                            total={Math.ceil(planStore.pageInfo.total / planStore.pageInfo.limit)}
+                        ></Paging>
+                    </PagingWrap>
+                )}
             </Wrap>
         )
     })

@@ -1,6 +1,7 @@
 import { observable, action } from 'mobx'
 import { navigate } from '@reach/router'
 import { Value } from 'slate'
+import { append } from 'ramda'
 
 import api from '../api'
 import Toast from '../components/Toast'
@@ -169,7 +170,7 @@ interface IUpdateVolumeOutline {
 interface ILore {
     id: number
     name: string
-    parentId: number
+    parentId?: number
 }
 
 interface ILore1 {
@@ -186,6 +187,10 @@ interface ILoreList1 {
 }
 
 export interface IVolumeStore {
+    selectedPoints: ILore[]
+    selectedPointsId: number[]
+    selectPoint(point: ILore): void
+
     currentType: {
         id: number
         name: string
@@ -284,6 +289,9 @@ let values = Value.fromJSON({
 })
 class VolumeStore implements IVolumeStore {
     @observable currentType = { id: 1, name: 'choiceProblems', number: 1 }
+
+    @observable selectedPoints: ILore[] = []
+    @observable selectedPointsId: number[] = []
 
     @observable volumeListReady = false
     @observable gettingVolumeList = false
@@ -419,13 +427,23 @@ class VolumeStore implements IVolumeStore {
 
     @observable loreListId: number[] = []
 
+    @action selectPoint = (point: ILore) => {
+        this.selectedPointsId = this.selectedPointsId.includes(point.id)
+            ? this.selectedPointsId.filter(x => x !== point.id)
+            : append(point.id, this.selectedPointsId)
+
+        this.selectedPoints = this.selectedPoints.includes(point)
+            ? this.selectedPoints.filter(x => x.id !== point.id)
+            : append(point, this.selectedPoints)
+    }
+
     //试卷列表
     @action async getVolumeList(page: number) {
         this.gettingVolumeList = true
         try {
             const res = await api.volume.getVolumeList({
                 page: page,
-                limit: 7,
+                limit: 8,
             })
             if (res.success) {
                 this.volumeList = res.data
@@ -543,6 +561,7 @@ class VolumeStore implements IVolumeStore {
         try {
             const res = await api.volume.createVolume(data)
             if (res.success) {
+                Toast.success('创建空白模板完成')
                 navigate(`/see/volume/${res.data}`)
             }
         } catch (error) {}
@@ -607,61 +626,63 @@ class VolumeStore implements IVolumeStore {
     //查询试卷详情题目
     @action async getVolumeProblem(id: number) {
         this.gettingVolumeProblem = true
-        try {
-            const res = await api.volume.getVolumeProblem(id)
-            if (res.success) {
-                let type = [4, 5]
-                let answerOption = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
-                res.data.type = res.data.problemType
-                if (res.data.option) {
-                    res.data.option = JSON.parse(res.data.option)
-                    if (res.data.problemType === 1) {
-                        let answer = res.data.answer
-                        res.data.option.map((item: any, index: number) => {
-                            item.statu = false
-                            if (answer === answerOption[index]) {
+        this.selectedPoints = []
+        this.selectedPointsId = []
+        const res = await api.volume.getVolumeProblem(id)
+        if (res.success) {
+            let type = [4, 5]
+            let answerOption = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+            res.data.type = res.data.problemType
+            this.selectedPoints = res.data.loreList
+            this.selectedPointsId = res.data.loreList.map((v: any) => v.id)
+            if (res.data.option) {
+                res.data.option = JSON.parse(res.data.option)
+                if (res.data.problemType === 1) {
+                    let answer = res.data.answer
+                    res.data.option.map((item: any, index: number) => {
+                        item.statu = false
+                        if (answer === answerOption[index]) {
+                            item.statu = true
+                        }
+
+                        return item
+                    })
+                } else if (res.data.problemType === 2) {
+                    let answer = res.data.answer.split(',')
+                    res.data.option.map((item: ICurrentAnswer, index: number) => {
+                        item.statu = false
+                        answer.map((t: string) => {
+                            if (answerOption[index] === t) {
                                 item.statu = true
                             }
-
-                            return item
+                            return t
                         })
-                    } else if (res.data.problemType === 2) {
-                        let answer = res.data.answer.split(',')
-                        res.data.option.map((item: ICurrentAnswer, index: number) => {
-                            item.statu = false
-                            answer.map((t: string) => {
-                                if (answerOption[index] === t) {
-                                    item.statu = true
-                                }
-                                return t
-                            })
-                            return item
-                        })
-                    }
-                }
-                if (res.data.topic) {
-                    res.data.topic = JSON.parse(res.data.topic)
-                }
-                if (res.data.solution) {
-                    res.data.solution = JSON.parse(res.data.solution)
-                }
-                if (type.includes(res.data.problemType)) {
-                    if (res.data.answer !== '') {
-                        res.data.answer = JSON.parse(res.data.answer)
-                    } else {
-                        res.data.answer = values
-                    }
-                }
-                if (res.data.loreList) {
-                    this.loreListId = res.data.loreList.map((item: { id: number; name: string }) => {
-                        return item.id
+                        return item
                     })
                 }
-                this.volumeProblem = res.data
-                this.volumeProblemReady = true
-                this.gettingVolumeProblem = false
             }
-        } catch (error) {}
+            if (res.data.topic) {
+                res.data.topic = JSON.parse(res.data.topic)
+            }
+            if (res.data.solution) {
+                res.data.solution = JSON.parse(res.data.solution)
+            }
+            if (type.includes(res.data.problemType)) {
+                if (res.data.answer !== '') {
+                    res.data.answer = JSON.parse(res.data.answer)
+                } else {
+                    res.data.answer = values
+                }
+            }
+            if (res.data.loreList) {
+                this.loreListId = res.data.loreList.map((item: { id: number; name: string }) => {
+                    return item.id
+                })
+            }
+            this.volumeProblem = res.data
+            this.volumeProblemReady = true
+            this.gettingVolumeProblem = false
+        }
     }
 
     //修改试卷详情题目
@@ -741,61 +762,69 @@ class VolumeStore implements IVolumeStore {
     //修改结构列表
     @action async updateVolumeOutline(data: IUpdateVolumeOutline) {
         this.gettingVolumeOutline = true
-        try {
-            const res = await api.volume.updateVolumeOutline({
-                deleteList: data.deleteList,
-                id: data.id,
-                totalScore: data.totalScore,
-                totalProblem: data.totalProblem,
-                checkboxProblems: data.checkboxProblems,
-                choiceProblems: data.choiceProblems,
-                fillingProblems: data.fillingProblems,
-                judgeProblems: data.judgeProblems,
-                shortAnswerProblems: data.shortAnswerProblems,
-            })
-            if (res.success) {
-                this.volumeDetailList = res.data
-                let sessionCurrentType = sessionStorage.getItem('sessionCurrentType')
-                let typeArr = [
-                    'choiceProblems',
-                    'checkboxProblems',
-                    'judgeProblems',
-                    'fillingProblems',
-                    'shortAnswerProblems',
-                ]
-                if (res.data.problemTypeIsExit.length === 5) {
-                    if (sessionCurrentType) {
-                        let data = JSON.parse(sessionCurrentType)
-                        this.getVolumeProblem(res.data[data.name][data.number - 1].id)
-                    } else {
-                        this.getVolumeProblem(res.data[typeArr[res.data.problemTypeIsExit[0].type - 1]][0].id)
-                    }
-                } else if (sessionCurrentType) {
+        const res = await api.volume.updateVolumeOutline({
+            deleteList: data.deleteList,
+            id: data.id,
+            totalScore: data.totalScore,
+            totalProblem: data.totalProblem,
+            checkboxProblems: data.checkboxProblems,
+            choiceProblems: data.choiceProblems,
+            fillingProblems: data.fillingProblems,
+            judgeProblems: data.judgeProblems,
+            shortAnswerProblems: data.shortAnswerProblems,
+        })
+        if (res.success) {
+            Toast.success('修改结构成功')
+            this.volumeDetailList = res.data
+            let sessionCurrentType = sessionStorage.getItem('sessionCurrentType')
+            let typeArr = [
+                'choiceProblems',
+                'checkboxProblems',
+                'judgeProblems',
+                'fillingProblems',
+                'shortAnswerProblems',
+            ]
+            if (res.data.problemTypeIsExit.length === 5) {
+                if (sessionCurrentType) {
                     let data = JSON.parse(sessionCurrentType)
-                    if (res.data[data.name][0]) {
-                        this.getVolumeProblem(res.data[data.name][0].id)
+                    if (res.data[data.name].length < data.number) {
+                        this.getVolumeProblem(res.data[data.name][res.data[data.name].length - 1].id)
+                        this.currentType = {
+                            ...data,
+                            number: res.data[data.name][res.data[data.name].length - 1].number,
+                        }
                         sessionStorage.setItem(
                             'sessionCurrentType',
                             JSON.stringify({
                                 ...data,
-                                number: 1,
+                                number: res.data[data.name][res.data[data.name].length - 1].number,
                             })
                         )
                     } else {
-                        this.volumeProblem = {
-                            answer: '',
-                            fraction: 0,
-                            id: 0,
-                            type: 0,
-                            number: 0,
-                            loreList: [],
-                            solution: '',
-                            topic: '',
-                            volumeId: res.data.id,
-                        }
+                        this.getVolumeProblem(res.data[data.name][data.number - 1].id)
                     }
-                } else if (res.data.choiceProblems.length) {
-                    this.getVolumeProblem(res.data.choiceProblems[0].id)
+                } else {
+                    this.getVolumeProblem(res.data[typeArr[res.data.problemTypeIsExit[0].type - 1]][0].id)
+                }
+            } else if (sessionCurrentType) {
+                let data = JSON.parse(sessionCurrentType)
+                if (res.data[data.name].length > 0) {
+                    if (res.data[data.name].length < data.number) {
+                        this.getVolumeProblem(res.data[data.name][res.data[data.name].length - 1].id)
+                        this.currentType = {
+                            ...data,
+                            number: res.data[data.name][res.data[data.name].length - 1].number,
+                        }
+                        sessionStorage.setItem(
+                            'sessionCurrentType',
+                            JSON.stringify({
+                                ...data,
+                                number: res.data[data.name][res.data[data.name].length - 1].number,
+                            })
+                        )
+                    } else {
+                        this.getVolumeProblem(res.data[data.name][data.number - 1].id)
+                    }
                 } else {
                     this.volumeProblem = {
                         answer: '',
@@ -809,8 +838,22 @@ class VolumeStore implements IVolumeStore {
                         volumeId: res.data.id,
                     }
                 }
+            } else if (res.data.choiceProblems.length) {
+                this.getVolumeProblem(res.data.choiceProblems[0].id)
+            } else {
+                this.volumeProblem = {
+                    answer: '',
+                    fraction: 0,
+                    id: 0,
+                    type: 0,
+                    number: 0,
+                    loreList: [],
+                    solution: '',
+                    topic: '',
+                    volumeId: res.data.id,
+                }
             }
-        } catch (error) {}
+        }
     }
 
     //预览试卷查看是否空题

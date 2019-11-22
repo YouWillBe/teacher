@@ -40,12 +40,12 @@ const FontWrap = styled.div`
 `
 const FontWrap1 = styled(FontWrap)`
     svg {
-        color: #eb5454;
+        color: #3a93df;
     }
 `
 const FontWrap2 = styled(FontWrap)`
     svg {
-        color: #3a93df;
+        color: #eb5454;
     }
 `
 
@@ -106,12 +106,12 @@ function Subjective(props: IProps) {
             >
                 {props.data.index + 1}
             </Number>
-            <FontWrap1 onClick={() => handleClickFont('删除')}>
-                <FaPlusCircle title='删除'></FaPlusCircle>
-            </FontWrap1>
-            <FontWrap2 onClick={() => handleClickFont('添加')}>
-                <FaMinusCircle title='添加'></FaMinusCircle>
+            <FontWrap2 onClick={() => handleClickFont('删除')}>
+                <FaMinusCircle title='删除'></FaMinusCircle>
             </FontWrap2>
+            <FontWrap1 onClick={() => handleClickFont('添加')}>
+                <FaPlusCircle title='添加'></FaPlusCircle>
+            </FontWrap1>
         </Container>
     )
 }

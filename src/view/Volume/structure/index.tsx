@@ -10,10 +10,10 @@ import Section from './Section'
 const Header = styled.div`
     display: flex;
     justify-content: space-between;
+    margin-bottom: 20px;
 `
 const TotalScoreWrpa = styled.div`
     display: flex;
-    margin: 20px 0;
 `
 const TotalScore = styled.div`
     font-size: 20px;

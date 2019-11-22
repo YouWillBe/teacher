@@ -124,7 +124,7 @@ const ShortAnswerProblem: FC<RouteComponentProps<Iprops>> = props => {
                     <ProblemText>知识点</ProblemText>
                     <KnowledgeWrap>
                         <PlusKnowledge></PlusKnowledge>
-                        {volumeStore.volumeProblem.loreList.map((item, index) => (
+                        {volumeStore.selectedPoints.map((item, index) => (
                             <Knowledge key={item.id} data={{ ...item, index }}></Knowledge>
                         ))}
                     </KnowledgeWrap>

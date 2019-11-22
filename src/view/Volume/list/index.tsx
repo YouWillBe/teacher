@@ -7,6 +7,7 @@ import { FaPlus } from 'react-icons/fa'
 
 import { IStore } from '../../../store'
 import Loading from '../../../components/Loading'
+import Paging from '../../../components/Paging'
 import VolumeCard from './VolumeCard'
 import image from './blank.png'
 
@@ -98,6 +99,9 @@ const Line = styled.div`
     background-color: #ddd;
     margin-top: 10px;
 `
+const PagingWrap = styled.div`
+    margin-top: 20px;
+`
 
 const Volume: FC<RouteComponentProps> = () => {
     const { volumeStore } = useContext<IStore>(MobXProviderContext)
@@ -105,6 +109,11 @@ const Volume: FC<RouteComponentProps> = () => {
         volumeStore.getVolumeList(1)
         // eslint-disable-next-line
     }, [])
+
+    //分页
+    const handleChangePaging = (value: number) => {
+        volumeStore.getVolumeList(value)
+    }
 
     const handleClickDeleteVolume = (id: number) => {
         volumeStore.deleteVolume(id)
@@ -139,6 +148,15 @@ const Volume: FC<RouteComponentProps> = () => {
                         <VolumeCard data={v} key={i} deleteVolume={handleClickDeleteVolume} />
                     ))}
                 </Container>
+                {volumeStore.volumePage.total > 8 && (
+                    <PagingWrap>
+                        <Paging
+                            onChange={handleChangePaging}
+                            current={volumeStore.volumePage.page}
+                            total={Math.ceil(volumeStore.volumePage.total / volumeStore.volumePage.limit)}
+                        ></Paging>
+                    </PagingWrap>
+                )}
             </Wrap>
         )
     })

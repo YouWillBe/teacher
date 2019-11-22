@@ -6,6 +6,7 @@ import { useObserver } from 'mobx-react-lite'
 
 import { IStore } from '../../../store'
 import QuestionType from '../../../components/QuestionType'
+import Paging from '../../../components/Paging'
 
 const ScrollbarWrap = styled.div`
     box-sizing: border-box;
@@ -42,6 +43,12 @@ const Li = styled.li`
     margin-top: 20px;
     padding: 20px;
 `
+const PagingWrap = styled.div`
+    margin-bottom: 20px;
+`
+interface IProps {
+    currentType: string
+}
 interface ILoreList {
     id: number
     name: string
@@ -60,9 +67,26 @@ interface IProblemList {
     showEditPick?: number | 0
 }
 
-const Section: FC = () => {
+const Section: FC<IProps> = props => {
     const { exerciseStore } = useContext<IStore>(MobXProviderContext)
     const [answerOption] = useState(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'])
+
+    //分页
+    const handleChangePaging = (value: number) => {
+        let data = {
+            page: value,
+            limit: 10,
+            type: Number(props.currentType),
+            field: 'entry_time',
+            order: 'desc',
+        }
+        if (props.currentType === '0') {
+            delete data.type
+            exerciseStore.getProblemList(data)
+        } else {
+            exerciseStore.getProblemTypeList(data)
+        }
+    }
 
     //处理数据
     const problemList = (data: IProblemList) => {
@@ -107,6 +131,7 @@ const Section: FC = () => {
     }
 
     return useObserver(() => {
+        console.log(exerciseStore)
         return (
             <ScrollbarWrap>
                 <Container>
@@ -116,6 +141,15 @@ const Section: FC = () => {
                         </Li>
                     ))}
                 </Container>
+                {exerciseStore.problemListPage.total > 10 && (
+                    <PagingWrap>
+                        <Paging
+                            onChange={handleChangePaging}
+                            current={exerciseStore.problemListPage.page}
+                            total={Math.ceil(exerciseStore.problemListPage.total / exerciseStore.problemListPage.limit)}
+                        ></Paging>
+                    </PagingWrap>
+                )}
             </ScrollbarWrap>
         )
     })

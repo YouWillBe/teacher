@@ -176,7 +176,11 @@ const NetExercise: FC<RouteComponentProps> = props => {
                         ></Input>
                     </SearchWrap>
                 </Header>
-                {exerciseStore.problemList.length < 1 ? <NoData></NoData> : <Section></Section>}
+                {exerciseStore.problemList.length < 1 ? (
+                    <NoData></NoData>
+                ) : (
+                    <Section currentType={currentType}></Section>
+                )}
             </Container>
         )
     })

@@ -72,22 +72,22 @@ function Header() {
             name: 'shortAnswerProblems',
         },
     ])
-    const [currentType, setCurrentType] = useState({ id: 1, name: 'choiceProblems', number: 1 })
 
     useEffect(() => {
         let data = sessionStorage.getItem('sessionCurrentType')
         if (data) {
-            setCurrentType(JSON.parse(data))
+            volumeStore.currentType = JSON.parse(data)
         }
+        // eslint-disable-next-line
     }, [])
 
     //点击类型
     const handleClickType = (id: number, name: string) => {
-        if (currentType.id === id) {
+        if (volumeStore.currentType.id === id) {
             return
         }
         sessionStorage.setItem('sessionCurrentType', JSON.stringify({ id, name, number: 1 }))
-        setCurrentType({ id, name, number: 1 })
+        volumeStore.currentType = { id, name, number: 1 }
         if ((volumeStore.volumeDetailList as any)[name].length) {
             volumeStore.getVolumeProblem((volumeStore.volumeDetailList as any)[name][0].id)
         } else {
@@ -107,26 +107,26 @@ function Header() {
 
     //点击number
     const handleClickNumber = (id: number, number: number) => {
-        if (currentType.number === number) {
+        if (volumeStore.currentType.number === number) {
             return
         }
         sessionStorage.setItem(
             'sessionCurrentType',
             JSON.stringify({
-                ...currentType,
+                ...volumeStore.currentType,
                 number,
             })
         )
-        setCurrentType({
-            ...currentType,
+        volumeStore.currentType = {
+            ...volumeStore.currentType,
             number,
-        })
+        }
         volumeStore.getVolumeProblem(id)
     }
 
     //类型
     const typeOption = (id: number) => {
-        if (currentType.id === id) {
+        if (volumeStore.currentType.id === id) {
             return {
                 bgColor: '#144E5E',
                 color: '#fff',
@@ -143,7 +143,7 @@ function Header() {
 
     //number
     const numberOption = (number: number, state: number) => {
-        if (currentType.number === number) {
+        if (volumeStore.currentType.number === number) {
             return {
                 bgColor: '#144E5E',
                 color: '#fff',
@@ -175,7 +175,7 @@ function Header() {
                     ))}
                 </TypeWrap>
                 <TypeWrap1>
-                    {(volumeStore.volumeDetailList as any)[currentType.name].map((item: any, index: number) => (
+                    {(volumeStore.volumeDetailList as any)[volumeStore.currentType.name].map((item: any) => (
                         <ItwmWrap1 key={item.id} onClick={() => handleClickNumber(item.id, item.number)}>
                             <TypeNumber
                                 option={numberOption(item.number, item.state)}

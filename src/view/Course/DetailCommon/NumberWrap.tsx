@@ -68,7 +68,12 @@ const NumberWrap: FC = props => {
             'sessionCurrentType',
             JSON.stringify({ type: courseIndexStore.currentProblemDetailData.type, number: data.number })
         )
-        courseIndexStore.getTestProblemEntering(courseIndexStore.studentVolume.id)
+        // courseIndexStore.getTestProblemEntering(courseIndexStore.studentVolume.id)
+
+        courseIndexStore.getStudentTestProblem({
+            id: data.id,
+            testId: courseIndexStore.studentVolume.id,
+        })
         courseIndexStore.testProblemDetailData.number = data.number
     }
     return useObserver(() => {

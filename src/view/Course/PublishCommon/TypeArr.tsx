@@ -181,7 +181,6 @@ const TypeArr: FC<IProps> = props => {
     }
     //发布试卷
     const handleClickSave = () => {
-        console.log(123)
         props.onClickSave({ currenType })
     }
 
