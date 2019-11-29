@@ -84,7 +84,13 @@ const Package = styled.div`
     border-radius: 4px;
     margin-bottom: 20px;
 `
-const ButtonWrap = styled.div``
+const ButtonWrap = styled.div`
+    button {
+        font-size: 16px;
+        font-family: PingFangSC;
+        font-weight: 300;
+    }
+`
 const ProblemText = styled.div`
     box-sizing: border-box;
     height: 50px;
@@ -178,16 +184,9 @@ const FractionListC: FC = props => {
         courseIndexStore.testsStudentCheck(data)
     }
 
-    const buttonOption = {
-        width: '170px',
+    const optionButton = {
         height: '50px',
-        bgColor: '#185161',
-        size: '16px',
-        family: 'PingFangSC',
-        weight: '300',
-        radius: '10px',
         shadow: '0px 2px 4px 0px rgba(31,122,171,0.2)',
-        border: '3px solid rgba(255,255,255,1)',
     }
     return useObserver(() => {
         return (
@@ -203,7 +202,7 @@ const FractionListC: FC = props => {
                             </Fraction>
                         </TestPaperWrap>
                         <ButtonWrap>
-                            <Button options={buttonOption} onClick={handleClickSave}>
+                            <Button options={optionButton} onClick={handleClickSave}>
                                 保存成绩
                             </Button>
                         </ButtonWrap>

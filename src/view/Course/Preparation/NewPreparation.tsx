@@ -10,7 +10,6 @@ import { IStore } from '../../../store'
 
 import Addon from './Addon'
 import Editor from '../../../components/EditorX'
-// import Loading from '../../../components/Loading'
 
 const Wrap = styled.div`
     box-sizing: border-box;

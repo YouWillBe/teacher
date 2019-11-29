@@ -16,6 +16,7 @@ import ShortAnswerProblem from './ShortAnswerProblem'
 import Dialog from '../../../components/Dialog'
 import Preview from '../../../components/QuestionType'
 import Toast from '../../../components/Toast'
+import Loading from '../../../components/Loading'
 
 const Container = styled.div`
     height: 100%;
@@ -64,10 +65,7 @@ const TypeWrap = styled.ul`
     padding-left: 20px;
 `
 
-const PreviewWrap = styled.div`
-    margin-top: 20px;
-    margin-right: 20px;
-`
+const PreviewWrap = styled.div``
 
 interface Iprops {
     id: string
@@ -140,6 +138,9 @@ const NetExercise: FC<RouteComponentProps<Iprops>> = props => {
         if (data.topic === noData) {
             Toast.warning('题目不能为空')
             isOk = false
+        } else if (data.loreIdList.length > 0) {
+            Toast.warning('知识点不能为空')
+            isOk = false
         } else if (type.includes(data.type) && !data.answer) {
             Toast.warning('答案不能为空')
             isOk = false
@@ -183,6 +184,7 @@ const NetExercise: FC<RouteComponentProps<Iprops>> = props => {
             }
         }
         if (text === '1') {
+            exerciseStore.problemData.loreList = exerciseStore.selectedPoints
             setIsPreview(true)
         } else if (text === '2') {
             navigate('/exercise')
@@ -236,11 +238,12 @@ const NetExercise: FC<RouteComponentProps<Iprops>> = props => {
 
     const optionDialog = {
         width: '70%',
-        // marginTop: '100px ',
-        borderBottom: ' 1px solid rgba(151, 151, 151, 0.26)',
     }
 
     return useObserver(() => {
+        if (exerciseStore.gettingProblem) {
+            return <Loading />
+        }
         return (
             <Container>
                 <FunctWrap>

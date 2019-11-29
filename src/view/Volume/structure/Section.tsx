@@ -123,14 +123,6 @@ function PreviewList(props: IProps) {
         }
     }
 
-    const optionBotton = {
-        height: '40px',
-        size: '16px',
-        family: 'PingFangSC-Regular,PingFangSC',
-        weight: '400',
-        bgColor: '#409EFF',
-    }
-
     return useObserver(() => {
         return (
             <Container>
@@ -226,9 +218,7 @@ function PreviewList(props: IProps) {
                     </TypeWrap>
                 </Wrap>
                 <ButtonWrap>
-                    <Button options={optionBotton} onClick={handleClickSave}>
-                        保存结构
-                    </Button>
+                    <Button onClick={handleClickSave}>保存结构</Button>
                 </ButtonWrap>
             </Container>
         )

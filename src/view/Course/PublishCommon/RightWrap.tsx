@@ -1,11 +1,6 @@
 import React, { FC } from 'react'
 import styled from '@emotion/styled'
-import { RouteComponentProps } from '@reach/router'
 import VolumeLore from './VolumeLore'
-
-interface IProps {
-    courseId: string
-}
 
 const VolumeWrap = styled.div`
     width: 280px;
@@ -29,12 +24,35 @@ const RecentText = styled.div`
     color: rgba(3, 118, 215, 1);
 `
 
-const Right: FC<RouteComponentProps<IProps>> = props => {
+interface IProps {
+    data: {
+        volumeLore: {
+            id: number
+            name: string
+            loreList: { id: number; name: string }[]
+        }[]
+        useVolumeId: number
+    }
+    onClickVolumeLore(id: number): void
+}
+
+const Right: FC<IProps> = props => {
     return (
         <VolumeWrap>
             <RecentText>选择最近编辑过的试卷</RecentText>
             <VolumeUl>
-                <VolumeLore />
+                {props.data.volumeLore.slice(0, 2).map(item => (
+                    <VolumeLore
+                        key={item.id}
+                        data={{
+                            loreList: item.loreList,
+                            id: item.id,
+                            name: item.name,
+                            useVolumeId: props.data.useVolumeId,
+                        }}
+                        onClickVolumeLore={props.onClickVolumeLore}
+                    />
+                ))}
             </VolumeUl>
         </VolumeWrap>
     )

@@ -2,11 +2,14 @@ import React, { FC, useState, useContext } from 'react'
 import styled from '@emotion/styled'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
-import { RouteComponentProps, navigate } from '@reach/router'
+import { RouteComponentProps, navigate, Router } from '@reach/router'
 import { TiArrowBackOutline } from 'react-icons/ti'
 
 import { IStore } from '../../store'
 import Button from '../../components/Button'
+import Overall from './Overall'
+import ClassAnalysis from './Overall/Class'
+import PersonalAnalysis from '../Course/PersonalAnalysis'
 
 const Container = styled.div`
     box-sizing: border-box;
@@ -31,13 +34,14 @@ const Container = styled.div`
 `
 const Package = styled.div`
     box-sizing: border-box;
-    height: 100%;
     width: 100%;
+    height: 100%;
     padding-right: 5px;
 `
 const Wrap = styled.div<{ setType: boolean }>`
     box-sizing: border-box;
     width: ${props => (props.setType ? '100%' : '1260px')};
+    height: calc(100% - 40px);
     margin: 0 auto;
 `
 
@@ -71,6 +75,15 @@ const ButtonWrap = styled.li`
     justify-content: center;
     height: 40px;
 `
+const RouterWrap = styled(Router)`
+    box-sizing: border-box;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+`
 
 const AnalysisWrap: FC<RouteComponentProps> = props => {
     const { analysisStore } = useContext<IStore>(MobXProviderContext)
@@ -85,10 +98,8 @@ const AnalysisWrap: FC<RouteComponentProps> = props => {
         }
     }
 
-    const buttonOption = {
+    const optionButton = {
         color: '#3C94DF',
-        size: '16px',
-        height: '40px',
         bgColor: '#f5f7fa',
         HbgColor: '#fff',
     }
@@ -100,7 +111,7 @@ const AnalysisWrap: FC<RouteComponentProps> = props => {
                     {props.location!.pathname.split('/')[2] !== 'student' && (
                         <NavWrap>
                             <ButtonWrap>
-                                <Button options={buttonOption} onClick={() => handleClickLink('/')}>
+                                <Button options={optionButton} onClick={() => handleClickLink('/')}>
                                     <TiArrowBackOutline />
                                     <MySpan>返回首页</MySpan>
                                 </Button>
@@ -122,7 +133,13 @@ const AnalysisWrap: FC<RouteComponentProps> = props => {
                             ))}
                         </NavWrap>
                     )}
-                    <Wrap setType={props.location!.pathname.split('/')[2] === 'student'}> {props.children}</Wrap>
+                    <Wrap setType={props.location!.pathname.split('/')[2] === 'student'}>
+                        <RouterWrap>
+                            <Overall path='/' />
+                            <PersonalAnalysis path='student/:studentId' />
+                            <ClassAnalysis path='class/:studentId' />
+                        </RouterWrap>
+                    </Wrap>
                 </Container>
             </Package>
         )

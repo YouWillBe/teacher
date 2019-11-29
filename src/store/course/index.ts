@@ -516,7 +516,7 @@ class CourseIndexStore implements ICourseIndexStore {
             let sessionCurrentType = sessionStorage.getItem('sessionCurrentType')
             if (sessionCurrentType) {
                 let datas = JSON.parse(sessionCurrentType)
-                if ((res.data.volumeDTO as any)[datas.type][datas.number - 1]) {
+                if ((res.data.volumeDTO as any)[datas.type]) {
                     let id = (res.data.volumeDTO as any)[datas.type][datas.number - 1].id
                     this.getTestProblem({ id, testId: res.data.volumeDTO.id })
                     this.currentProblemDetailData = {

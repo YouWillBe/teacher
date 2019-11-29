@@ -29,35 +29,17 @@ function Preview(props: IProps) {
         props.osClickShowStructure()
     }
 
-    const optionDialog = {
-        width: '70%',
-        // marginTop: '5%',
-        borderBottom: '1px solid #e5e5e5',
-    }
-
-    const buttonOption = {
-        height: '40px',
-        size: '16px',
-        weight: '400',
-        family: 'PingFangSC-Regular,PingFangSC',
-        bgColor: '#409EFF',
-        shadow: '0px 4px 11px 0px rgba(64,158,255,0.5)',
-    }
-
     return useObserver(() => {
         return (
             <Dialog
                 title={volumeStore.volumeProblemState ? '预览试卷' : '当前检测到 存在空题 无法预览试卷 '}
-                options={optionDialog}
                 onClickClose={props.onClickClose}
             >
                 {volumeStore.volumeProblemState ? (
                     <ProblemList></ProblemList>
                 ) : (
                     <NoData>
-                        <Button options={buttonOption} onClick={handleClickShowStructure}>
-                            前去查看空题目
-                        </Button>
+                        <Button onClick={handleClickShowStructure}>前去查看空题目</Button>
                     </NoData>
                 )}
             </Dialog>

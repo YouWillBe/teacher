@@ -125,7 +125,7 @@ const ShortAnswerProblem: FC<RouteComponentProps<Iprops>> = props => {
                     <KnowledgeWrap>
                         <PlusKnowledge></PlusKnowledge>
                         {volumeStore.selectedPoints.map((item, index) => (
-                            <Knowledge key={item.id} data={{ ...item, index }}></Knowledge>
+                            <Knowledge key={item.id} data={item}></Knowledge>
                         ))}
                     </KnowledgeWrap>
                 </Package>

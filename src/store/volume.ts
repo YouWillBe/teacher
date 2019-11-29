@@ -428,13 +428,13 @@ class VolumeStore implements IVolumeStore {
     @observable loreListId: number[] = []
 
     @action selectPoint = (point: ILore) => {
-        this.selectedPointsId = this.selectedPointsId.includes(point.id)
-            ? this.selectedPointsId.filter(x => x !== point.id)
-            : append(point.id, this.selectedPointsId)
-
-        this.selectedPoints = this.selectedPoints.includes(point)
-            ? this.selectedPoints.filter(x => x.id !== point.id)
-            : append(point, this.selectedPoints)
+        if (this.selectedPointsId.includes(point.id)) {
+            this.selectedPointsId = this.selectedPointsId.filter(x => x !== point.id)
+            this.selectedPoints = this.selectedPoints.filter(x => x.id !== point.id)
+        } else {
+            this.selectedPointsId = append(point.id, this.selectedPointsId)
+            this.selectedPoints = append(point, this.selectedPoints)
+        }
     }
 
     //试卷列表
@@ -618,6 +618,7 @@ class VolumeStore implements IVolumeStore {
                         topic: '',
                         volumeId: res.data.id,
                     }
+                    this.currentType = { id: 1, name: 'choiceProblems', number: 1 }
                 }
             }
         } catch (error) {}
@@ -688,20 +689,21 @@ class VolumeStore implements IVolumeStore {
     //修改试卷详情题目
     @action async updateVolumeProblem(data: IProblemList1) {
         this.gettingVolumeProblem = true
-        try {
-            const res = await api.volume.updateVolumeProblem(data)
-            if (res.success) {
-                Toast.success('修改成功')
-                let sessionCurrentType = sessionStorage.getItem('sessionCurrentType')
-                //修改状态
-                if (sessionCurrentType) {
-                    let value = JSON.parse(sessionCurrentType)
-                    ;(this.volumeDetailList as any)[value.name][value.number - 1].state = 1
-                } else if (this.volumeDetailList.choiceProblems.length) {
-                    this.volumeDetailList.choiceProblems[0].state = 1
-                }
+        this.gettingVolumeDetailList = true
+        const res = await api.volume.updateVolumeProblem(data)
+        if (res.success) {
+            Toast.success('修改成功')
+            this.gettingVolumeDetailList = false
+            this.gettingVolumeProblem = false
+            let sessionCurrentType = sessionStorage.getItem('sessionCurrentType')
+            //修改状态
+            if (sessionCurrentType) {
+                let value = JSON.parse(sessionCurrentType)
+                ;(this.volumeDetailList as any)[value.name][value.number - 1].state = 1
+            } else if (this.volumeDetailList.choiceProblems.length) {
+                this.volumeDetailList.choiceProblems[0].state = 1
             }
-        } catch (error) {}
+        }
     }
 
     //删除试卷详情题目
@@ -889,7 +891,7 @@ class VolumeStore implements IVolumeStore {
     @action async getLoreList(data?: { id: number }) {
         this.gettingLoreList = true
         try {
-            const res = await api.exercise.getLoreList(data)
+            const res = await api.point.getPoints(data)
             if (res.success) {
                 this.loreList = res.data
                 this.gettingLoreList = false

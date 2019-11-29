@@ -122,7 +122,7 @@ class PlanStore implements IPlanStore {
                 id: this.plan.id,
                 title: this.plan.title,
                 content: JSON.stringify(this.plan.content.toJS()),
-                loreListId: this.selectedPointsId
+                loreList: this.selectedPointsId,
             })
         } catch (error) {}
     }

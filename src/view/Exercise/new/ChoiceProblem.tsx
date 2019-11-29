@@ -91,6 +91,10 @@ const ChoiceProblem: FC<RouteComponentProps<Iprops>> = () => {
     const { exerciseStore } = useContext<IStore>(MobXProviderContext)
     const [answerOption] = useState(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'])
 
+    const handleSelectPoint = (data: { id: number; name: string }) => {
+        exerciseStore.selectPoint(data)
+    }
+
     //题干
     const handleChangeTopic = (value: Value) => {
         exerciseStore.problemData.topic = value
@@ -108,8 +112,8 @@ const ChoiceProblem: FC<RouteComponentProps<Iprops>> = () => {
                     <ProblemText>知识点</ProblemText>
                     <KnowledgeWrap>
                         <PlusKnowledge />
-                        {exerciseStore.selectedPoints.map((item, index) => (
-                            <Knowledge key={item.id} data={{ ...item, index }} />
+                        {exerciseStore.selectedPoints.map(item => (
+                            <Knowledge key={item.id} data={item} closable={true} onClickDeleted={handleSelectPoint} />
                         ))}
                     </KnowledgeWrap>
                 </Package>

@@ -80,6 +80,7 @@ const Section: FC<IProps> = props => {
             field: 'entry_time',
             order: 'desc',
         }
+        exerciseStore.problemListPage.page = value
         if (props.currentType === '0') {
             delete data.type
             exerciseStore.getProblemList(data)
@@ -131,7 +132,6 @@ const Section: FC<IProps> = props => {
     }
 
     return useObserver(() => {
-        console.log(exerciseStore)
         return (
             <ScrollbarWrap>
                 <Container>

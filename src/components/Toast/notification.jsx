@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
 import styled from '@emotion/styled'
-import Notice from './notice'
+import Notice from './Notice'
 
 const TransitionGroupWrap = styled.div`
     position: fixed;
@@ -62,10 +61,9 @@ class Notification extends Component {
     }
 
     render() {
-        const { notices } = this.state
         return (
             <TransitionGroupWrap>
-                {notices.map(notice => (
+                {this.state.notices.map(notice => (
                     <Notice key={notice.key} {...notice} />
                 ))}
             </TransitionGroupWrap>
@@ -73,20 +71,4 @@ class Notification extends Component {
     }
 }
 
-function createNotification() {
-    const div = document.createElement('div')
-    document.body.appendChild(div)
-    const ref = React.createRef()
-    ReactDOM.render(<Notification ref={ref} />, div)
-    return {
-        addNotice(notice) {
-            return ref.current.addNotice(notice)
-        },
-        destroy() {
-            ReactDOM.unmountComponentAtNode(div)
-            document.body.removeChild(div)
-        },
-    }
-}
-
-export default createNotification()
+export default Notification

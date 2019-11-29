@@ -7,7 +7,7 @@ import { useObserver } from 'mobx-react-lite'
 import { IStore } from '../../../store'
 import VolumeSelector from '../PublishCommon/VolumeSelector'
 import Publish from './Publish'
-import Detail from './Detail'
+import NotAnnounced from './Detail/NotAnnounced'
 import Entry from './Entry'
 import Loading from '../../../components/Loading'
 
@@ -62,7 +62,7 @@ const Task: FC<RouteComponentProps<IProps>> = props => {
         } else if (courseTaskStore.task.status === 0) {
             return <Publish />
         } else if (courseTaskStore.task.status !== 3) {
-            return <Detail />
+            return <NotAnnounced />
         } else {
             return <Entry></Entry>
         }

@@ -7,7 +7,7 @@ import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
 
 import { IStore } from '../../../../store'
-import RightWrap from './RightWrap'
+import RightWrap from '../../PublishCommon/RightWrap'
 import TypeArr from '../../PublishCommon/TypeArr'
 import ChoiceProblem from '../../../../components/QuestionType/ChoiceProblem'
 import JudgeProblem from '../../../../components/QuestionType/JudgeProblem'
@@ -76,6 +76,10 @@ const VolumeView: FC = () => {
                 courseExaminationStore.courseId
             )
         }
+    }
+
+    const handleClickVolumeLore = (id: number) => {
+        courseExaminationStore.bindingExamination(courseExaminationStore.courseId, id)
     }
 
     //处理数据
@@ -196,10 +200,15 @@ const VolumeView: FC = () => {
                                         <ShortAnswerProblem data={problemList({ ...item, index })} />
                                     </ProblemWrap>
                                 ))}
-                            )}
                         </ScrollbarWrap>
                     </LeftWrap>
-                    <RightWrap />
+                    <RightWrap
+                        data={{
+                            volumeLore: courseExaminationStore.volumeLore,
+                            useVolumeId: courseExaminationStore.examination!.useVolumeId,
+                        }}
+                        onClickVolumeLore={handleClickVolumeLore}
+                    />
                 </Container>
             </>
         )

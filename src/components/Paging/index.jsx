@@ -44,13 +44,12 @@ const Wrap = styled.div``
 function Paging(props) {
     const [groupCount] = useState(5) //页码分组，显示7个页码，其余用省略号显示
     const [startPage, setStartPage] = useState(1) //分组开始页码
-    const [currentPage, setCurrentPage] = useState(1) //当前页码
     const [isShowLeftIcon, setisShowLeftIcon] = useState(false)
     const [isShowRightIcon, setisShowRightIcon] = useState(false)
 
     //修正开始页码
     const pageClick = current => {
-        if (currentPage === current) return
+        if (props.current === current) return
         let value = current
         if (current < 1) {
             value = 1
@@ -67,13 +66,12 @@ function Paging(props) {
         if (value === 1) {
             setStartPage(1)
         }
-        setCurrentPage(value)
         props.onChange(value)
     }
 
     //上一页事件
     const prePageHandeler = () => {
-        let current = currentPage
+        let current = props.current
         if (--current === 0) {
             return false
         }
@@ -81,7 +79,7 @@ function Paging(props) {
     }
     //下一页事件
     const nextPageHandeler = () => {
-        let current = currentPage
+        let current = props.current
         if (++current > props.total) {
             return false
         }
@@ -107,15 +105,15 @@ function Paging(props) {
         if (props.total > 0) {
             //上一页
             pages.push(
-                <MyLiPage key={0} onClick={prePageHandeler} active={currentPage === 1}>
-                    <FaChevronLeft title='上一页' />
+                <MyLiPage key={0} onClick={prePageHandeler} active={props.current === 1}>
+                    <FaChevronLeft title='上一页'></FaChevronLeft>
                 </MyLiPage>
             )
             /*总页码小于等于10时，全部显示出来 否则 部分显示*/
             if (props.total <= 10) {
                 for (let i = 1; i <= props.total; i++) {
                     pages.push(
-                        <MyLi active={currentPage === i} key={i} onClick={() => pageClick(i)}>
+                        <MyLi active={props.current === i} key={i} onClick={() => pageClick(i)}>
                             {i}
                         </MyLi>
                     )
@@ -123,7 +121,7 @@ function Paging(props) {
             } else {
                 //第一页
                 pages.push(
-                    <MyLi active={currentPage === 1} key={1} onClick={() => pageClick(1)}>
+                    <MyLi active={props.current === 1} key={1} onClick={() => pageClick(1)}>
                         1
                     </MyLi>
                 )
@@ -134,11 +132,11 @@ function Paging(props) {
                     pageLength = groupCount + startPage
                 }
                 //前面省略号(当当前页码比分组的页码大时显示省略号)
-                if (currentPage >= groupCount) {
+                if (props.current >= groupCount) {
                     pages.push(
                         <MyLi
                             key={-1}
-                            onClick={() => pageClick(currentPage - 5)}
+                            onClick={() => pageClick(props.current - 5)}
                             onMouseEnter={() => handleonMouseEnter('left')}
                             onMouseLeave={() => handleOnMouseLeave('left')}
                         >
@@ -157,7 +155,7 @@ function Paging(props) {
                 for (let i = startPage; i < pageLength; i++) {
                     if (i <= props.total - 1 && i > 1) {
                         pages.push(
-                            <MyLi active={currentPage === i} key={i} onClick={() => pageClick(i)}>
+                            <MyLi active={props.current === i} key={i} onClick={() => pageClick(i)}>
                                 {i}
                             </MyLi>
                         )
@@ -168,7 +166,7 @@ function Paging(props) {
                     pages.push(
                         <MyLi
                             key={-2}
-                            onClick={() => pageClick(currentPage + 5)}
+                            onClick={() => pageClick(props.current + 5)}
                             onMouseEnter={() => handleonMouseEnter('right')}
                             onMouseLeave={() => handleOnMouseLeave('right')}
                         >
@@ -186,15 +184,19 @@ function Paging(props) {
                 }
                 //最后一页
                 pages.push(
-                    <MyLi active={currentPage === props.total} key={props.total} onClick={() => pageClick(props.total)}>
+                    <MyLi
+                        active={props.current === props.total}
+                        key={props.total}
+                        onClick={() => pageClick(props.total)}
+                    >
                         {props.total}
                     </MyLi>
                 )
             }
             //下一页
             pages.push(
-                <MyLiPage active={currentPage === props.total} key={props.total + 1} onClick={nextPageHandeler}>
-                    <FaChevronRight title='下一页' />
+                <MyLiPage active={props.current === props.total} key={props.total + 1} onClick={nextPageHandeler}>
+                    <FaChevronRight title='下一页'></FaChevronRight>
                 </MyLiPage>
             )
         }
@@ -206,10 +208,6 @@ function Paging(props) {
             <Container>{createPage()}</Container>
         </MyFooter>
     )
-}
-Paging.defaultProps = {
-    current: 1,
-    total: 1,
 }
 
 export default Paging

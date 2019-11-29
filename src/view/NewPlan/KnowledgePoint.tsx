@@ -12,18 +12,6 @@ const Container = styled.div`
     box-sizing: border-box;
     padding: 15px;
 `
-// const Input = styled.input`
-//     width: 100%;
-//     box-sizing: border-box;
-//     height: 40px;
-//     padding: 5px 10px;
-//     border-radius: 3px;
-//     border: 1px solid #ccc;
-//     outline: none;
-//     &:focus {
-//         border-color: #00a6f3;
-//     }
-// `
 const Content = styled.div`
     min-height: 120px;
     margin-top: 10px;
@@ -65,10 +53,10 @@ const Lore = styled.div`
     max-width: 100%;
 `
 const Tag = styled.div`
-top: 50%;
-margin-top: -10px;
-  right: 6px;
-  position: absolute;
+    top: 50%;
+    margin-top: -10px;
+    right: 6px;
+    position: absolute;
     height: 20px;
     width: 20px;
     border-radius: 50%;
@@ -84,7 +72,7 @@ margin-top: -10px;
     }
 `
 const Button = styled.button`
-  display: block;
+    display: block;
     cursor: pointer;
     padding: 8px 12px;
     text-align: center;
@@ -105,7 +93,7 @@ interface IProps {
     selectedPointsId: number[]
 }
 
-const KnowledgePoint: FC<IProps> = ({selectedPointsId, selectedPoints, selectPoint}) => {
+const KnowledgePoint: FC<IProps> = ({ selectedPointsId, selectedPoints, selectPoint }) => {
     const [showDialog, setShowDialog] = useState(false)
     const handleClickAddKnowledgePoint = () => {
         setShowDialog(true)

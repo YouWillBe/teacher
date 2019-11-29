@@ -26,7 +26,7 @@ function Section(props: IProps) {
     const { volumeStore } = useContext<IStore>(MobXProviderContext)
 
     return useObserver(() => {
-        if (!volumeStore.volumeProblemReady) {
+        if (volumeStore.gettingVolumeProblem) {
             return (
                 <Container>
                     <Loading></Loading>

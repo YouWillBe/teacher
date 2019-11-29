@@ -1,17 +1,14 @@
-import React, { FC, useContext } from 'react'
+import React, { FC } from 'react'
 import styled from '@emotion/styled'
-import { MobXProviderContext } from 'mobx-react'
 import { take } from 'ramda'
-import { useObserver } from 'mobx-react-lite'
-
-import { IStore } from '../../../../store'
 
 const Container = styled.div<{ currentStyle: boolean }>`
     height: 210px;
     width: 210px;
+    margin: 0 auto;
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.12) 0 3px 13px 1px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 3px 13px 1px;
     cursor: pointer;
     border: 2px solid transparent;
     transition: border-color 0.1s linear;
@@ -22,7 +19,7 @@ const Container = styled.div<{ currentStyle: boolean }>`
     }
     box-sizing: border-box;
     padding: 10px;
-    margin: 0 auto 20px;
+    margin-bottom: 20px;
     user-select: none;
     position: relative;
 `
@@ -93,37 +90,35 @@ const Lore = styled.div`
     overflow: hidden;
 `
 
-const VolumeLore: FC = () => {
-    const { courseExaminationStore } = useContext<IStore>(MobXProviderContext)
-    const handleClickVolumeLore = (id: number) => {
-        courseExaminationStore.bindingExamination(courseExaminationStore.courseId, id)
+interface IProps {
+    data: {
+        id: number
+        name: string
+        loreList: { id: number; name: string }[]
+        useVolumeId: number
     }
-    return useObserver(() => {
-        return (
-            <>
-                {courseExaminationStore.volumeLore.slice(0, 2).map(item => (
-                    <Container
-                        key={item.id}
-                        currentStyle={item.id === courseExaminationStore.examination!.useVolumeId}
-                        onClick={() => handleClickVolumeLore(item.id)}
-                    >
-                        <Title title={item.name}>{item.name}</Title>
-                        <LoreTitle>
-                            <LoreTitleText>知识点</LoreTitleText>
-                            <Line />
-                        </LoreTitle>
-                        <LoreWrap>
-                            {take(2, item.loreList).map((v, i) => (
-                                <Lore key={i} title={v.name}>
-                                    {v.name}
-                                </Lore>
-                            ))}
-                        </LoreWrap>
-                    </Container>
+    onClickVolumeLore(id: number): void
+}
+const VolumeLore: FC<IProps> = props => {
+    return (
+        <Container
+            currentStyle={props.data.id === props.data.useVolumeId}
+            onClick={() => props.onClickVolumeLore(props.data.id)}
+        >
+            <Title title={props.data.name}>{props.data.name}</Title>
+            <LoreTitle>
+                <LoreTitleText>知识点</LoreTitleText>
+                <Line />
+            </LoreTitle>
+            <LoreWrap>
+                {take(2, props.data.loreList).map((v, i) => (
+                    <Lore key={i} title={v.name}>
+                        {v.name}
+                    </Lore>
                 ))}
-            </>
-        )
-    })
+            </LoreWrap>
+        </Container>
+    )
 }
 
 export default VolumeLore

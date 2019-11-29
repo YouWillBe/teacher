@@ -184,15 +184,9 @@ function PreviewList(props: IProps) {
         setKeyWord(event.target.value)
     }
 
-    const optionDialog = {
-        width: '80%',
-        // marginTop: '5%',
-        borderBottom: '1px solid #e5e5e5',
-    }
-
     return useObserver(() => {
         return (
-            <Dialog title='题目列表' options={optionDialog} onClickClose={props.onClickClose}>
+            <Dialog title='题目列表' onClickClose={props.onClickClose}>
                 <SearchWrap>
                     <FontWrap>
                         <FiSearch></FiSearch>
@@ -205,7 +199,7 @@ function PreviewList(props: IProps) {
                     ></Input>
                 </SearchWrap>
                 {volumeStore.problemList.length ? (
-                    volumeStore.problemList.map((item, index) => (
+                    volumeStore.problemList.map(item => (
                         <PreviewWrap key={item.id}>
                             <QuestionType data={problemList(item)} onClickSelect={handleClickSelect}></QuestionType>
                         </PreviewWrap>

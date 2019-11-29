@@ -7,6 +7,7 @@ import { useObserver } from 'mobx-react-lite'
 import { IStore } from '../../../../store'
 import SeeHeaderA from '../../DetailCommon/SeeHeaderA'
 import SeeCenter from '../../DetailCommon/SeeCenter'
+
 const Container = styled.div`
     box-sizing: border-box;
     width: 100%;

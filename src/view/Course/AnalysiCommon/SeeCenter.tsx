@@ -5,7 +5,7 @@ import { useObserver } from 'mobx-react-lite'
 import { RouteComponentProps } from '@reach/router'
 
 import { IStore } from '../../../store'
-import SeeHeaderB from './SeeHeaderB'
+import SeeHeader from './SeeHeader'
 import ChoiceProblem from '../../../components/QuestionType/ChoiceProblem'
 import JudgeProblem from '../../../components/QuestionType/JudgeProblem'
 import FillingProblem from '../../../components/QuestionType/FillingProblem'
@@ -33,29 +33,7 @@ export interface IProblems {
     index: number
 }
 
-interface IProps {
-    studentTestId: string
-    id: string
-}
-interface ILoreList {
-    id: number
-    name: string
-}
-interface IProblemList {
-    id?: number | 0
-    number: number
-    topic: any
-    answer: any
-    problemType: number
-    studentAnswer?: any
-    fraction?: number
-    option?: any
-    loreList: ILoreList[]
-    solution: any
-    showEditPick?: number | 0
-}
-
-const ACenter: FC<RouteComponentProps<IProps>> = props => {
+const ACenter: FC<RouteComponentProps> = () => {
     const { courseIndexStore } = useContext<IStore>(MobXProviderContext)
 
     //处理数据
@@ -87,28 +65,14 @@ const ACenter: FC<RouteComponentProps<IProps>> = props => {
     return useObserver(() => {
         return (
             <Container>
-                <SeeHeaderB />
-                {courseIndexStore.testProblemDetailData.problemType === 1 ||
-                courseIndexStore.testProblemDetailData.problemType === 2 ? (
-                    <>
-                        <ChoiceProblem data={problemList()} />
-                    </>
-                ) : null}
-                {courseIndexStore.testProblemDetailData.problemType === 3 ? (
-                    <>
-                        <JudgeProblem data={problemList()} />
-                    </>
-                ) : null}
-                {courseIndexStore.testProblemDetailData.problemType === 4 ? (
-                    <>
-                        <FillingProblem data={problemList()} />
-                    </>
-                ) : null}
-                {courseIndexStore.testProblemDetailData.problemType === 5 ? (
-                    <>
-                        <ShortAnswerProblem data={problemList()} />
-                    </>
-                ) : null}
+                <SeeHeader></SeeHeader>
+                {(courseIndexStore.testProblemDetailData.problemType === 1 ||
+                    courseIndexStore.testProblemDetailData.problemType === 2) && <ChoiceProblem data={problemList()} />}
+                {courseIndexStore.testProblemDetailData.problemType === 3 && <JudgeProblem data={problemList()} />}
+                {courseIndexStore.testProblemDetailData.problemType === 4 && <FillingProblem data={problemList()} />}
+                {courseIndexStore.testProblemDetailData.problemType === 5 && (
+                    <ShortAnswerProblem data={problemList()} />
+                )}
             </Container>
         )
     })

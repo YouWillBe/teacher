@@ -7,12 +7,6 @@ import { RouteComponentProps } from '@reach/router'
 import { IStore } from '../../../store'
 import NumberWrap from './NumberWrap'
 
-interface ITypeArr {
-    id: number
-    name: string
-    key: string
-}
-
 export interface IProblems {
     id: number
     problemType: number
@@ -20,12 +14,6 @@ export interface IProblems {
     mark: number
     studentAnswer: number
     index: number
-}
-
-interface ITypeArr {
-    id: number
-    name: string
-    key: string
 }
 
 export interface IProblems {

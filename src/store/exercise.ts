@@ -57,7 +57,6 @@ interface IEditProblem {
 interface ILore {
     id: number
     name: string
-    parentId?: number
 }
 
 interface ILore1 {
@@ -160,13 +159,13 @@ class ExerciseStore implements IExerciseStore {
     @observable loreListId: number[] = []
 
     @action selectPoint = (point: ILore) => {
-        this.selectedPointsId = this.selectedPointsId.includes(point.id)
-            ? this.selectedPointsId.filter(x => x !== point.id)
-            : append(point.id, this.selectedPointsId)
-
-        this.selectedPoints = this.selectedPoints.includes(point)
-            ? this.selectedPoints.filter(x => x.id !== point.id)
-            : append(point, this.selectedPoints)
+        if (this.selectedPointsId.includes(point.id)) {
+            this.selectedPointsId = this.selectedPointsId.filter(x => x !== point.id)
+            this.selectedPoints = this.selectedPoints.filter(x => x.id !== point.id)
+        } else {
+            this.selectedPointsId = append(point.id, this.selectedPointsId)
+            this.selectedPoints = append(point, this.selectedPoints)
+        }
     }
 
     //题库列表
@@ -291,6 +290,7 @@ class ExerciseStore implements IExerciseStore {
         }
     }
 
+    //题目新增
     @action async addProblem(data: IEditProblem) {
         try {
             let type1 = [3, 4, 5]
@@ -312,7 +312,7 @@ class ExerciseStore implements IExerciseStore {
     @action async getLoreList(data?: { id: number }) {
         this.gettingLoreList = true
         try {
-            const res = await api.exercise.getLoreList(data)
+            const res = await api.point.getPoints(data)
             if (res.success) {
                 this.loreList = res.data
                 this.gettingLoreList = false

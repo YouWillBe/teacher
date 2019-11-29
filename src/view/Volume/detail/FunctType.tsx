@@ -104,6 +104,7 @@ function FunctType(props: IProps) {
                 })
                 volumeStore.volumeProblem.answer = answer.toString()
             }
+            volumeStore.volumeProblem.loreList = volumeStore.selectedPoints
             setIsPreview(true)
         }
     }
@@ -233,36 +234,21 @@ function FunctType(props: IProps) {
         volumeStore.updateVolumeProblem(data)
     }
 
-    const buttonOption1 = {
+    const optionButton = {
         height: '30px',
-        size: '14px',
-        weight: '400',
-        family: 'PingFangSC-Regular,PingFangSC',
         bgColor: '#144E5E',
         shadow: '0px 4px 11px 0px rgba(20,78,94,0.5)',
+        HbgColor: '#206072',
     }
 
-    const buttonOption2 = {
+    const optionButton1 = {
         height: '30px',
-        size: '14px',
-        weight: '400',
-        family: 'PingFangSC-Regular,PingFangSC',
         bgColor: '#409EFF',
         shadow: '0px 4px 11px 0px rgba(64,158,255,0.5)',
     }
-    const buttonOption3 = {
+    const optionButton2 = {
         height: '30px',
-        size: '14px',
-        weight: '400',
-        family: 'PingFangSC-Regular,PingFangSC',
-        color: '#333',
         shadow: '0px 4px 11px 0px rgba(64,158,255,0.1)',
-    }
-
-    const optionDialog = {
-        width: '80%',
-        // marginTop: '5%',
-        borderBottom: '1px solid #e5e5e5',
     }
 
     return useObserver(() => {
@@ -272,21 +258,21 @@ function FunctType(props: IProps) {
                     <Left>
                         <ButtonWrap>
                             {props.isShowIcon && (
-                                <Button options={buttonOption1} onClick={handleClickPreviewVolume}>
+                                <Button options={optionButton} onClick={handleClickPreviewVolume}>
                                     预览试卷
                                 </Button>
                             )}
                         </ButtonWrap>
                         <ButtonWrap>
                             {props.isShowIcon && (
-                                <Button options={buttonOption2} onClick={handleClickSave}>
+                                <Button options={optionButton1} onClick={handleClickSave}>
                                     <FaSave></FaSave>
                                     <ButtonSpan>保存</ButtonSpan>
                                 </Button>
                             )}
                         </ButtonWrap>
                         <ButtonWrap>
-                            <Button options={buttonOption3} onClick={handleClickOutline}>
+                            <Button options={optionButton2} onClick={handleClickOutline}>
                                 修改试卷结构
                             </Button>
                         </ButtonWrap>
@@ -321,7 +307,7 @@ function FunctType(props: IProps) {
                     </Right>
                 </Container>
                 {isPreview && (
-                    <Dialog title='预览' options={optionDialog} onClickClose={handlePreview}>
+                    <Dialog title='预览' onClickClose={handlePreview}>
                         <PreviewWrap>
                             <QuestionType
                                 data={{

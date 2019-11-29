@@ -105,15 +105,10 @@ function PreviewList(props: IProps) {
             shortAnswerTotal,
         }
     }
-    const optionDialog = {
-        width: '70%',
-        // marginTop: '5%',
-        borderBottom: '1px solid #e5e5e5',
-    }
 
     return useObserver(() => {
         return (
-            <Dialog title='修改试卷结构' options={optionDialog} onClickClose={props.onClickClose}>
+            <Dialog title='修改试卷结构' onClickClose={props.onClickClose}>
                 <Header>
                     <TotalScoreWrpa>
                         <TotalScore>总分：{totalScore().totalScore}</TotalScore>

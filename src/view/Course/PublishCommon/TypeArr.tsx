@@ -208,19 +208,13 @@ const TypeArr: FC<IProps> = props => {
         setIsToggle(!isToggle)
     }
 
-    const arrowButton = {
+    const optionButton = {
         width: '160px',
-        height: '40px',
         bgColor: '#0376D7',
         radius: '30px',
-        size: '18px',
-        family: 'PingFangSC-Regular',
-        weight: '400',
     }
     const optionDialog = {
         width: '50%',
-        // marginTop: '160px ',
-        borderBottom: ' 1px solid rgba(151, 151, 151, 0.26)',
     }
 
     return useObserver(() => {
@@ -253,7 +247,7 @@ const TypeArr: FC<IProps> = props => {
                     </TypeLi1>
                 </TypeArrWrap>
                 <ButtonWrap>
-                    <Button options={arrowButton} onClick={handleClickClose}>
+                    <Button options={optionButton} onClick={handleClickClose}>
                         <Span>{props.title}</Span>
                         <FaLocationArrow></FaLocationArrow>
                     </Button>
@@ -288,7 +282,7 @@ const TypeArr: FC<IProps> = props => {
                                 </TypeWrap>
                             </DialogLeft>
                             <DialogRight>
-                                <Button options={arrowButton} onClick={handleClickSave}>
+                                <Button onClick={handleClickSave}>
                                     <Span>确定发布</Span>
                                     <FaLocationArrow></FaLocationArrow>
                                 </Button>

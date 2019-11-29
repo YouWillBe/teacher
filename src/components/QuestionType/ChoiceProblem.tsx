@@ -5,6 +5,7 @@ import { FaAngleDoubleUp, FaAngleDoubleDown } from 'react-icons/fa'
 
 import Editor from '../EditorX'
 import HeaderType from './HeaderType'
+import Option from './Option'
 
 const Container = styled.div`
     box-sizing: border-box;
@@ -58,19 +59,6 @@ const OptionWrap = styled.div`
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 60px;
 `
-const OptionItem = styled.div`
-    box-sizing: border-box;
-    min-height: 60px;
-    background-color: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(42, 71, 139, 0.2);
-    margin-top: 8px;
-    margin-bottom: 8px;
-    border-radius: 4px;
-    font-size: 14px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: stretch;
-`
 const ItemCommon = styled.div`
     height: 1;
     width: 46px;
@@ -82,10 +70,7 @@ const ItemCommon = styled.div`
     font-weight: 400;
     border-right: 1px solid #f5f5f5;
 `
-const ItemIndex = styled(ItemCommon)`
-    font-size: 18px;
-    background-color: rgba(245, 245, 245, 1);
-`
+
 const AnswerItem = styled.div`
     flex: 1;
     box-sizing: border-box;
@@ -185,6 +170,7 @@ interface Iprops {
 }
 
 const myMap = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+
 const ChoiceProblem: FC<Iprops> = props => {
     const [currentExpand, setCurrentExpand] = useState(0)
     const [expandArr] = useState([
@@ -239,12 +225,7 @@ const ChoiceProblem: FC<Iprops> = props => {
                 </TopicWrap>
                 <OptionWrap>
                     {props.data.option.map((v: { value: Value }, i: number) => (
-                        <OptionItem key={i}>
-                            <ItemIndex>{myMap[i]}</ItemIndex>
-                            <RichTextWrap>
-                                <Editor value={Value.fromJSON(v.value)} readonly />
-                            </RichTextWrap>
-                        </OptionItem>
+                        <Option key={i} data={{ index: myMap[i], value: v.value }}></Option>
                     ))}
                 </OptionWrap>
             </Package>

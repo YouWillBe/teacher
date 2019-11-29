@@ -35,12 +35,8 @@ function FunctTypeNot(props: IProps) {
         setIsShow(false)
     }
 
-    const buttonOption3 = {
+    const optionButton = {
         height: '30px',
-        size: '14px',
-        weight: '400',
-        family: 'PingFangSC-Regular,PingFangSC',
-        color: '#333',
         shadow: '0px 4px 11px 0px rgba(64,158,255,0.1)',
     }
 
@@ -48,9 +44,9 @@ function FunctTypeNot(props: IProps) {
         <Container>
             <Left>
                 <ButtonWrap setWidth='88px'></ButtonWrap>
-                <ButtonWrap setWidth='82px'></ButtonWrap>
+                <ButtonWrap setWidth='80px'></ButtonWrap>
                 <ButtonWrap>
-                    <Button options={buttonOption3} onClick={handleClickIsShow}>
+                    <Button options={optionButton} onClick={handleClickIsShow}>
                         修改试卷结构
                     </Button>
                 </ButtonWrap>

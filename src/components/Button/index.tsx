@@ -4,21 +4,14 @@ import styled from '@emotion/styled'
 interface IOptions {
     width?: string
     height?: string
-    lHeight?: string
     border?: string
     radius?: string
-    size?: string
-    sizeSvg?: string
-    faily?: string
-    weight?: string
     color?: string
     bgColor?: string
-    shadow?: string
-    spacing?: string
-    cursor?: string
-    HbgColor?: string
-    HBorder?: string
     HColor?: string
+    HBorder?: string
+    HbgColor?: string
+    shadow?: string
 }
 
 interface IButton {
@@ -29,30 +22,22 @@ interface IButton {
 
 const MyButton = styled.button<{ option: IOptions }>`
     box-sizing: border-box;
-    display: block;
-    width: ${props => props.option.width || ''};
-    height: ${props => props.option.height || '28px'};
     display: flex;
     align-items: center;
     justify-content: center;
-    border: ${props => props.option.border || 'none'};
+    width: ${props => props.option.width || ''};
+    height: ${props => props.option.height || '40px'};
+    border: ${props => props.option.border || '1px solid transparent'};
     border-radius: ${props => props.option.radius || '4px'};
-    font-size: ${props => props.option.size || '12px'};
-    font-family: ${props => props.option.faily || 'PingFang-SC-Medium'};
-    font-weight: ${props => props.option.weight || '500'};
+    background-color: ${props => props.option.bgColor || '#1890ff'};
     color: ${props => props.option.color || '#fff'};
-    background-color: ${props => props.option.bgColor || '#fff'};
+    box-shadow: ${props => props.option.shadow || ''};
     padding: 0px 16px;
     outline: none;
-    box-shadow: ${props => props.option.shadow || ''};
-    letter-spacing: ${props => props.option.spacing || ''};
-    cursor: ${props => props.option.cursor || 'pointer'};
-    svg {
-        font-size: ${props => props.option.sizeSvg || '16px'};
-    }
+    cursor: pointer;
     &:hover {
-        background-color: ${props => props.option.HbgColor || ''};
-        border: ${props => props.option.HBorder || ''};
+        background-color: ${props => props.option.HbgColor || '#40a9ff'};
+        border: ${props => props.option.HBorder || '1px solid transparent'};
         color: ${props => props.option.HColor || ''};
     }
 `

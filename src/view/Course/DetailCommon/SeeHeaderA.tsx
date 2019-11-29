@@ -4,7 +4,6 @@ import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
 import { navigate } from '@reach/router'
 import { TiArrowBackOutline } from 'react-icons/ti'
-import { RouteComponentProps } from '@reach/router'
 
 import { IStore } from '../../../store'
 import Circle from '../../../components/Echarts/Circle'
@@ -138,7 +137,7 @@ interface IProps {
         seeName: string
     }
 }
-const SeeHeaderA: FC<RouteComponentProps<IProps>> = props => {
+const SeeHeaderA: FC<IProps> = props => {
     const { courseIndexStore } = useContext<IStore>(MobXProviderContext)
 
     //返回首页/查看该卷分析/查看个人分析

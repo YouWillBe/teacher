@@ -55,7 +55,7 @@ const Button2 = styled.div`
     margin-right: 94px;
 `
 const Span = styled.span`
-    margin-right: 18px;
+    margin-right: 8px;
 `
 
 const EditorWrap = styled.div`
@@ -80,24 +80,6 @@ const ReadOnly: FC<RouteComponentProps<IParams>> = props => {
         }
     }
 
-    const editButton = {
-        width: '136px',
-        height: '40px',
-        bgColor: '#52C41A',
-        radius: '30px',
-        size: '18px',
-        family: 'PingFangSC-Regular',
-        weight: '400',
-    }
-    const arrowButton = {
-        width: '160px',
-        height: '40px',
-        bgColor: '#0376D7',
-        radius: '30px',
-        size: '18px',
-        family: 'PingFangSC-Regular',
-        weight: '400',
-    }
     return useObserver(() => {
         return (
             <Container>
@@ -106,13 +88,13 @@ const ReadOnly: FC<RouteComponentProps<IParams>> = props => {
                 ) : (
                     <Funct1>
                         <Button1 to='new'>
-                            <Button options={editButton}>
+                            <Button>
                                 <Span>编辑</Span>
                                 <FaPen></FaPen>
                             </Button>
                         </Button1>
                         <Button2>
-                            <Button options={arrowButton} onClick={handleClickSave}>
+                            <Button onClick={handleClickSave}>
                                 <Span>确定发布</Span>
                                 <FaLocationArrow></FaLocationArrow>
                             </Button>

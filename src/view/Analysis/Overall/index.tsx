@@ -9,11 +9,19 @@ import StudentList from './StudentList'
 import BarClass from '../../../components/Echarts/BarClass'
 import BarStackedStrip from '../../../components/Echarts/BarStackedStrip'
 import MultiLine from '../../../components/Echarts/MultiLine'
-import LoreList from '../../Course/PersonalAnalysis/LoreList'
+import LoreList from '../../Course/AnalysiCommon/LoreList'
+import Loading from '../../../components/Loading'
 
 const Container = styled.div`
     width: 100%;
     height: 100%;
+`
+const NoData = styled.div`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `
 const Package = styled.div`
     box-sizing: border-box;
@@ -85,92 +93,92 @@ const Overall: FC<RouteComponentProps> = () => {
 
         return (
             <Container>
-                <Package>
-                    {analysisStore.testTotalAnalysisGradeReady ? (
-                        <BarClass
-                            data={{
-                                yAxisData: analysisStore.testTotalAnalysisGrade.classAccuracyList.map(t => t.className),
-                                seriesData: analysisStore.testTotalAnalysisGrade.classAccuracyList.map(t => t.accuracy),
-                                titleText: '班级总体正确率',
-                            }}
-                        />
-                    ) : null}
-                </Package>
-                <Package>
-                    {analysisStore.testTotalAnalysisGradeReady ? (
-                        <MultiLine
-                            data={{
-                                nameData: latelyClassTestAccuracyList.nameData,
-                                xAxisData: latelyClassTestAccuracyList.weekList,
-                                metaDate: latelyClassTestAccuracyList.metaDate,
-                                titleText: '班级最近7周测试情况',
-                            }}
-                        />
-                    ) : null}
-                </Package>
-                <Package>
-                    <BarStackedStripWrap>
-                        {analysisStore.testTotalAnalysisGradeReady ? (
-                            <BarStackedStrip
+                {analysisStore.testTotalAnalysisGradeReady ? (
+                    <>
+                        <Package>
+                            <BarClass
                                 data={{
-                                    yAxisData: latelyClassOneTestAccuracyList.yAxisData,
-                                    titleText: '最近一次测试 成绩分布',
-                                    excellent: latelyClassOneTestAccuracyList.excellent,
-                                    fine: latelyClassOneTestAccuracyList.fine,
-                                    medium: latelyClassOneTestAccuracyList.medium,
-                                    poor: latelyClassOneTestAccuracyList.poor,
-                                    bad: latelyClassOneTestAccuracyList.bad,
+                                    yAxisData: analysisStore.testTotalAnalysisGrade.classAccuracyList.map(
+                                        t => t.className
+                                    ),
+                                    seriesData: analysisStore.testTotalAnalysisGrade.classAccuracyList.map(
+                                        t => t.accuracy
+                                    ),
+                                    titleText: '班级总体正确率',
+                                }}
+                            ></BarClass>
+                        </Package>
+                        <Package>
+                            <MultiLine
+                                data={{
+                                    nameData: latelyClassTestAccuracyList.nameData,
+                                    xAxisData: latelyClassTestAccuracyList.weekList,
+                                    metaDate: latelyClassTestAccuracyList.metaDate,
+                                    titleText: '班级最近7周测试情况',
+                                }}
+                            ></MultiLine>
+                        </Package>
+                        <Package>
+                            <BarStackedStripWrap>
+                                <BarStackedStrip
+                                    data={{
+                                        yAxisData: latelyClassOneTestAccuracyList.yAxisData,
+                                        titleText: '最近一次测试 成绩分布',
+                                        excellent: latelyClassOneTestAccuracyList.excellent,
+                                        fine: latelyClassOneTestAccuracyList.fine,
+                                        medium: latelyClassOneTestAccuracyList.medium,
+                                        poor: latelyClassOneTestAccuracyList.poor,
+                                        bad: latelyClassOneTestAccuracyList.bad,
+                                    }}
+                                ></BarStackedStrip>
+                            </BarStackedStripWrap>
+                        </Package>
+                        <KnowledgeWrap>
+                            <Package>
+                                <LoreList
+                                    data={{
+                                        loreList: analysisStore.testTotalAnalysisGrade.bestLores,
+                                        name: '排名最高的知识点',
+                                        colorArr: ['#23710C', '#219600', '#29C000', '#6FD554', '#9EE379'],
+                                    }}
+                                ></LoreList>
+                            </Package>
+                            <Package>
+                                <LoreList
+                                    data={{
+                                        loreList: analysisStore.testTotalAnalysisGrade.worstLores,
+                                        name: '排名最低的知识点',
+                                        colorArr: ['#780000', '#AF0F0F', '#E33939', '#F66868', '#F18787'],
+                                    }}
+                                ></LoreList>
+                            </Package>
+                        </KnowledgeWrap>
+                        <Package1>
+                            <StudentList
+                                data={{
+                                    title: '成绩前列',
+                                    Color: '#4CDF78',
+                                    url: '',
+                                    studentList: analysisStore.testTotalAnalysisGrade.bestStudentList,
                                 }}
                             />
-                        ) : null}
-                    </BarStackedStripWrap>
-                </Package>
-                <KnowledgeWrap>
-                    <Package>
-                        {analysisStore.testTotalAnalysisGrade.bestLores.map((item, index) => (
-                            <LoreList
-                                key={index}
+                        </Package1>
+                        <Package1>
+                            <StudentList
                                 data={{
-                                    ...item,
-                                    index,
-                                    colorArr: ['#23710C', '#219600', '#29C000', '#6FD554', '#9EE379'],
+                                    title: '成绩后列',
+                                    Color: '#ef6666',
+                                    url: '',
+                                    studentList: analysisStore.testTotalAnalysisGrade.worstStudentList,
                                 }}
                             />
-                        ))}
-                    </Package>
-                    <Package>
-                        {analysisStore.testTotalAnalysisGrade.worstLores.map((item, index) => (
-                            <LoreList
-                                key={index}
-                                data={{
-                                    ...item,
-                                    index,
-                                    colorArr: ['#780000', '#AF0F0F', '#E33939', '#F66868', '#F18787'],
-                                }}
-                            />
-                        ))}
-                    </Package>
-                </KnowledgeWrap>
-                <Package1>
-                    <StudentList
-                        data={{
-                            title: '成绩前列',
-                            Color: '#4CDF78',
-                            url: '',
-                            studentList: analysisStore.testTotalAnalysisGrade.bestStudentList,
-                        }}
-                    />
-                </Package1>
-                <Package1>
-                    <StudentList
-                        data={{
-                            title: '成绩后列',
-                            Color: '#ef6666',
-                            url: '',
-                            studentList: analysisStore.testTotalAnalysisGrade.worstStudentList,
-                        }}
-                    />
-                </Package1>
+                        </Package1>
+                    </>
+                ) : (
+                    <NoData>
+                        <Loading></Loading>
+                    </NoData>
+                )}
             </Container>
         )
     })

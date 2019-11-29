@@ -3,7 +3,6 @@ import { RouteComponentProps } from '@reach/router'
 import styled from '@emotion/styled'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
-import { FaSpinner } from 'react-icons/fa'
 
 import { IStore } from '../../store'
 
@@ -18,17 +17,15 @@ const Container = styled.div`
     box-sizing: border-box;
     padding-top: 20px;
 `
-const Loading = styled.div`
+const Nodata = styled.div`
     width: 950px;
     height: 800px;
     background-color: #fff;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 3px 13px 1px;
     border-radius: 4px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 40px;
-    color: #00a6f3;
+    box-sizing: border-box;
+    padding: 5px 25px 25px;
+    user-select: none;
 `
 
 const Main: FC<RouteComponentProps> = () => {
@@ -41,13 +38,7 @@ const Main: FC<RouteComponentProps> = () => {
     return useObserver(() => (
         <Container>
             <Status />
-            {classTableStore.classTableReady ? (
-                <ClassTable />
-            ) : (
-                <Loading>
-                    <FaSpinner></FaSpinner>
-                </Loading>
-            )}
+            {classTableStore.classTableReady ? <ClassTable /> : <Nodata></Nodata>}
         </Container>
     ))
 }

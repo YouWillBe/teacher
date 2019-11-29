@@ -2,7 +2,6 @@ import React, { FC, useContext } from 'react'
 import styled from '@emotion/styled'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
-import { RouteComponentProps } from '@reach/router'
 
 import { IStore } from '../../../store'
 import NumberWrap from './NumberWrap'
@@ -56,7 +55,7 @@ const TypeName = styled.span<{ isColor: boolean }>`
     }
 `
 interface IProps {}
-const SeeHeaderB: FC<RouteComponentProps<IProps>> = () => {
+const SeeHeaderB: FC<IProps> = props => {
     const { courseIndexStore } = useContext<IStore>(MobXProviderContext)
 
     //题目类型
@@ -82,15 +81,6 @@ const SeeHeaderB: FC<RouteComponentProps<IProps>> = () => {
                 testId: courseIndexStore.studentVolume.id,
             })
         }
-        // this.getStudentTestProblem({
-        //     id: res.data.studentVolume.key.id,
-        //     testId: res.data.studentVolume.id,
-        // })
-        // courseIndexStore.getStudentTestProblem({
-        //     id: courseIndexStore.studentVolume.id,
-        //     testId: res.data.studentVolume.id,
-        // })
-        // courseIndexStore.getTestProblemEntering(courseIndexStore.studentVolume.id)
     }
 
     return useObserver(() => {

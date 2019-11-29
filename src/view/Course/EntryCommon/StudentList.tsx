@@ -1,12 +1,8 @@
-import React, { FC, useContext } from 'react'
+import React, { FC } from 'react'
 import styled from '@emotion/styled'
-import { navigate } from '@reach/router'
-import { MobXProviderContext } from 'mobx-react'
-import { useObserver } from 'mobx-react-lite'
 
-import { IStore } from '../../../../store'
-import boy from '../../boy.png'
-import girl from '../../girl.png'
+import boy from '../boy.png'
+import girl from '../girl.png'
 
 const Container = styled.div`
     background-color: rgba(255, 255, 255, 0.9);
@@ -104,57 +100,36 @@ interface IParams {
     data: {
         title: string
         Color: string
-        url: string
         studentList: IUnfinishedStudentList[]
     }
+    onClickLink(studentTestId: number): void
 }
-interface ITestDTOS {
-    id: number
-    studentId: number
-    studentName: string
-    studentSex: number
-    studentStatus: number
-    testStatus: number
-    studentTestId: number
-}
-const StudentList: FC<IParams> = props => {
-    const { coursePreviewStore } = useContext<IStore>(MobXProviderContext)
 
-    const handleClickLink = (data: ITestDTOS) => {
-        if (coursePreviewStore.preview) {
-            sessionStorage.removeItem('sessionCurrentType')
-            navigate(`/course/${coursePreviewStore.preview.courseId}/preview/${data.studentTestId}`, {
-                state: {
-                    testId: data.studentTestId,
-                    id: coursePreviewStore.preview.key.id,
-                    courseId: coursePreviewStore.preview.courseId,
-                    status: true,
-                },
-            })
-        }
-    }
-    return useObserver(() => {
-        return (
-            <Container>
-                <Title>{props.data.title}</Title>
-                <Wrap>
-                    {props.data.studentList.length ? (
-                        props.data.studentList.map((v, i) => (
-                            <TestDTOS key={i} onClick={() => handleClickLink(v)} title={'正确率：' + v.accuracy + '%'}>
-                                <StudentImg bgColor={props.data.Color} Image={v.studentSex} />
-                                <ScheduleWrap>
-                                    <Article bgColor={v.accuracy} />
-                                </ScheduleWrap>
-                                <StudentName>{v.studentName}</StudentName>
-                            </TestDTOS>
-                        ))
-                    ) : (
-                        <NoData></NoData>
-                    )}
-                </Wrap>
-            </Container>
-        )
-    })
+const StudentList: FC<IParams> = props => {
+    return (
+        <Container>
+            <Title>{props.data.title}</Title>
+            <Wrap>
+                {props.data.studentList.length ? (
+                    props.data.studentList.map((v, i) => (
+                        <TestDTOS
+                            key={v.studentId}
+                            title={'正确率：' + v.accuracy + '%'}
+                            onClick={() => props.onClickLink(v.studentTestId)}
+                        >
+                            <StudentImg bgColor={props.data.Color} Image={v.studentSex} />
+                            <ScheduleWrap>
+                                <Article bgColor={v.accuracy} />
+                            </ScheduleWrap>
+                            <StudentName>{v.studentName}</StudentName>
+                        </TestDTOS>
+                    ))
+                ) : (
+                    <NoData></NoData>
+                )}
+            </Wrap>
+        </Container>
+    )
 }
 
 export default StudentList

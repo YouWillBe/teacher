@@ -9,6 +9,7 @@ import { IStore } from '../../../store'
 import TopicType from './TopicType'
 import Section from './Section'
 import NoData from '../net/NoData'
+import Loading from '../../../components/Loading'
 
 const Container = styled.div`
     width: 100%;
@@ -152,6 +153,9 @@ const NetExercise: FC<RouteComponentProps> = props => {
     }
 
     return useObserver(() => {
+        if (exerciseStore.gettingProblemList) {
+            return <Loading />
+        }
         return (
             <Container>
                 <Header>

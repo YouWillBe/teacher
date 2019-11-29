@@ -22,6 +22,9 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    button {
+        letter-spacing: 2px;
+    }
 `
 const Img = styled.div`
     box-sizing: border-box;
@@ -45,17 +48,10 @@ const Preparation: FC<RouteComponentProps<IParams>> = props => {
         navigate('preparation/new')
     }
 
-    const buttonOption = {
-        width: '200px',
+    const optionButton = {
         height: '50px',
         bgColor: 'rgba(58,147,223,1)',
         shadow: '0px 4px 11px 0px rgba(58,147,223,0.49)',
-        radius: '14px',
-        border: '1px solid rgba(255,255,255,1)',
-        size: '18px',
-        family: 'PingFangSC-Regular',
-        weight: '400',
-        spacing: '3px',
     }
     return useObserver(() => {
         if (!coursePreparationStore.preparationReady || coursePreparationStore.gettingPreparation) {
@@ -64,7 +60,7 @@ const Preparation: FC<RouteComponentProps<IParams>> = props => {
             return (
                 <Container>
                     <Img />
-                    <Button options={buttonOption} onClick={handleClickLink}>
+                    <Button options={optionButton} onClick={handleClickLink}>
                         添加课前准备
                     </Button>
                 </Container>

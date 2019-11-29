@@ -39,7 +39,7 @@ const Radar: FC<IProps> = props => {
             },
             series: [
                 {
-                    data: props.data.map(item => item.accuracy),
+                    data: props.data.map(item => item.accuracy.toFixed(2)),
                     type: 'line',
                     smooth: true,
                 },

@@ -11,7 +11,8 @@ import { IStore } from '../../../store'
 import Ranking from '../AnalysiCommon/Ranking'
 import Back from './Back'
 import Pie from './Pie'
-import LoreNumber from './LoreNumber'
+import LoreCard from '../AnalysiCommon/LoreCard'
+import Loading from '../../../components/Loading'
 
 interface IProps {
     id: string
@@ -23,6 +24,13 @@ interface IProps {
 const Container = styled.div`
     width: 1260px;
     margin: 0 auto;
+`
+const NoData = styled.div`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `
 const Header = styled.div`
     width: 100%;
@@ -59,7 +67,6 @@ const KnowledgeWrap = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr 240px 1fr;
     grid-column-gap: 20px;
-    height: 240px;
     margin: 20px 0;
 `
 const Knowledge = styled.div`
@@ -101,74 +108,78 @@ const PaperAnalysis: FC<RouteComponentProps<IProps>> = props => {
     return useObserver(() => {
         return (
             <Container>
-                <Header>
-                    <Back data={{ url: props.uri }} />
-                    <StudentInfo>
-                        <Student>
-                            <StudentType>学生</StudentType>
-                            <StudentName>{courseIndexStore.testAcademicAnalysisVolume.studentName}</StudentName>
-                        </Student>
-                        <Student>
-                            <StudentType>试卷</StudentType>
-                            <StudentName>{courseIndexStore.testAcademicAnalysisVolume.testName}</StudentName>
-                        </Student>
-                    </StudentInfo>
-                </Header>
-                <KnowledgeWrap>
-                    {courseIndexStore.gettingTestAcademicAnalysisVolume ? (
-                        <>
+                {courseIndexStore.gettingTestAcademicAnalysisVolume ? (
+                    <>
+                        <Header>
+                            <Back data={{ url: props.uri }}></Back>
+                            <StudentInfo>
+                                <Student>
+                                    <StudentType>学生</StudentType>
+                                    <StudentName>{courseIndexStore.testAcademicAnalysisVolume.studentName}</StudentName>
+                                </Student>
+                                <Student>
+                                    <StudentType>试卷</StudentType>
+                                    <StudentName>{courseIndexStore.testAcademicAnalysisVolume.testName}</StudentName>
+                                </Student>
+                            </StudentInfo>
+                        </Header>
+                        <KnowledgeWrap>
                             <Knowledge>
                                 <Pie text='正确率最高的' data={courseIndexStore.testAcademicAnalysisVolume.bestLore} />
                             </Knowledge>
                             <Knowledge>
                                 <Pie text='正确率最低的' data={courseIndexStore.testAcademicAnalysisVolume.worstLore} />
                             </Knowledge>
-                        </>
-                    ) : null}
 
-                    <Knowledge>
-                        <LoreNumber
-                            data={{
-                                text: '知识点数量',
-                                loreCount: courseIndexStore.testAcademicAnalysisVolume.loreCount,
-                                typeText: '个',
-                                setColor: '#6D8DD2',
-                            }}
-                        />
-                        <LoreNumber
-                            data={{
-                                text: '薄弱知识点',
-                                loreCount: courseIndexStore.testAcademicAnalysisVolume.weaknessLoreCount,
-                                typeText: '个',
-                                setColor: '#996DD2',
-                            }}
-                        />
-                    </Knowledge>
-                    <Knowledge>
-                        <LoreNumber
-                            data={{
-                                text: '试卷正确率',
-                                loreCount: courseIndexStore.testAcademicAnalysisVolume.loreCount,
-                                typeText: '%',
-                                setColor: '#ED5083',
-                            }}
-                        />
-                        <LoreNumber
-                            data={{
-                                text: '该卷在班里排名',
-                                loreCount: courseIndexStore.testAcademicAnalysisVolume.rank,
-                                typeText: '/' + courseIndexStore.testAcademicAnalysisVolume.totalRank,
-                                setColor: '#3A93DF',
-                            }}
-                        />
-                    </Knowledge>
-                </KnowledgeWrap>
-                <Package>
-                    <LoreName>知识点排行（全班平均正确率）</LoreName>
-                    {courseIndexStore.testAcademicAnalysisVolume.loreDTOList.map((item, index) => (
-                        <Ranking key={index} data={item} />
-                    ))}
-                </Package>
+                            <Knowledge>
+                                <LoreCard
+                                    data={{
+                                        text: '知识点数量',
+                                        loreCount: courseIndexStore.testAcademicAnalysisVolume.loreCount,
+                                        typeText: '个',
+                                        setColor: '#6D8DD2',
+                                    }}
+                                ></LoreCard>
+                                <LoreCard
+                                    data={{
+                                        text: '薄弱知识点',
+                                        loreCount: courseIndexStore.testAcademicAnalysisVolume.weaknessLoreCount,
+                                        typeText: '个',
+                                        setColor: '#996DD2',
+                                    }}
+                                ></LoreCard>
+                            </Knowledge>
+                            <Knowledge>
+                                <LoreCard
+                                    data={{
+                                        text: '试卷正确率',
+                                        loreCount: courseIndexStore.testAcademicAnalysisVolume.loreCount,
+                                        typeText: '%',
+                                        setColor: '#ED5083',
+                                    }}
+                                ></LoreCard>
+                                <LoreCard
+                                    data={{
+                                        text: '该卷在班里排名',
+                                        loreCount: courseIndexStore.testAcademicAnalysisVolume.rank,
+                                        typeText: '/' + courseIndexStore.testAcademicAnalysisVolume.totalRank,
+                                        setColor: '#3A93DF',
+                                    }}
+                                ></LoreCard>
+                            </Knowledge>
+                        </KnowledgeWrap>
+                        <Package>
+                            <LoreName>知识点排行（全班平均正确率）</LoreName>
+                            {courseIndexStore.testAcademicAnalysisVolume.loreDTOList.map((item, index) => (
+                                <Ranking key={index} data={item}></Ranking>
+                            ))}
+                        </Package>
+                    </>
+                ) : (
+                    <NoData>
+                        <Loading></Loading>
+                    </NoData>
+                )}
             </Container>
         )
     })

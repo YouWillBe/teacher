@@ -12,8 +12,9 @@ import Radar from '../../../components/Echarts/Radar'
 import Line from '../../../components/Echarts/Line'
 import Back from './Back'
 import Pie from './Pie'
-import LoreNumber from './LoreNumber'
-import LoreList from './LoreList'
+import LoreCard from '../AnalysiCommon/LoreCard'
+import LoreList from '../AnalysiCommon/LoreList'
+import Loading from '../../../components/Loading'
 
 interface IProps {
     studentId: string
@@ -39,6 +40,13 @@ const Container = styled.div`
         border-radius: 10px;
         background-color: #ddd;
     }
+`
+const NoData = styled.div`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `
 const Container1 = styled.div`
     box-sizing: border-box;
@@ -155,73 +163,71 @@ const PersonalAnalysis: FC<RouteComponentProps<IProps>> = props => {
     return useObserver(() => {
         return (
             <Container1>
-                <Container>
-                    <Wrap>
-                        <Header>
-                            <Back data={{ url: props.uri, returnLine: props.location!.state.returnLine }} />
-                            <StudentInfo>
-                                <Student>
-                                    <StudentType>学生</StudentType>
-                                    <StudentName>
-                                        {courseIndexStore.testAcademicAnalysisStudent.studentName}
-                                    </StudentName>
-                                </Student>
-                                <Student />
-                            </StudentInfo>
-                        </Header>
-                        <KnowledgeWrap>
-                            <Knowledge>
-                                {courseIndexStore.gettingTestAcademicAnalysisStudent ? (
+                {courseIndexStore.gettingTestAcademicAnalysisStudent ? (
+                    <Container>
+                        <Wrap>
+                            <Header>
+                                <Back data={{ url: props.uri, returnLine: props.location!.state.returnLine }} />
+                                <StudentInfo>
+                                    <Student>
+                                        <StudentType>学生</StudentType>
+                                        <StudentName>
+                                            {courseIndexStore.testAcademicAnalysisStudent.studentName}
+                                        </StudentName>
+                                    </Student>
+                                    <Student />
+                                </StudentInfo>
+                            </Header>
+                            <KnowledgeWrap>
+                                <Knowledge>
                                     <Pie
                                         text='总体知识点正确率'
                                         data={{
                                             avgAccuracy: courseIndexStore.testAcademicAnalysisStudent.totalAccuracy,
                                         }}
                                     ></Pie>
-                                ) : null}
-                            </Knowledge>
-                            <Knowledge1>
-                                <Knowledge2>
-                                    <LoreNumber
+                                </Knowledge>
+                                <Knowledge1>
+                                    <Knowledge2>
+                                        <LoreCard
+                                            data={{
+                                                text: '班级正确率排名',
+                                                loreCount: courseIndexStore.testAcademicAnalysisStudent.classRanking,
+                                                typeText: '名',
+                                                setColor: '#FFC821',
+                                            }}
+                                        />
+                                    </Knowledge2>
+                                    <Knowledge2>
+                                        <LoreCard
+                                            data={{
+                                                text: '年级正确率排名',
+                                                loreCount: courseIndexStore.testAcademicAnalysisStudent.gradeRanking,
+                                                typeText: '名',
+                                                setColor: '#42C3D0',
+                                            }}
+                                        />
+                                    </Knowledge2>
+                                </Knowledge1>
+                                <Knowledge>
+                                    <LoreCard
                                         data={{
-                                            text: '班级正确率排名',
-                                            loreCount: courseIndexStore.testAcademicAnalysisStudent.classRanking,
-                                            typeText: '名',
-                                            setColor: '#FFC821',
+                                            text: '知识点数量',
+                                            loreCount: courseIndexStore.testAcademicAnalysisStudent.loreCount,
+                                            typeText: '个',
+                                            setColor: '#6D8DD2',
                                         }}
                                     />
-                                </Knowledge2>
-                                <Knowledge2>
-                                    <LoreNumber
+                                    <LoreCard
                                         data={{
-                                            text: '年级正确率排名',
-                                            loreCount: courseIndexStore.testAcademicAnalysisStudent.gradeRanking,
-                                            typeText: '名',
-                                            setColor: '#42C3D0',
+                                            text: '薄弱知识点',
+                                            loreCount: courseIndexStore.testAcademicAnalysisStudent.weaknessLoreCount,
+                                            typeText: '个',
+                                            setColor: '#996DD2',
                                         }}
                                     />
-                                </Knowledge2>
-                            </Knowledge1>
-                            <Knowledge>
-                                <LoreNumber
-                                    data={{
-                                        text: '知识点数量',
-                                        loreCount: courseIndexStore.testAcademicAnalysisStudent.loreCount,
-                                        typeText: '个',
-                                        setColor: '#6D8DD2',
-                                    }}
-                                />
-                                <LoreNumber
-                                    data={{
-                                        text: '薄弱知识点',
-                                        loreCount: courseIndexStore.testAcademicAnalysisStudent.weaknessLoreCount,
-                                        typeText: '个',
-                                        setColor: '#996DD2',
-                                    }}
-                                />
-                            </Knowledge>
-                            <RadarWrap>
-                                {courseIndexStore.gettingTestAcademicAnalysisStudent ? (
+                                </Knowledge>
+                                <RadarWrap>
                                     <Radar
                                         data={{
                                             indicator: courseIndexStore.testAcademicAnalysisStudent.sectionLoreAccuracy.map(
@@ -244,45 +250,42 @@ const PersonalAnalysis: FC<RouteComponentProps<IProps>> = props => {
                                             },
                                         }}
                                     ></Radar>
-                                ) : null}
-                            </RadarWrap>
-                        </KnowledgeWrap>
-                        <Package>
-                            <LoreName>总体知识点正确率变化</LoreName>
-                            <LineWrap>
-                                {courseIndexStore.gettingTestAcademicAnalysisStudent ? (
+                                </RadarWrap>
+                            </KnowledgeWrap>
+                            <Package>
+                                <LoreName>总体知识点正确率变化</LoreName>
+                                <LineWrap>
                                     <Line data={courseIndexStore.testAcademicAnalysisStudent.loreAccuracyChange}></Line>
-                                ) : null}
-                            </LineWrap>
-                        </Package>
-                        <KnowledgeWrap1>
-                            <Knowledge>
-                                {courseIndexStore.testAcademicAnalysisStudent.bestLores.map((item, index) => (
+                                </LineWrap>
+                            </Package>
+                            <KnowledgeWrap1>
+                                <Knowledge>
                                     <LoreList
-                                        key={index}
                                         data={{
-                                            ...item,
-                                            index,
+                                            loreList: courseIndexStore.testAcademicAnalysisStudent.bestLores,
+                                            name: '排名最高的知识点',
                                             colorArr: ['#23710C', '#219600', '#29C000', '#6FD554', '#9EE379'],
                                         }}
-                                    />
-                                ))}
-                            </Knowledge>
-                            <Knowledge>
-                                {courseIndexStore.testAcademicAnalysisStudent.worstLores.map((item, index) => (
+                                    ></LoreList>
+                                </Knowledge>
+                                <Knowledge>
                                     <LoreList
-                                        key={index}
                                         data={{
-                                            ...item,
-                                            index,
+                                            loreList: courseIndexStore.testAcademicAnalysisStudent.worstLores,
+                                            name: '排名最低的知识点',
                                             colorArr: ['#780000', '#AF0F0F', '#E33939', '#F66868', '#F18787'],
                                         }}
-                                    />
-                                ))}
-                            </Knowledge>
-                        </KnowledgeWrap1>
-                    </Wrap>
-                </Container>
+                                    ></LoreList>
+                                    <LoreName>排名最低的知识点</LoreName>
+                                </Knowledge>
+                            </KnowledgeWrap1>
+                        </Wrap>
+                    </Container>
+                ) : (
+                    <NoData>
+                        <Loading></Loading>
+                    </NoData>
+                )}
             </Container1>
         )
     })

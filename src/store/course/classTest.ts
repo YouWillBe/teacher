@@ -251,28 +251,27 @@ class CourseClassTest implements ICourseClassTestStore {
     //根据课程查询随堂测
     @action async getClassTest(id: string) {
         this.gettingClassTest = true
-        try {
-            const res = await api.course.getClassTest(id)
-            if (res.success) {
-                this.courseId = id
-                if (!res.data) {
-                    this.classTest = null
-                } else if (res.data.status === 0) {
-                    this.classTest = res.data.volume
-                } else {
-                    // @ts-ignore
-                    this.classTest = { ...res.data.volume }
-                    this.doClassTestInfo = res.data.info
-                }
-                if (res.data) {
-                    this.setType(res.data.volume)
-                }
-
-                this.gettingClassTest = false
-                this.classTestReady = true
+        const res = await api.course.getClassTest(id)
+        if (res.success) {
+            this.courseId = id
+            if (!res.data) {
+                this.classTest = null
+            } else if (res.data.status === 0) {
+                this.classTest = res.data.volume
+            } else {
+                // @ts-ignore
+                this.classTest = { ...res.data.volume }
+                this.doClassTestInfo = res.data.info
             }
-        } catch (error) {}
+            if (res.data) {
+                this.setType(res.data.volume)
+            }
+
+            this.gettingClassTest = false
+            this.classTestReady = true
+        }
     }
+
     @action async bindingClassTest(courseId: string, volumeId: number) {
         let data = {
             courseId: parseInt(courseId),
@@ -282,51 +281,44 @@ class CourseClassTest implements ICourseClassTestStore {
         if (data.testId === 0) {
             delete data.testId
         }
-        try {
-            const res = await api.course.bindingClassTest(data)
-            if (res.success) {
-                this.getClassTest(courseId)
-            }
-        } catch (error) {}
+        const res = await api.course.bindingClassTest(data)
+        if (res.success) {
+            this.getClassTest(courseId)
+        }
     }
+
     //根据知识点查询已完成组卷的试卷
     @action async getVolumeLore() {
         if (!this.volumeLoreReady) {
             this.gettingVolumeLore = true
-            try {
-                const res = await api.course.getVolumeLore()
-                if (res.success) {
-                    this.volumeLore = res.data
-                    this.gettingVolumeLore = true
-                    this.volumeLoreReady = false
-                }
-            } catch (error) {}
+            const res = await api.course.getVolumeLore()
+            if (res.success) {
+                this.volumeLore = res.data
+                this.gettingVolumeLore = true
+                this.volumeLoreReady = false
+            }
         }
     }
     //发布试卷
     @action async publishVolume(data: IPublishVolume, courseId: string) {
-        try {
-            const res = await api.course.publishVolume(data)
-            if (res.success) {
-                this.getClassTest(courseId)
-            }
-        } catch (error) {}
+        const res = await api.course.publishVolume(data)
+        if (res.success) {
+            this.getClassTest(courseId)
+        }
     }
 
     @action async getPreviewFinished() {
         this.gettingPreviewFinished = true
-        try {
-            const res = await api.course.getQuizFinished(this.courseId)
-            if (res.success) {
-                this.finishedStudentList = res.data.finishedStudentList
-                this.unfinishedStudentList = res.data.unfinishedStudentList
-                this.studentAccuracyCount = res.data.studentAccuracyCount
-                this.testAccuracy = res.data.testAccuracy
-                this.testScore = res.data.testScore
-                this.previewFinishedReady = true
-                this.gettingPreviewFinished = false
-            }
-        } catch (error) {}
+        const res = await api.course.getQuizFinished(this.courseId)
+        if (res.success) {
+            this.finishedStudentList = res.data.finishedStudentList
+            this.unfinishedStudentList = res.data.unfinishedStudentList
+            this.studentAccuracyCount = res.data.studentAccuracyCount
+            this.testAccuracy = res.data.testAccuracy
+            this.testScore = res.data.testScore
+            this.previewFinishedReady = true
+            this.gettingPreviewFinished = false
+        }
     }
 
     //收卷

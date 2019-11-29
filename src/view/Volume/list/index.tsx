@@ -112,6 +112,7 @@ const Volume: FC<RouteComponentProps> = () => {
 
     //分页
     const handleChangePaging = (value: number) => {
+        volumeStore.volumePage.page = value
         volumeStore.getVolumeList(value)
     }
 
@@ -120,7 +121,7 @@ const Volume: FC<RouteComponentProps> = () => {
     }
 
     return useObserver(() => {
-        if (!volumeStore.volumeListReady) {
+        if (volumeStore.gettingVolumeList) {
             return <Loading />
         }
         if (volumeStore.volumeList.length === 0) {

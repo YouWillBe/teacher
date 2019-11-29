@@ -3,10 +3,10 @@ import styled from '@emotion/styled'
 import { RouteComponentProps, Router } from '@reach/router'
 
 import Index from './index'
-import PreviewIndex from './Preview/Detail/SeeIndex'
-import ClassTest from './ClassTest/Detail/SeeIndex'
-import ExaminationIndex from './Examination/Detail/SeeIndex'
-import TaskIndex from './Task/Detail/SeeIndex'
+import PreviewAnnounced from './Preview/Detail/Announced'
+import ClassTestAnnounced from './ClassTest/Detail/Announced'
+import ExaminationAnnounced from './Examination/Detail/Announced'
+import TaskAnnounced from './Task/Detail/Announced'
 import PreviewAnalysis from './AnalysiCommon'
 import PaperAnalysis from './PaperAnalysis'
 import PersonalAnalysis from './PersonalAnalysis'
@@ -24,10 +24,10 @@ const Course: FC<RouteComponentProps<IParams>> = props => {
     return (
         <Content>
             <Index path=':courseId'>{props.children}</Index>
-            <PreviewIndex path=':courseId/preview/:studentTestId/'></PreviewIndex>
-            <ClassTest path=':courseId/classTest/:studentTestId/'></ClassTest>
-            <ExaminationIndex path=':courseId/examination/:studentTestId/'></ExaminationIndex>
-            <TaskIndex path=':courseId/task/:studentTestId/'></TaskIndex>
+            <PreviewAnnounced path=':courseId/preview/:studentTestId/'></PreviewAnnounced>
+            <ClassTestAnnounced path=':courseId/classTest/:studentTestId/'></ClassTestAnnounced>
+            <ExaminationAnnounced path=':courseId/examination/:studentTestId/'></ExaminationAnnounced>
+            <TaskAnnounced path=':courseId/task/:studentTestId/'></TaskAnnounced>
             <PreviewAnalysis path=':courseId/preview/analysis/:testId'></PreviewAnalysis>
             <PreviewAnalysis path=':courseId/task/analysis/:testId'></PreviewAnalysis>
             <PreviewAnalysis path=':courseId/classTest/analysis/:testId'></PreviewAnalysis>

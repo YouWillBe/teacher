@@ -7,14 +7,22 @@ import { useObserver } from 'mobx-react-lite'
 import { IStore } from '../../../store'
 import StudentList from './StudentList'
 import Pie from '../../Course/PersonalAnalysis/Pie'
-import LoreNumber from '../../Course/PersonalAnalysis/LoreNumber'
-import LoreList from '../../Course/PersonalAnalysis/LoreList'
+import LoreCard from '../../Course/AnalysiCommon/LoreCard'
+import LoreList from '../../Course/AnalysiCommon/LoreList'
 import Radar from '../../../components/Echarts/Radar'
 import Line from '../../../components/Echarts/Line'
+import Loading from '../../../components/Loading'
 
 const Container = styled.div`
     width: 100%;
     height: 100%;
+`
+const NoData = styled.div`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `
 const KnowledgeWrap = styled.div`
     width: 100%;
@@ -91,118 +99,120 @@ const Class: FC<RouteComponentProps<IProps>> = props => {
     return useObserver(() => {
         return (
             <Container>
-                <KnowledgeWrap>
-                    <Knowledge>
-                        {analysisStore.teacherTotalAnalysisReady ? (
-                            <Pie
-                                text='班级正确率'
+                {analysisStore.teacherTotalAnalysisReady ? (
+                    <>
+                        <KnowledgeWrap>
+                            <Knowledge>
+                                <Pie
+                                    text='班级正确率'
+                                    data={{
+                                        avgAccuracy: analysisStore.teacherTotalAnalysis.classAccuracy,
+                                    }}
+                                ></Pie>
+                            </Knowledge>
+                            <Knowledge>
+                                <LoreCard
+                                    data={{
+                                        text: '测试 班级排名',
+                                        loreCount: analysisStore.teacherTotalAnalysis.teamRanking,
+                                        typeText: '名',
+                                        setColor: '#FFC821',
+                                    }}
+                                />
+                                <LoreCard
+                                    data={{
+                                        text: '测试 最高正确率',
+                                        loreCount: analysisStore.teacherTotalAnalysis.bestAccuracy,
+                                        typeText: '%',
+                                        setColor: '#42C3D0',
+                                    }}
+                                />
+                            </Knowledge>
+                            <Knowledge>
+                                <LoreCard
+                                    data={{
+                                        text: '知识点数量',
+                                        loreCount: analysisStore.teacherTotalAnalysis.loreCount,
+                                        typeText: '个',
+                                        setColor: '#6D8DD2',
+                                    }}
+                                />
+                                <LoreCard
+                                    data={{
+                                        text: '薄弱知识点',
+                                        loreCount: analysisStore.teacherTotalAnalysis.weaknessLoreCount,
+                                        typeText: '个',
+                                        setColor: '#996DD2',
+                                    }}
+                                />
+                            </Knowledge>
+                            <RadarWrap>
+                                {analysisStore.teacherTotalAnalysisReady ? (
+                                    <Radar
+                                        data={{
+                                            indicator: analysisStore.teacherTotalAnalysis.sectionLoreAccuracy.map(
+                                                item => {
+                                                    return { max: item.max, name: item.name }
+                                                }
+                                            ),
+                                            series: analysisStore.teacherTotalAnalysis.sectionLoreAccuracy.map(item => {
+                                                return item.accuracy
+                                            }),
+                                            labels: analysisStore.teacherTotalAnalysis.sectionLoreAccuracy.map(item => {
+                                                return item.name
+                                            }),
+                                            textStyle: {
+                                                titleText: '章节知识点正确率雷达图',
+                                            },
+                                        }}
+                                    ></Radar>
+                                ) : null}
+                            </RadarWrap>
+                        </KnowledgeWrap>
+                        <Package>
+                            <LoreName>班级最近7周正确率情况</LoreName>
+                            <LineWrap>
+                                <Line
+                                    data={analysisStore.teacherTotalAnalysis.latelyClassTestAccuracy.weekAccuracyList}
+                                ></Line>
+                            </LineWrap>
+                        </Package>
+                        <KnowledgeWrap1>
+                            <Knowledge>
+                                <LoreList
+                                    data={{
+                                        loreList: analysisStore.teacherTotalAnalysis.bestLores,
+                                        name: '排名最高的知识点',
+                                        colorArr: ['#23710C', '#219600', '#29C000', '#6FD554', '#9EE379'],
+                                    }}
+                                ></LoreList>
+                            </Knowledge>
+                            <Knowledge>
+                                <LoreList
+                                    data={{
+                                        loreList: analysisStore.teacherTotalAnalysis.worstLores,
+                                        name: '排名最低的知识点',
+                                        colorArr: ['#780000', '#AF0F0F', '#E33939', '#F66868', '#F18787'],
+                                    }}
+                                ></LoreList>
+                            </Knowledge>
+                        </KnowledgeWrap1>
+                        <Package1>
+                            <StudentList
                                 data={{
-                                    avgAccuracy: analysisStore.teacherTotalAnalysis.classAccuracy,
+                                    title: '班级排名',
+                                    Color: '#4CDF78',
+                                    url: `${props.uri}`,
+                                    studentList: analysisStore.teacherTotalAnalysis.classStudentRanking,
                                 }}
                             />
-                        ) : null}
-                    </Knowledge>
-                    <Knowledge>
-                        <LoreNumber
-                            data={{
-                                text: '测试 班级排名',
-                                loreCount: analysisStore.teacherTotalAnalysis.teamRanking,
-                                typeText: '名',
-                                setColor: '#FFC821',
-                            }}
-                        />
-                        <LoreNumber
-                            data={{
-                                text: '测试 最高正确率',
-                                loreCount: analysisStore.teacherTotalAnalysis.bestAccuracy,
-                                typeText: '%',
-                                setColor: '#42C3D0',
-                            }}
-                        />
-                    </Knowledge>
-                    <Knowledge>
-                        <LoreNumber
-                            data={{
-                                text: '知识点数量',
-                                loreCount: analysisStore.teacherTotalAnalysis.loreCount,
-                                typeText: '个',
-                                setColor: '#6D8DD2',
-                            }}
-                        />
-                        <LoreNumber
-                            data={{
-                                text: '薄弱知识点',
-                                loreCount: analysisStore.teacherTotalAnalysis.weaknessLoreCount,
-                                typeText: '个',
-                                setColor: '#996DD2',
-                            }}
-                        />
-                    </Knowledge>
-                    <RadarWrap>
-                        {analysisStore.teacherTotalAnalysisReady ? (
-                            <Radar
-                                data={{
-                                    indicator: analysisStore.teacherTotalAnalysis.sectionLoreAccuracy.map(item => {
-                                        return { max: item.max, name: item.name }
-                                    }),
-                                    series: analysisStore.teacherTotalAnalysis.sectionLoreAccuracy.map(item => {
-                                        return item.accuracy
-                                    }),
-                                    labels: analysisStore.teacherTotalAnalysis.sectionLoreAccuracy.map(item => {
-                                        return item.name
-                                    }),
-                                    textStyle: {
-                                        titleText: '章节知识点正确率雷达图',
-                                    },
-                                }}
-                            />
-                        ) : null}
-                    </RadarWrap>
-                </KnowledgeWrap>
-                <Package>
-                    <LoreName>班级最近7周正确率情况</LoreName>
-                    <LineWrap>
-                        {analysisStore.teacherTotalAnalysisReady ? (
-                            <Line data={analysisStore.teacherTotalAnalysis.latelyClassTestAccuracy.weekAccuracyList} />
-                        ) : null}
-                    </LineWrap>
-                </Package>
-                <KnowledgeWrap1>
-                    <Knowledge>
-                        {analysisStore.teacherTotalAnalysis.bestLores.map((item, index) => (
-                            <LoreList
-                                key={index}
-                                data={{
-                                    ...item,
-                                    index,
-                                    colorArr: ['#23710C', '#219600', '#29C000', '#6FD554', '#9EE379'],
-                                }}
-                            />
-                        ))}
-                    </Knowledge>
-                    <Knowledge>
-                        {analysisStore.teacherTotalAnalysis.worstLores.map((item, index) => (
-                            <LoreList
-                                key={index}
-                                data={{
-                                    ...item,
-                                    index,
-                                    colorArr: ['#780000', '#AF0F0F', '#E33939', '#F66868', '#F18787'],
-                                }}
-                            />
-                        ))}
-                    </Knowledge>
-                </KnowledgeWrap1>
-                <Package1>
-                    <StudentList
-                        data={{
-                            title: '班级排名',
-                            Color: '#4CDF78',
-                            url: `${props.uri}`,
-                            studentList: analysisStore.teacherTotalAnalysis.classStudentRanking,
-                        }}
-                    />
-                </Package1>
+                        </Package1>
+                    </>
+                ) : (
+                    <NoData>
+                        <Loading></Loading>
+                    </NoData>
+                )}
             </Container>
         )
     })

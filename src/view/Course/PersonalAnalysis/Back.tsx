@@ -54,24 +54,24 @@ const Back: FC<IProps> = props => {
         }
     }
 
-    const buttonOption = {
-        height: '40px',
+    const optionButton = {
         color: 'rgba(153, 153, 153, 1)',
-        border: '1px solid rgba(153,153,153,1)',
         shadow: '0px 6px 5px 0px rgba(59,141,242,0.2)',
-        HColor: '#3a93df',
-        HBorder: '1px solid #3a93df',
+        bgColor: '#fff',
+        HBorder: '1px solid #40a9ff',
+        HColor: '#40a9ff',
+        HbgColor: '#fff',
     }
 
     return (
         <Container>
             {props.data.url!.split('/')[4] && (
-                <Button options={buttonOption} onClick={handleClickLink}>
+                <Button options={optionButton} onClick={handleClickLink}>
                     <TiArrowBackOutline />
                     <MySpan>{setRouterName().name}</MySpan>
                 </Button>
             )}
-            <Button options={buttonOption} onClick={handleClickLink1}>
+            <Button options={optionButton} onClick={handleClickLink1}>
                 <TiArrowBackOutline />
                 <MySpan>{setRouterName().name1}</MySpan>
             </Button>

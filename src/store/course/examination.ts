@@ -26,6 +26,7 @@ interface DoPreviewInfo {
     status: number
     testDTOS: ITestDTOS[]
     testId: number
+    name: string
 }
 interface IPreview {
     id: number

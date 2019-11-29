@@ -47,11 +47,7 @@ function NotDataAdd() {
         setIsShow(false)
     }
 
-    const buttonOption = {
-        height: '40px',
-        size: '18px',
-        weight: '400',
-        family: 'PingFangSC-Regular,PingFangSC',
+    const optionButton = {
         bgColor: '#409EFF',
         shadow: '0px 4px 11px 0px rgba(64,158,255,0.5)',
     }
@@ -59,7 +55,7 @@ function NotDataAdd() {
     return useObserver(() => {
         return (
             <Container>
-                <Button options={buttonOption} onClick={handleClickAdd}>
+                <Button options={optionButton} onClick={handleClickAdd}>
                     <FaPlus></FaPlus>
                     <Span>添加题目</Span>
                 </Button>

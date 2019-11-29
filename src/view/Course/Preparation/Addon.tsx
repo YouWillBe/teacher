@@ -1,11 +1,7 @@
 import React, { FC, MouseEventHandler } from 'react'
-// import { Link, RouteComponentProps } from '@reach/router'
-
 import styled from '@emotion/styled'
-import { FaSave } from 'react-icons/fa'
 
-// import KnowledgePoint from './KnowledgePoint'
-// import Annex from './Annex'
+import { FaSave } from 'react-icons/fa'
 
 const Container = styled.div`
     position: fixed;
@@ -44,9 +40,6 @@ interface IProps {
 const Addon: FC<IProps> = props => {
     return (
         <Container>
-            {/* <KnowledgePoint /> */}
-            {/* <Annex /> */}
-
             {props.canSave && (
                 <Save onClick={props.onSave}>
                     <FaSave></FaSave>

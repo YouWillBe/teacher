@@ -125,7 +125,7 @@ const ShortAnswerProblem: FC<RouteComponentProps<Iprops>> = () => {
                     <KnowledgeWrap>
                         <PlusKnowledge />
                         {exerciseStore.selectedPoints.map((item, index) => (
-                            <Knowledge key={item.id} data={{ ...item, index }} />
+                            <Knowledge key={item.id} data={item} />
                         ))}
                     </KnowledgeWrap>
                 </Package>

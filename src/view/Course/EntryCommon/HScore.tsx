@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
 import styled from '@emotion/styled'
-import { useObserver } from 'mobx-react-lite'
 
 const Container = styled.div`
     width: 100%;
@@ -31,14 +30,12 @@ interface IParams {
     }
 }
 const HScore: FC<IParams> = props => {
-    return useObserver(() => {
-        return (
-            <Container>
-                <Left>{props.data.name}</Left>
-                <Right Color={props.data.Color}>{props.data.score}</Right>
-            </Container>
-        )
-    })
+    return (
+        <Container>
+            <Left>{props.data.name}</Left>
+            <Right Color={props.data.Color}>{props.data.score}</Right>
+        </Container>
+    )
 }
 
 export default HScore

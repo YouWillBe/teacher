@@ -10,10 +10,11 @@ import { useObserver } from 'mobx-react-lite'
 
 import { IStore } from '../../../store'
 import Ranking from './Ranking'
+import Back from './Back'
 import SeeCenter from './SeeCenter'
 import BarCylindrical from '../../../components/Echarts/BarCylindrical'
 import CirclePie from '../../../components/Echarts/CirclePie'
-import Back from './Back'
+import Loading from '../../../components/Loading'
 
 const Container = styled.div`
     box-sizing: border-box;
@@ -148,32 +149,32 @@ const PreviewAnalysis: FC<RouteComponentProps<IProps>> = props => {
     return useObserver(() => {
         return (
             <Container1>
-                <Container>
-                    <Wrap>
-                        <Package1>
-                            <Header>
-                                <Back data={{ url: props.uri }} />
-                                <TestName>
-                                    <NameType>试卷</NameType>
-                                    <Name>{courseIndexStore.volumeDTO.name}</Name>
-                                </TestName>
-                                <NumberPeopleWrap>
-                                    <NumberPeople>
-                                        <NumberPeopleName>按时交卷人数</NumberPeopleName>
-                                        <TotalCount>
-                                            {courseIndexStore.gradeDataDTO.punctualCount}/
-                                            {courseIndexStore.gradeDataDTO.totalCount}
-                                        </TotalCount>
-                                    </NumberPeople>
-                                    <NumberPeople>
-                                        <NumberPeopleName>合格人数</NumberPeopleName>
-                                        <PassCount> {courseIndexStore.gradeDataDTO.passCount}</PassCount>
-                                    </NumberPeople>
-                                </NumberPeopleWrap>
-                            </Header>
-                            <ChartWrap>
-                                <ChartLeft>
-                                    {courseIndexStore.gettingTestAccuracy ? (
+                {courseIndexStore.gettingTestAccuracy ? (
+                    <Container>
+                        <Wrap>
+                            <Package1>
+                                <Header>
+                                    <Back data={{ url: props.uri }}></Back>
+                                    <TestName>
+                                        <NameType>试卷</NameType>
+                                        <Name>{courseIndexStore.volumeDTO.name}</Name>
+                                    </TestName>
+                                    <NumberPeopleWrap>
+                                        <NumberPeople>
+                                            <NumberPeopleName>按时交卷人数</NumberPeopleName>
+                                            <TotalCount>
+                                                {courseIndexStore.gradeDataDTO.punctualCount}/
+                                                {courseIndexStore.gradeDataDTO.totalCount}
+                                            </TotalCount>
+                                        </NumberPeople>
+                                        <NumberPeople>
+                                            <NumberPeopleName>合格人数</NumberPeopleName>
+                                            <PassCount> {courseIndexStore.gradeDataDTO.passCount}</PassCount>
+                                        </NumberPeople>
+                                    </NumberPeopleWrap>
+                                </Header>
+                                <ChartWrap>
+                                    <ChartLeft>
                                         <BarCylindrical
                                             data={{
                                                 name: { text: '成绩情况', subtext: '正确率' },
@@ -187,38 +188,43 @@ const PreviewAnalysis: FC<RouteComponentProps<IProps>> = props => {
                                                 ],
                                                 totalCount: courseIndexStore.gradeDataDTO.totalCount,
                                             }}
-                                        />
-                                    ) : null}
-                                </ChartLeft>
-                                <ChartRight>
-                                    {courseIndexStore.gettingTestAccuracy ? (
-                                        <CirclePie
-                                            data={{
-                                                name: { text: '全班平均正确率' },
-                                                seriesData: [
-                                                    { value: courseIndexStore.gradeDataDTO.avgAccuracy, name: '正确' },
-                                                    {
-                                                        value: 100 - courseIndexStore.gradeDataDTO.avgAccuracy,
-                                                        name: '错误',
-                                                    },
-                                                ],
-                                            }}
-                                        />
-                                    ) : null}
-                                </ChartRight>
-                            </ChartWrap>
-                        </Package1>
-                        <Package>
-                            <LoreName>知识点排行（全班平均正确率）</LoreName>
-                            {courseIndexStore.loreDTOList.map((item, index) => (
-                                <Ranking key={index} data={item} />
-                            ))}
-                        </Package>
-                        <Package>
-                            <SeeCenter />
-                        </Package>
-                    </Wrap>
-                </Container>
+                                        ></BarCylindrical>
+                                    </ChartLeft>
+                                    <ChartRight>
+                                        {courseIndexStore.gettingTestAccuracy ? (
+                                            <CirclePie
+                                                data={{
+                                                    name: { text: '全班平均正确率' },
+                                                    seriesData: [
+                                                        {
+                                                            value: courseIndexStore.gradeDataDTO.avgAccuracy,
+                                                            name: '正确',
+                                                        },
+                                                        {
+                                                            value: 100 - courseIndexStore.gradeDataDTO.avgAccuracy,
+                                                            name: '错误',
+                                                        },
+                                                    ],
+                                                }}
+                                            ></CirclePie>
+                                        ) : null}
+                                    </ChartRight>
+                                </ChartWrap>
+                            </Package1>
+                            <Package>
+                                <LoreName>知识点排行（全班平均正确率）</LoreName>
+                                {courseIndexStore.loreDTOList.map((item, index) => (
+                                    <Ranking key={index} data={item}></Ranking>
+                                ))}
+                            </Package>
+                            <Package>
+                                <SeeCenter></SeeCenter>
+                            </Package>
+                        </Wrap>
+                    </Container>
+                ) : (
+                    <Loading></Loading>
+                )}
             </Container1>
         )
     })

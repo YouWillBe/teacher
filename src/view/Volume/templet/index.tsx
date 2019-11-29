@@ -152,14 +152,6 @@ const Templet: FC<RouteComponentProps> = () => {
         volumeStore.createVolume(data)
     }
 
-    const nextBotton = {
-        height: '40px',
-        size: '16px',
-        family: 'PingFangSC-Regular,PingFangSC',
-        weight: '400',
-        bgColor: '#409EFF',
-    }
-
     return useObserver(() => {
         return (
             <Container>
@@ -188,7 +180,7 @@ const Templet: FC<RouteComponentProps> = () => {
                 )}
                 {currentId !== 0 && (
                     <FooterWrap>
-                        <Button options={nextBotton} onClick={handleClickNextSave}>
+                        <Button onClick={handleClickNextSave}>
                             <Span>下一步</Span>
                             <FaChevronRight title='下一步'></FaChevronRight>
                         </Button>

@@ -43,32 +43,44 @@ const Numerical = styled.span`
     font-weight: 400;
     color: rgba(51, 51, 51, 1);
 `
+const LoreName = styled.div`
+    font-size: 14px;
+    font-family: PingFangSC-Regular, PingFang SC, sans-serif;
+    font-weight: 400;
+    color: rgba(153, 153, 153, 1);
+    margin-bottom: 20px;
+`
 
 interface ILoreDTOList {
     avgAccuracy: number
     id: number
     name: string
-    index: number
-    colorArr: string[]
 }
 interface IProps {
-    data: ILoreDTOList
+    data: {
+        loreList: ILoreDTOList[]
+        name: string
+        colorArr: string[]
+    }
 }
 
-const LoreNumber: FC<IProps> = props => {
+const LoreList: FC<IProps> = props => {
     return (
         <Ul>
-            <Li title={`正确率${props.data.avgAccuracy}%`}>
-                <Name>{props.data.name}</Name>
-                <ScheduleWrap>
-                    <Article
-                        setStyle={{ setWidth: props.data.avgAccuracy, bgColor: props.data.colorArr[props.data.index] }}
-                    ></Article>
-                </ScheduleWrap>
-                <Numerical>{props.data.avgAccuracy}%</Numerical>
-            </Li>
+            <LoreName>{props.data.name}</LoreName>
+            {props.data.loreList.map((item, index) => (
+                <Li title={`正确率${item.avgAccuracy}%`} key={item.id}>
+                    <Name>{item.name}</Name>
+                    <ScheduleWrap>
+                        <Article
+                            setStyle={{ setWidth: item.avgAccuracy, bgColor: props.data.colorArr[index] }}
+                        ></Article>
+                    </ScheduleWrap>
+                    <Numerical>{item.avgAccuracy}%</Numerical>
+                </Li>
+            ))}
         </Ul>
     )
 }
 
-export default LoreNumber
+export default LoreList

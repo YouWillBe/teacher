@@ -1,5 +1,4 @@
 import React from 'react'
-import { useObserver } from 'mobx-react-lite'
 import styled from '@emotion/styled'
 
 interface IOption {
@@ -29,9 +28,7 @@ interface IProps {
 }
 
 function TypeNumber(props: IProps) {
-    return useObserver(() => {
-        return <Container option={props.option}>{props.data.text}</Container>
-    })
+    return <Container option={props.option}>{props.data.text}</Container>
 }
 
 export default TypeNumber

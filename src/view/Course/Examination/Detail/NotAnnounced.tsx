@@ -7,7 +7,7 @@ import { FaStopCircle, FaEye } from 'react-icons/fa'
 
 import { IStore } from '../../../../store'
 import Finished from '../../DetailCommon/Finished'
-import Student from './Student'
+import Student from '../../DetailCommon/Student'
 import Button from '../../../../components/Button'
 import Dialog from '../../../../components/Dialog'
 
@@ -41,7 +41,7 @@ const TypeName = styled.span`
     height: 90px;
     line-height: 90px;
     font-size: 16px;
-    font-family: PingFangSC, sans-serif;
+    font-family: PingFangSC;
     font-weight: 500;
     color: rgba(20, 78, 94, 1);
     margin-left: 20px;
@@ -58,7 +58,7 @@ const TestName = styled.span`
     height: 90px;
     line-height: 90px;
     font-size: 18px;
-    font-family: PingFangSC, sans-serif;
+    font-family: PingFangSC;
     font-weight: 400;
     color: rgba(51, 51, 51, 1);
 `
@@ -69,16 +69,26 @@ const SituationWrap = styled.div`
     justify-content: space-between;
     padding: 30px 0;
 `
-
 const FunctWrap = styled.div`
+    width: 100%;
+    display: block;
     padding: 30px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    button:first-of-type {
+        margin-bottom: 20px;
+    }
 `
 const ButtonWrap = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
 `
-const ButtonText = styled.span``
+const ButtonText = styled.span`
+    margin-right: 8px;
+`
 const ButtonWrap1 = styled.div`
     display: flex;
     justify-content: space-around;
@@ -86,7 +96,7 @@ const ButtonWrap1 = styled.div`
 `
 
 const Detail: FC = () => {
-    const { courseClassTestStore } = useContext<IStore>(MobXProviderContext)
+    const { courseExaminationStore } = useContext<IStore>(MobXProviderContext)
     const [isSshowOver, setIsSshowOver] = useState(false)
 
     //结束
@@ -96,64 +106,17 @@ const Detail: FC = () => {
     //结束
     const handleClickTestOver1 = () => {
         setIsSshowOver(false)
-        courseClassTestStore.testOver(courseClassTestStore.classTest!.id)
+        courseExaminationStore.testOver(courseExaminationStore.examination!.id)
     }
 
     //查看试卷
     const handleClickSee = () => {
-        navigate(`classTest/analysis/${courseClassTestStore.classTest!.id}`)
+        sessionStorage.removeItem('sessionCurrentType')
+        navigate(`examination/analysis/${courseExaminationStore.examination!.id}`)
     }
 
-    const stopButton = {
-        width: '180px',
-        height: '50px',
-        size: '18px',
-        family: 'PingFangSC-Regular',
-        weight: '400',
-        bgColor: '#084DD0',
-        shadow: '0px 2px 4px 0px rgba(31,122,171,0.2)',
-        radius: '10px',
-        border: '3px solid rgba(255,255,255,1)',
-        HbgColor: '#285cbf',
-    }
-    const seeButton = {
-        width: '180px',
-        height: '50px',
-        size: '18px',
-        family: 'PingFangSC-Regular',
-        weight: '400',
-        bgColor: '#248BCB',
-        shadow: '0px 2px 4px 0px rgba(31,122,171,0.2)',
-        radius: '10px',
-        border: '3px solid rgba(255,255,255,1)',
-        HbgColor: '#2681b9',
-    }
-    const dialogButton = {
-        height: '50px',
-        size: '18px',
-        family: 'PingFangSC-Regular',
-        weight: '400',
-        bgColor: '#248BCB',
-        shadow: '0px 2px 4px 0px rgba(31,122,171,0.2)',
-        radius: '10px',
-        border: '3px solid rgba(255,255,255,1)',
-        HbgColor: '#2681b9',
-    }
-    const dialogButton1 = {
-        height: '50px',
-        size: '18px',
-        family: 'PingFangSC-Regular',
-        weight: '400',
-        bgColor: '#248BCB',
-        shadow: '0px 2px 4px 0px rgba(31,122,171,0.2)',
-        radius: '10px',
-        border: '3px solid rgba(255,255,255,1)',
-        HbgColor: '#2681b9',
-    }
     const optionDialog = {
         width: '20%',
-        // marginTop: '160px ',
-        borderBottom: ' 1px solid rgba(151, 151, 151, 0.26)',
     }
 
     return useObserver(() => {
@@ -161,26 +124,26 @@ const Detail: FC = () => {
             <Container>
                 <Left>
                     <Header>
-                        <TypeName>随堂测</TypeName>
+                        <TypeName>作业</TypeName>
                         <Vertical>|</Vertical>
-                        <TestName>{courseClassTestStore.classTest!.name}</TestName>
+                        <TestName>{courseExaminationStore.examination!.name}</TestName>
                     </Header>
                     <SituationWrap>
-                        <Finished text='已交' people={courseClassTestStore.doClassTestInfo!.finished} />
-                        <Finished text='未交' people={courseClassTestStore.doClassTestInfo!.Unfiltered} />
+                        <Finished text='已交' people={courseExaminationStore.doExaminationInfo!.finished} />
+                        <Finished text='未交' people={courseExaminationStore.doExaminationInfo!.Unfiltered} />
                     </SituationWrap>
-                    <Student />
+                    <Student data={courseExaminationStore.doExaminationInfo!.testDTOS} />
                 </Left>
                 <Right>
-                    <Leisure />
+                    <Leisure></Leisure>
                     <FunctWrap>
-                        <Button options={stopButton} onClick={handleClickTestOver}>
+                        <Button onClick={handleClickTestOver}>
                             <ButtonWrap>
                                 <ButtonText>收卷</ButtonText>
                                 <FaStopCircle />
                             </ButtonWrap>
                         </Button>
-                        <Button options={seeButton} onClick={handleClickSee}>
+                        <Button onClick={handleClickSee}>
                             <ButtonWrap>
                                 <ButtonText>查看试卷</ButtonText>
                                 <FaEye />
@@ -191,12 +154,8 @@ const Detail: FC = () => {
                 {isSshowOver && (
                     <Dialog title='收卷' options={optionDialog} onClickClose={handleClickTestOver}>
                         <ButtonWrap1>
-                            <Button options={dialogButton} onClick={handleClickTestOver1}>
-                                确定
-                            </Button>
-                            <Button options={dialogButton1} onClick={handleClickTestOver}>
-                                取消
-                            </Button>
+                            <Button onClick={handleClickTestOver1}>确定</Button>
+                            <Button onClick={handleClickTestOver}>取消</Button>
                         </ButtonWrap1>
                     </Dialog>
                 )}

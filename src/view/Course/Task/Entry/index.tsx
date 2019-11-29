@@ -3,10 +3,11 @@ import styled from '@emotion/styled'
 import { RouteComponentProps } from '@reach/router'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
+import { navigate } from '@reach/router'
 
 import { IStore } from '../../../../store'
-import Header from './Header'
-import Section from './Section'
+import Header from '../../EntryCommon/Header'
+import Section from '../../EntryCommon/Section'
 
 const Container = styled.section`
     width: 100%;
@@ -25,11 +26,44 @@ const EntryIndex: FC<RouteComponentProps<IParams>> = props => {
         // eslint-disable-next-line
     }, [])
 
+    const handleClickLink = (pathname: string) => {
+        navigate(`${pathname}/analysis/${courseTaskStore.doTaskInfo!.testId}`)
+    }
+
+    const handleClickStudentLink = (studentTestId: number) => {
+        if (courseTaskStore.task) {
+            sessionStorage.removeItem('sessionCurrentType')
+            navigate(`/course/${courseTaskStore.task.courseId}/task/${studentTestId}`, {
+                state: {
+                    testId: studentTestId,
+                    id: courseTaskStore.task.key.id,
+                    courseId: courseTaskStore.task.courseId,
+                    status: true,
+                },
+            })
+        }
+    }
+
     return useObserver(() => {
         return (
             <Container>
-                <Header></Header>
-                <Section></Section>
+                <Header
+                    data={{
+                        studentAccuracyCount: courseTaskStore.studentAccuracyCount,
+                        testScore: courseTaskStore.testScore,
+                        totalAccuracy: courseTaskStore.testAccuracy.totalAccuracy,
+                        name: courseTaskStore.task!.name,
+                        title: '作业',
+                    }}
+                ></Header>
+                <Section
+                    data={{
+                        unfinishedStudentList: courseTaskStore.unfinishedStudentList,
+                        finishedStudentList: courseTaskStore.finishedStudentList,
+                    }}
+                    onClickLink={handleClickLink}
+                    onClickStudentLink={handleClickStudentLink}
+                ></Section>
             </Container>
         )
     })

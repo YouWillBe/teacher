@@ -1,21 +1,19 @@
-import React, { FC, useEffect, useState, useRef, MouseEvent } from 'react'
+import React, { FC, useRef } from 'react'
 import styled from '@emotion/styled'
 import useOnClickOutside from 'use-onclickoutside'
 import { FaTimes } from 'react-icons/fa'
 
+import Modal from './Modal'
+
 interface IOptions {
     width?: string
-    height?: string
-    margin?: string
     top?: string
-    radius?: string
-    borderBottom?: string
 }
 
 interface IDialog {
-    title?: any
-    maskClosable?: boolean
-    options: IOptions
+    baseline?: boolean
+    title?: string
+    options?: IOptions
     onClickClose(): void
 }
 
@@ -30,30 +28,35 @@ const Container = styled.div`
 `
 
 const MyWrap = styled.div<IOptions>`
-    position: relative;
     box-sizing: border-box;
-    width: ${props => props.width || '100%'};
-    margin: ${props => props.margin || '0 auto'};
+    position: relative;
+    width: ${props => props.width || '80%'};
     top: ${props => props.top || '100px'};
-    border-radius: ${props => props.radius || '4px'};
+    margin: 0 auto;
+    border-radius: 4px;
     background-color: #fff;
 `
 
-const MyHeader = styled.header<{ borderBottom: string | undefined }>`
+const MyHeader = styled.header<{ baseline: boolean | undefined }>`
     box-sizing: border-box;
     width: 100%;
     padding: 16px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: ${props => props.borderBottom || ''};
-    svg {
-        color: #3a93df;
-        font-size: 24px;
-    }
+    border-bottom: ${props => (props.baseline ? '' : '1px solid #e5e5e5')};
 `
 const FontWrap = styled.div`
     cursor: pointer;
+    color: #aaa;
+    font-size: 16px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    transition: all 0.1s linear;
+    &:hover {
+        color: #3a93df;
+    }
 `
 
 const MyTitle = styled.span`
@@ -62,10 +65,14 @@ const MyTitle = styled.span`
     font-weight: 500;
     color: rgba(51, 51, 51, 1);
 `
-const MySection = styled.section<IOptions>`
+const MySection = styled.section`
     box-sizing: border-box;
-    padding: 20px;
+    padding: 20px 10px 20px 20px;
+`
+const ChildrenWrap = styled.div`
+    min-height: 40px;
     max-height: 700px;
+    padding-right: 10px;
     overflow: auto;
     &::-webkit-scrollbar-button {
         background-color: #fff;
@@ -85,36 +92,25 @@ const MySection = styled.section<IOptions>`
 `
 
 const Dialog: FC<IDialog> = props => {
-    const [isMaskClosable, setIsMaskClosable] = useState(true)
-
-    useEffect(() => {
-        if (props.maskClosable === false) {
-            setIsMaskClosable(props.maskClosable)
-        }
-    }, [props.maskClosable])
-
     const ref = useRef(null)
     useOnClickOutside(ref, props.onClickClose)
 
-    const handleClickClose = (e: MouseEvent) => {
-        if (e.target !== ref.current) return
-        if (isMaskClosable) {
-            props.onClickClose()
-        }
-    }
-
     return (
-        <Container ref={ref} onClick={handleClickClose}>
-            <MyWrap {...props.options}>
-                <MyHeader borderBottom={props.options.borderBottom}>
-                    <MyTitle>{props.title}</MyTitle>
-                    <FontWrap onClick={() => props.onClickClose()}>
-                        <FaTimes title='关闭' />
-                    </FontWrap>
-                </MyHeader>
-                <MySection>{props.children}</MySection>
-            </MyWrap>
-        </Container>
+        <Modal>
+            <Container>
+                <MyWrap ref={ref} {...props.options!}>
+                    <MyHeader baseline={props.baseline}>
+                        <MyTitle>{props.title}</MyTitle>
+                        <FontWrap onClick={() => props.onClickClose()}>
+                            <FaTimes title='关闭' />
+                        </FontWrap>
+                    </MyHeader>
+                    <MySection>
+                        <ChildrenWrap>{props.children}</ChildrenWrap>
+                    </MySection>
+                </MyWrap>
+            </Container>
+        </Modal>
     )
 }
 

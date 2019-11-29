@@ -153,14 +153,6 @@ function BlockEdit(props: IProps) {
         }
     }
 
-    const optionButton = {
-        height: '40px',
-        bgColor: '#409EFF',
-        size: '16px',
-        family: 'PingFangSC-Regular, PingFangSC',
-        weight: '400',
-    }
-
     return useObserver(() => {
         return (
             <Container>
@@ -189,12 +181,12 @@ function BlockEdit(props: IProps) {
                     </NameWrap>
                     <FunctWrap>
                         <ButtonWrap>
-                            <Button options={optionButton} onClick={() => handleClickClose('保存')}>
+                            <Button onClick={() => handleClickClose('保存')}>
                                 <FaSave></FaSave>保存
                             </Button>
                         </ButtonWrap>
                         <ButtonWrap>
-                            <Button options={optionButton} onClick={() => handleClickClose('保存并下一步')}>
+                            <Button onClick={() => handleClickClose('保存并下一步')}>
                                 <FaSave></FaSave>保存并下一步
                             </Button>
                         </ButtonWrap>

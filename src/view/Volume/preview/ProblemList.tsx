@@ -140,7 +140,6 @@ function ProblemList(props: IProps) {
                             </TypeItem>
                         ))}
                     </TypeWrap>
-                    <button onClick={handleClickPrint}>打印</button>
                 </Header>
                 <Section id='printJS-form'>
                     {currentType.id === '0' ? (

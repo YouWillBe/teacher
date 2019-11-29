@@ -153,8 +153,9 @@ const NewPlan: FC<RouteComponentProps> = () => {
     const handleSelectPoint = (point: IPoint) => {
         if (!canSave) setCanSave(true)
         setSelectedPointsId(
-            selectedPointsId.includes(point.id) ? selectedPointsId.filter(x => x !== point.id) :
-                append(point.id, selectedPointsId)
+            selectedPointsId.includes(point.id)
+                ? selectedPointsId.filter(x => x !== point.id)
+                : append(point.id, selectedPointsId)
         )
         setSelectedPoints(
             selectedPoints.includes(point)

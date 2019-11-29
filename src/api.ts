@@ -158,7 +158,6 @@ const exercise = {
     getProblem: (id: number) => request.get(`/problems/${id}`),
     addProblem: (data: any) => request.post('/problems', data),
     editProblem: (data: any) => request.put('/problems/update', data),
-    getLoreList: (data?: any) => request.get('/lore-list', data),
 }
 
 const course = {
@@ -188,7 +187,6 @@ const course = {
     getTestProblem: (data: any) => request.get(`/tests/problem/${data.testId}/${data.id}`),
     getTestAcademicAnalysisVolume: (data: any) => request.get('/tests/academic-analysis/volume', data),
     getTestAcademicAnalysisStudent: (data: any) => request.get('/tests/academic-analysis/student', data),
-
     getWhiteBoard: (id: number) => request.get(`/black-board/get/${id}`),
     upsertWhiteBoadr: (data: any) => request.post('/black-board/upsert', data),
 }
@@ -209,7 +207,7 @@ const analysis = {
 }
 const point = {
     getPoints: (data?: any) => request.get('/lore-list', data),
-    getTags: () => request.get('/target-list')
+    getTags: () => request.get('/target-list'),
 }
 
 export default {

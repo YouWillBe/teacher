@@ -3,12 +3,11 @@ import styled from '@emotion/styled'
 import { MobXProviderContext } from 'mobx-react'
 import { range } from 'ramda'
 import { useObserver } from 'mobx-react-lite'
-import { FaSpinner } from 'react-icons/fa'
-
-import WeekSelector from './WeekSelector'
-import Class from './Class'
 
 import { IStore } from '../../store'
+import WeekSelector from './WeekSelector'
+import Class from './Class'
+import Loading from '../../components/Loading'
 
 const Container = styled.div`
     width: 950px;
@@ -163,16 +162,6 @@ const TableItems = styled.div<{ am: number; pm: number; night: number }>`
     grid-template-rows: ${props => props.am}fr ${props => props.pm}fr ${props => props.night}fr;
     grid-row-gap: 1px;
 `
-const Loading = styled.div`
-    height: 100%;
-    width: 100%;
-    background-color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 40px;
-    color: #3a93df;
-`
 
 const ClassTable: FC = () => {
     const { classTableStore } = useContext<IStore>(MobXProviderContext)
@@ -237,9 +226,7 @@ const ClassTable: FC = () => {
                                 </TitleSection>
                             </YAxis>
                             {classTableStore.gettingCourses || !classTableStore.coursesReady ? (
-                                <Loading>
-                                    <FaSpinner></FaSpinner>
-                                </Loading>
+                                <Loading></Loading>
                             ) : (
                                 <TableItems
                                     am={classTableStore.am.length}

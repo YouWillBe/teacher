@@ -142,27 +142,21 @@ const PlusKnowledge: FC = props => {
         exerciseStore.loreList.lore[index].expanded = !exerciseStore.loreList.lore[index].expanded
     }
 
-    const plusOption = {
+    const optionButton = {
         width: '90px',
         height: '36px',
         bgColor: 'rgba(50,158,245,1)',
         shadow: '0px 2px 4px 0px rgba(50,158,245,0.54)',
-        radius: '4px',
-    }
-    const optionDialog = {
-        width: '80%',
-        // marginTop: '5%',
-        borderBottom: '1px solid #e5e5e5',
     }
 
     return useObserver(() => {
         return (
             <ButtonWrap>
-                <Button title='添加知识点' options={plusOption} onClick={handleClickKnowledge}>
+                <Button options={optionButton} onClick={handleClickKnowledge}>
                     <FaPlus></FaPlus>
                 </Button>
                 {isShowKnowledge && (
-                    <Dialog title='添加知识点' options={optionDialog} onClickClose={handleClickClose}>
+                    <Dialog title='添加知识点' onClickClose={handleClickClose}>
                         <LoreListWrap>
                             <Left>
                                 {exerciseStore.loreList.loreList.map((item, index) => (

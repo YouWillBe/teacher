@@ -58,7 +58,7 @@ const Detail: FC<RouteComponentProps<IProps>> = props => {
     }
 
     return useObserver(() => {
-        if (!volumeStore.volumeDetailListReady) {
+        if (volumeStore.gettingVolumeDetailList) {
             return <Loading></Loading>
         }
 

@@ -231,12 +231,6 @@ function BackList(props: IProps) {
         setIsSwitch(!isSwitch)
     }
 
-    const optionDialog = {
-        width: '70%',
-        // marginTop: '5%',
-        borderBottom: '1px solid #e5e5e5',
-    }
-
     return (
         <Container>
             <Package
@@ -285,7 +279,7 @@ function BackList(props: IProps) {
                 </Ul>
             </Package>
             {isSwitch && (
-                <Dialog title='编辑' onClickClose={handleClickEdit} options={optionDialog}>
+                <Dialog title='编辑' onClickClose={handleClickEdit}>
                     <BlockEdit onClickClose={handleClickEdit}></BlockEdit>
                 </Dialog>
             )}

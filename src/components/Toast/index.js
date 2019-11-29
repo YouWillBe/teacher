@@ -1,8 +1,8 @@
-import notificationDOM from './notification'
+import CreateNotification from './CreateNotification'
 
 let notification
 const notice = (type, content, duration = 2000, onClose) => {
-    if (!notification) notification = notificationDOM
+    if (!notification) notification = CreateNotification
     return notification.addNotice({ type, content, duration, onClose })
 }
 
