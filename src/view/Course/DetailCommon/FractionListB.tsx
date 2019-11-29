@@ -33,7 +33,7 @@ const Question = styled.div`
     border-radius: 4px;
     border: 2px solid rgba(7, 46, 132, 1);
     font-size: 18px;
-    font-family: PingFangSC;
+    font-family: PingFangSC, sans-serif;
     font-weight: 600;
     color: rgba(7, 41, 121, 1);
 `
@@ -47,13 +47,13 @@ const TestPaperWrap = styled.div``
 
 const TestPaper = styled.div`
     font-size: 14px;
-    font-family: PingFangSC;
+    font-family: PingFangSC, sans-serif;
     font-weight: 400;
     color: rgba(153, 153, 153, 1);
 `
 const Fraction = styled.div`
     margin-top: 10px;
-    font-family: PingFangSC;
+    font-family: PingFangSC, sans-serif;
     font-weight: 500;
     color: #3a93df;
 `
@@ -105,7 +105,7 @@ const ProblemText = styled.div`
     border-bottom: 1px solid rgba(151, 151, 151, 0.3);
     padding-left: 20px;
     font-size: 18px;
-    font-family: PingFangSC;
+    font-family: PingFangSC, sans-serif;
     font-weight: 500;
     color: #ed5083;
 `
@@ -210,12 +210,12 @@ const FractionListB: FC = props => {
                                             title='对'
                                             bgImage={item.fraction}
                                             onClick={() => handleClick('对', index)}
-                                        ></BgCircle>
+                                        />
                                         <BgCircle1
                                             title='错'
                                             bgImage={item.fraction}
                                             onClick={() => handleClick('错', index)}
-                                        ></BgCircle1>
+                                        />
                                     </FontWrap>
                                 </Li>
                             ))}

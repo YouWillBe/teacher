@@ -44,11 +44,10 @@ const ProblemName = styled.span<ISetType>`
                 : props.setType.mark === 1
                 ? '#3B8DF2'
                 : 'rgba(24, 81, 97, 1)'};
-    text-align: center;
     border-radius: 50%;
     cursor: pointer;
     font-size: 18px;
-    font-family: PingFangSC-Medium;
+    font-family: PingFangSC-Medium, sans-serif;
     font-weight: 500;
     :hover {
         background-color: rgba(24, 81, 97, 1);

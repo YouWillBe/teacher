@@ -67,7 +67,7 @@ const SeeDetail: FC<RouteComponentProps<IParams>> = props => {
                                 urlName: 'classTest',
                                 seeName: `course/${props.courseId}/classTest/${props.studentTestId}`,
                             }}
-                        ></SeeHeaderA>
+                        />
                         <SeeCenter />
                     </Wrap>
                 </Container>

@@ -154,7 +154,7 @@ const BarStackedStrip: FC<IProps> = props => {
         myChart.setOption(option)
         // eslint-disable-next-line
     }, [])
-    return <Container ref={barstaskedRef}></Container>
+    return <Container ref={barstaskedRef} />
 }
 
 export default BarStackedStrip

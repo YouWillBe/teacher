@@ -13,7 +13,7 @@ const ConfirmWrap = styled.div`
     display: flex;
     padding: 8px 3px;
     border-radius: 6px;
-    box-shadow: rgba(16, 36, 94, 0.4) 0px 2px 6px 0px;
+    box-shadow: rgba(16, 36, 94, 0.4) 0 2px 6px 0;
     cursor: initial;
 `
 const Button = styled.span`

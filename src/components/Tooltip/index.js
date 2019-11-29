@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 
-var timerOut = ''
+let timerOut = ''
 /**
  * Tooltip提示
  *
@@ -50,16 +50,16 @@ class Tooltip extends Component {
         this.tooptip = document.createElement('div')
         this.tooptip.id = 'tooltip'
         this.tooptip.className = 'tooltip'
-        var arrow = document.createElement('span')
+        const arrow = document.createElement('span')
         arrow.className = 'tooltip-arrow'
-        var content = document.createElement('div')
+        const content = document.createElement('div')
         content.className = 'tooltip-inner'
 
         this.tooptip.appendChild(arrow)
         this.tooptip.appendChild(content)
 
         this.element = document.getElementById('tooltip')
-        if (this.element == undefined) {
+        if (this.element === undefined) {
             document.body.appendChild(this.tooptip)
             this.element = document.getElementById('tooltip')
         }
@@ -91,7 +91,7 @@ class Tooltip extends Component {
     }
 
     _handleMouseOut() {
-        var th = this
+        const th = this
         if (this.props.delay > 0 && this.props.fixed) {
             timerOut = setTimeout(function() {
                 th.element.className = 'tooltip'
@@ -118,37 +118,37 @@ class Tooltip extends Component {
 
     //设置提示语的位置及提示内容
     _setTooltipPosition(windowWidth, e) {
-        var tooltip = this.element
-        var tooltipInner = tooltip.childNodes[1]
+        const tooltip = this.element
+        const tooltipInner = tooltip.childNodes[1]
         tooltipInner.innerHTML = this.props.title
-        var style = tooltip.style
+        const style = tooltip.style
         //style.maxWidth = this.props.maxWidth;
 
-        var tooltipLeft = 0
-        var tooltipRight = 0
-        var tooltipTop = 0
-        var position = this.props.position
+        let tooltipLeft = 0
+        let tooltipRight = 0
+        let tooltipTop = 0
+        const position = this.props.position
         tooltip.className = 'tooltip hover ' + position
-        var CP = this._getComponentPosition()
+        let CP = this._getComponentPosition()
         //小于最大宽时为实际宽，否则为最大宽
-        var tooltipWidth = tooltip.offsetWidth
+        const tooltipWidth = tooltip.offsetWidth
 
         if (!this.props.fixed) {
-            var mousePos = this._getMousePos()
+            const mousePos = this._getMousePos()
             CP = { left: mousePos.x, top: mousePos.y, width: 0, height: 0 }
         }
         //设置提示框的宽，取准确的高
-        var setTooltipWidth = function(p, v) {
-            if (p == 'left') {
+        const setTooltipWidth = function(p, v) {
+            if (p === 'left') {
                 style.width = tooltipWidth > v ? v + 'px' : ''
-            } else if (p == 'right') {
+            } else if (p === 'right') {
                 style.width = tooltipWidth > windowWidth - v ? windowWidth - v + 'px' : ''
             }
         }
 
-        if (position == 'top' || position == 'bottom') {
-            var tLeft = CP.left + CP.width / 2 - tooltipWidth / 2
-            var tRight = windowWidth - (CP.left + CP.width / 2) - tooltipWidth / 2
+        if (position === 'top' || position === 'bottom') {
+            const tLeft = CP.left + CP.width / 2 - tooltipWidth / 2
+            const tRight = windowWidth - (CP.left + CP.width / 2) - tooltipWidth / 2
             if (tLeft < 0) {
                 //考虑提示语超出浏览器两边的情况，为保证提示语居中，此时设置提示框宽，使内容换行
                 tooltipLeft = 0
@@ -160,16 +160,16 @@ class Tooltip extends Component {
             } else {
                 tooltipLeft = tLeft
             }
-            if (position == 'top') {
+            if (position === 'top') {
                 tooltipTop = CP.top - tooltip.offsetHeight - this.props.y
-            } else if (position == 'bottom') {
+            } else if (position === 'bottom') {
                 tooltipTop = CP.top + CP.height + this.props.y
             }
         }
         switch (position) {
             case 'left':
                 tooltipLeft = 'auto'
-                var left = CP.left - this.props.x
+                let left = CP.left - this.props.x
                 tooltipRight = windowWidth - left
                 //设置宽才取得准确高
                 setTooltipWidth('left', left)
@@ -184,7 +184,7 @@ class Tooltip extends Component {
                 break
             case 'top-left':
                 tooltipLeft = 'auto'
-                var left = CP.left + CP.width / 2 + this.props.x
+                left = CP.left + CP.width / 2 + this.props.x
                 tooltipRight = windowWidth - left
                 setTooltipWidth('left', left)
                 //tooltip.style.width = tooltipWidth > left ? left + 'px' : tooltipWidth + 'px';
@@ -199,7 +199,7 @@ class Tooltip extends Component {
                 break
             case 'bottom-left':
                 tooltipLeft = 'auto'
-                var left = CP.left + CP.width / 2 + this.props.x
+                left = CP.left + CP.width / 2 + this.props.x
                 tooltipRight = windowWidth - left
                 //设置宽才取得准确高
                 setTooltipWidth('left', left)
@@ -211,7 +211,7 @@ class Tooltip extends Component {
                 tooltipTop = CP.top + CP.height + this.props.y
                 break
         }
-        if (tooltipLeft == 'auto') {
+        if (tooltipLeft === 'auto') {
             style.right = tooltipRight + 'px'
             style.left = 'auto'
         } else {
@@ -222,18 +222,18 @@ class Tooltip extends Component {
 
     //返回组件的位置及大小
     _getComponentPosition() {
-        var componentRect = this.componentEl.getBoundingClientRect()
-        var top =
+        const componentRect = this.componentEl.getBoundingClientRect()
+        const top =
             componentRect.top +
             (window.pageYOffset || document.documentElement.scrollTop) -
             (document.documentElement.clientTop || 0)
-        var left =
+        const left =
             componentRect.left +
             (window.pageXOffset || document.documentElement.scrollLeft) -
             (document.documentElement.clientLeft || 0)
         //组件宽高，
-        var width = this.componentEl.offsetWidth
-        var height = this.componentEl.offsetHeight
+        const width = this.componentEl.offsetWidth
+        const height = this.componentEl.offsetHeight
         return { left: left, top: top, width: width, height: height }
     }
 

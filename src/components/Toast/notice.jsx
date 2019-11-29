@@ -30,11 +30,11 @@ const Span = styled.span`
 const Notice = props => {
     const { type, content } = props
     const icons = {
-        info: { font: <FaInfo></FaInfo>, color: '#1890ff' },
-        success: { font: <FaCheckCircle></FaCheckCircle>, color: '#52c41a' },
-        warning: { font: <FaExclamationCircle></FaExclamationCircle>, color: '#faad14' },
-        error: { font: <FaTimesCircle></FaTimesCircle>, color: '#f74a53' },
-        loading: { font: <FaSpinner></FaSpinner>, color: '#1890ff' },
+        info: { font: <FaInfo />, color: '#1890ff' },
+        success: { font: <FaCheckCircle />, color: '#52c41a' },
+        warning: { font: <FaExclamationCircle />, color: '#faad14' },
+        error: { font: <FaTimesCircle />, color: '#f74a53' },
+        loading: { font: <FaSpinner />, color: '#1890ff' },
     }
 
     return (

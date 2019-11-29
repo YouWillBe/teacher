@@ -12,18 +12,18 @@ const Container = styled.div`
     box-sizing: border-box;
     padding: 15px;
 `
-const Input = styled.input`
-    width: 100%;
-    box-sizing: border-box;
-    height: 40px;
-    padding: 5px 10px;
-    border-radius: 3px;
-    border: 1px solid #ccc;
-    outline: none;
-    &:focus {
-        border-color: #00a6f3;
-    }
-`
+// const Input = styled.input`
+//     width: 100%;
+//     box-sizing: border-box;
+//     height: 40px;
+//     padding: 5px 10px;
+//     border-radius: 3px;
+//     border: 1px solid #ccc;
+//     outline: none;
+//     &:focus {
+//         border-color: #00a6f3;
+//     }
+// `
 const Content = styled.div`
     min-height: 120px;
     margin-top: 10px;

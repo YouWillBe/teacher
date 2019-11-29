@@ -87,7 +87,7 @@ const ACenter: FC<RouteComponentProps<IProps>> = props => {
     return useObserver(() => {
         return (
             <Container>
-                <SeeHeaderB></SeeHeaderB>
+                <SeeHeaderB />
                 {courseIndexStore.testProblemDetailData.problemType === 1 ||
                 courseIndexStore.testProblemDetailData.problemType === 2 ? (
                     <>

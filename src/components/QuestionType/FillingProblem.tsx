@@ -39,7 +39,7 @@ const Index = styled.div`
 const Fraction = styled.div`
     border-top: 1px solid #e2eef4;
     font-size: 12px;
-    font-family: PingFangSC-Light;
+    font-family: PingFangSC-Light, sans-serif;
     font-weight: 300;
     color: rgba(51, 51, 51, 1);
 `
@@ -49,7 +49,7 @@ const Topic = styled.div`
     margin: 14px 0;
     flex: 1;
     font-size: 16px;
-    font-family: PingFangSC-Regular, PingFang SC;
+    font-family: PingFangSC-Regular, PingFang SC, sans-serif;
     font-weight: 400;
     color: rgba(51, 51, 51, 1);
 `
@@ -60,7 +60,6 @@ const AnswerItem = styled.div`
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 4px;
     font-size: 14px;
-    border-radius: 4px;
 `
 const AnswerWrap = styled.div<{ setMargin: boolean }>`
     display: flex;
@@ -79,7 +78,7 @@ const ItemCommon = styled.div`
     justify-content: center;
     align-items: center;
     color: rgba(7, 41, 121, 1);
-    font-family: PingFangSC-Regular, PingFang SC;
+    font-family: PingFangSC-Regular, PingFang SC, sans-serif;
     font-weight: 400;
 `
 
@@ -105,7 +104,6 @@ const OptionItem = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: stretch;
-    border-radius: 4px;
 `
 const ItemIndex = styled(ItemCommon)`
     font-size: 18px;
@@ -116,7 +114,7 @@ const RichTextWrap = styled.div`
     align-items: center;
     padding: 8px 8px 8px 20px;
     font-size: 14px;
-    font-family: PingFangSC-Light;
+    font-family: PingFangSC-Light, sans-serif;
     font-weight: 300;
     color: rgba(51, 51, 51, 1);
 `
@@ -147,7 +145,7 @@ const Analysis = styled.div`
     box-sizing: border-box;
     border-bottom: 1px solid #dfdfdf;
     font-size: 18px;
-    font-family: PingFangSC-Medium, PingFang SC;
+    font-family: PingFangSC-Medium, PingFang SC, sans-serif;
     font-weight: 500;
     color: rgba(51, 51, 51, 1);
     padding: 8px 0px 8px 20px;
@@ -157,7 +155,7 @@ interface ILoreList {
     id: number
     name: string
 }
-interface Iprops {
+interface IProps {
     data: {
         index?: number | 0
         id?: number | 0
@@ -173,16 +171,16 @@ interface Iprops {
     onClickSelect?(data: any): void
 }
 
-const FillingProblem: FC<Iprops> = props => {
+const FillingProblem: FC<IProps> = props => {
     const [currentExpand, setCurrentExpand] = useState(0)
     const [expandArr] = useState([
         {
             name: '展开',
-            icon: <FaAngleDoubleDown></FaAngleDoubleDown>,
+            icon: <FaAngleDoubleDown />,
         },
         {
             name: '收起',
-            icon: <FaAngleDoubleUp></FaAngleDoubleUp>,
+            icon: <FaAngleDoubleUp />,
         },
     ])
 
@@ -196,7 +194,7 @@ const FillingProblem: FC<Iprops> = props => {
     }
 
     //选择
-    const haneleClickSelect = () => {
+    const handleClickSelect = () => {
         if (props.onClickSelect) {
             props.onClickSelect(props.data)
         }
@@ -212,8 +210,8 @@ const FillingProblem: FC<Iprops> = props => {
                         loreList: props.data.loreList,
                         showEditPick: props.data.showEditPick,
                     }}
-                    onClickSelect={haneleClickSelect}
-                ></HeaderType>
+                    onClickSelect={handleClickSelect}
+                />
                 <TopicWrap>
                     {(props.data.fraction || props.data.fraction === 0) && (
                         <TagWrap>
@@ -222,7 +220,7 @@ const FillingProblem: FC<Iprops> = props => {
                         </TagWrap>
                     )}
                     <Topic>
-                        <Editor value={Value.fromJSON(props.data.topic)} readonly></Editor>
+                        <Editor value={Value.fromJSON(props.data.topic)} readonly />
                     </Topic>
                 </TopicWrap>
             </Package>
@@ -236,7 +234,7 @@ const FillingProblem: FC<Iprops> = props => {
                                     <OptionItem key={i}>
                                         <ItemIndex>{i + 1}</ItemIndex>
                                         <RichTextWrap>
-                                            <Editor value={Value.fromJSON(v.value)} readonly></Editor>
+                                            <Editor value={Value.fromJSON(v.value)} readonly />
                                         </RichTextWrap>
                                     </OptionItem>
                                 ))}
@@ -252,7 +250,7 @@ const FillingProblem: FC<Iprops> = props => {
                                         <OptionItem key={i}>
                                             <ItemIndex>{i + 1}</ItemIndex>
                                             <RichTextWrap>
-                                                <Editor value={Value.fromJSON(v.value)} readonly></Editor>
+                                                <Editor value={Value.fromJSON(v.value)} readonly />
                                             </RichTextWrap>
                                         </OptionItem>
                                     ))}
@@ -263,7 +261,7 @@ const FillingProblem: FC<Iprops> = props => {
                     <SolutionWrap>
                         <Analysis>解析</Analysis>
                         <RichTextWrap>
-                            <Editor value={Value.fromJSON(props.data.solution)} readonly></Editor>
+                            <Editor value={Value.fromJSON(props.data.solution)} readonly />
                         </RichTextWrap>
                     </SolutionWrap>
                 </>

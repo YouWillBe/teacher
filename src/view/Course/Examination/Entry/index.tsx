@@ -28,8 +28,8 @@ const EntryIndex: FC<RouteComponentProps<IParams>> = props => {
     return useObserver(() => {
         return (
             <Container>
-                <Header></Header>
-                <Section></Section>
+                <Header />
+                <Section />
             </Container>
         )
     })

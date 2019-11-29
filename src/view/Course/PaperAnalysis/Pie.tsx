@@ -13,7 +13,7 @@ const Header = styled.div`
 const TextWrap = styled.div``
 const Text = styled.div`
     font-size: 14px;
-    font-family: PingFangSC-Regular, PingFang SC;
+    font-family: PingFangSC-Regular, PingFang SC, sans-serif;
     font-weight: 400;
     color: rgba(153, 153, 153, 1);
 `
@@ -58,7 +58,7 @@ const Pie: FC<IProps> = props => {
                             color: props.text === '正确率最高的' ? ['#5AD8A6', '#E4EFEB'] : ['#FF8166', '#FFEADB'],
                         },
                     }}
-                ></CirclePie>
+                />
             </CirclePieWrap>
         </Container>
     )

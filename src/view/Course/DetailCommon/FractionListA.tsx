@@ -11,13 +11,13 @@ const Container = styled.div`
 
 const TestPaper = styled.div`
     font-size: 14px;
-    font-family: PingFangSC;
+    font-family: PingFangSC, sans-serif;
     font-weight: 400;
     color: rgba(153, 153, 153, 1);
 `
 const Fraction = styled.div`
     margin-top: 10px;
-    font-family: PingFangSC;
+    font-family: PingFangSC, sans-serif;
     font-weight: 500;
     color: #3a93df;
 `
@@ -33,7 +33,7 @@ const TestTotalScore = styled.span`
     font-size: 16px;
 `
 
-const FractionListA: FC = props => {
+const FractionListA: FC = () => {
     const { courseIndexStore } = useContext<IStore>(MobXProviderContext)
 
     return useObserver(() => {

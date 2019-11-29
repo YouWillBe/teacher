@@ -11,7 +11,7 @@ const Container = styled.div`
     width: 100%;
     height: 80px;
     background-color: #fff;
-    box-shadow: 0px 2px 20px 0px rgba(225, 226, 240, 0.5);
+    box-shadow: 0 2px 20px 0 rgba(225, 226, 240, 0.5);
     position: absolute;
     display: flex;
     align-items: center;

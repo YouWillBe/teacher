@@ -45,7 +45,7 @@ const StudentName = styled.span`
     line-height: 66px;
     text-align: center;
     font-size: 16px;
-    font-family: PingFangSC-Regular;
+    font-family: PingFangSC-Regular, sans-serif;
     font-weight: 400;
     color: rgba(79, 157, 252, 1);
 `
@@ -57,7 +57,7 @@ interface ITestDTOS {
     studentStatus: number
     testStatus: number
 }
-const Student: FC<RouteComponentProps> = props => {
+const Student: FC<RouteComponentProps> = () => {
     const { courseExaminationStore } = useContext<IStore>(MobXProviderContext)
 
     const handleClickLink = (data: ITestDTOS) => {

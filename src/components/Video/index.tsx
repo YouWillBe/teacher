@@ -153,7 +153,7 @@ const Video: FC<IProps> = props => {
             <ContentWrap ref={wrapRef} onMouseMove={handleMouseMove}>
                 {!playing && (
                     <PlayTag onClick={handleClick}>
-                        <FaPlayCircle></FaPlayCircle>
+                        <FaPlayCircle />
                     </PlayTag>
                 )}
                 <ReactPlayer

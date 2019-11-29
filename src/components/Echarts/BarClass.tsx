@@ -82,7 +82,7 @@ const BarClass: FC<IProps> = props => {
         myChart.setOption(option)
         // eslint-disable-next-line
     }, [])
-    return <Container ref={barclassRef}></Container>
+    return <Container ref={barclassRef} />
 }
 
 export default BarClass

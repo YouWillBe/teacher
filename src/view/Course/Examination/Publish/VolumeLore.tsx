@@ -11,8 +11,7 @@ const Container = styled.div<{ currentStyle: boolean }>`
     width: 210px;
     background-color: #fff;
     border-radius: 10px;
-    margin: 0 auto;
-    box-shadow: rgba(0, 0, 0, 0.12) 0px 3px 13px 1px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0 3px 13px 1px;
     cursor: pointer;
     border: 2px solid transparent;
     transition: border-color 0.1s linear;
@@ -23,7 +22,7 @@ const Container = styled.div<{ currentStyle: boolean }>`
     }
     box-sizing: border-box;
     padding: 10px;
-    margin-bottom: 20px;
+    margin: 0 auto 20px;
     user-select: none;
     position: relative;
 `

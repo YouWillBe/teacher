@@ -56,7 +56,7 @@ const TypeName = styled.span<{ isColor: boolean }>`
     }
 `
 interface IProps {}
-const SeeHeaderB: FC<RouteComponentProps<IProps>> = props => {
+const SeeHeaderB: FC<RouteComponentProps<IProps>> = () => {
     const { courseIndexStore } = useContext<IStore>(MobXProviderContext)
 
     //题目类型

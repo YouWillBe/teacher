@@ -39,7 +39,7 @@ const Index = styled.div`
 const Fraction = styled.div`
     border-top: 1px solid #e2eef4;
     font-size: 12px;
-    font-family: PingFangSC-Light;
+    font-family: PingFangSC-Light, sans-serif;
     font-weight: 300;
     color: rgba(51, 51, 51, 1);
 `
@@ -49,7 +49,7 @@ const Topic = styled.div`
     margin: 14px 0;
     flex: 1;
     font-size: 16px;
-    font-family: PingFangSC-Regular, PingFang SC;
+    font-family: PingFangSC-Regular, PingFang SC, sans-serif;
     font-weight: 400;
     color: rgba(51, 51, 51, 1);
 `
@@ -58,7 +58,7 @@ const ItemCommon = styled.span`
     height: 1;
     box-sizing: border-box;
     font-size: 18px;
-    font-family: PingFangSC-Medium, PingFang SC;
+    font-family: PingFangSC-Medium, PingFang SC, sans-serif;
     font-weight: 500;
     color: rgba(51, 51, 51, 1);
 `
@@ -70,7 +70,6 @@ const AnswerItem = styled.div`
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 4px;
     font-size: 14px;
-    border-radius: 4px;
 `
 const AnswerWrap = styled.div<{ setMargin: boolean }>`
     display: flex;
@@ -92,7 +91,7 @@ const AnswerRichText = styled.div`
     display: flex;
     align-items: center;
     font-size: 14px;
-    font-family: PingFangSC-Light;
+    font-family: PingFangSC-Light, sans-serif;
     font-weight: 300;
     color: rgba(51, 51, 51, 1);
 `
@@ -102,7 +101,7 @@ const RichTextWrap = styled.div`
     align-items: center;
     padding: 8px 8px 8px 20px;
     font-size: 14px;
-    font-family: PingFangSC-Light;
+    font-family: PingFangSC-Light, sans-serif;
     font-weight: 300;
     color: rgba(51, 51, 51, 1);
 `
@@ -133,7 +132,7 @@ const Analysis = styled.div`
     box-sizing: border-box;
     border-bottom: 1px solid #dfdfdf;
     font-size: 18px;
-    font-family: PingFangSC-Medium, PingFang SC;
+    font-family: PingFangSC-Medium, PingFang SC, sans-serif;
     font-weight: 500;
     color: rgba(51, 51, 51, 1);
     padding: 8px 0px 8px 20px;
@@ -164,11 +163,11 @@ const ShortAnswerProblem: FC<Iprops> = props => {
     const [expandArr] = useState([
         {
             name: '展开',
-            icon: <FaAngleDoubleDown></FaAngleDoubleDown>,
+            icon: <FaAngleDoubleDown />,
         },
         {
             name: '收起',
-            icon: <FaAngleDoubleUp></FaAngleDoubleUp>,
+            icon: <FaAngleDoubleUp />,
         },
     ])
 
@@ -182,7 +181,7 @@ const ShortAnswerProblem: FC<Iprops> = props => {
     }
 
     //选择
-    const haneleClickSelect = () => {
+    const handleClickSelect = () => {
         if (props.onClickSelect) {
             props.onClickSelect(props.data)
         }
@@ -198,8 +197,8 @@ const ShortAnswerProblem: FC<Iprops> = props => {
                         loreList: props.data.loreList,
                         showEditPick: props.data.showEditPick,
                     }}
-                    onClickSelect={haneleClickSelect}
-                ></HeaderType>
+                    onClickSelect={handleClickSelect}
+                />
                 <TopicWrap>
                     {(props.data.fraction || props.data.fraction === 0) && (
                         <TagWrap>
@@ -208,7 +207,7 @@ const ShortAnswerProblem: FC<Iprops> = props => {
                         </TagWrap>
                     )}
                     <Topic>
-                        <Editor value={Value.fromJSON(props.data.topic)} readonly></Editor>
+                        <Editor value={Value.fromJSON(props.data.topic)} readonly/>
                     </Topic>
                 </TopicWrap>
             </Package>
@@ -218,7 +217,7 @@ const ShortAnswerProblem: FC<Iprops> = props => {
                         <AnswerItem>
                             <ItemName>答案</ItemName>
                             <AnswerRichText>
-                                <Editor value={Value.fromJSON(props.data.answer)} readonly></Editor>
+                                <Editor value={Value.fromJSON(props.data.answer)} readonly/>
                             </AnswerRichText>
                         </AnswerItem>
                     </AnswerWrap>
@@ -227,7 +226,7 @@ const ShortAnswerProblem: FC<Iprops> = props => {
                             <AnswerItem>
                                 <ItemName>学生作答</ItemName>
                                 <AnswerRichText>
-                                    <Editor value={Value.fromJSON(props.data.answer)} readonly></Editor>
+                                    <Editor value={Value.fromJSON(props.data.answer)} readonly/>
                                 </AnswerRichText>
                             </AnswerItem>
                         </AnswerWrap>
@@ -235,7 +234,7 @@ const ShortAnswerProblem: FC<Iprops> = props => {
                     <SolutionWrap>
                         <Analysis>解析</Analysis>
                         <RichTextWrap>
-                            <Editor value={Value.fromJSON(props.data.solution)} readonly></Editor>
+                            <Editor value={Value.fromJSON(props.data.solution)} readonly/>
                         </RichTextWrap>
                     </SolutionWrap>
                 </>

@@ -92,7 +92,7 @@ const CirclePie: FC<IProps> = props => {
         myChart.setOption(option)
         // eslint-disable-next-line
     }, [])
-    return <Container ref={circlePieRef}></Container>
+    return <Container ref={circlePieRef} />
 }
 
 export default CirclePie

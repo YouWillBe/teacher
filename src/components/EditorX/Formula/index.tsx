@@ -61,7 +61,7 @@ const Formula: FC<RenderInlineProps & IProps> = props => {
             <TeX block settings={{ strict: handle }}>
                 {props.latex}
             </TeX>
-            {showModal && <Editor close={handleClose} latex={props.latex} setLatex={setLatex}></Editor>}
+            {showModal && <Editor close={handleClose} latex={props.latex} setLatex={setLatex} />}
         </Container>
     )
 }

@@ -3,7 +3,7 @@ import { MobXProviderContext } from 'mobx-react'
 import styled from '@emotion/styled'
 import { Link, RouteComponentProps } from '@reach/router'
 import { Value } from 'slate'
-import { append, remove } from 'ramda'
+import { append } from 'ramda'
 import { FaReply, FaRegEye, FaHistory } from 'react-icons/fa'
 
 import { IStore } from '../../store'

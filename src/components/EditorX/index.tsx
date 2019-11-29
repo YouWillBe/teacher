@@ -306,7 +306,7 @@ const EditorX: FC<IProps> = props => {
                     schema={schema}
                 />
             )}
-            <ImageUploader editor={ref.current} ref={uploaderRef}/>
+            <ImageUploader editor={ref.current} ref={uploaderRef} />
         </Container>
     )
 }

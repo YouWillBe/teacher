@@ -7,7 +7,7 @@ interface IProps {
 const Icon: FC<IProps> = ({ name }) => {
     return (
         <svg className='icon' aria-hidden='true'>
-            <use xlinkHref={name}></use>
+            <use xlinkHref={name} />
         </svg>
     )
 }

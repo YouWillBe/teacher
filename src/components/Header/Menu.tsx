@@ -14,7 +14,7 @@ const Container = styled.div`
     top: 64px;
     right: 6px;
     user-select: none;
-    box-shadow: rgba(16, 36, 94, 0.4) 0px 2px 6px 0px;
+    box-shadow: rgba(16, 36, 94, 0.4) 0 2px 6px 0;
     border-radius: 4px;
 `
 const Top = styled.div`
@@ -102,7 +102,7 @@ const MyLink = styled(Link)`
     border-radius: 6px;
     font-size: 12px;
     color: #666;
-    padding: 0px 12px;
+    padding: 0 12px;
     background-color: #fff;
     transition: all 0.1s linear;
     &:hover {
@@ -117,7 +117,7 @@ const MyLogOut = styled.button`
     border-radius: 6px;
     font-size: 12px;
     color: #666;
-    padding: 0px 12px;
+    padding: 0 12px;
     outline: none;
     background-color: #fff;
     cursor: pointer;
@@ -144,7 +144,7 @@ const Menu: FC<IProps> = props => {
             <TriangleShadow />
             <Top>
                 <Avatar>
-                    <FaUserTie></FaUserTie>
+                    <FaUserTie />
                 </Avatar>
                 <InfoBox>
                     <Realname>{userStore.userInfo.realName}</Realname>

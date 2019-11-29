@@ -22,7 +22,7 @@ interface IProps {
     editor: Editor | null
 }
 
-const Uploader = forwardRef((props: IProps, ref: Ref<HTMLInputElement> ) => {
+const Uploader = forwardRef((props: IProps, ref: Ref<HTMLInputElement>) => {
     const handleClick = (event: MouseEvent) => {
         // @ts-ignore
         event.target.value = null
@@ -46,15 +46,7 @@ const Uploader = forwardRef((props: IProps, ref: Ref<HTMLInputElement> ) => {
                 console.log(data)
             })
     }
-    return (
-        <Container
-            onClick={handleClick}
-            type='file'
-            accept='image/*'
-            onChange={handleFileUpload}
-            ref={ref}
-        />
-    )
+    return <Container onClick={handleClick} type='file' accept='image/*' onChange={handleFileUpload} ref={ref} />
 })
 
 export default Uploader

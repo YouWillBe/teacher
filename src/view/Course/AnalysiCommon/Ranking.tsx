@@ -16,7 +16,7 @@ const Li = styled.li`
 const Name = styled.span`
     width: 150px;
     font-size: 16px;
-    font-family: PingFangSC-Regular, PingFang SC;
+    font-family: PingFangSC-Regular, PingFang SC, sans-serif;
     font-weight: 400;
     color: rgba(51, 51, 51, 1);
 `
@@ -39,7 +39,7 @@ const Numerical = styled.span`
     width: 60px;
     text-align: center;
     font-size: 12px;
-    font-family: PingFangSC-Regular, PingFang SC;
+    font-family: PingFangSC-Regular, PingFang SC, sans-serif;
     font-weight: 400;
     color: rgba(51, 51, 51, 1);
 `
@@ -88,7 +88,7 @@ const Ranking: FC<IProps> = props => {
             <Li title={`正确率${props.data.avgAccuracy}%`}>
                 <Name>{props.data.name}</Name>
                 <ScheduleWrap>
-                    <Article setStyle={setColorDate()}></Article>
+                    <Article setStyle={setColorDate()} />
                 </ScheduleWrap>
                 <Numerical>{props.data.avgAccuracy}%</Numerical>
             </Li>

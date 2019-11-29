@@ -35,21 +35,11 @@ interface IProps {
 const Preview: FC<IProps> = props => {
     return (
         <Container>
-            {props.data.type === 1 && (
-                <ChoiceProblem data={props.data} onClickSelect={props.onClickSelect}></ChoiceProblem>
-            )}
-            {props.data.type === 2 && (
-                <ChoiceProblem data={props.data} onClickSelect={props.onClickSelect}></ChoiceProblem>
-            )}
-            {props.data.type === 3 && (
-                <JudgeProblem data={props.data} onClickSelect={props.onClickSelect}></JudgeProblem>
-            )}
-            {props.data.type === 4 && (
-                <FillingProblem data={props.data} onClickSelect={props.onClickSelect}></FillingProblem>
-            )}
-            {props.data.type === 5 && (
-                <ShortAnswerProblem data={props.data} onClickSelect={props.onClickSelect}></ShortAnswerProblem>
-            )}
+            {props.data.type === 1 && <ChoiceProblem data={props.data} onClickSelect={props.onClickSelect} />}
+            {props.data.type === 2 && <ChoiceProblem data={props.data} onClickSelect={props.onClickSelect} />}
+            {props.data.type === 3 && <JudgeProblem data={props.data} onClickSelect={props.onClickSelect} />}
+            {props.data.type === 4 && <FillingProblem data={props.data} onClickSelect={props.onClickSelect} />}
+            {props.data.type === 5 && <ShortAnswerProblem data={props.data} onClickSelect={props.onClickSelect} />}
         </Container>
     )
 }

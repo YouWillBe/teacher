@@ -109,11 +109,11 @@ const FullScreenControlBar: FC<IProps> = props => {
         <Wrap>
             {props.playing ? (
                 <Button onClick={props.handlePlay}>
-                    <FaPause></FaPause>
+                    <FaPause />
                 </Button>
             ) : (
                 <Button onClick={props.handlePlay}>
-                    <FaPlay></FaPlay>
+                    <FaPlay />
                 </Button>
             )}
             <ProgressBar onContextMenu={e => e.preventDefault()}>
@@ -133,12 +133,12 @@ const FullScreenControlBar: FC<IProps> = props => {
             </ProgressBar>
             <Time>{getTimeString(props.duration * props.played)}</Time>
             <Slash>
-                <FaMinus></FaMinus>
+                <FaMinus />
             </Slash>
             <Time>{getTimeString(props.duration)}</Time>
             <FullScreenVolume value={props.volume} onChange={props.onChangeVolume} />
             <Button onClick={props.onClickFullscreen}>
-                <FaCompress></FaCompress>
+                <FaCompress />
             </Button>
         </Wrap>
     )

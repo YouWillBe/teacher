@@ -99,7 +99,7 @@ const Class: FC<RouteComponentProps<IProps>> = props => {
                                 data={{
                                     avgAccuracy: analysisStore.teacherTotalAnalysis.classAccuracy,
                                 }}
-                            ></Pie>
+                            />
                         ) : null}
                     </Knowledge>
                     <Knowledge>
@@ -155,7 +155,7 @@ const Class: FC<RouteComponentProps<IProps>> = props => {
                                         titleText: '章节知识点正确率雷达图',
                                     },
                                 }}
-                            ></Radar>
+                            />
                         ) : null}
                     </RadarWrap>
                 </KnowledgeWrap>
@@ -163,9 +163,7 @@ const Class: FC<RouteComponentProps<IProps>> = props => {
                     <LoreName>班级最近7周正确率情况</LoreName>
                     <LineWrap>
                         {analysisStore.teacherTotalAnalysisReady ? (
-                            <Line
-                                data={analysisStore.teacherTotalAnalysis.latelyClassTestAccuracy.weekAccuracyList}
-                            ></Line>
+                            <Line data={analysisStore.teacherTotalAnalysis.latelyClassTestAccuracy.weekAccuracyList} />
                         ) : null}
                     </LineWrap>
                 </Package>

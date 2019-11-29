@@ -8,10 +8,10 @@ import {
     FaListOl,
     FaListUl,
     FaRegImage,
-    FaTable,
+    // FaTable,
     FaCode,
-    FaUndo,
-    FaRedo,
+    // FaUndo,
+    // FaRedo,
 } from 'react-icons/fa'
 import { GiOmega } from 'react-icons/gi'
 import { Value } from 'slate'
@@ -54,24 +54,24 @@ const ToolBar: FC<IProps> = ({ hasMark, onClickMark, hasBlock, value, onClickBlo
         <Container>
             <ButtonGroup>
                 <Button title='粗体' active={hasMark('bold')} onClick={event => onClickMark(event, 'bold')}>
-                    <FaBold></FaBold>
+                    <FaBold />
                 </Button>
                 <Button title='斜体' active={hasMark('italic')} onClick={event => onClickMark(event, 'italic')}>
-                    <FaItalic></FaItalic>
+                    <FaItalic />
                 </Button>
                 <Button
                     title='下划线'
                     active={hasMark('underlined')}
                     onClick={event => onClickMark(event, 'underlined')}
                 >
-                    <FaUnderline></FaUnderline>
+                    <FaUnderline />
                 </Button>
                 <Button
                     title='删除线'
                     active={hasMark('strikethrough')}
                     onClick={event => onClickMark(event, 'strikethrough')}
                 >
-                    <FaStrikethrough></FaStrikethrough>
+                    <FaStrikethrough />
                 </Button>
             </ButtonGroup>
             <ButtonGroup>
@@ -80,38 +80,38 @@ const ToolBar: FC<IProps> = ({ hasMark, onClickMark, hasBlock, value, onClickBlo
                     active={checkBlockActive('numbered-list')}
                     onClick={event => onClickBlock(event, 'numbered-list')}
                 >
-                    <FaListOl></FaListOl>
+                    <FaListOl />
                 </Button>
                 <Button
                     title='无序列表'
                     active={checkBlockActive('bulleted-list')}
                     onClick={event => onClickBlock(event, 'bulleted-list')}
                 >
-                    <FaListUl></FaListUl>
+                    <FaListUl />
                 </Button>
             </ButtonGroup>
             <ButtonGroup>
                 <Button title='图片' active={hasMark('image')} onClick={event => onClickInline(event, 'image')}>
-                    <FaRegImage></FaRegImage>
+                    <FaRegImage />
                 </Button>
-                <Button title='表格' active={hasMark('table')} onClick={event => onClickBlock(event, 'table')}>
-                    <FaTable></FaTable>
-                </Button>
+                {/*<Button title='表格' active={hasMark('table')} onClick={event => onClickBlock(event, 'table')}>*/}
+                {/*    <FaTable />*/}
+                {/*</Button>*/}
                 <Button title='代码' active={hasMark('code')} onClick={event => onClickMark(event, 'code')}>
-                    <FaCode></FaCode>
+                    <FaCode />
                 </Button>
                 <Button title='公式' active={hasMark('formula')} onClick={event => onClickInline(event, 'formula')}>
-                    <GiOmega></GiOmega>
+                    <GiOmega />
                 </Button>
             </ButtonGroup>
-            <ButtonGroup>
-                <Button title='撤销' active={hasMark('undo')} onClick={event => onClickMark(event, 'undo')}>
-                    <FaUndo></FaUndo>
-                </Button>
-                <Button title='重做' active={hasMark('redo')} onClick={event => onClickMark(event, 'redo')}>
-                    <FaRedo></FaRedo>
-                </Button>
-            </ButtonGroup>
+            {/*<ButtonGroup>*/}
+            {/*    <Button title='撤销' active={hasMark('undo')} onClick={event => onClickMark(event, 'undo')}>*/}
+            {/*        <FaUndo />*/}
+            {/*    </Button>*/}
+            {/*    <Button title='重做' active={hasMark('redo')} onClick={event => onClickMark(event, 'redo')}>*/}
+            {/*        <FaRedo />*/}
+            {/*    </Button>*/}
+            {/*</ButtonGroup>*/}
         </Container>
     )
 }

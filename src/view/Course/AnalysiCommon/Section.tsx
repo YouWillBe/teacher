@@ -20,7 +20,7 @@ const Section: FC<RouteComponentProps> = props => {
     return useObserver(() => {
         return (
             <Container>
-                <Package></Package>
+                <Package />
             </Container>
         )
     })

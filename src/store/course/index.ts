@@ -1,5 +1,4 @@
 import { action, observable } from 'mobx'
-// import { navigate } from '@reach/router'
 import { Value } from 'slate'
 
 import api from '../../api'

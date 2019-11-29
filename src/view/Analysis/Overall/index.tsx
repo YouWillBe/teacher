@@ -93,7 +93,7 @@ const Overall: FC<RouteComponentProps> = () => {
                                 seriesData: analysisStore.testTotalAnalysisGrade.classAccuracyList.map(t => t.accuracy),
                                 titleText: '班级总体正确率',
                             }}
-                        ></BarClass>
+                        />
                     ) : null}
                 </Package>
                 <Package>
@@ -105,7 +105,7 @@ const Overall: FC<RouteComponentProps> = () => {
                                 metaDate: latelyClassTestAccuracyList.metaDate,
                                 titleText: '班级最近7周测试情况',
                             }}
-                        ></MultiLine>
+                        />
                     ) : null}
                 </Package>
                 <Package>
@@ -121,7 +121,7 @@ const Overall: FC<RouteComponentProps> = () => {
                                     poor: latelyClassOneTestAccuracyList.poor,
                                     bad: latelyClassOneTestAccuracyList.bad,
                                 }}
-                            ></BarStackedStrip>
+                            />
                         ) : null}
                     </BarStackedStripWrap>
                 </Package>

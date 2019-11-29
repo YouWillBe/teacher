@@ -11,14 +11,14 @@ const Container = styled.div`
 `
 const Left = styled.span<{ Color: string }>`
     font-size: 16px;
-    font-family: PingFangSC;
+    font-family: PingFangSC, sans-serif;
     font-weight: 600;
     color: ${props => props.Color};
 `
 const Right = styled.span<{ Color: string }>`
     width: 60px;
     font-size: 16px;
-    font-family: PingFangSC;
+    font-family: PingFangSC, sans-serif;
     font-weight: 600;
     text-align: center;
     color: ${props => props.Color};

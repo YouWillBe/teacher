@@ -46,7 +46,7 @@ const Back: FC<IProps> = props => {
     return (
         <Container>
             <Button options={buttonOption} onClick={handleClickLink}>
-                <TiArrowBackOutline></TiArrowBackOutline>
+                <TiArrowBackOutline />
                 <MySpan>{setRouterName()}</MySpan>
             </Button>
         </Container>

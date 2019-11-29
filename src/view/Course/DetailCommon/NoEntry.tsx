@@ -25,7 +25,7 @@ const NoBackground = styled.div`
 const Text = styled.div`
     width: 300px;
     font-size: 24px;
-    font-family: PingFangSC;
+    font-family: PingFangSC, sans-serif;
     font-weight: 400;
     color: rgba(51, 51, 51, 1);
 `
@@ -34,7 +34,7 @@ const NoEntry: FC = props => {
     return (
         <NoDataWrap>
             <NoBackgroundWrap>
-                <NoBackground></NoBackground>
+                <NoBackground />
             </NoBackgroundWrap>
             <Text>等待学生录入</Text>
         </NoDataWrap>

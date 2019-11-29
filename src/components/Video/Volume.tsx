@@ -125,15 +125,15 @@ const Volume: FC<IProps> = props => {
             </Panel>
             {props.value > 50 ? (
                 <TagWrap>
-                    <FaVolumeUp></FaVolumeUp>
+                    <FaVolumeUp />
                 </TagWrap>
             ) : props.value > 0 ? (
                 <TagWrap>
-                    <FaVolumeDown></FaVolumeDown>
+                    <FaVolumeDown />
                 </TagWrap>
             ) : (
                 <TagWrap>
-                    <FaVolumeMute></FaVolumeMute>
+                    <FaVolumeMute />
                 </TagWrap>
             )}
         </Wrap>

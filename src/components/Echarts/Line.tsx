@@ -49,7 +49,7 @@ const Radar: FC<IProps> = props => {
 
         // eslint-disable-next-line
     }, [])
-    return <Container ref={lineRef}></Container>
+    return <Container ref={lineRef} />
 }
 
 export default Radar

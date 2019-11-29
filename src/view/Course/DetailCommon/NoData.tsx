@@ -49,7 +49,7 @@ const NoDataSection = styled.div`
     margin-top: 25px;
     margin-bottom: 25px;
     font-size: 14px;
-    font-family: PingFangSC-Light;
+    font-family: PingFangSC-Light, sans-serif;
     font-weight: 300;
     color: rgba(51, 51, 51, 1);
 `
@@ -64,7 +64,7 @@ const NoData: FC<IProps> = props => {
                 <ProblemType>
                     <Left>
                         <Tag>
-                            <FaProjectDiagram></FaProjectDiagram>
+                            <FaProjectDiagram />
                         </Tag>
                         <Text>{props.text}</Text>
                     </Left>

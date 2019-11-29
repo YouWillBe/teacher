@@ -27,7 +27,7 @@ const Li = styled.li`
 `
 const Question = styled.div`
     font-size: 16px;
-    font-family: PingFangSC;
+    font-family: PingFangSC, sans-serif;
     font-weight: 500;
     color: rgba(51, 51, 51, 1);
 `
@@ -40,13 +40,13 @@ const TestPaperWrap = styled.div``
 
 const TestPaper = styled.div`
     font-size: 14px;
-    font-family: PingFangSC;
+    font-family: PingFangSC, sans-serif;
     font-weight: 400;
     color: rgba(153, 153, 153, 1);
 `
 const Fraction = styled.div`
     margin-top: 10px;
-    font-family: PingFangSC;
+    font-family: PingFangSC, sans-serif;
     font-weight: 500;
     color: #3a93df;
 `
@@ -73,7 +73,7 @@ const Input = styled.input`
     outline: none;
     border: none;
     font-size: 24px;
-    font-family: PingFangSC;
+    font-family: PingFangSC, sans-serif;
     font-weight: 500;
     color: rgba(237, 80, 131, 1);
     text-align: center;
@@ -92,7 +92,7 @@ const ProblemText = styled.div`
     border-bottom: 1px solid rgba(151, 151, 151, 0.3);
     padding-left: 20px;
     font-size: 18px;
-    font-family: PingFangSC;
+    font-family: PingFangSC, sans-serif;
     font-weight: 500;
     color: #ed5083;
 `
@@ -228,7 +228,7 @@ const FractionListC: FC = props => {
                         <Editor
                             value={courseIndexStore.testProblemDetailData.teacherPostilion}
                             onChange={handleChangePostilion}
-                        ></Editor>
+                        />
                     </EditorWrap>
                 </Package>
             </Container>

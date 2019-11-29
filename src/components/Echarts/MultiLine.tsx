@@ -91,7 +91,7 @@ const MultiLine: FC<IProps> = props => {
         myChart.setOption(option)
         // eslint-disable-next-line
     }, [])
-    return <Container ref={multiLineRef}></Container>
+    return <Container ref={multiLineRef} />
 }
 
 export default MultiLine

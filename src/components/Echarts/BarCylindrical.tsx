@@ -88,7 +88,7 @@ const BarCylindrical: FC<IProps> = props => {
         myChart.setOption(option)
         // eslint-disable-next-line
     }, [])
-    return <Container ref={barcylidricalRef}></Container>
+    return <Container ref={barcylidricalRef} />
 }
 
 export default BarCylindrical

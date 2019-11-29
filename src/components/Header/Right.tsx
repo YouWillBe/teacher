@@ -56,7 +56,7 @@ const Right: FC = () => {
         <Container>
             <MySubjectName>{userStore.userInfo.subjectName}</MySubjectName>
             <Avatar onMouseDown={handleClickInfoMenu} ref={tagRef}>
-                <FaUserTie></FaUserTie>
+                <FaUserTie />
             </Avatar>
             {isInfoMenu && <Menu close={handleCloseMenu} />}
         </Container>

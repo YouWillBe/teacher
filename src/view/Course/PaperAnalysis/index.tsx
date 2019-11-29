@@ -39,7 +39,7 @@ const Student = styled.div`
 `
 const StudentName = styled.span`
     font-size: 18px;
-    font-family: PingFangSC-Regular, PingFang SC;
+    font-family: PingFangSC-Regular, PingFang SC, sans-serif;
     font-weight: 400;
     color: rgba(51, 51, 51, 1);
 `
@@ -49,7 +49,7 @@ const StudentType = styled.span`
     border-right: 1px solid rgba(20, 78, 94, 1);
     text-align: center;
     font-size: 16px;
-    font-family: PingFangSC-Medium, PingFang SC;
+    font-family: PingFangSC-Medium, PingFang SC, sans-serif;
     font-weight: 500;
     color: rgba(20, 78, 94, 1);
     margin-right: 20px;
@@ -78,7 +78,7 @@ const Package = styled.div`
 `
 const LoreName = styled.div`
     font-size: 14px;
-    font-family: PingFangSC-Regular, PingFang SC;
+    font-family: PingFangSC-Regular, PingFang SC, sans-serif;
     font-weight: 400;
     color: rgba(153, 153, 153, 1);
     margin-bottom: 20px;
@@ -102,7 +102,7 @@ const PaperAnalysis: FC<RouteComponentProps<IProps>> = props => {
         return (
             <Container>
                 <Header>
-                    <Back data={{ url: props.uri }}></Back>
+                    <Back data={{ url: props.uri }} />
                     <StudentInfo>
                         <Student>
                             <StudentType>学生</StudentType>
@@ -118,16 +118,10 @@ const PaperAnalysis: FC<RouteComponentProps<IProps>> = props => {
                     {courseIndexStore.gettingTestAcademicAnalysisVolume ? (
                         <>
                             <Knowledge>
-                                <Pie
-                                    text='正确率最高的'
-                                    data={courseIndexStore.testAcademicAnalysisVolume.bestLore}
-                                ></Pie>
+                                <Pie text='正确率最高的' data={courseIndexStore.testAcademicAnalysisVolume.bestLore} />
                             </Knowledge>
                             <Knowledge>
-                                <Pie
-                                    text='正确率最低的'
-                                    data={courseIndexStore.testAcademicAnalysisVolume.worstLore}
-                                ></Pie>
+                                <Pie text='正确率最低的' data={courseIndexStore.testAcademicAnalysisVolume.worstLore} />
                             </Knowledge>
                         </>
                     ) : null}
@@ -140,7 +134,7 @@ const PaperAnalysis: FC<RouteComponentProps<IProps>> = props => {
                                 typeText: '个',
                                 setColor: '#6D8DD2',
                             }}
-                        ></LoreNumber>
+                        />
                         <LoreNumber
                             data={{
                                 text: '薄弱知识点',
@@ -148,7 +142,7 @@ const PaperAnalysis: FC<RouteComponentProps<IProps>> = props => {
                                 typeText: '个',
                                 setColor: '#996DD2',
                             }}
-                        ></LoreNumber>
+                        />
                     </Knowledge>
                     <Knowledge>
                         <LoreNumber
@@ -158,7 +152,7 @@ const PaperAnalysis: FC<RouteComponentProps<IProps>> = props => {
                                 typeText: '%',
                                 setColor: '#ED5083',
                             }}
-                        ></LoreNumber>
+                        />
                         <LoreNumber
                             data={{
                                 text: '该卷在班里排名',
@@ -166,13 +160,13 @@ const PaperAnalysis: FC<RouteComponentProps<IProps>> = props => {
                                 typeText: '/' + courseIndexStore.testAcademicAnalysisVolume.totalRank,
                                 setColor: '#3A93DF',
                             }}
-                        ></LoreNumber>
+                        />
                     </Knowledge>
                 </KnowledgeWrap>
                 <Package>
                     <LoreName>知识点排行（全班平均正确率）</LoreName>
                     {courseIndexStore.testAcademicAnalysisVolume.loreDTOList.map((item, index) => (
-                        <Ranking key={index} data={item}></Ranking>
+                        <Ranking key={index} data={item} />
                     ))}
                 </Package>
             </Container>

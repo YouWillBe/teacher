@@ -6,7 +6,7 @@ const Container = styled.div`
 `
 const Text = styled.div`
     font-size: 14px;
-    font-family: PingFangSC-Regular, PingFang SC;
+    font-family: PingFangSC-Regular, PingFang SC, sans-serif;
     font-weight: 400;
     color: rgba(153, 153, 153, 1);
 `
@@ -19,7 +19,7 @@ const NumberWrap = styled.div`
 `
 const LoreCount = styled.span<{ setColor: string }>`
     font-size: 36px;
-    font-family: PingFangSC-Semibold, PingFang SC;
+    font-family: PingFangSC-Semibold, PingFang SC, sans-serif;
     font-weight: 600;
     color: ${props => props.setColor};
 `
@@ -28,7 +28,7 @@ const TypeText = styled.span<{ setColor: string }>`
     width: 30px;
     text-align: center;
     font-size: ${props => (props.setColor === '个' ? '14px' : '20px')};
-    font-family: PingFangSC-Regular, PingFang SC;
+    font-family: PingFangSC-Regular, PingFang SC, sans-serif;
     font-weight: 400;
     color: ${props =>
         props.setColor === '个' ? 'rgba(153, 153, 153, 1)' : props.setColor === '%' ? '#ED5083' : '#3A93DF'};

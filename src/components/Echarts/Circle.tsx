@@ -88,7 +88,7 @@ const Circle: FC<IProps> = props => {
         myChart.setOption(option)
         // eslint-disable-next-line
     }, [])
-    return <Container ref={circleRef}></Container>
+    return <Container ref={circleRef} />
 }
 
 export default Circle

@@ -34,8 +34,8 @@ interface IProps {
 const Toggle: FC<IProps> = props => {
     return (
         <>
-            <Input></Input>
-            <Label isToggle={props.isToggle} onClick={props.onClickToggle}></Label>
+            <Input />
+            <Label isToggle={props.isToggle} onClick={props.onClickToggle} />
         </>
     )
 }

@@ -18,7 +18,7 @@ const KnowledgeWrap = styled.div`
 const TypeNumber = styled.span`
     box-sizing: border-box;
     font-size: 14px;
-    font-family: PingFangSC-Light, PingFang SC;
+    font-family: PingFangSC-Light, PingFang SC, sans-serif;
     font-weight: 300;
     color: rgba(237, 73, 126, 1);
     height: 36px;
@@ -42,7 +42,7 @@ interface ILoreList {
     id: number
     name: string
 }
-interface Iprops {
+interface IProps {
     data: {
         id?: number | 0
         type: number
@@ -52,7 +52,7 @@ interface Iprops {
     onClickSelect(): void
 }
 
-const HeaderType: FC<Iprops> = props => {
+const HeaderType: FC<IProps> = props => {
     const [typeArr] = useState(['单选题', '多选题', '判断题', '填空题', '解答题'])
 
     //去编辑
@@ -60,7 +60,7 @@ const HeaderType: FC<Iprops> = props => {
         navigate(`/exercise/${props.data.id}`)
     }
 
-    const haneleClickSelect = () => {
+    const handleClickSelect = () => {
         props.onClickSelect()
     }
 
@@ -79,15 +79,15 @@ const HeaderType: FC<Iprops> = props => {
                     {typeArr[props.data.type - 1].slice(0, 2)}#{props.data.id}
                 </TypeNumber>
                 {props.data.loreList.map((item, index) => (
-                    <Knowledge key={item.id} data={{ ...item, index }}></Knowledge>
+                    <Knowledge key={item.id} data={{ ...item, index }} />
                 ))}
             </KnowledgeWrap>
             {props.data.showEditPick === 1 ? (
                 <FontWrap title='点击编辑' onClick={handleClickLink}>
-                    <FiEdit></FiEdit>
+                    <FiEdit />
                 </FontWrap>
             ) : props.data.showEditPick === 2 ? (
-                <Button options={buttonOption1} title='选择该题目' onClick={haneleClickSelect}>
+                <Button options={buttonOption1} title='选择该题目' onClick={handleClickSelect}>
                     选择
                 </Button>
             ) : null}

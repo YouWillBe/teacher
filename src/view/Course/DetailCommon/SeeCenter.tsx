@@ -98,11 +98,11 @@ const ACenter: FC<RouteComponentProps<IProps>> = props => {
     return useObserver(() => {
         return (
             <Container>
-                <SeeHeaderB></SeeHeaderB>
+                <SeeHeaderB />
                 {courseIndexStore.testProblemDetailData.problemType === 1 ||
                 courseIndexStore.testProblemDetailData.problemType === 2 ? (
                     <>
-                        <FractionListA></FractionListA>
+                        <FractionListA />
                         <Package>
                             <ChoiceProblem data={problemList()} />
                         </Package>
@@ -110,7 +110,7 @@ const ACenter: FC<RouteComponentProps<IProps>> = props => {
                 ) : null}
                 {courseIndexStore.testProblemDetailData.problemType === 3 ? (
                     <>
-                        <FractionListA></FractionListA>
+                        <FractionListA />
                         <Package>
                             <JudgeProblem data={problemList()} />
                         </Package>
@@ -118,11 +118,7 @@ const ACenter: FC<RouteComponentProps<IProps>> = props => {
                 ) : null}
                 {courseIndexStore.testProblemDetailData.problemType === 4 ? (
                     <>
-                        {courseIndexStore.studentVolume.studentTestStatus !== 4 ? (
-                            <NoEntry></NoEntry>
-                        ) : (
-                            <FractionListB></FractionListB>
-                        )}
+                        {courseIndexStore.studentVolume.studentTestStatus !== 4 ? <NoEntry /> : <FractionListB />}
                         <Package>
                             <FillingProblem data={problemList()} />
                         </Package>
@@ -130,11 +126,7 @@ const ACenter: FC<RouteComponentProps<IProps>> = props => {
                 ) : null}
                 {courseIndexStore.testProblemDetailData.problemType === 5 ? (
                     <>
-                        {courseIndexStore.studentVolume.studentTestStatus !== 4 ? (
-                            <NoEntry></NoEntry>
-                        ) : (
-                            <FractionListC></FractionListC>
-                        )}
+                        {courseIndexStore.studentVolume.studentTestStatus !== 4 ? <NoEntry /> : <FractionListC />}
                         <Package>
                             <ShortAnswerProblem data={problemList()} />
                         </Package>

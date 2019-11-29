@@ -108,7 +108,7 @@ function Paging(props) {
             //上一页
             pages.push(
                 <MyLiPage key={0} onClick={prePageHandeler} active={currentPage === 1}>
-                    <FaChevronLeft title='上一页'></FaChevronLeft>
+                    <FaChevronLeft title='上一页' />
                 </MyLiPage>
             )
             /*总页码小于等于10时，全部显示出来 否则 部分显示*/
@@ -144,11 +144,11 @@ function Paging(props) {
                         >
                             {isShowLeftIcon ? (
                                 <Wrap key='1'>
-                                    <FaAngleDoubleLeft></FaAngleDoubleLeft>
+                                    <FaAngleDoubleLeft />
                                 </Wrap>
                             ) : (
                                 <Wrap key='2'>
-                                    <FaEllipsisH></FaEllipsisH>
+                                    <FaEllipsisH />
                                 </Wrap>
                             )}
                         </MyLi>
@@ -174,11 +174,11 @@ function Paging(props) {
                         >
                             {isShowRightIcon ? (
                                 <Wrap key='1'>
-                                    <FaAngleDoubleRight></FaAngleDoubleRight>
+                                    <FaAngleDoubleRight />
                                 </Wrap>
                             ) : (
                                 <Wrap key='2'>
-                                    <FaEllipsisH></FaEllipsisH>
+                                    <FaEllipsisH />
                                 </Wrap>
                             )}
                         </MyLi>
@@ -194,7 +194,7 @@ function Paging(props) {
             //下一页
             pages.push(
                 <MyLiPage active={currentPage === props.total} key={props.total + 1} onClick={nextPageHandeler}>
-                    <FaChevronRight title='下一页'></FaChevronRight>
+                    <FaChevronRight title='下一页' />
                 </MyLiPage>
             )
         }

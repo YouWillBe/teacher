@@ -147,7 +147,7 @@ const App: FC<IProps> = props => {
                 <LetterContent>
                     {arr1.map(x => (
                         <Button onMouseDown={event => handleClick(event, x.cmd)} key={x.name} title={x.title}>
-                            <Icon name={`#icon-${x.name}`}></Icon>
+                            <Icon name={`#icon-${x.name}`} />
                         </Button>
                     ))}
                 </LetterContent>
@@ -157,7 +157,7 @@ const App: FC<IProps> = props => {
                 <FormContent>
                     {arr2.map(x => (
                         <Button key={x.name} onMouseDown={event => handleClick(event, x.cmd)} title={x.title}>
-                            <Icon name={`#icon-${x.name}`}></Icon>
+                            <Icon name={`#icon-${x.name}`} />
                         </Button>
                     ))}
                 </FormContent>
@@ -167,7 +167,7 @@ const App: FC<IProps> = props => {
                 <FormContent>
                     {arr3.map(x => (
                         <Button key={x.name} onMouseDown={event => handleClick(event, x.cmd)} title={x.title}>
-                            <Icon name={`#icon-${x.name}`}></Icon>
+                            <Icon name={`#icon-${x.name}`} />
                         </Button>
                     ))}
                 </FormContent>

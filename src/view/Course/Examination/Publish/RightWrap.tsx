@@ -24,12 +24,12 @@ const RecentText = styled.div`
     line-height: 100px;
     text-align: center;
     font-size: 14px;
-    font-family: PingFangSC-Regular;
+    font-family: PingFangSC-Regular, sans-serif;
     font-weight: 400;
     color: rgba(3, 118, 215, 1);
 `
 
-const Right: FC<RouteComponentProps<IProps>> = props => {
+const Right: FC<RouteComponentProps<IProps>> = () => {
     return (
         <VolumeWrap>
             <RecentText>选择最近编辑过的试卷</RecentText>

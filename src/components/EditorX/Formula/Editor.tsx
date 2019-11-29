@@ -45,8 +45,8 @@ const FormulaEditor: FC<IProps> = ({ close, latex, setLatex }) => {
     return (
         <Container>
             <Content ref={ref}>
-                <Tools click={handleClick}></Tools>
-                <EditorContent latex={latex} setLatex={setLatex} setMathQuill={setMathQuill}></EditorContent>
+                <Tools click={handleClick} />
+                <EditorContent latex={latex} setLatex={setLatex} setMathQuill={setMathQuill} />
             </Content>
         </Container>
     )

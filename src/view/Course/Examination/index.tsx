@@ -64,7 +64,7 @@ const Examination: FC<RouteComponentProps<IProps>> = props => {
         } else if (courseExaminationStore.examination.status !== 3) {
             return <Detail />
         } else {
-            return <Entry></Entry>
+            return <Entry />
         }
     })
 }

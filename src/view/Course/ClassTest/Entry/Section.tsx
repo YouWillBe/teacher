@@ -32,7 +32,7 @@ const ButtonWrap = styled.div`
 `
 const Span = styled.span``
 
-const Section: FC = props => {
+const Section: FC = () => {
     const { courseClassTestStore } = useContext<IStore>(MobXProviderContext)
 
     const handleClickLink = ({ location }: LocationContext) => {
@@ -60,7 +60,7 @@ const Section: FC = props => {
                             url: '',
                             studentList: courseClassTestStore.unfinishedStudentList,
                         }}
-                    ></StudentList>
+                    />
                     <StudentList
                         data={{
                             title: '已出成绩',
@@ -68,7 +68,7 @@ const Section: FC = props => {
                             url: '',
                             studentList: courseClassTestStore.finishedStudentList,
                         }}
-                    ></StudentList>
+                    />
                 </Left>
                 <Right>
                     <ButtonWrap>
@@ -77,7 +77,7 @@ const Section: FC = props => {
                                 return (
                                     <Button options={buttonOption} onClick={() => handleClickLink(location)}>
                                         <Span>查看分析</Span>
-                                        <FaEye></FaEye>
+                                        <FaEye />
                                     </Button>
                                 )
                             }}
