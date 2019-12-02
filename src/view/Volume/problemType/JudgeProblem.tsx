@@ -87,6 +87,10 @@ interface Iprops {
 const JudgeProblem: FC<RouteComponentProps<Iprops>> = props => {
     const { volumeStore } = useContext<IStore>(MobXProviderContext)
 
+    const handleSelectPoint = (data: { id: number; name: string }) => {
+        volumeStore.selectPoint(data)
+    }
+
     //题干
     const handleChangeTopic = (value: Value) => {
         volumeStore.volumeProblem.topic = value
@@ -105,7 +109,12 @@ const JudgeProblem: FC<RouteComponentProps<Iprops>> = props => {
                     <KnowledgeWrap>
                         <PlusKnowledge></PlusKnowledge>
                         {volumeStore.selectedPoints.map((item, index) => (
-                            <Knowledge key={item.id} data={item}></Knowledge>
+                            <Knowledge
+                                key={item.id}
+                                data={item}
+                                closable={true}
+                                onClickDeleted={handleSelectPoint}
+                            ></Knowledge>
                         ))}
                     </KnowledgeWrap>
                 </Package>

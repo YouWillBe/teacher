@@ -101,6 +101,10 @@ interface IAnswer {
 const FillingProblem: FC<RouteComponentProps<Iprops>> = () => {
     const { exerciseStore } = useContext<IStore>(MobXProviderContext)
 
+    const handleSelectPoint = (data: { id: number; name: string }) => {
+        exerciseStore.selectPoint(data)
+    }
+
     //题干/插入空位
     const handleChangeTopic = (value: Value) => {
         exerciseStore.problemData.topic = value
@@ -162,7 +166,7 @@ const FillingProblem: FC<RouteComponentProps<Iprops>> = () => {
                     <KnowledgeWrap>
                         <PlusKnowledge />
                         {exerciseStore.selectedPoints.map((item, index) => (
-                            <Knowledge key={item.id} data={item} />
+                            <Knowledge key={item.id} data={item} closable={true} onClickDeleted={handleSelectPoint} />
                         ))}
                     </KnowledgeWrap>
                 </Package>

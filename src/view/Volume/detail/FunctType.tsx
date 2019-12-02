@@ -9,6 +9,7 @@ import Button from '../../../components/Button'
 import Popconfirm from '../../../components/Popconfirm'
 import Dialog from '../../../components/Dialog'
 import QuestionType from '../../../components/QuestionType'
+import Toast from '../../../components/Toast'
 import PreviewList from './PreviewList'
 import Structure from '../structure'
 import PreviewVolume from '../preview'
@@ -197,6 +198,46 @@ function FunctType(props: IProps) {
         // )
     }
 
+    //输入验证
+    const checkForm = (data: any) => {
+        let noData = JSON.stringify({
+            object: 'value',
+            document: {
+                object: 'document',
+                data: {},
+                nodes: [
+                    { object: 'block', type: 'paragraph', data: {}, nodes: [{ object: 'text', text: '', marks: [] }] },
+                ],
+            },
+        })
+        let type = [1, 2, 3]
+        let type1 = [4, 5]
+        let isOk = true
+        if (data.topic === noData) {
+            Toast.warning('题目不能为空')
+            isOk = false
+        } else if (data.loreIdList.length < 1) {
+            Toast.warning('知识点不能为空')
+            isOk = false
+        } else if (type.includes(data.type) && !data.answer) {
+            Toast.warning('答案不能为空')
+            isOk = false
+        } else if (type1.includes(data.type) && data.answer === noData) {
+            Toast.warning('答案不能为空')
+            isOk = false
+        } else if (data.type === 5 && data.answerCount === 0) {
+            Toast.warning('小题数量不能为空')
+            isOk = false
+        } else if (data.type === 4 && data.answerCount === 0) {
+            Toast.warning('填空不能为空')
+            isOk = false
+        } else if (type.includes(data.type) && data.option === '[]') {
+            Toast.warning('选项不能为空')
+            isOk = false
+        }
+        return isOk
+    }
+
     //保存
     const handleClickSave = () => {
         let answer: string[] = []
@@ -231,7 +272,9 @@ function FunctType(props: IProps) {
             answerCount: volumeStore.volumeProblem.answerCount,
             volumeId: volumeStore.volumeProblem.volumeId,
         }
-        volumeStore.updateVolumeProblem(data)
+        if (checkForm(data)) {
+            volumeStore.updateVolumeProblem(data)
+        }
     }
 
     const optionButton = {

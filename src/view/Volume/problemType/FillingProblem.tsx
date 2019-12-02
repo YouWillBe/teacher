@@ -151,6 +151,10 @@ const FillingProblem: FC<RouteComponentProps<Iprops>> = props => {
         volumeStore.volumeProblem.answerCount = answerCount
     }
 
+    const handleSelectPoint = (data: { id: number; name: string }) => {
+        volumeStore.selectPoint(data)
+    }
+
     //解析
     const handleChangeSolution = (value: Value) => {
         volumeStore.volumeProblem.solution = value
@@ -164,7 +168,12 @@ const FillingProblem: FC<RouteComponentProps<Iprops>> = props => {
                     <KnowledgeWrap>
                         <PlusKnowledge></PlusKnowledge>
                         {volumeStore.selectedPoints.map((item, index) => (
-                            <Knowledge key={item.id} data={item}></Knowledge>
+                            <Knowledge
+                                key={item.id}
+                                data={item}
+                                closable={true}
+                                onClickDeleted={handleSelectPoint}
+                            ></Knowledge>
                         ))}
                     </KnowledgeWrap>
                 </Package>

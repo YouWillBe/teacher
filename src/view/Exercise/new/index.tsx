@@ -138,7 +138,7 @@ const NetExercise: FC<RouteComponentProps<Iprops>> = props => {
         if (data.topic === noData) {
             Toast.warning('题目不能为空')
             isOk = false
-        } else if (data.loreIdList.length > 0) {
+        } else if (data.loreIdList.length < 1) {
             Toast.warning('知识点不能为空')
             isOk = false
         } else if (type.includes(data.type) && !data.answer) {

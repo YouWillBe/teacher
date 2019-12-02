@@ -80,9 +80,13 @@ const SolutionWrap = styled.div`
     color: rgba(51, 51, 51, 1);
 `
 
-const ChoiceProblem: FC = props => {
+const ChoiceProblem: FC = () => {
     const { volumeStore } = useContext<IStore>(MobXProviderContext)
     const [answerOption] = useState(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'])
+
+    const handleSelectPoint = (data: { id: number; name: string }) => {
+        volumeStore.selectPoint(data)
+    }
 
     //题干
     const handleChangeTopic = (value: Value) => {
@@ -101,8 +105,13 @@ const ChoiceProblem: FC = props => {
                     <ProblemText>知识点</ProblemText>
                     <KnowledgeWrap>
                         <PlusKnowledge></PlusKnowledge>
-                        {volumeStore.selectedPoints.map((item, index) => (
-                            <Knowledge key={item.id} data={item}></Knowledge>
+                        {volumeStore.selectedPoints.map(item => (
+                            <Knowledge
+                                key={item.id}
+                                data={item}
+                                closable={true}
+                                onClickDeleted={handleSelectPoint}
+                            ></Knowledge>
                         ))}
                     </KnowledgeWrap>
                 </Package>
