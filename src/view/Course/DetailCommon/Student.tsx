@@ -1,7 +1,8 @@
 import React, { FC } from 'react'
 import styled from '@emotion/styled'
-import boy from '../boy.png'
-import girl from '../girl.png'
+
+import boy from '../../../images/boy.png'
+import girl from '../../../images/girl.png'
 import Total from '../../../components/Toast'
 
 const Container = styled.ul`

@@ -9,7 +9,7 @@ import { IStore } from '../../store'
 import Loading from '../../components/Loading'
 import Paging from '../../components/Paging'
 import PlanCard from './PlanCard'
-import image from './blank.png'
+import image from '../../images/blank.png'
 
 const Container = styled.div`
     width: 1000px;

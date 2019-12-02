@@ -4,7 +4,7 @@ import styled from '@emotion/styled'
 import Right from './Right'
 import Nav from './Nav'
 
-import logo from './logo.png'
+import logo from '../../images/logo.png'
 
 const Container = styled.div`
     top: 0;

@@ -11,7 +11,7 @@ import NotAnnounced from './Detail/NotAnnounced'
 import Entry from './Entry'
 import Loading from '../../../components/Loading'
 
-import img from '../blank.png'
+import img from '../../../images/blank.png'
 
 interface IProps {
     courseId: string

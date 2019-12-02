@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from '@emotion/styled'
 
-import Xiugaijiegou from './xiugaijiegou.png'
+import Xiugaijiegou from '../../../images/xiugaijiegou.png'
 
 const Container = styled.div`
     box-sizing: border-box;

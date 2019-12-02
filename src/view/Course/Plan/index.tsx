@@ -9,7 +9,7 @@ import { FaSpinner } from 'react-icons/fa'
 import { IStore } from '../../../store'
 import PlanSelector from './PlanSelector'
 import Editor from '../../../components/EditorX'
-import img from '../blank.png'
+import img from '../../../images/blank.png'
 
 interface IParams {
     courseId: string
@@ -77,10 +77,7 @@ const Plan: FC<RouteComponentProps<IParams>> = props => {
         } else {
             return (
                 <Package>
-                    <Editor
-                        value={Value.fromJSON(coursePlanStore.plan.content)}
-                        readonly
-                    ></Editor>
+                    <Editor value={Value.fromJSON(coursePlanStore.plan.content)} readonly></Editor>
                 </Package>
             )
         }

@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import styled from '@emotion/styled'
 
-import noEntry from './noEntry.png'
+import noEntry from '../../../images/noEntry.png'
 
 const NoDataWrap = styled.div`
     width: 100%;

@@ -2,8 +2,8 @@ import React, { FC } from 'react'
 import styled from '@emotion/styled'
 import { navigate } from '@reach/router'
 
-import boy from '../../Course/boy.png'
-import girl from '../../Course/girl.png'
+import boy from '../../../images/boy.png'
+import girl from '../../../images/girl.png'
 
 const Container = styled.div`
     width: 100%;

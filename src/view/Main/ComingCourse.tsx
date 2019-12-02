@@ -10,7 +10,7 @@ import { IStore } from '../../store'
 import Loading from '../../components/Loading'
 import CourseInfo from './CourseInfo'
 
-import blank from '../Plan/blank.png'
+import blank from '../../images/blank.png'
 
 const Container = styled.div`
     height: 250px;

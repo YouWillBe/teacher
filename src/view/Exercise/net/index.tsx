@@ -4,7 +4,7 @@ import styled from '@emotion/styled'
 import { Link, RouteComponentProps } from '@reach/router'
 import { FaPlus } from 'react-icons/fa'
 
-import image from './blank.png'
+import image from '../../../images/blank.png'
 
 const BlankWrap = styled.div`
     height: 100%;
