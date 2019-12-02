@@ -37,7 +37,7 @@ const IconWrap = styled.div`
 const FontIcon1 = styled.div`
     width: 30px;
     height: 30px;
-    box-shadow: 0px 2px 4px 0px rgba(118, 143, 255, 0.14);
+    box-shadow: 0 2px 4px 0 rgba(118, 143, 255, 0.14);
     border-radius: 3px;
     text-align: center;
     line-height: 30px;
@@ -51,7 +51,7 @@ const FontIcon1 = styled.div`
 const FontIcon = styled.div<{ setColor: string }>`
     width: 30px;
     height: 30px;
-    box-shadow: 0px 2px 4px 0px rgba(118, 143, 255, 0.14);
+    box-shadow: 0 2px 4px 0 rgba(118, 143, 255, 0.14);
     border-radius: 3px;
     text-align: center;
     line-height: 30px;
@@ -309,7 +309,7 @@ function FunctType(props: IProps) {
                         <ButtonWrap>
                             {props.isShowIcon && (
                                 <Button options={optionButton1} onClick={handleClickSave}>
-                                    <FaSave></FaSave>
+                                    <FaSave />
                                     <ButtonSpan>保存</ButtonSpan>
                                 </Button>
                             )}
@@ -322,16 +322,14 @@ function FunctType(props: IProps) {
                         {props.isShowIcon && (
                             <IconWrap>
                                 <FontIcon setColor='#9013fe' title='替换题目' onClick={() => handleClickIcon('替换')}>
-                                    <FaExchangeAlt></FaExchangeAlt>
+                                    <FaExchangeAlt />
                                 </FontIcon>
                                 <FontIcon setColor='#3D8EF3' title='预览题目' onClick={() => handleClickIcon('预览')}>
-                                    <FaEye></FaEye>
+                                    <FaEye />
                                 </FontIcon>
                                 <FontIcon1 title='删除题目' onClick={() => handleClickIcon('删除')}>
-                                    <FaMinusCircle></FaMinusCircle>
-                                    {isDeleteTopic && (
-                                        <Popconfirm confirm={handleConfirm} close={handleClose}></Popconfirm>
-                                    )}
+                                    <FaMinusCircle />
+                                    {isDeleteTopic && <Popconfirm confirm={handleConfirm} close={handleClose} />}
                                 </FontIcon1>
                             </IconWrap>
                         )}
@@ -339,12 +337,12 @@ function FunctType(props: IProps) {
                     <Right>
                         <ButtonWrap>
                             <Button title='上一题' onClick={handleClickLast}>
-                                <FaChevronLeft></FaChevronLeft>
+                                <FaChevronLeft />
                             </Button>
                         </ButtonWrap>
                         <ButtonWrap>
                             <Button title='下一题' onClick={handleClickNext}>
-                                <FaChevronRight></FaChevronRight>
+                                <FaChevronRight />
                             </Button>
                         </ButtonWrap>
                     </Right>
@@ -357,17 +355,14 @@ function FunctType(props: IProps) {
                                     ...volumeStore.volumeProblem,
                                     index: volumeStore.volumeProblem.number - 1,
                                 }}
-                            ></QuestionType>
+                            />
                         </PreviewWrap>
                     </Dialog>
                 )}
-                {isShowSelect && <PreviewList onClickClose={handleIsShowSelect}></PreviewList>}
-                {isShowStructure && <Structure onClickClose={handleClickClose}></Structure>}
+                {isShowSelect && <PreviewList onClickClose={handleIsShowSelect} />}
+                {isShowStructure && <Structure onClickClose={handleClickClose} />}
                 {isPreviewVolume && (
-                    <PreviewVolume
-                        onClickClose={handleClickPreviewVolume}
-                        osClickShowStructure={handleClickOutline}
-                    ></PreviewVolume>
+                    <PreviewVolume onClickClose={handleClickPreviewVolume} osClickShowStructure={handleClickOutline} />
                 )}
             </>
         )

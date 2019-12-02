@@ -126,7 +126,7 @@ const Plan: FC<RouteComponentProps> = () => {
                     <BlankText>还没有教案，添加一个吧</BlankText>
                     <BlankButton to='/plan/new'>
                         <ButtonTag>
-                            <FaPlus></FaPlus>
+                            <FaPlus />
                         </ButtonTag>
                         <ButtonText>添加教案</ButtonText>
                     </BlankButton>
@@ -138,7 +138,7 @@ const Plan: FC<RouteComponentProps> = () => {
                 <NewButtonWrap>
                     <NewButton to='/plan/new'>添加教案</NewButton>
                 </NewButtonWrap>
-                <Line></Line>
+                <Line />
                 <Container>
                     {planStore.planList.map((v, i) => (
                         <PlanCard data={v} key={i} deletePlan={id => planStore.deletePlan(id)} />
@@ -150,7 +150,7 @@ const Plan: FC<RouteComponentProps> = () => {
                             onChange={handleChangePaging}
                             current={planStore.pageInfo.page}
                             total={Math.ceil(planStore.pageInfo.total / planStore.pageInfo.limit)}
-                        ></Paging>
+                        />
                     </PagingWrap>
                 )}
             </Wrap>

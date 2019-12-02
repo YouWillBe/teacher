@@ -41,7 +41,7 @@ const FunctF = styled.div`
     color: rgba(255, 255, 255, 1);
     background-color: rgba(58, 147, 223, 1);
     box-shadow: 0px -6px 11px 0px rgba(77, 155, 224, 0.21);
-    border-radius: 10px 10px 0px 0px;
+    border-radius: 10px 10px 0 0;
     border: 1px solid rgba(255, 255, 255, 1);
     cursor: pointer;
 `

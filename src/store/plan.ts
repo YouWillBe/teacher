@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx'
 import { Value } from 'slate'
-import { uniqWith, eqProps, append, remove } from 'ramda'
+import { uniqWith, eqProps, append, remove, pick } from 'ramda'
 import { navigate } from '@reach/router'
 
 import api from '../api'
@@ -122,7 +122,7 @@ class PlanStore implements IPlanStore {
                 id: this.plan.id,
                 title: this.plan.title,
                 content: JSON.stringify(this.plan.content.toJS()),
-                loreList: this.selectedPointsId,
+                loreListId: this.selectedPointsId,
             })
         } catch (error) {}
     }
@@ -133,7 +133,7 @@ class PlanStore implements IPlanStore {
                 const res = await api.plan.getPlan(id)
                 if (res.success) {
                     this.plan = { ...res.data, content: Value.fromJSON(JSON.parse(res.data.content)) }
-                    this.selectedPoints = res.data.loreList
+                    this.selectedPoints = res.data.loreList.map((v: any) => pick(['id', 'name'], v))
                     this.selectedPointsId = res.data.loreList.map((v: any) => v.id)
                     this.gettingPlan = false
                     this.planReady = true

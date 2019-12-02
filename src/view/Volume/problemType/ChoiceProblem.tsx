@@ -35,7 +35,7 @@ const ScrollbarWrap = styled.div`
 `
 const Package = styled.div`
     background-color: rgba(255, 255, 255, 0.8);
-    box-shadow: 0px 2px 4px 0px rgba(31, 122, 171, 0.2);
+    box-shadow: 0 2px 4px 0 rgba(31, 122, 171, 0.2);
     border-radius: 10px;
     border: 3px solid rgba(255, 255, 255, 0.8178);
     margin-top: 20px;
@@ -47,7 +47,7 @@ const ProblemText = styled.div`
     border-bottom: 1px solid #c4def5;
     padding-left: 10px;
     font-size: 18px;
-    font-family: PingFangSC;
+    font-family: PingFangSC, sans-serif;
     font-weight: 500;
     color: rgba(58, 147, 223, 1);
 `
@@ -61,7 +61,7 @@ const KnowledgeWrap = styled.div`
 const TopicWrap = styled.div`
     min-height: 60px;
     font-size: 16px;
-    font-family: PingFangSC-Light;
+    font-family: PingFangSC-Light, sans-serif;
     font-weight: 300;
     color: rgba(51, 51, 51, 1);
     padding-left: 22px;
@@ -75,7 +75,7 @@ const SolutionWrap = styled.div`
     padding-left: 20px;
     padding-bottom: 10px;
     font-size: 14px;
-    font-family: PingFangSC;
+    font-family: PingFangSC, sans-serif;
     font-weight: 300;
     color: rgba(51, 51, 51, 1);
 `
@@ -104,14 +104,9 @@ const ChoiceProblem: FC = () => {
                 <Package>
                     <ProblemText>知识点</ProblemText>
                     <KnowledgeWrap>
-                        <PlusKnowledge></PlusKnowledge>
+                        <PlusKnowledge />
                         {volumeStore.selectedPoints.map(item => (
-                            <Knowledge
-                                key={item.id}
-                                data={item}
-                                closable={true}
-                                onClickDeleted={handleSelectPoint}
-                            ></Knowledge>
+                            <Knowledge key={item.id} data={item} closable={true} onClickDeleted={handleSelectPoint} />
                         ))}
                     </KnowledgeWrap>
                 </Package>
@@ -124,13 +119,13 @@ const ChoiceProblem: FC = () => {
                 <Package>
                     <ProblemText>选项</ProblemText>
                     <OptionWrap>
-                        <OptionA></OptionA>
+                        <OptionA />
                     </OptionWrap>
                 </Package>
                 {volumeStore.volumeProblem.option.map((item: any, index: number) => (
                     <Package key={index}>
                         <ProblemText>{answerOption[index]}</ProblemText>
-                        <OptionListA key={index + 'a'} data={{ value: item.value, index }}></OptionListA>
+                        <OptionListA key={index + 'a'} data={{ value: item.value, index }} />
                     </Package>
                 ))}
                 <Package>

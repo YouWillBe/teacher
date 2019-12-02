@@ -35,7 +35,7 @@ const ScrollbarWrap = styled.div`
 `
 const Package = styled.div`
     background-color: rgba(255, 255, 255, 0.8);
-    box-shadow: 0px 2px 4px 0px rgba(31, 122, 171, 0.2);
+    box-shadow: 0 2px 4px 0 rgba(31, 122, 171, 0.2);
     border-radius: 10px;
     border: 3px solid rgba(255, 255, 255, 0.8178);
     margin-top: 20px;
@@ -108,7 +108,7 @@ const JudgeProblem: FC<RouteComponentProps<Iprops>> = () => {
                     <ProblemText>知识点</ProblemText>
                     <KnowledgeWrap>
                         <PlusKnowledge />
-                        {exerciseStore.selectedPoints.map((item, index) => (
+                        {exerciseStore.selectedPoints.map(item => (
                             <Knowledge key={item.id} data={item} closable={true} onClickDeleted={handleSelectPoint} />
                         ))}
                     </KnowledgeWrap>

@@ -35,7 +35,7 @@ const ScrollbarWrap = styled.div`
 `
 const Package = styled.div`
     background-color: rgba(255, 255, 255, 0.8);
-    box-shadow: 0px 2px 4px 0px rgba(31, 122, 171, 0.2);
+    box-shadow: 0 2px 4px 0 rgba(31, 122, 171, 0.2);
     border-radius: 10px;
     border: 3px solid rgba(255, 255, 255, 0.8178);
     margin-top: 20px;
@@ -47,7 +47,7 @@ const ProblemText = styled.div`
     border-bottom: 1px solid #c4def5;
     padding-left: 10px;
     font-size: 18px;
-    font-family: PingFangSC;
+    font-family: PingFangSC, sans-serif;
     font-weight: 500;
     color: rgba(58, 147, 223, 1);
 `
@@ -62,7 +62,7 @@ const TopicWrap = styled.div`
     min-height: 60px;
     padding-bottom: 10px;
     font-size: 16px;
-    font-family: PingFangSC-Light;
+    font-family: PingFangSC-Light, sans-serif;
     font-weight: 300;
     color: rgba(51, 51, 51, 1);
     padding-left: 22px;
@@ -75,7 +75,7 @@ const OptionWrap = styled.div`
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 30px;
     font-size: 16px;
-    font-family: PingFangSC-Regular;
+    font-family: PingFangSC-Regular, sans-serif;
     font-weight: 400;
     color: rgba(7, 41, 121, 1);
 `
@@ -84,7 +84,7 @@ const SolutionWrap = styled.div`
     min-height: 60px;
     padding-left: 20px;
     font-size: 14px;
-    font-family: PingFangSC;
+    font-family: PingFangSC, sans-serif;
     font-weight: 300;
     color: rgba(51, 51, 51, 1);
 `
@@ -98,7 +98,7 @@ interface IAnswer {
     value: Value
 }
 
-const FillingProblem: FC<RouteComponentProps<Iprops>> = props => {
+const FillingProblem: FC<RouteComponentProps<Iprops>> = () => {
     const { volumeStore } = useContext<IStore>(MobXProviderContext)
 
     //题干/插入空位
@@ -166,14 +166,9 @@ const FillingProblem: FC<RouteComponentProps<Iprops>> = props => {
                 <Package>
                     <ProblemText>知识点</ProblemText>
                     <KnowledgeWrap>
-                        <PlusKnowledge></PlusKnowledge>
-                        {volumeStore.selectedPoints.map((item, index) => (
-                            <Knowledge
-                                key={item.id}
-                                data={item}
-                                closable={true}
-                                onClickDeleted={handleSelectPoint}
-                            ></Knowledge>
+                        <PlusKnowledge />
+                        {volumeStore.selectedPoints.map(item => (
+                            <Knowledge key={item.id} data={item} closable={true} onClickDeleted={handleSelectPoint} />
                         ))}
                     </KnowledgeWrap>
                 </Package>
@@ -191,7 +186,7 @@ const FillingProblem: FC<RouteComponentProps<Iprops>> = props => {
                     <ProblemText>答案</ProblemText>
                     <OptionWrap>
                         {volumeStore.volumeProblem.answer.map((item: IAnswer, index: number) => (
-                            <OptionC key={item.id} data={{ value: Value.fromJSON(item.value), index }}></OptionC>
+                            <OptionC key={item.id} data={{ value: Value.fromJSON(item.value), index }} />
                         ))}
                     </OptionWrap>
                 </Package>

@@ -16,7 +16,7 @@ const Container = styled.div`
     height: 250px;
     width: 100%;
     border-radius: 4px;
-    box-shadow: rgba(0, 0, 0, 0.12) 0px 3px 13px 1px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0 3px 13px 1px;
     background-color: #fff;
     margin-bottom: 30px;
 `
@@ -46,7 +46,7 @@ const ComingCourse: FC = () => {
         <Container>
             <Title>准备上的课</Title>
             {classTableStore.gettingProcessingCourse ? (
-                <Loading></Loading>
+                <Loading />
             ) : isNil(classTableStore.comingCourse) ? (
                 <>
                     <Blank />
@@ -60,7 +60,7 @@ const ComingCourse: FC = () => {
                     index={oc(classTableStore).comingCourse.courseSection(0)}
                     nameOfClass={oc(classTableStore).comingCourse.teamFullName('')}
                     courseId={oc(classTableStore).comingCourse.courseId(0)}
-                ></CourseInfo>
+                />
             )}
         </Container>
     ))
