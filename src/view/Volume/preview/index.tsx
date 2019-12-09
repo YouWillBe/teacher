@@ -36,7 +36,7 @@ function Preview(props: IProps) {
                 onClickClose={props.onClickClose}
             >
                 {volumeStore.volumeProblemState ? (
-                    <ProblemList></ProblemList>
+                    <ProblemList />
                 ) : (
                     <NoData>
                         <Button onClick={handleClickShowStructure}>前去查看空题目</Button>

@@ -1,15 +1,15 @@
 import React, { useState, FC, ChangeEventHandler, useContext } from 'react'
 import { MobXProviderContext } from 'mobx-react'
 import styled from '@emotion/styled'
-import { Link, RouteComponentProps } from '@reach/router'
+import { Link, useHistory } from 'react-router-dom'
 import { Value } from 'slate'
 import { append } from 'ramda'
 import { FaReply, FaRegEye, FaHistory } from 'react-icons/fa'
 
-import { IStore } from '../../store'
+import { IStore } from '../../../store'
 
 import Addon from './Addon'
-import Editor from '../../components/EditorX'
+import Editor from '../../../components/EditorX'
 
 const Wrap = styled.div`
     box-sizing: border-box;
@@ -44,7 +44,7 @@ const Handler = styled.div`
     position: fixed;
     top: 50px;
     width: 50px;
-    box-shadow: rgba(16, 36, 94, 0.4) 0px 2px 6px 0px;
+    box-shadow: rgba(16, 36, 94, 0.4) 0 2px 6px 0;
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
 `
@@ -77,7 +77,7 @@ const Content = styled.div`
     min-height: 100%;
     background-color: #fff;
     margin: 0 auto;
-    box-shadow: rgba(16, 36, 94, 0.4) 0px 2px 6px 0px;
+    box-shadow: rgba(16, 36, 94, 0.4) 0 2px 6px 0;
     border-radius: 6px;
     box-sizing: border-box;
     padding: 30px 50px;
@@ -109,7 +109,8 @@ interface IPoint {
     name: string
 }
 
-const NewPlan: FC<RouteComponentProps> = () => {
+const NewPlan: FC = () => {
+    const history = useHistory()
     const [selectedPoints, setSelectedPoints] = useState<IPoint[]>([])
     const [selectedPointsId, setSelectedPointsId] = useState<number[]>([])
     const { planStore } = useContext<IStore>(MobXProviderContext)
@@ -148,7 +149,7 @@ const NewPlan: FC<RouteComponentProps> = () => {
             content: JSON.stringify(value.toJS()),
             attachmentPOList: [],
         }
-        planStore.createPlan(data)
+        planStore.createPlan(data).then(res => history.push(`/plan/${res}`))
     }
     const handleSelectPoint = (point: IPoint) => {
         if (!canSave) setCanSave(true)

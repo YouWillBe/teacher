@@ -4,8 +4,6 @@ import styled from '@emotion/styled'
 import { Link, RouteComponentProps } from '@reach/router'
 import { FaPlus } from 'react-icons/fa'
 
-import image from '../../../images/blank.png'
-
 const BlankWrap = styled.div`
     height: 100%;
     width: 100%;
@@ -17,7 +15,7 @@ const BlankWrap = styled.div`
 const BlankImg = styled.div`
     height: 400px;
     width: 400px;
-    background-image: url(${image});
+    background-image: url(https://img2.heartdynamic.cn/static/blank.png);
     background-size: 100% 100%;
 `
 const BlankText = styled.div`
@@ -32,14 +30,14 @@ const BlankButton = styled(Link)`
     margin-top: 50px;
     margin-bottom: 100px;
     cursor: pointer;
-    box-shadow: rgba(0, 0, 0, 0.12) 0px 3px 13px 1px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0 3px 13px 1px;
     border-radius: 5px;
     color: #777;
     user-select: none;
     transition: color 0.1s linear, box-shadow 0.1s linear;
     &:hover {
         color: #00a6f3;
-        box-shadow: rgba(16, 36, 94, 0.4) 0px 2px 6px 0px;
+        box-shadow: rgba(16, 36, 94, 0.4) 0 2px 6px 0;
     }
 `
 const ButtonTag = styled.div`
@@ -58,7 +56,7 @@ const NetExercise: FC<RouteComponentProps> = () => {
             <BlankText>还没有题目，添加一个吧</BlankText>
             <BlankButton to='/exercise/new'>
                 <ButtonTag>
-                    <FaPlus></FaPlus>
+                    <FaPlus />
                 </ButtonTag>
                 <ButtonText>添加题目</ButtonText>
             </BlankButton>

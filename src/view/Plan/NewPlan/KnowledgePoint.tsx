@@ -1,7 +1,7 @@
 import React, { useState, FC } from 'react'
 import styled from '@emotion/styled'
 import { FaExclamationTriangle, FaTimes } from 'react-icons/fa'
-import PointSelector from '../../components/PointSelector'
+import PointSelector from '../../../components/PointSelector'
 
 const Container = styled.div`
     width: 100%;

@@ -23,23 +23,23 @@ interface IParams {
 const Course: FC<RouteComponentProps<IParams>> = props => {
     return (
         <Content>
-            <Index path=':courseId'>{props.children}</Index>
-            <PreviewAnnounced path=':courseId/preview/:studentTestId/'></PreviewAnnounced>
-            <ClassTestAnnounced path=':courseId/classTest/:studentTestId/'></ClassTestAnnounced>
-            <ExaminationAnnounced path=':courseId/examination/:studentTestId/'></ExaminationAnnounced>
-            <TaskAnnounced path=':courseId/task/:studentTestId/'></TaskAnnounced>
-            <PreviewAnalysis path=':courseId/preview/analysis/:testId'></PreviewAnalysis>
-            <PreviewAnalysis path=':courseId/task/analysis/:testId'></PreviewAnalysis>
-            <PreviewAnalysis path=':courseId/classTest/analysis/:testId'></PreviewAnalysis>
-            <PreviewAnalysis path=':courseId/examination/analysis/:testId'></PreviewAnalysis>
-            <PaperAnalysis path=':courseId/preview/:testId/paper'></PaperAnalysis>
-            <PaperAnalysis path=':courseId/task/:testId/paper'></PaperAnalysis>
-            <PaperAnalysis path=':courseId/classTest/:testId/paper'></PaperAnalysis>
-            <PaperAnalysis path=':courseId/examination/:testId/paper'></PaperAnalysis>
-            <PersonalAnalysis path=':courseId/preview/:testId/personal'></PersonalAnalysis>
-            <PersonalAnalysis path=':courseId/task/:testId/personal'></PersonalAnalysis>
-            <PersonalAnalysis path=':courseId/classTest/:testId/personal'></PersonalAnalysis>
-            <PersonalAnalysis path=':courseId/examination/:testId/personal'></PersonalAnalysis>
+            <Index path='/'>{props.children}</Index>
+            <PreviewAnnounced path='preview/:studentTestId/' />
+            <ClassTestAnnounced path='classTest/:studentTestId/' />
+            <ExaminationAnnounced path='examination/:studentTestId/' />
+            <TaskAnnounced path='task/:studentTestId/' />
+            <PreviewAnalysis path='preview/analysis/:testId' />
+            <PreviewAnalysis path='task/analysis/:testId' />
+            <PreviewAnalysis path='classTest/analysis/:testId' />
+            <PreviewAnalysis path='examination/analysis/:testId' />
+            <PaperAnalysis path='preview/:testId/paper' />
+            <PaperAnalysis path='task/:testId/paper' />
+            <PaperAnalysis path='classTest/:testId/paper' />
+            <PaperAnalysis path='examination/:testId/paper' />
+            <PersonalAnalysis path='preview/:testId/personal' />
+            <PersonalAnalysis path='task/:testId/personal' />
+            <PersonalAnalysis path='classTest/:testId/personal' />
+            <PersonalAnalysis path='examination/:testId/personal' />
         </Content>
     )
 }

@@ -11,8 +11,6 @@ import { IStore } from '../../store'
 import Loading from '../../components/Loading'
 import CourseInfo from './CourseInfo'
 
-import blank from '../../images/blank.png'
-
 dayjs.locale('zh-cn')
 
 const Container = styled.div`
@@ -31,7 +29,7 @@ const Title = styled.div`
 `
 
 const Blank = styled.div`
-    background-image: url(${blank});
+    background-image: url(https://img2.heartdynamic.cn/static/blank.png);
     width: 100px;
     height: 100px;
     background-size: contain;

@@ -10,8 +10,6 @@ import { IStore } from '../../store'
 import Loading from '../../components/Loading'
 import CourseInfo from './CourseInfo'
 
-import blank from '../../images/blank.png'
-
 const Container = styled.div`
     height: 250px;
     width: 100%;
@@ -28,7 +26,7 @@ const Title = styled.div`
     margin-top: 30px;
 `
 const Blank = styled.div`
-    background-image: url(${blank});
+    background-image: url(https://img2.heartdynamic.cn/static/blank.png);
     width: 200px;
     height: 200px;
     background-size: contain;

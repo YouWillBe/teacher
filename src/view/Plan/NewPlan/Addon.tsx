@@ -19,7 +19,7 @@ const Save = styled.div`
     line-height: 50px;
     border: 1px solid #ccc;
     cursor: pointer;
-    box-shadow: rgba(16, 36, 94, 0.4) 0px 2px 6px 0px;
+    box-shadow: rgba(16, 36, 94, 0.4) 0 2px 6px 0;
     color: #777;
 `
 interface IPoint {

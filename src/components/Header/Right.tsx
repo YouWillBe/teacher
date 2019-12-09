@@ -1,4 +1,4 @@
-import React, { useState, useRef, FC, useContext } from 'react'
+import React, { useState, useRef, FC, useContext, useEffect } from 'react'
 import styled from '@emotion/styled'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
@@ -6,7 +6,7 @@ import { FaUserTie } from 'react-icons/fa'
 
 import { IStore } from '../../store'
 
-import Menu from './Menu'
+import UserCard from './UserCard'
 
 const Container = styled.div`
     box-sizing: border-box;
@@ -52,13 +52,17 @@ const Right: FC = () => {
         setIsInfoMenu(false)
     }
     const tagRef = useRef(null)
+    useEffect(() => {
+        userStore.getUserInfo()
+        // eslint-disable-next-line
+    }, [])
     return useObserver(() => (
         <Container>
             <MySubjectName>{userStore.userInfo.subjectName}</MySubjectName>
             <Avatar onMouseDown={handleClickInfoMenu} ref={tagRef}>
                 <FaUserTie />
             </Avatar>
-            {isInfoMenu && <Menu close={handleCloseMenu} />}
+            {isInfoMenu && <UserCard close={handleCloseMenu} />}
         </Container>
     ))
 }

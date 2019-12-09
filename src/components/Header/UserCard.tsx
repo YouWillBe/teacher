@@ -71,12 +71,12 @@ const InfoBox = styled.div`
     flex-direction: column;
     justify-content: space-between;
 `
-const Realname = styled.div`
+const RealName = styled.div`
     font-size: 14px;
     font-weight: bold;
     color: #000;
 `
-const Username = styled(Realname)`
+const Username = styled(RealName)`
     font-size: 12px;
     color: #00a6f3;
     font-weight: normal;
@@ -131,7 +131,7 @@ interface IProps {
     close(): void
 }
 
-const Menu: FC<IProps> = props => {
+const UserCard: FC<IProps> = props => {
     const ref = useRef(null)
     const { userStore } = useContext<IStore>(MobXProviderContext)
     useOnClickOutside(ref, props.close)
@@ -147,7 +147,7 @@ const Menu: FC<IProps> = props => {
                     <FaUserTie />
                 </Avatar>
                 <InfoBox>
-                    <Realname>{userStore.userInfo.realName}</Realname>
+                    <RealName>{userStore.userInfo.realName}</RealName>
                     <SchoolName>{userStore.userInfo.schoolName}</SchoolName>
                     <Username>{userStore.userInfo.username}</Username>
                 </InfoBox>
@@ -160,4 +160,4 @@ const Menu: FC<IProps> = props => {
     )
 }
 
-export default Menu
+export default UserCard

@@ -1,17 +1,17 @@
 import React, { useState, useEffect, FC, useContext, ChangeEventHandler } from 'react'
 import { MobXProviderContext } from 'mobx-react'
 import styled from '@emotion/styled'
-import { Link, RouteComponentProps } from '@reach/router'
+import { Link, useParams } from 'react-router-dom'
 import { TiArrowBackOutline, TiEye } from 'react-icons/ti'
 import { MdHistory } from 'react-icons/md'
 import { Value } from 'slate'
 import { useObserver } from 'mobx-react-lite'
 
-import { IStore } from '../../store'
+import { IStore } from '../../../store'
 
 import Addon from './Addon'
-import Editor from '../../components/EditorX'
-import Loading from '../../components/Loading'
+import Editor from '../../../components/EditorX'
+import Loading from '../../../components/Loading'
 
 const Wrap = styled.div`
     box-sizing: border-box;
@@ -46,7 +46,7 @@ const Handler = styled.div`
     position: fixed;
     top: 50px;
     width: 50px;
-    box-shadow: rgba(16, 36, 94, 0.4) 0px 2px 6px 0px;
+    box-shadow: rgba(16, 36, 94, 0.4) 0 2px 6px 0;
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
     svg {
@@ -82,7 +82,7 @@ const Content = styled.div`
     min-height: 100%;
     background-color: #fff;
     margin: 0 auto;
-    box-shadow: rgba(16, 36, 94, 0.4) 0px 2px 6px 0px;
+    box-shadow: rgba(16, 36, 94, 0.4) 0 2px 6px 0;
     border-radius: 6px;
     box-sizing: border-box;
     padding: 30px 50px;
@@ -112,15 +112,13 @@ interface IPoint {
     id: number
     name: string
 }
-interface IProps {
-    planId: string
-}
 
-const PlanEditor: FC<RouteComponentProps<IProps>> = props => {
+const PlanEditor: FC = () => {
+    const { planId } = useParams()
     const { planStore } = useContext<IStore>(MobXProviderContext)
     const [canSave, setCanSave] = useState(false)
     useEffect(() => {
-        planStore.getPlan(parseInt(props.planId as string))
+        planStore.getPlan(parseInt(planId as string))
         // eslint-disable-next-line
     }, [])
     const handleTitleChange: ChangeEventHandler<HTMLInputElement> = e => {
@@ -140,7 +138,7 @@ const PlanEditor: FC<RouteComponentProps<IProps>> = props => {
     }
 
     return useObserver(() => {
-        if (planStore.gettingPlan || !planStore.planReady || props.planId !== planStore.plan.id + '') {
+        if (planStore.gettingPlan || !planStore.planReady || planId !== planStore.plan.id + '') {
             return <Loading />
         }
         return (

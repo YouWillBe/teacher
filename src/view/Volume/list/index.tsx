@@ -9,7 +9,6 @@ import { IStore } from '../../../store'
 import Loading from '../../../components/Loading'
 import Paging from '../../../components/Paging'
 import VolumeCard from './VolumeCard'
-import image from '../../../images/blank.png'
 
 const Container = styled.div`
     width: 1000px;
@@ -32,7 +31,7 @@ const BlankWrap = styled.div`
 const BlankImg = styled.div`
     height: 400px;
     width: 400px;
-    background-image: url(${image});
+    background-image: url(https://img2.heartdynamic.cn/static/blank.png);
     background-size: 100% 100%;
 `
 const BlankText = styled.div`
@@ -47,14 +46,14 @@ const BlankButton = styled(Link)`
     margin-top: 50px;
     margin-bottom: 100px;
     cursor: pointer;
-    box-shadow: rgba(0, 0, 0, 0.12) 0px 3px 13px 1px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0 3px 13px 1px;
     border-radius: 5px;
     color: #777;
     user-select: none;
     transition: color 0.1s linear, box-shadow 0.1s linear;
     &:hover {
         color: #00a6f3;
-        box-shadow: rgba(16, 36, 94, 0.4) 0px 2px 6px 0px;
+        box-shadow: rgba(16, 36, 94, 0.4) 0 2px 6px 0;
     }
 `
 const ButtonTag = styled.div`
@@ -131,7 +130,7 @@ const Volume: FC<RouteComponentProps> = () => {
                     <BlankText>还没有试卷，添加一个吧</BlankText>
                     <BlankButton to='/volume/templet'>
                         <ButtonTag>
-                            <FaPlus></FaPlus>
+                            <FaPlus />
                         </ButtonTag>
                         <ButtonText>添加试卷</ButtonText>
                     </BlankButton>
@@ -143,7 +142,7 @@ const Volume: FC<RouteComponentProps> = () => {
                 <NewButtonWrap>
                     <NewButton to='/volume/templet'>添加试卷</NewButton>
                 </NewButtonWrap>
-                <Line></Line>
+                <Line />
                 <Container>
                     {volumeStore.volumeList.map((v, i) => (
                         <VolumeCard data={v} key={i} deleteVolume={handleClickDeleteVolume} />
@@ -155,7 +154,7 @@ const Volume: FC<RouteComponentProps> = () => {
                             onChange={handleChangePaging}
                             current={volumeStore.volumePage.page}
                             total={Math.ceil(volumeStore.volumePage.total / volumeStore.volumePage.limit)}
-                        ></Paging>
+                        />
                     </PagingWrap>
                 )}
             </Wrap>

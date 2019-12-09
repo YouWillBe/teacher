@@ -1,7 +1,6 @@
 import { observable, action } from 'mobx'
 import { Value } from 'slate'
 import { uniqWith, eqProps, append, remove, pick } from 'ramda'
-import { navigate } from '@reach/router'
 
 import api from '../api'
 
@@ -23,7 +22,7 @@ export interface IPlanStore {
     deletePlan(id: number): Promise<void>
     getPlan(id: number): Promise<void>
     plan: IPlan
-    createPlan(plan: CreatePlanConstraint): Promise<void>
+    createPlan(plan: CreatePlanConstraint): Promise<string | undefined>
     updatePlan(): Promise<void>
     createLore(value: string): Promise<void>
     removeLore(index: number, id: number): Promise<void>
@@ -112,7 +111,7 @@ class PlanStore implements IPlanStore {
         try {
             const res = await api.plan.createPlan(data)
             if (res.success) {
-                navigate(`/plan/${res.data}`)
+                return Promise.resolve(res.data)
             }
         } catch (error) {}
     }

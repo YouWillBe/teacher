@@ -8,7 +8,7 @@ const Container = styled.div`
     top: 20px;
     right: 30px;
     width: 230px;
-    z-index: 100;
+    z-index: 9;
 `
 const Save = styled.div`
     height: 50px;
@@ -19,7 +19,7 @@ const Save = styled.div`
     line-height: 50px;
     border: 1px solid #ccc;
     cursor: pointer;
-    box-shadow: rgba(16, 36, 94, 0.4) 0px 2px 6px 0px;
+    box-shadow: rgba(16, 36, 94, 0.4) 0 2px 6px 0;
     color: #777;
 `
 interface IPoint {

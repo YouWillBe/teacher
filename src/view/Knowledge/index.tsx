@@ -1,15 +1,15 @@
 import React, { FC, useState, useEffect, useContext } from 'react'
-import styled from '@emotion/styled'
-import { Stage, Layer } from 'react-konva'
 import { KonvaEventObject } from 'konva/types/Node'
-import { RouteComponentProps, Link } from '@reach/router'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
 
-import { IStore } from '../../../store'
+import { IStore } from '../../store'
 
+import Spinner from '../../components/Spinner'
+import { Layer, Stage } from 'react-konva'
 import CenterPoint from './CenterPoint'
-import Spinner from '../../../components/Spinner'
+import styled from '@emotion/styled'
+import { Link } from 'react-router-dom'
 
 const Container = styled.div`
     width: 100%;
@@ -42,7 +42,7 @@ const Button = styled(Link)`
     }
 `
 
-const App: FC<RouteComponentProps> = () => {
+const Knowledge: FC = () => {
     const [scale, setScale] = useState(1)
     const { analysisStore } = useContext<IStore>(MobXProviderContext)
     const handleScale = (event: KonvaEventObject<WheelEvent>) => {
@@ -60,26 +60,28 @@ const App: FC<RouteComponentProps> = () => {
         analysisStore.getKnowleggePoint()
         // eslint-disable-next-line
     }, [])
-    return useObserver(() => (
-        <Container>
-            <Button to='/'>返回首页</Button>
-            {analysisStore.nodesReady ? (
-                <Stage
-                    width={window.innerWidth}
-                    height={window.innerHeight}
-                    scale={{ x: scale, y: scale }}
-                    draggable
-                    onWheel={handleScale}
-                >
-                    <Layer>
-                        <CenterPoint text='高中数学' data={analysisStore.nodes} />
-                    </Layer>
-                </Stage>
-            ) : (
-                <Spinner />
-            )}
-        </Container>
-    ))
+    return useObserver(() => {
+        return (
+            <Container>
+                <Button to='/'>返回首页</Button>
+                {analysisStore.nodesReady ? (
+                    <Stage
+                        width={window.innerWidth}
+                        height={window.innerHeight}
+                        scale={{ x: scale, y: scale }}
+                        draggable
+                        onWheel={handleScale}
+                    >
+                        <Layer>
+                            <CenterPoint text='高中数学' data={analysisStore.nodes} />
+                        </Layer>
+                    </Stage>
+                ) : (
+                    <Spinner />
+                )}
+            </Container>
+        )
+    })
 }
 
-export default App
+export default Knowledge

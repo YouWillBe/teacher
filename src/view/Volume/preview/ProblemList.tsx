@@ -23,9 +23,8 @@ const TypeItem = styled.div<{ currentType: boolean }>`
     text-align: center;
     padding: 0 10px;
     font-size: 16px;
-    font-family: PingFangSC-Regular, PingFangSC;
+    font-family: PingFangSC-Regular, PingFangSC, sans-serif;
     font-weight: 400;
-    color: rgba(51, 51, 51, 1);
     cursor: pointer;
     border-radius: 6px;
     background-color: ${props => (props.currentType ? '#409eff' : '#fff')};
@@ -43,7 +42,7 @@ const TypeItem1 = styled.div`
     text-align: center;
     padding: 0 10px;
     font-size: 16px;
-    font-family: PingFangSC-Regular, PingFangSC;
+    font-family: PingFangSC-Regular, PingFangSC, sans-serif;
     font-weight: 400;
     color: rgba(51, 51, 51, 1);
 `
@@ -58,9 +57,7 @@ const Tr = styled.tr`
 `
 const PreviewWrap = styled.td``
 
-interface IProps {}
-
-function ProblemList(props: IProps) {
+function ProblemList() {
     const { volumeStore } = useContext<IStore>(MobXProviderContext)
     const [typeArr] = useState([
         { id: '1', name: '单选', key: 'choiceProblems' },
@@ -79,21 +76,21 @@ function ProblemList(props: IProps) {
         return (volumeStore.volumeVolumeProblemAll as any)[key].length
     }
 
-    const handleClickPrint = () => {
-        var printBox = document.getElementById('printJS-form')
-        //拿到打印的区域的html内容
-        var newContent = printBox!.innerHTML
-        //将旧的页面储存起来，当打印完成后返给给页面。
-        // var oldContent = document.body.innerHTML
-        //赋值给body
-        document.body.innerHTML = newContent
-        //执行window.print打印功能
-        window.print()
-        // 重新加载页面，以刷新数据。以防打印完之后，页面不能操作的问题
-        return false
-        // print({ printable: 'printJS-form', type: 'html', targetStyles: ['*'] })
-        // console.log(printJS('printJS-form', 'html'))
-    }
+    // const handleClickPrint = () => {
+    //     var printBox = document.getElementById('printJS-form')
+    //     //拿到打印的区域的html内容
+    //     var newContent = printBox!.innerHTML
+    //     //将旧的页面储存起来，当打印完成后返给给页面。
+    //     // var oldContent = document.body.innerHTML
+    //     //赋值给body
+    //     document.body.innerHTML = newContent
+    //     //执行window.print打印功能
+    //     window.print()
+    //     // 重新加载页面，以刷新数据。以防打印完之后，页面不能操作的问题
+    //     return false
+    //     // print({ printable: 'printJS-form', type: 'html', targetStyles: ['*'] })
+    //     // console.log(printJS('printJS-form', 'html'))
+    // }
 
     const problemType = (data: any) => {
         let type = [1, 2]
@@ -130,7 +127,7 @@ function ProblemList(props: IProps) {
                         >
                             全部
                         </TypeItem>
-                        {typeArr.map((item, index) => (
+                        {typeArr.map(item => (
                             <TypeItem
                                 key={item.id}
                                 currentType={currentType.id === item.id}
@@ -148,36 +145,30 @@ function ProblemList(props: IProps) {
                                 <PreviewWrap>
                                     {volumeStore.volumeVolumeProblemAll['choiceProblems'].map(
                                         (item: any, index: number) => (
-                                            <QuestionType
-                                                key={item.id}
-                                                data={problemType({ ...item, index })}
-                                            ></QuestionType>
+                                            <QuestionType key={item.id} data={problemType({ ...item, index })} />
                                         )
                                     )}
                                 </PreviewWrap>
                                 <PreviewWrap>
                                     {volumeStore.volumeVolumeProblemAll['checkboxProblems'].map(
                                         (item: any, index: number) => (
-                                            <QuestionType
-                                                key={item.id}
-                                                data={problemType({ ...item, index })}
-                                            ></QuestionType>
+                                            <QuestionType key={item.id} data={problemType({ ...item, index })} />
                                         )
                                     )}
                                 </PreviewWrap>
                                 <PreviewWrap>
                                     {volumeStore.volumeVolumeProblemAll['judgeProblems'].map((item: any) => (
-                                        <QuestionType key={item.id} data={problemType(item)}></QuestionType>
+                                        <QuestionType key={item.id} data={problemType(item)} />
                                     ))}
                                 </PreviewWrap>
                                 <PreviewWrap>
                                     {volumeStore.volumeVolumeProblemAll['fillingProblems'].map((item: any) => (
-                                        <QuestionType key={item.id} data={problemType(item)}></QuestionType>
+                                        <QuestionType key={item.id} data={problemType(item)} />
                                     ))}
                                 </PreviewWrap>
                                 <PreviewWrap>
                                     {volumeStore.volumeVolumeProblemAll['shortAnswerProblems'].map((item: any) => (
-                                        <QuestionType key={item.id} data={problemType(item)}></QuestionType>
+                                        <QuestionType key={item.id} data={problemType(item)} />
                                     ))}
                                 </PreviewWrap>
                             </Tr>
@@ -185,7 +176,7 @@ function ProblemList(props: IProps) {
                     ) : (
                         <PreviewWrap>
                             {(volumeStore.volumeVolumeProblemAll as any)[currentType.key].map((item: any) => (
-                                <QuestionType key={item.id} data={problemType(item)}></QuestionType>
+                                <QuestionType key={item.id} data={problemType(item)} />
                             ))}
                         </PreviewWrap>
                     )}

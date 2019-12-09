@@ -11,8 +11,6 @@ import NotAnnounced from './Detail/NotAnnounced'
 import Entry from './Entry'
 import Loading from '../../../components/Loading'
 
-import img from '../../../images/blank.png'
-
 interface IProps {
     courseId: string
 }
@@ -28,7 +26,7 @@ const Container = styled.div`
     align-items: center;
 `
 const Img = styled.div`
-    background-image: url(${img});
+    background-image: url(https://img2.heartdynamic.cn/static/blank.png);
     width: 300px;
     height: 300px;
     background-size: 100% 100%;
@@ -64,7 +62,7 @@ const Task: FC<RouteComponentProps<IProps>> = props => {
         } else if (courseTaskStore.task.status !== 3) {
             return <NotAnnounced />
         } else {
-            return <Entry></Entry>
+            return <Entry />
         }
     })
 }

@@ -9,7 +9,6 @@ import { FaSpinner } from 'react-icons/fa'
 import { IStore } from '../../../store'
 import PlanSelector from './PlanSelector'
 import Editor from '../../../components/EditorX'
-import img from '../../../images/blank.png'
 
 interface IParams {
     courseId: string
@@ -26,14 +25,14 @@ const Container = styled.div`
     align-items: center;
 `
 const Package = styled.div`
-    box-shadow: 0px 4px 11px 0px rgba(64, 158, 255, 0.1);
+    box-shadow: 0 4px 11px 0 rgba(64, 158, 255, 0.1);
     border-radius: 4px;
     margin-top: 20px;
     height: calc(100% - 40px);
     padding: 20px;
 `
 const Img = styled.div`
-    background-image: url(${img});
+    background-image: url(https://img2.heartdynamic.cn/static/blank.png);
     width: 300px;
     height: 300px;
     background-size: 100% 100%;
@@ -63,7 +62,7 @@ const Plan: FC<RouteComponentProps<IParams>> = props => {
         if (!coursePlanStore.planReady || coursePlanStore.gettingPlan) {
             return (
                 <Spinner>
-                    <FaSpinner></FaSpinner>
+                    <FaSpinner />
                 </Spinner>
             )
         } else if (coursePlanStore.plan === null) {
@@ -77,7 +76,7 @@ const Plan: FC<RouteComponentProps<IParams>> = props => {
         } else {
             return (
                 <Package>
-                    <Editor value={Value.fromJSON(coursePlanStore.plan.content)} readonly></Editor>
+                    <Editor value={Value.fromJSON(coursePlanStore.plan.content)} readonly />
                 </Package>
             )
         }

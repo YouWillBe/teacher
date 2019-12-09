@@ -1,7 +1,7 @@
 import React, { useState, useEffect, FC, useRef } from 'react'
 import { RenderInlineProps } from 'slate-react'
 import styled from '@emotion/styled'
-import TeX from '@matejmazur/react-katex'
+import TeX from './Tex'
 
 import Editor from './Editor'
 
@@ -30,7 +30,7 @@ const Formula: FC<RenderInlineProps & IProps> = props => {
     const [showBorder, setShowBorder] = useState(false)
     const [showModal, setShowModal] = useState(false)
     const [latex, setLatex] = useState(props.latex)
-    const handle = (errorCode: any, errorMsg: any, token: any) => {
+    const handle = (errorCode: any) => {
         if (errorCode === 'unicodeTextInMathMode') {
             return 'ignore'
         }
@@ -58,9 +58,7 @@ const Formula: FC<RenderInlineProps & IProps> = props => {
     }, [props.isFocused])
     return (
         <Container showBorder={showBorder} onDoubleClick={handleDoubleClick} ref={ref} {...props.attributes}>
-            <TeX block settings={{ strict: handle }}>
-                {props.latex}
-            </TeX>
+            <TeX block settings={{ strict: handle }} math={props.latex} />
             {showModal && <Editor close={handleClose} latex={props.latex} setLatex={setLatex} />}
         </Container>
     )

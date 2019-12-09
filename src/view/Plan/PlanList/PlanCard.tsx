@@ -1,6 +1,6 @@
 import React, { useState, useRef, FC } from 'react'
 import styled from '@emotion/styled'
-import { Link } from '@reach/router'
+import { Link } from 'react-router-dom'
 import { take } from 'ramda'
 import useOnClickOutside from 'use-onclickoutside'
 import { FaMinusCircle } from 'react-icons/fa'
@@ -10,13 +10,13 @@ const Container = styled(Link)`
     width: 210px;
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.12) 0px 3px 13px 1px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0 3px 13px 1px;
     cursor: pointer;
     border: 2px solid transparent;
     transition: border-color 0.1s linear;
     &:hover {
         border-color: #3a93df;
-        box-shadow: rgba(16, 36, 94, 0.4) 0px 2px 6px 0px;
+        box-shadow: rgba(16, 36, 94, 0.4) 0 2px 6px 0;
     }
     display: flex;
     flex-direction: column;
@@ -116,12 +116,12 @@ const ConfirmWrap = styled.div`
     display: flex;
     padding: 8px 3px;
     border-radius: 6px;
-    box-shadow: rgba(16, 36, 94, 0.4) 0px 2px 6px 0px;
+    box-shadow: rgba(16, 36, 94, 0.4) 0 2px 6px 0;
     cursor: initial;
 `
 const Button = styled.div`
     padding: 6px 12px;
-    background-color: fff;
+    background-color: #fff;
     margin-left: 5px;
     margin-right: 5px;
     font-size: 12px;
@@ -207,7 +207,7 @@ const PlanCard: FC<IProps> = props => {
             {showRemove && (
                 <Remove onMouseDown={handleClickRemove} onClick={e => e.preventDefault()}>
                     {showConfirm && <Confirm close={handleCloseConfirm} confirm={handleConfirm} />}
-                    <FaMinusCircle></FaMinusCircle>
+                    <FaMinusCircle />
                 </Remove>
             )}
             <Title title={props.data.title}>{props.data.title}</Title>

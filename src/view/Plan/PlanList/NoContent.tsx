@@ -1,17 +1,17 @@
-//网络题库
 import React, { FC } from 'react'
 import styled from '@emotion/styled'
-import { Link, RouteComponentProps } from '@reach/router'
+import { Link } from 'react-router-dom'
 import { FaPlus } from 'react-icons/fa'
 
-const BlankWrap = styled.div`
-    height: calc(100% - 80px);
+const Wrap = styled.div`
+    height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 `
-const BlankImg = styled.div`
+const Img = styled.div`
     height: 400px;
     width: 400px;
     background-image: url(https://img2.heartdynamic.cn/static/blank.png);
@@ -41,6 +41,8 @@ const BlankButton = styled(Link)`
 `
 const ButtonTag = styled.div`
     font-size: 18px;
+    display: flex;
+    align-items: center;
 `
 const ButtonText = styled.div`
     font-size: 14px;
@@ -48,19 +50,18 @@ const ButtonText = styled.div`
     height: 100%;
     line-height: 24px;
 `
-const NoData: FC<RouteComponentProps> = () => {
-    return (
-        <BlankWrap>
-            <BlankImg />
-            <BlankText>还没有题目，请先添加</BlankText>
-            <BlankButton to='/exercise/new' state={{ fromNewsFeed: sessionStorage.getItem('currentType') }}>
-                <ButtonTag>
-                    <FaPlus />
-                </ButtonTag>
-                <ButtonText>添加题目</ButtonText>
-            </BlankButton>
-        </BlankWrap>
-    )
-}
 
-export default NoData
+const NoContent: FC = () => (
+    <Wrap>
+        <Img />
+        <BlankText>还没有教案，添加一个吧</BlankText>
+        <BlankButton to='/plan/new'>
+            <ButtonTag>
+                <FaPlus />
+            </ButtonTag>
+            <ButtonText>添加教案</ButtonText>
+        </BlankButton>
+    </Wrap>
+)
+
+export default NoContent
