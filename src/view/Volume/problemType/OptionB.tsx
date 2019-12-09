@@ -14,7 +14,7 @@ const MyOptionWrap = styled.div`
 
 const MySpanName = styled.span`
     font-size: 16px;
-    font-family: PingFangSC-Thin;
+    font-family: PingFangSC-Thin, sans-serif;
     font-weight: 100;
 `
 const MyAnswerOption = styled.div`
@@ -24,7 +24,7 @@ const MyAnswerOptionName = styled.span<{ isStatu: boolean }>`
     display: inline-block;
     width: 40px;
     height: 40px;
-    box-shadow: 0px 3px 5px 0px rgba(221, 235, 250, 1);
+    box-shadow: 0 3px 5px 0 rgba(221, 235, 250, 1);
     border-radius: 2px;
     line-height: 40px;
     text-align: center;
@@ -39,7 +39,7 @@ const MyAnswerOptionName = styled.span<{ isStatu: boolean }>`
     }
 `
 
-const OptionB: FC = props => {
+const OptionB: FC = () => {
     const { volumeStore } = useContext<IStore>(MobXProviderContext)
 
     //答案
@@ -56,13 +56,13 @@ const OptionB: FC = props => {
                         isStatu={volumeStore.volumeProblem.answer === '1'}
                         onClick={() => handleClickJudgeOption('1')}
                     >
-                        <FaCheck></FaCheck>
+                        <FaCheck />
                     </MyAnswerOptionName>
                     <MyAnswerOptionName
                         isStatu={volumeStore.volumeProblem.answer === '0'}
                         onClick={() => handleClickJudgeOption('0')}
                     >
-                        <FaTimes></FaTimes>
+                        <FaTimes />
                     </MyAnswerOptionName>
                 </MyAnswerOption>
             </MyOptionWrap>

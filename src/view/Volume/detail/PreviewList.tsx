@@ -20,7 +20,7 @@ const PreviewWrap = styled.div`
     margin-right: 20px;
     margin-left: 1px;
     margin-top: 20px;
-    box-shadow: 0px 4px 11px 0px rgba(64, 158, 255, 0.1);
+    box-shadow: 0 4px 11px 0 rgba(64, 158, 255, 0.1);
     border-radius: 4px;
 `
 const FontWrap = styled.div`
@@ -37,7 +37,7 @@ const Input = styled.input`
     width: 300px;
     height: 40px;
     background: rgba(255, 255, 255, 1);
-    box-shadow: 0px 4px 6px 0px rgba(88, 96, 247, 0.1);
+    box-shadow: 0 4px 6px 0 rgba(88, 96, 247, 0.1);
     border-radius: 10px;
     outline: none;
     border: 1px solid #fff;
@@ -91,10 +91,7 @@ function PreviewList(props: IProps) {
                 data.option = JSON.parse(data.option)
             }
             data.option.map((item: any, index: number) => {
-                item.statu = false
-                if (data.answer === answerOption[index]) {
-                    item.statu = true
-                }
+                item.statu = data.answer === answerOption[index]
                 return item
             })
         } else if (data.type === 2) {
@@ -189,19 +186,19 @@ function PreviewList(props: IProps) {
             <Dialog title='题目列表' onClickClose={props.onClickClose}>
                 <SearchWrap>
                     <FontWrap>
-                        <FiSearch></FiSearch>
+                        <FiSearch />
                     </FontWrap>
                     <Input
                         value={keyWord}
                         placeholder='搜索知识点'
                         onChange={handleChangeKeyWord}
                         onKeyDown={handleKeyDownEdit}
-                    ></Input>
+                    />
                 </SearchWrap>
                 {volumeStore.problemList.length ? (
                     volumeStore.problemList.map(item => (
                         <PreviewWrap key={item.id}>
-                            <QuestionType data={problemList(item)} onClickSelect={handleClickSelect}></QuestionType>
+                            <QuestionType data={problemList(item)} onClickSelect={handleClickSelect} />
                         </PreviewWrap>
                     ))
                 ) : (

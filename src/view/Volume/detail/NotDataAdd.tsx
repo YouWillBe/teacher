@@ -16,14 +16,14 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     background-color: rgba(255, 255, 255, 0.8);
-    box-shadow: 0px 2px 4px 0px rgba(31, 122, 171, 0.2);
+    box-shadow: 0 2px 4px 0 rgba(31, 122, 171, 0.2);
     border-radius: 4px;
     padding: 0 20px;
 `
 
 const Span = styled.span`
     font-size: 20px;
-    font-family: PingFangSC-Medium, PingFangSC;
+    font-family: PingFangSC-Medium, PingFangSC, sans-serif;
     font-weight: 500;
     margin-left: 8px;
 `
@@ -56,10 +56,10 @@ function NotDataAdd() {
         return (
             <Container>
                 <Button options={optionButton} onClick={handleClickAdd}>
-                    <FaPlus></FaPlus>
+                    <FaPlus />
                     <Span>添加题目</Span>
                 </Button>
-                {isShow && <PreviewList onClickClose={handleClickClose}></PreviewList>}
+                {isShow && <PreviewList onClickClose={handleClickClose} />}
             </Container>
         )
     })

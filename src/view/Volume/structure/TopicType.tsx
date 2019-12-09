@@ -6,7 +6,7 @@ const Container = styled.div`
     flex-direction: column;
     text-align: center;
     font-size: 16px;
-    font-family: PingFangSC-Medium, PingFangSC;
+    font-family: PingFangSC-Medium, PingFangSC, sans-serif;
     font-weight: 500;
 `
 const Type = styled.span<{ bgColor: string }>`

@@ -12,8 +12,7 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    margin: 0 auto;
-    margin-top: 10px;
+    margin: 10px auto 0;
 `
 
 const Number = styled.div<{ option: IOption }>`
@@ -107,10 +106,10 @@ function Subjective(props: IProps) {
                 {props.data.index + 1}
             </Number>
             <FontWrap2 onClick={() => handleClickFont('删除')}>
-                <FaMinusCircle title='删除'></FaMinusCircle>
+                <FaMinusCircle title='删除' />
             </FontWrap2>
             <FontWrap1 onClick={() => handleClickFont('添加')}>
-                <FaPlusCircle title='添加'></FaPlusCircle>
+                <FaPlusCircle title='添加' />
             </FontWrap1>
         </Container>
     )

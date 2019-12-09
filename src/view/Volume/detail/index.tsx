@@ -1,8 +1,8 @@
 import React, { FC, useContext, useEffect } from 'react'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
-import { RouteComponentProps } from '@reach/router'
 import styled from '@emotion/styled'
+import { useParams } from 'react-router-dom'
 
 import { IStore } from '../../../store'
 import BackList from './BackList'
@@ -27,17 +27,14 @@ const Wrap = styled.div`
     padding: 20px 0;
 `
 
-interface IProps {
-    id: string
-}
-
-const Detail: FC<RouteComponentProps<IProps>> = props => {
+const Detail: FC = () => {
+    const { volumeId } = useParams()
     const { volumeStore } = useContext<IStore>(MobXProviderContext)
 
     useEffect(() => {
-        volumeStore.getVolume(Number(props.id))
+        volumeStore.getVolume(Number(volumeId))
         // eslint-disable-next-line
-    }, [props.id])
+    }, [volumeId])
 
     //修改标题
     const handleChangeEdit = (value: string) => {
@@ -59,7 +56,7 @@ const Detail: FC<RouteComponentProps<IProps>> = props => {
 
     return useObserver(() => {
         if (volumeStore.gettingVolumeDetailList) {
-            return <Loading></Loading>
+            return <Loading />
         }
 
         return (
@@ -69,22 +66,22 @@ const Detail: FC<RouteComponentProps<IProps>> = props => {
                         name={volumeStore.volumeDetailList.name}
                         onChangeEdit={handleChangeEdit}
                         onClickSave={handleClickSave}
-                    ></BackList>
-                    <Header></Header>
+                    />
+                    <Header />
                     {volumeStore.volumeProblem.id === 0 ? (
                         <>
-                            <FunctTypeNot onClickOutLine={handleClickOutline}></FunctTypeNot>
-                            <NotData></NotData>
+                            <FunctTypeNot onClickOutLine={handleClickOutline} />
+                            <NotData />
                         </>
                     ) : volumeStore.volumeProblem.topic ? (
                         <>
-                            <FunctType isShowIcon={true}></FunctType>
-                            <Section></Section>
+                            <FunctType isShowIcon={true} />
+                            <Section />
                         </>
                     ) : (
                         <>
-                            <FunctType isShowIcon={false}></FunctType>
-                            <NotDataAdd></NotDataAdd>
+                            <FunctType isShowIcon={false} />
+                            <NotDataAdd />
                         </>
                     )}
                 </Wrap>

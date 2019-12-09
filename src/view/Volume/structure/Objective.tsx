@@ -14,8 +14,7 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    margin: 0 auto;
-    margin-top: 10px;
+    margin: 10px auto 0;
 `
 
 const Number = styled.div<{ option: IOption }>`
@@ -38,13 +37,13 @@ const Number = styled.div<{ option: IOption }>`
 const ProblemScore = styled.input`
     width: 50px;
     height: 30px;
-    box-shadow: 0px 2px 4px 0px rgba(145, 224, 254, 0.5);
+    box-shadow: 0 2px 4px 0 rgba(145, 224, 254, 0.5);
     border-radius: 6px;
     outline: none;
     border: none;
     text-align: center;
     font-size: 14px;
-    font-family: PingFangSC-Medium, PingFangSC;
+    font-family: PingFangSC-Medium, PingFangSC, sans-serif;
     font-weight: 500;
     color: rgba(64, 158, 255, 1);
 `
@@ -113,7 +112,7 @@ function Objective(props: IProps) {
             >
                 {props.data.index + 1}
             </Number>
-            <ProblemScore value={props.data.fraction} onChange={handleChangeProblemScore}></ProblemScore>
+            <ProblemScore value={props.data.fraction} onChange={handleChangeProblemScore} />
         </Container>
     )
 }

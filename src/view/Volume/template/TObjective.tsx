@@ -1,4 +1,4 @@
-import React, { useContext, ChangeEventHandler } from 'react'
+import React, { useContext, ChangeEventHandler, FC } from 'react'
 import styled from '@emotion/styled'
 import { MobXProviderContext } from 'mobx-react'
 import { FaPlus, FaMinus } from 'react-icons/fa'
@@ -15,7 +15,7 @@ const Left = styled.div`
     align-items: center;
     margin-bottom: 10px;
     height: 80px;
-    box-shadow: 0px 4px 11px 0px rgba(64, 158, 255, 0.1);
+    box-shadow: 0 4px 11px 0 rgba(64, 158, 255, 0.1);
     border-radius: 8px;
     margin-left: 1px;
 `
@@ -31,14 +31,14 @@ const NoLess = styled.div`
 const ProblemCount = styled.input`
     width: 30px;
     height: 40px;
-    box-shadow: 0px 2px 4px 0px rgba(51, 181, 185, 0.33);
+    box-shadow: 0 2px 4px 0 rgba(51, 181, 185, 0.33);
     border-radius: 4px;
     outline: none;
     border: none;
     margin: 0 8px;
     text-align: center;
     font-size: 14px;
-    font-family: PingFangSC-Medium, PingFangSC;
+    font-family: PingFangSC-Medium, PingFangSC, sans-serif;
     font-weight: 500;
     color: rgba(20, 78, 94, 1);
 `
@@ -49,7 +49,7 @@ const Plus = styled.div`
 
 const Font = styled.div`
     font-size: 16px;
-    font-family: PingFangSC-Regular, PingFangSC;
+    font-family: PingFangSC-Regular, PingFangSC, sans-serif;
     font-weight: 400;
     color: rgba(153, 153, 153, 1);
 `
@@ -71,13 +71,13 @@ const TotalWrap = styled(Font)`
 const ProblemScore = styled.input`
     width: 80px;
     height: 34px;
-    box-shadow: 0px 2px 4px 0px rgba(145, 224, 254, 0.5);
+    box-shadow: 0 2px 4px 0 rgba(145, 224, 254, 0.5);
     border-radius: 6px;
     outline: none;
     border: none;
     text-align: center;
     font-size: 14px;
-    font-family: PingFangSC-Medium, PingFangSC;
+    font-family: PingFangSC-Medium, PingFangSC, sans-serif;
     font-weight: 500;
     color: rgba(64, 158, 255, 1);
 `
@@ -86,7 +86,7 @@ const ScoreWrap = styled(Font)`
     align-items: center;
     justify-content: center;
     font-size: 14px;
-    font-family: PingFangSC-Medium, PingFangSC;
+    font-family: PingFangSC-Medium, PingFangSC, sans-serif;
     font-weight: 500;
     color: rgba(153, 153, 153, 1);
 `
@@ -115,7 +115,7 @@ interface IProps {
         problemScore: number
     }
 }
-function TObjective(props: IProps) {
+const TObjective: FC<IProps> = props => {
     const { volumeStore } = useContext<IStore>(MobXProviderContext)
 
     //减
@@ -143,16 +143,16 @@ function TObjective(props: IProps) {
                 </TypeWrap>
                 <AmountWrap>
                     {props.data.problemCount === 0 ? (
-                        <NoLess></NoLess>
+                        <NoLess />
                     ) : (
                         <Less title='减一题' onClick={handleClickLess}>
-                            <FaMinus></FaMinus>
+                            <FaMinus />
                         </Less>
                     )}
 
-                    <ProblemCount value={props.data.problemCount} onChange={handleChangeProblemCount}></ProblemCount>
+                    <ProblemCount value={props.data.problemCount} onChange={handleChangeProblemCount} />
                     <Plus title='加一题' onClick={handleClickPlus}>
-                        <FaPlus></FaPlus>
+                        <FaPlus />
                     </Plus>
                 </AmountWrap>
                 <TotalWrap>
@@ -160,7 +160,7 @@ function TObjective(props: IProps) {
                 </TotalWrap>
                 <ScoreWrap>{props.data.problemCount * props.data.problemScore}</ScoreWrap>
             </Left>
-            <Right></Right>
+            <Right />
         </Container>
     )
 }

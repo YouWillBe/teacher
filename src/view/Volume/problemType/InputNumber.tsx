@@ -11,7 +11,7 @@ const MyNumberInput = styled.div`
 const MyNumber = styled.div`
     width: 40px;
     height: 40px;
-    box-shadow: 0px 3px 5px 0px rgba(221, 235, 250, 1);
+    box-shadow: 0 3px 5px 0 rgba(221, 235, 250, 1);
     border-radius: 2px;
     text-align: center;
     line-height: 40px;
@@ -26,7 +26,7 @@ const MyCaretWrap = styled.div`
 const MyCaret = styled.div`
     width: 22px;
     height: 14px;
-    box-shadow: 0px 3px 5px 0px rgba(221, 235, 250, 1);
+    box-shadow: 0 3px 5px 0 rgba(221, 235, 250, 1);
     border-radius: 2px;
     display: flex;
     align-items: center;
@@ -44,7 +44,7 @@ const MyCaret2 = styled(MyCaret)<{ isNumberState: boolean }>`
     cursor: ${props => (props.isNumberState ? 'not-allowed' : 'pointer')};
     background-color: ${props => (props.isNumberState ? '#EBEBEE' : '')};
 `
-interface Iprops {
+interface IProps {
     data: {
         statu: boolean
         statu2: boolean
@@ -53,7 +53,7 @@ interface Iprops {
     onClickAnswerNumber(text: string, len: number): void
 }
 
-const NumberInput: FC<Iprops> = props => {
+const NumberInput: FC<IProps> = props => {
     return (
         <MyNumberInput>
             <MyNumber>{props.data.len}</MyNumber>
@@ -63,14 +63,14 @@ const NumberInput: FC<Iprops> = props => {
                     title='加一题'
                     isNumberState={props.data.statu}
                 >
-                    <FaCaretUp></FaCaretUp>
+                    <FaCaretUp />
                 </MyCaret1>
                 <MyCaret2
                     onClick={() => props.onClickAnswerNumber('减', props.data.len)}
                     title='减一题'
                     isNumberState={props.data.statu2}
                 >
-                    <FaCaretDown></FaCaretDown>
+                    <FaCaretDown />
                 </MyCaret2>
             </MyCaretWrap>
         </MyNumberInput>

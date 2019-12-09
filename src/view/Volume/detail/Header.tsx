@@ -11,7 +11,7 @@ const Container = styled.div`
     width: 100%;
     min-height: 120px;
     background-color: rgba(255, 255, 255, 0.8);
-    box-shadow: 0px 2px 4px 0px rgba(31, 122, 171, 0.2);
+    box-shadow: 0 2px 4px 0 rgba(31, 122, 171, 0.2);
     border-radius: 4px;
     padding: 0 20px;
     margin-top: 20px;
@@ -170,17 +170,14 @@ function Header() {
                 <TypeWrap>
                     {typeArr.map(item => (
                         <ItwmWrap key={item.id} onClick={() => handleClickType(item.id, item.name)}>
-                            <TypeNumber option={typeOption(item.id)} data={{ text: item.text }}></TypeNumber>
+                            <TypeNumber option={typeOption(item.id)} data={{ text: item.text }} />
                         </ItwmWrap>
                     ))}
                 </TypeWrap>
                 <TypeWrap1>
                     {(volumeStore.volumeDetailList as any)[volumeStore.currentType.name].map((item: any) => (
                         <ItwmWrap1 key={item.id} onClick={() => handleClickNumber(item.id, item.number)}>
-                            <TypeNumber
-                                option={numberOption(item.number, item.state)}
-                                data={{ text: item.number }}
-                            ></TypeNumber>
+                            <TypeNumber option={numberOption(item.number, item.state)} data={{ text: item.number }} />
                         </ItwmWrap1>
                     ))}
                 </TypeWrap1>

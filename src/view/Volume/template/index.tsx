@@ -1,9 +1,9 @@
 import React, { FC, useContext, useEffect, useState } from 'react'
-import { RouteComponentProps } from '@reach/router'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
 import styled from '@emotion/styled'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
+import {useHistory} from 'react-router-dom'
 
 import { IStore } from '../../../store'
 import BackList from './BackList'
@@ -54,7 +54,8 @@ const FooterWrap = styled.div`
     justify-content: center;
 `
 
-const Templet: FC<RouteComponentProps> = () => {
+const Template: FC = () => {
+    const history = useHistory()
     const { volumeStore } = useContext<IStore>(MobXProviderContext)
     const [currentId, setCurrentId] = useState(0)
     const [currentIndex, setCurrentIndex] = useState(0)
@@ -79,7 +80,7 @@ const Templet: FC<RouteComponentProps> = () => {
             fillingCount: 0,
             shortAnswerCount: 0,
             totalScore: 0,
-        })
+        }).then(res => history.push(`/volume/${res}`))
     }
 
     //总分页数
@@ -109,7 +110,7 @@ const Templet: FC<RouteComponentProps> = () => {
     }
 
     //上一页
-    const handleClickPreviou = () => {
+    const handleClickPrevious = () => {
         volumeStore.getTemplateList(volumeStore.templateListPage.page - 1)
     }
     //下一页
@@ -123,7 +124,7 @@ const Templet: FC<RouteComponentProps> = () => {
     }
 
     //选择模板
-    const hanleClickTemplet = (data: any) => {
+    const handleClickTemplate = (data: any) => {
         setCurrentIndex(data.index)
         if (currentId === data.id) {
             setCurrentId(0)
@@ -133,7 +134,7 @@ const Templet: FC<RouteComponentProps> = () => {
     }
 
     //编辑模板
-    const handleClickTempletEdit = (id: number) => {
+    const handleClickTemplateEdit = (id: number) => {
         volumeStore.getVolumeTemplateDetail(id)
     }
 
@@ -149,40 +150,40 @@ const Templet: FC<RouteComponentProps> = () => {
             totalScore: volumeStore.templateList[currentIndex].totalScore,
         }
         sessionStorage.removeItem('sessionCurrentType')
-        volumeStore.createVolume(data)
+        volumeStore.createVolume(data).then(res => history.push(`/volume/${res}`))
     }
 
     return useObserver(() => {
         return (
             <Container>
-                <BackList onClickCreateVolumeTemplate={handleClickCreateVolumeTemplate}></BackList>
+                <BackList onClickCreateVolumeTemplate={handleClickCreateVolumeTemplate} />
                 {totalPage() && (
-                    <ChevronLeft onClick={handleClickPreviou}>
-                        <FaChevronLeft title='上一页'></FaChevronLeft>
+                    <ChevronLeft onClick={handleClickPrevious}>
+                        <FaChevronLeft title='上一页' />
                     </ChevronLeft>
                 )}
                 <Section>
-                    <Blank onClickBlank={handleClickBlank}></Blank>
+                    <Blank onClickBlank={handleClickBlank} />
                     {volumeStore.templateList.slice(0, 3).map((item, index) => (
                         <Block
                             key={item.id}
                             data={{ ...item, index, currentId }}
                             deleteVolumeTemplate={handleDeleteVolumeTemplate}
-                            onClickTemplet={hanleClickTemplet}
-                            onClickTempletEdit={handleClickTempletEdit}
-                        ></Block>
+                            onClickTemplate={handleClickTemplate}
+                            onClickTemplateEdit={handleClickTemplateEdit}
+                        />
                     ))}
                 </Section>
                 {totalPage1() > 1 && (
                     <ChevronRight onClick={handleClickNext}>
-                        <FaChevronRight title='下一页'></FaChevronRight>
+                        <FaChevronRight title='下一页' />
                     </ChevronRight>
                 )}
                 {currentId !== 0 && (
                     <FooterWrap>
                         <Button onClick={handleClickNextSave}>
                             <Span>下一步</Span>
-                            <FaChevronRight title='下一步'></FaChevronRight>
+                            <FaChevronRight title='下一步' />
                         </Button>
                     </FooterWrap>
                 )}
@@ -191,4 +192,4 @@ const Templet: FC<RouteComponentProps> = () => {
     })
 }
 
-export default Templet
+export default Template

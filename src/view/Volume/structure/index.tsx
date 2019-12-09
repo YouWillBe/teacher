@@ -12,12 +12,12 @@ const Header = styled.div`
     justify-content: space-between;
     margin-bottom: 20px;
 `
-const TotalScoreWrpa = styled.div`
+const TotalScoreWrap = styled.div`
     display: flex;
 `
 const TotalScore = styled.div`
     font-size: 20px;
-    font-family: PingFangSC-Medium, PingFangSC;
+    font-family: PingFangSC-Medium, PingFangSC, sans-serif;
     font-weight: 500;
     color: rgba(51, 51, 51, 1);
 `
@@ -27,13 +27,13 @@ const TipsWrap = styled.div`
 `
 const Tips = styled.div`
     font-size: 18px;
-    font-family: PingFangSC-Light, PingFangSC;
+    font-family: PingFangSC-Light, PingFangSC, sans-serif;
     font-weight: 500;
     color: rgba(51, 51, 51, 1);
 `
 const Tips1 = styled.div`
     font-size: 16px;
-    font-family: PingFangSC-Light, PingFangSC;
+    font-family: PingFangSC-Light, PingFangSC, sans-serif;
     font-weight: 300;
     color: rgba(51, 51, 51, 1);
 `
@@ -106,24 +106,22 @@ function PreviewList(props: IProps) {
         }
     }
 
-    return useObserver(() => {
-        return (
-            <Dialog title='修改试卷结构' onClickClose={props.onClickClose}>
-                <Header>
-                    <TotalScoreWrpa>
-                        <TotalScore>总分：{totalScore().totalScore}</TotalScore>
-                        <TotalScore>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总题：{totalScore().totalNumber}</TotalScore>
-                    </TotalScoreWrpa>
-                    <TipsWrap>
-                        <Tips>提示：</Tips>
-                        <Tips1>1.数字为黑色的题目为题目</Tips1>
-                        <Tips1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.数字为红的题目为空题目</Tips1>
-                    </TipsWrap>
-                </Header>
-                <Section totalScore={totalScore} onClickClose={props.onClickClose}></Section>
-            </Dialog>
-        )
-    })
+    return useObserver(() => (
+        <Dialog title='修改试卷结构' onClickClose={props.onClickClose}>
+            <Header>
+                <TotalScoreWrap>
+                    <TotalScore>总分：{totalScore().totalScore}</TotalScore>
+                    <TotalScore>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总题：{totalScore().totalNumber}</TotalScore>
+                </TotalScoreWrap>
+                <TipsWrap>
+                    <Tips>提示：</Tips>
+                    <Tips1>1.数字为黑色的题目为题目</Tips1>
+                    <Tips1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.数字为红的题目为空题目</Tips1>
+                </TipsWrap>
+            </Header>
+            <Section totalScore={totalScore} onClickClose={props.onClickClose} />
+        </Dialog>
+    ))
 }
 
 export default PreviewList

@@ -1,5 +1,4 @@
 import { observable, action } from 'mobx'
-import { navigate } from '@reach/router'
 import { Value } from 'slate'
 import { append } from 'ramda'
 
@@ -221,7 +220,7 @@ export interface IVolumeStore {
     deleteListId: number[]
     updateVolumeTemplate(data: IUpdateVolumeTemplate, text: string): Promise<void>
 
-    createVolume(data: ICreateVolume): Promise<void>
+    createVolume(data: ICreateVolume): Promise<string>
     updateVolumeName(data: { id: number; name: string }): Promise<void>
 
     volumeDetailListReady: boolean
@@ -542,7 +541,7 @@ class VolumeStore implements IVolumeStore {
                     this.getTemplateList(this.templatePage)
                 } else if (text === '保存并下一步') {
                     sessionStorage.removeItem('sessionCurrentType')
-                    this.createVolume({
+                    return this.createVolume({
                         id: data.id,
                         choiceCount: data.choiceCount,
                         checkboxCount: data.checkboxCount,
@@ -550,7 +549,7 @@ class VolumeStore implements IVolumeStore {
                         fillingCount: data.fillingCount,
                         shortAnswerCount: data.shortAnswerCount,
                         totalScore: data.totalScore,
-                    })
+                    }).then(res => Promise.resolve(res))
                 }
             }
         } catch (error) {}
@@ -561,8 +560,8 @@ class VolumeStore implements IVolumeStore {
         try {
             const res = await api.volume.createVolume(data)
             if (res.success) {
-                Toast.success('创建空白模板完成')
-                navigate(`/see/volume/${res.data}`)
+                Toast.success('创建试卷完成')
+                return Promise.resolve(res.data)
             }
         } catch (error) {}
     }
@@ -641,11 +640,7 @@ class VolumeStore implements IVolumeStore {
                 if (res.data.problemType === 1) {
                     let answer = res.data.answer
                     res.data.option.map((item: any, index: number) => {
-                        item.statu = false
-                        if (answer === answerOption[index]) {
-                            item.statu = true
-                        }
-
+                        item.statu = answer === answerOption[index]
                         return item
                     })
                 } else if (res.data.problemType === 2) {

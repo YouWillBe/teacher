@@ -1,14 +1,24 @@
-import React, { FC, lazy, Suspense } from 'react'
-import { RouteComponentProps } from '@reach/router'
+import React, { FC, lazy } from 'react'
+import { Route, Switch } from 'react-router-dom'
 
-const LazyVolume = lazy(() => import(/* webpackChunkName: "volume" */ './LazyVolume'))
+const VolumeList = lazy(() => import(/* webpackChunkName: "volume-list" */ './list'))
+const Template = lazy(() => import(/* webpackChunkName: "volume-template" */ './template'))
+const VolumeDetail = lazy(() => import(/* webpackChunkName: "volume-detail" */ './detail'))
 
-const VolumeIndex: FC<RouteComponentProps> = () => {
+const Volume: FC = () => {
     return (
-        <Suspense fallback={<div>loading</div>}>
-            <LazyVolume/>
-        </Suspense>
+        <Switch>
+            <Route path='/volume/template'>
+                <Template />
+            </Route>
+            <Route path='/volume/:volumeId'>
+                <VolumeDetail />
+            </Route>
+            <Route path='/volume'>
+                <VolumeList />
+            </Route>
+        </Switch>
     )
 }
 
-export default VolumeIndex
+export default Volume

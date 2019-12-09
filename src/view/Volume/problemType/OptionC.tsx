@@ -11,18 +11,17 @@ const AnswerItem = styled.div`
     width: 100%;
     box-sizing: border-box;
     background-color: rgba(255, 255, 255, 0.8);
-    box-shadow: 0px 2px 4px 0px rgba(31, 122, 171, 0.2);
+    box-shadow: 0 2px 4px 0 rgba(31, 122, 171, 0.2);
     border-radius: 4px;
     margin-top: 8px;
     margin-bottom: 8px;
-    border-radius: 4px;
     font-size: 14px;
     display: flex;
     justify-content: flex-start;
     align-items: stretch;
 `
 const ItemIndex = styled.div`
-    height: 1;
+    height: 100%;
     width: 40px;
     display: flex;
     justify-content: center;
@@ -40,7 +39,7 @@ const RichTextWrap = styled.div`
     min-height: 60px;
     padding: 8px 8px 8px 20px;
     font-size: 14px;
-    font-family: PingFangSC-Light;
+    font-family: PingFangSC-Light, sans-serif;
     font-weight: 300;
     color: rgba(51, 51, 51, 1);
 `

@@ -1,6 +1,6 @@
-import React, { useState, ChangeEventHandler, KeyboardEventHandler } from 'react'
+import React, { useState, ChangeEventHandler, KeyboardEventHandler, FC } from 'react'
 import styled from '@emotion/styled'
-import { navigate } from '@reach/router'
+import { useHistory } from 'react-router-dom'
 import { TiArrowBackOutline, TiPencil } from 'react-icons/ti'
 import { MdSave } from 'react-icons/md'
 
@@ -12,7 +12,7 @@ const Container = styled.div`
     align-items: center;
     justify-content: space-between;
     background-color: rgba(255, 255, 255, 0.8);
-    box-shadow: 0px 2px 4px 0px rgba(31, 122, 171, 0.2);
+    box-shadow: 0 2px 4px 0 rgba(31, 122, 171, 0.2);
     border-radius: 4px;
     padding: 0 20px;
 `
@@ -20,7 +20,7 @@ const MyWrap = styled.div`
     width: 100px;
     height: 38px;
     line-height: 38px;
-    box-shadow: 0px 6px 5px 0px rgba(59, 141, 242, 0.2);
+    box-shadow: 0 6px 5px 0 rgba(59, 141, 242, 0.2);
     border-radius: 4px;
     border: 1px solid rgba(153, 153, 153, 1);
     display: flex;
@@ -61,13 +61,13 @@ const FontWrap = styled.div`
 const MySpan = styled.span`
     letter-spacing: 2px;
     font-size: 16px;
-    font-family: PingFangSC-Regular, PingFangSC;
+    font-family: PingFangSC-Regular, PingFangSC, sans-serif;
     font-weight: 400;
 `
 const MySpan1 = styled.span`
     letter-spacing: 2px;
     font-size: 16px;
-    font-family: PingFangSC-Regular, PingFangSC;
+    font-family: PingFangSC-Regular, PingFangSC, sans-serif;
     font-weight: 400;
     margin-right: 20px;
 `
@@ -78,7 +78,8 @@ interface IProps {
     onClickSave(): void
 }
 
-function BackList(props: IProps) {
+const BackList: FC<IProps> = props => {
+    const history = useHistory()
     const [isEdit, setIsEdit] = useState(false)
 
     //编辑
@@ -107,13 +108,13 @@ function BackList(props: IProps) {
     //返回列表
     const handleClickLink = () => {
         sessionStorage.removeItem('sessionCurrentType')
-        navigate(`/volume`)
+        history.push('/volume')
     }
 
     return (
         <Container>
             <MyWrap onClick={handleClickLink}>
-                <TiArrowBackOutline></TiArrowBackOutline>
+                <TiArrowBackOutline />
                 <MySpan>返回列表</MySpan>
             </MyWrap>
             <NameWrap>
@@ -126,14 +127,14 @@ function BackList(props: IProps) {
                             onKeyDown={handleKeyDownEdit}
                         />
                         <FontWrap title='保存' onClick={handleClickSave}>
-                            <MdSave></MdSave>
+                            <MdSave />
                         </FontWrap>
                     </>
                 ) : (
                     <>
                         <MySpan1>{props.name}</MySpan1>
                         <FontWrap title='点击修改标题' onClick={handleClickEdit}>
-                            <TiPencil></TiPencil>
+                            <TiPencil />
                         </FontWrap>
                     </>
                 )}

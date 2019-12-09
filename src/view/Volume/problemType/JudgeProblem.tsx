@@ -1,6 +1,5 @@
 import React, { FC, useContext } from 'react'
 import styled from '@emotion/styled'
-import { RouteComponentProps } from '@reach/router'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
 import { Value } from 'slate'
@@ -80,11 +79,7 @@ const SolutionWrap = styled.div`
     color: rgba(51, 51, 51, 1);
 `
 
-interface Iprops {
-    id: string
-}
-
-const JudgeProblem: FC<RouteComponentProps<Iprops>> = () => {
+const JudgeProblem: FC = () => {
     const { volumeStore } = useContext<IStore>(MobXProviderContext)
 
     const handleSelectPoint = (data: { id: number; name: string }) => {

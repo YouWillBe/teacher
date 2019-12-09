@@ -39,10 +39,9 @@ const LoreListName = styled.div<{ isLoreListId: boolean }>`
     justify-content: center;
     padding: 0 6px;
     font-size: 14px;
-    font-family: PingFangSC-Regular, PingFangSC;
+    font-family: PingFangSC-Regular, PingFangSC, sans-serif;
     font-weight: 400;
-    color: rgba(153, 153, 153, 1);
-    color: ${props => (props.isLoreListId ? 'rgba(58, 147, 223, 1)' : '')};
+    color: ${props => (props.isLoreListId ? 'rgba(58, 147, 223, 1)' : 'rgba(153, 153, 153, 1)')};
     background-color: ${props => (props.isLoreListId ? 'rgba(223, 237, 249, 1)' : '')};
     border-right: ${props => (props.isLoreListId ? '2px solid #3c94df' : '')};
     margin-bottom: 8px;
@@ -69,7 +68,7 @@ const Header = styled.div`
 
 const Name = styled.span`
     font-size: 16px;
-    font-family: PingFangSC-Light, PingFangSC;
+    font-family: PingFangSC-Light, PingFangSC, sans-serif;
     font-weight: 300;
     color: rgba(51, 51, 51, 1);
 `
@@ -82,10 +81,10 @@ const Span = styled.span`
     display: inline-block;
     height: 36px;
     line-height: 36px;
-    box-shadow: 0px 3px 6px 0px rgba(162, 185, 240, 0.19);
+    box-shadow: 0 3px 6px 0 rgba(162, 185, 240, 0.19);
     border-radius: 4px;
     font-size: 14px;
-    font-family: PingFangSC-Light, PingFangSC;
+    font-family: PingFangSC-Light, PingFangSC, sans-serif;
     font-weight: 300;
     color: rgba(58, 147, 223, 1);
     margin-right: 8px;
@@ -96,23 +95,23 @@ const Span = styled.span`
 const NoData = styled.div`
     text-align: center;
     font-size: 14px;
-    font-family: PingFangSC-Regular, PingFangSC;
+    font-family: PingFangSC-Regular, PingFangSC, sans-serif;
     font-weight: 400;
     color: rgba(153, 153, 153, 1);
 `
 
-const PlusKnowledge: FC = props => {
+const PlusKnowledge: FC = () => {
     const { exerciseStore } = useContext<IStore>(MobXProviderContext)
     const [isShowKnowledge, setIsShowKnowledge] = useState(false)
     const [setFont] = useState([
         {
             id: 1,
-            icon: <FaArrowDown></FaArrowDown>,
+            icon: <FaArrowDown />,
             title: '收起',
         },
         {
             id: 2,
-            icon: <FaArrowUp></FaArrowUp>,
+            icon: <FaArrowUp />,
             title: '展开',
         },
     ])
@@ -153,13 +152,13 @@ const PlusKnowledge: FC = props => {
         return (
             <ButtonWrap>
                 <Button options={optionButton} onClick={handleClickKnowledge}>
-                    <FaPlus></FaPlus>
+                    <FaPlus />
                 </Button>
                 {isShowKnowledge && (
                     <Dialog title='添加知识点' onClickClose={handleClickClose}>
                         <LoreListWrap>
                             <Left>
-                                {exerciseStore.loreList.loreList.map((item, index) => (
+                                {exerciseStore.loreList.loreList.map(item => (
                                     <LoreListName
                                         key={item.id}
                                         isLoreListId={exerciseStore.loreList.checkedId === item.id}

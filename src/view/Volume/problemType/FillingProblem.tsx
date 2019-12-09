@@ -1,6 +1,5 @@
 import React, { FC, useContext } from 'react'
 import styled from '@emotion/styled'
-import { RouteComponentProps } from '@reach/router'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
 import { Value } from 'slate'
@@ -89,19 +88,15 @@ const SolutionWrap = styled.div`
     color: rgba(51, 51, 51, 1);
 `
 
-interface Iprops {
-    id: string
-}
-
 interface IAnswer {
     id: number
     value: Value
 }
 
-const FillingProblem: FC<RouteComponentProps<Iprops>> = () => {
+const FillingProblem: FC = () => {
     const { volumeStore } = useContext<IStore>(MobXProviderContext)
 
-    //题干/插入空位
+    // 题干/插入空位
     const handleChangeTopic = (value: Value) => {
         volumeStore.volumeProblem.topic = value
         let data: any = {

@@ -15,21 +15,19 @@ const Container = styled.div`
     width: 100%;
     height: calc(100% - 280px);
     background-color: rgba(255, 255, 255, 0.8);
-    box-shadow: 0px 2px 4px 0px rgba(31, 122, 171, 0.2);
+    box-shadow: 0 2px 4px 0 rgba(31, 122, 171, 0.2);
     border-radius: 4px;
     padding: 0 20px;
 `
 
-interface IProps {}
-
-function Section(props: IProps) {
+function Section() {
     const { volumeStore } = useContext<IStore>(MobXProviderContext)
 
     return useObserver(() => {
         if (volumeStore.gettingVolumeProblem) {
             return (
                 <Container>
-                    <Loading></Loading>
+                    <Loading />
                 </Container>
             )
         }
@@ -37,11 +35,11 @@ function Section(props: IProps) {
         return (
             <Container>
                 {volumeStore.volumeProblem.type === 1 || volumeStore.volumeProblem.type === 2 ? (
-                    <ChoiceProblem></ChoiceProblem>
+                    <ChoiceProblem />
                 ) : null}
-                {volumeStore.volumeProblem.type === 3 ? <JudgeProblem></JudgeProblem> : null}
-                {volumeStore.volumeProblem.type === 4 ? <FillingProblem></FillingProblem> : null}
-                {volumeStore.volumeProblem.type === 5 ? <ShortAnswerProblem></ShortAnswerProblem> : null}
+                {volumeStore.volumeProblem.type === 3 ? <JudgeProblem /> : null}
+                {volumeStore.volumeProblem.type === 4 ? <FillingProblem /> : null}
+                {volumeStore.volumeProblem.type === 5 ? <ShortAnswerProblem /> : null}
             </Container>
         )
     })

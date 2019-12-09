@@ -14,7 +14,7 @@ const Package = styled.div<{ borderColor: boolean }>`
     box-sizing: border-box;
     height: 200px;
     background: rgba(255, 255, 255, 1);
-    box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.06);
     border-radius: 6px;
     border: 2px solid ${props => (props.borderColor ? 'rgba(64, 158, 255, 1)' : '#fff')};
     cursor: pointer;
@@ -34,7 +34,6 @@ const DeleteWrap = styled.div`
     position: absolute;
     right: 8px;
     top: 8px;
-    width: 24px;
     font-size: 24px;
     color: #777;
     &:hover {
@@ -74,7 +73,7 @@ const CorrectWrap = styled.div`
 const Wrap = styled.div`
     width: 60%;
     font-size: 18px;
-    font-family: PingFangSC-Semibold;
+    font-family: PingFangSC-Semibold, sans-serif;
     font-weight: 600;
     text-align: center;
 `
@@ -91,7 +90,7 @@ const ConfirmWrap = styled.div`
     align-items: center;
     padding: 8px 3px;
     border-radius: 6px;
-    box-shadow: rgba(16, 36, 94, 0.4) 0px 2px 6px 0px;
+    box-shadow: rgba(16, 36, 94, 0.4) 0 2px 6px 0;
     cursor: initial;
 `
 const Button = styled.div`
@@ -99,7 +98,7 @@ const Button = styled.div`
     height: 30px;
     line-height: 16px;
     padding: 6px 12px;
-    background-color: fff;
+    background-color: #fff;
     margin-left: 5px;
     margin-right: 5px;
     font-size: 12px;
@@ -132,7 +131,7 @@ const Li = styled.li`
     flex-direction: column;
     text-align: center;
     font-size: 16px;
-    font-family: PingFangSC-Medium, PingFangSC;
+    font-family: PingFangSC-Medium, PingFangSC, sans-serif;
     font-weight: 500;
 `
 const TopicType = styled.span<{ bgColor: string }>`
@@ -181,8 +180,8 @@ interface IData {
 interface IProps {
     data: IData
     deleteVolumeTemplate(id: number): void
-    onClickTemplet(data: IData): void
-    onClickTempletEdit(id: number): void
+    onClickTemplate(data: IData): void
+    onClickTemplateEdit(id: number): void
 }
 
 function BackList(props: IProps) {
@@ -216,8 +215,8 @@ function BackList(props: IProps) {
     }
 
     //选择模板
-    const hanleClickTemplet = () => {
-        props.onClickTemplet(props.data)
+    const handleClickTemplate = () => {
+        props.onClickTemplate(props.data)
     }
 
     //编辑模板
@@ -226,7 +225,7 @@ function BackList(props: IProps) {
             event.stopPropagation()
         }
         if (!isSwitch) {
-            props.onClickTempletEdit(props.data.id)
+            props.onClickTemplateEdit(props.data.id)
         }
         setIsSwitch(!isSwitch)
     }
@@ -237,12 +236,12 @@ function BackList(props: IProps) {
                 borderColor={props.data.currentId === props.data.id}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
-                onClick={hanleClickTemplet}
+                onClick={handleClickTemplate}
             >
                 <Header>
                     {showRemove && (
                         <CorrectWrap title='编辑' onClick={handleClickEdit}>
-                            <FaPen></FaPen>
+                            <FaPen />
                         </CorrectWrap>
                     )}
                     <Wrap>
@@ -251,7 +250,7 @@ function BackList(props: IProps) {
                     {showRemove && (
                         <DeleteWrap onClick={handleMouseDownRemove} title='删除'>
                             {showConfirm && <Confirm close={handleCloseConfirm} confirm={handleConfirm} />}
-                            <FaMinusCircle></FaMinusCircle>
+                            <FaMinusCircle />
                         </DeleteWrap>
                     )}
                 </Header>
@@ -280,7 +279,7 @@ function BackList(props: IProps) {
             </Package>
             {isSwitch && (
                 <Dialog title='编辑' onClickClose={handleClickEdit}>
-                    <BlockEdit onClickClose={handleClickEdit}></BlockEdit>
+                    <BlockEdit onClickClose={handleClickEdit} />
                 </Dialog>
             )}
         </Container>

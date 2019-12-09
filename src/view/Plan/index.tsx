@@ -1,8 +1,7 @@
 import React, { FC, lazy } from 'react'
 import { Route, Switch } from 'react-router-dom'
 
-import PlanList from './PlanList'
-
+const PlanList = lazy(() => import(/* webpackChunkName: "plan-list" */ './PlanList'))
 const NewPlan = lazy(() => import(/* webpackChunkName: "new-plan" */ './NewPlan'))
 const PlanDetail = lazy(() => import(/* webpackChunkName: "plan-detail" */ './PlanEditor'))
 

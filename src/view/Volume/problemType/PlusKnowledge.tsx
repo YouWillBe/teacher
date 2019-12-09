@@ -22,7 +22,7 @@ interface IPoint {
     name: string
 }
 
-const PlusKnowledge: FC = props => {
+const PlusKnowledge: FC = () => {
     const { volumeStore } = useContext<IStore>(MobXProviderContext)
     const [isShowKnowledge, setIsShowKnowledge] = useState(false)
 
@@ -52,7 +52,7 @@ const PlusKnowledge: FC = props => {
         return (
             <ButtonWrap>
                 <Button options={optionButton} onClick={handleClickKnowledge}>
-                    <FaPlus></FaPlus>
+                    <FaPlus />
                 </Button>
                 {isShowKnowledge && (
                     <PointSelector

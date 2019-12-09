@@ -1,8 +1,9 @@
-import React, { useContext, useState, ChangeEventHandler, KeyboardEventHandler } from 'react'
+import React, { useContext, useState, ChangeEventHandler, KeyboardEventHandler, FC } from 'react'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
 import styled from '@emotion/styled'
 import { FaPen, FaSave } from 'react-icons/fa'
+import {useHistory} from 'react-router-dom'
 
 import { IStore } from '../../../store'
 import BlockEditSection from './BlockEditSection'
@@ -32,7 +33,7 @@ const Input = styled.input`
 `
 const Name = styled.span`
     font-size: 18px;
-    font-family: PingFangSC-Regular, PingFangSC;
+    font-family: PingFangSC-Regular, PingFangSC, sans-serif;
     font-weight: 400;
     color: rgba(51, 51, 51, 1);
 `
@@ -53,7 +54,7 @@ const FontWrap = styled.div`
 
 const FunctWrap = styled.div`
     position: absolute;
-    right: 0px;
+    right: 0;
     top: 56px;
 `
 const ButtonWrap = styled.div`
@@ -68,7 +69,8 @@ interface IProps {
 
 let currentTotalScore = 0
 
-function BlockEdit(props: IProps) {
+const BlockEdit: FC<IProps> = props => {
+    const history = useHistory()
     const { volumeStore } = useContext<IStore>(MobXProviderContext)
     const [isEdit, setIsEdit] = useState(false)
 
@@ -102,7 +104,7 @@ function BlockEdit(props: IProps) {
             shortAnswerProblems: volumeStore.templateDetail.shortAnswerProblems,
             objectiveProblems: volumeStore.templateDetail.objectiveProblems,
         }
-        volumeStore.updateVolumeTemplate(data, text)
+        volumeStore.updateVolumeTemplate(data, text).then(res => history.push(`/volume/${res}`))
         props.onClickClose()
     }
 
@@ -167,14 +169,14 @@ function BlockEdit(props: IProps) {
                                     onChange={handleChangeEdit}
                                 />
                                 <FontWrap title='保存' onClick={handleClickEdit}>
-                                    <FaSave></FaSave>
+                                    <FaSave />
                                 </FontWrap>
                             </>
                         ) : (
                             <>
                                 <Name>{volumeStore.templateDetail.name}</Name>
                                 <FontWrap title='点击修改标题' onClick={handleClickEdit}>
-                                    <FaPen></FaPen>
+                                    <FaPen />
                                 </FontWrap>
                             </>
                         )}
@@ -182,17 +184,19 @@ function BlockEdit(props: IProps) {
                     <FunctWrap>
                         <ButtonWrap>
                             <Button onClick={() => handleClickClose('保存')}>
-                                <FaSave></FaSave>保存
+                                <FaSave />
+                                保存
                             </Button>
                         </ButtonWrap>
                         <ButtonWrap>
                             <Button onClick={() => handleClickClose('保存并下一步')}>
-                                <FaSave></FaSave>保存并下一步
+                                <FaSave />
+                                保存并下一步
                             </Button>
                         </ButtonWrap>
                     </FunctWrap>
                 </Header>
-                <BlockEditSection totalScore={totalScore}></BlockEditSection>
+                <BlockEditSection totalScore={totalScore} />
             </Container>
         )
     })

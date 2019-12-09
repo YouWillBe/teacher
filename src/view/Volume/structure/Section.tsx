@@ -33,7 +33,7 @@ const Total = styled.div`
     height: 30px;
     line-height: 30px;
     font-size: 14px;
-    font-family: PingFangSC-Medium, PingFangSC;
+    font-family: PingFangSC-Medium, PingFangSC, sans-serif;
     font-weight: 500;
     color: rgba(51, 51, 51, 1);
 `
@@ -43,7 +43,7 @@ const Total1 = styled(Total)`
 const Input = styled.input`
     width: 50px;
     height: 30px;
-    box-shadow: 0px 2px 4px 0px rgba(145, 224, 254, 0.5);
+    box-shadow: 0 2px 4px 0 rgba(145, 224, 254, 0.5);
     border-radius: 6px;
     outline: none;
     border: none;
@@ -138,11 +138,11 @@ function PreviewList(props: IProps) {
                                 count: props.totalScore().choiceTotal,
                             }}
                             option={{ bgColor: '#145869', color: '#145869' }}
-                        ></TopicType>
+                        />
                         <Input
                             value={volumeStore.volumeOutline.problemFraction!.chioceFraction}
                             onChange={e => handleChangeTotal(e, 'chioceFraction')}
-                        ></Input>
+                        />
                         <SubProblemList
                             data={{
                                 list: volumeStore.volumeOutline.choiceProblems,
@@ -150,7 +150,7 @@ function PreviewList(props: IProps) {
                                 type: 1,
                                 count: volumeStore.volumeOutline.problemFraction!.chioceFraction,
                             }}
-                        ></SubProblemList>
+                        />
                     </TypeWrap>
                     <TypeWrap>
                         <TopicType
@@ -159,11 +159,11 @@ function PreviewList(props: IProps) {
                                 count: props.totalScore().checkboxTotal,
                             }}
                             option={{ bgColor: '#F96C3B', color: '#F96C3B' }}
-                        ></TopicType>
+                        />
                         <Input
                             value={volumeStore.volumeOutline.problemFraction!.checkboxFraction}
                             onChange={e => handleChangeTotal(e, 'checkboxFraction')}
-                        ></Input>
+                        />
                         <SubProblemList
                             data={{
                                 list: volumeStore.volumeOutline.checkboxProblems,
@@ -171,7 +171,7 @@ function PreviewList(props: IProps) {
                                 type: 2,
                                 count: volumeStore.volumeOutline.problemFraction!.checkboxFraction,
                             }}
-                        ></SubProblemList>
+                        />
                     </TypeWrap>
                     <TypeWrap>
                         <TopicType
@@ -180,11 +180,11 @@ function PreviewList(props: IProps) {
                                 count: props.totalScore().judgeTotal,
                             }}
                             option={{ bgColor: '#FF9A3C', color: '#FF9A3C' }}
-                        ></TopicType>
+                        />
                         <Input
                             value={volumeStore.volumeOutline.problemFraction!.judgeFraction}
                             onChange={e => handleChangeTotal(e, 'judgeFraction')}
-                        ></Input>
+                        />
                         <SubProblemList
                             data={{
                                 list: volumeStore.volumeOutline.judgeProblems,
@@ -192,29 +192,29 @@ function PreviewList(props: IProps) {
                                 type: 3,
                                 count: volumeStore.volumeOutline.problemFraction!.judgeFraction,
                             }}
-                        ></SubProblemList>
+                        />
                     </TypeWrap>
                     <TypeWrap>
                         <TopicType
                             data={{ text: '填', count: props.totalScore().fillingTotal }}
                             option={{ bgColor: '#E6255D', color: '#E6255D' }}
-                        ></TopicType>
+                        />
                         <ObjProblemList
                             data={{ list: volumeStore.volumeOutline.fillingProblems, name: 'fillingProblems', type: 4 }}
-                        ></ObjProblemList>
+                        />
                     </TypeWrap>
                     <TypeWrap>
                         <TopicType
                             data={{ text: '答', count: props.totalScore().shortAnswerTotal }}
                             option={{ bgColor: '#005691', color: '#005691' }}
-                        ></TopicType>
+                        />
                         <ObjProblemList
                             data={{
                                 list: volumeStore.volumeOutline.shortAnswerProblems,
                                 name: 'shortAnswerProblems',
                                 type: 5,
                             }}
-                        ></ObjProblemList>
+                        />
                     </TypeWrap>
                 </Wrap>
                 <ButtonWrap>

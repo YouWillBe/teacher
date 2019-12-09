@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { FC, useContext, useState } from 'react'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
 import styled from '@emotion/styled'
@@ -19,14 +19,14 @@ const Columns = styled.div`
 
 const FractionWrap = styled.div`
     font-size: 16px;
-    font-family: PingFangSC-Medium, PingFangSC;
+    font-family: PingFangSC-Medium, PingFangSC, sans-serif;
     font-weight: 500;
     color: rgba(51, 51, 51, 1);
 `
 
 const Font = styled.div`
     font-size: 16px;
-    font-family: PingFangSC-Regular, PingFangSC;
+    font-family: PingFangSC-Regular, PingFangSC, sans-serif;
     font-weight: 400;
     color: rgba(153, 153, 153, 1);
     text-align: center;
@@ -38,7 +38,7 @@ const ScoreWrap = styled(Font)``
 interface IProps {
     totalScore(): { totalScore: number; totalNumber: number }
 }
-function BlockEditSection(props: IProps) {
+const BlockEditSection: FC<IProps> = props => {
     const { volumeStore } = useContext<IStore>(MobXProviderContext)
     const [typeArr] = useState([
         { type: '单', bgColor: '#145869' },
@@ -54,11 +54,11 @@ function BlockEditSection(props: IProps) {
                     <FractionWrap>总题数 {props.totalScore().totalNumber}</FractionWrap>
                 </Columns>
                 <Columns>
-                    <div></div>
+                    <div />
                     <AmountWrap>数量</AmountWrap>
                     <ScoreWrap>每题分值</ScoreWrap>
                     <TotalWrap>题总分数</TotalWrap>
-                    <div></div>
+                    <div />
                 </Columns>
                 {volumeStore.templateDetail.objectiveProblems.map((item, index) => (
                     <TObjective
@@ -70,7 +70,7 @@ function BlockEditSection(props: IProps) {
                             problemCount: item.problemCount,
                             problemScore: item.problemScore,
                         }}
-                    ></TObjective>
+                    />
                 ))}
                 <TSubjective
                     data={{
@@ -78,14 +78,14 @@ function BlockEditSection(props: IProps) {
                         type: '填',
                         problem: volumeStore.templateDetail.fillingProblems,
                     }}
-                ></TSubjective>
+                />
                 <TSubjective
                     data={{
                         bgColor: '#005691',
                         type: '答',
                         problem: volumeStore.templateDetail.shortAnswerProblems,
                     }}
-                ></TSubjective>
+                />
             </Container>
         )
     })

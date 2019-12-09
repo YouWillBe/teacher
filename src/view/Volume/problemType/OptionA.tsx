@@ -20,7 +20,7 @@ const MyOptionLeft = styled.div`
 `
 const MySpanName = styled.span`
     font-size: 16px;
-    font-family: PingFangSC;
+    font-family: PingFangSC,sans-serif;
     font-weight: 100;
     color: rgba(58, 147, 223, 1);
 `
@@ -38,7 +38,7 @@ const MyAnswerOptionName = styled.span<{ isSelected: boolean }>`
     width: 40px;
     height: 40px;
     line-height: 40px;
-    box-shadow: 0px 3px 5px 0px rgba(221, 235, 250, 1);
+    box-shadow: 0 3px 5px 0 rgba(221, 235, 250, 1);
     border-radius: 2px;
     text-align: center;
     margin-right: 10px;
@@ -53,7 +53,7 @@ interface ICurrentAnswer {
     name: string
 }
 
-const OptionA: FC = props => {
+const OptionA: FC = () => {
     const { volumeStore } = useContext<IStore>(MobXProviderContext)
     const [answerOption] = useState(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'])
 
@@ -123,8 +123,8 @@ const OptionA: FC = props => {
                     <MySpanName>选项数量</MySpanName>
                     <InputNumber
                         data={{
-                            statu: volumeStore.volumeProblem.option.length >= 10 ? true : false,
-                            statu2: volumeStore.volumeProblem.option.length === 1 ? true : false,
+                            statu: volumeStore.volumeProblem.option.length >= 10,
+                            statu2: volumeStore.volumeProblem.option.length === 1,
                             len: volumeStore.volumeProblem.option.length,
                         }}
                         onClickAnswerNumber={handleClickAnswerNumber}

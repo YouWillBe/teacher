@@ -1,14 +1,23 @@
 import React, { FC, useContext, useEffect } from 'react'
-import { RouteComponentProps, Link } from '@reach/router'
+import { Link } from 'react-router-dom'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
 import styled from '@emotion/styled'
-import { FaPlus } from 'react-icons/fa'
 
 import { IStore } from '../../../store'
 import Loading from '../../../components/Loading'
 import Paging from '../../../components/Paging'
 import VolumeCard from './VolumeCard'
+import NoContent from './NoContent'
+import Header from '../../../components/Header'
+
+const ListWrap = styled.div`
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    padding-top: 80px;
+    position: relative;
+`
 
 const Container = styled.div`
     width: 1000px;
@@ -19,51 +28,6 @@ const Container = styled.div`
     grid-template-rows: repeat(2, 1fr);
     justify-items: center;
     align-items: center;
-`
-const BlankWrap = styled.div`
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-`
-const BlankImg = styled.div`
-    height: 400px;
-    width: 400px;
-    background-image: url(https://img2.heartdynamic.cn/static/blank.png);
-    background-size: 100% 100%;
-`
-const BlankText = styled.div`
-    color: #777;
-    user-select: none;
-`
-const BlankButton = styled(Link)`
-    display: flex;
-    align-items: center;
-    background-color: #fff;
-    padding: 8px 20px;
-    margin-top: 50px;
-    margin-bottom: 100px;
-    cursor: pointer;
-    box-shadow: rgba(0, 0, 0, 0.12) 0 3px 13px 1px;
-    border-radius: 5px;
-    color: #777;
-    user-select: none;
-    transition: color 0.1s linear, box-shadow 0.1s linear;
-    &:hover {
-        color: #00a6f3;
-        box-shadow: rgba(16, 36, 94, 0.4) 0 2px 6px 0;
-    }
-`
-const ButtonTag = styled.div`
-    font-size: 18px;
-`
-const ButtonText = styled.div`
-    font-size: 14px;
-    margin-left: 20px;
-    height: 100%;
-    line-height: 24px;
 `
 const Wrap = styled.div`
     margin: 0 auto;
@@ -102,7 +66,7 @@ const PagingWrap = styled.div`
     margin-top: 20px;
 `
 
-const Volume: FC<RouteComponentProps> = () => {
+const Volume: FC = () => {
     const { volumeStore } = useContext<IStore>(MobXProviderContext)
     useEffect(() => {
         volumeStore.getVolumeList(1)
@@ -119,47 +83,37 @@ const Volume: FC<RouteComponentProps> = () => {
         volumeStore.deleteVolume(id)
     }
 
-    return useObserver(() => {
-        if (volumeStore.gettingVolumeList) {
-            return <Loading />
-        }
-        if (volumeStore.volumeList.length === 0) {
-            return (
-                <BlankWrap>
-                    <BlankImg />
-                    <BlankText>还没有试卷，添加一个吧</BlankText>
-                    <BlankButton to='/volume/templet'>
-                        <ButtonTag>
-                            <FaPlus />
-                        </ButtonTag>
-                        <ButtonText>添加试卷</ButtonText>
-                    </BlankButton>
-                </BlankWrap>
-            )
-        }
-        return (
-            <Wrap>
-                <NewButtonWrap>
-                    <NewButton to='/volume/templet'>添加试卷</NewButton>
-                </NewButtonWrap>
-                <Line />
-                <Container>
-                    {volumeStore.volumeList.map((v, i) => (
-                        <VolumeCard data={v} key={i} deleteVolume={handleClickDeleteVolume} />
-                    ))}
-                </Container>
-                {volumeStore.volumePage.total > 8 && (
-                    <PagingWrap>
-                        <Paging
-                            onChange={handleChangePaging}
-                            current={volumeStore.volumePage.page}
-                            total={Math.ceil(volumeStore.volumePage.total / volumeStore.volumePage.limit)}
-                        />
-                    </PagingWrap>
-                )}
-            </Wrap>
-        )
-    })
+    return useObserver(() => (
+        <ListWrap>
+            <Header />
+            {!volumeStore.volumeListReady ? (
+                <Loading />
+            ) : volumeStore.volumeList.length === 0 ? (
+                <NoContent />
+            ) : (
+                <Wrap>
+                    <NewButtonWrap>
+                        <NewButton to='/volume/template'>添加试卷</NewButton>
+                    </NewButtonWrap>
+                    <Line />
+                    <Container>
+                        {volumeStore.volumeList.map(v => (
+                            <VolumeCard data={v} key={v.id} deleteVolume={handleClickDeleteVolume} />
+                        ))}
+                    </Container>
+                    {volumeStore.volumePage.total > 8 && (
+                        <PagingWrap>
+                            <Paging
+                                onChange={handleChangePaging}
+                                current={volumeStore.volumePage.page}
+                                total={Math.ceil(volumeStore.volumePage.total / volumeStore.volumePage.limit)}
+                            />
+                        </PagingWrap>
+                    )}
+                </Wrap>
+            )}
+        </ListWrap>
+    ))
 }
 
 export default Volume

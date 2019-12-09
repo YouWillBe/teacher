@@ -43,14 +43,14 @@ function FunctTypeNot(props: IProps) {
     return (
         <Container>
             <Left>
-                <ButtonWrap setWidth='88px'></ButtonWrap>
-                <ButtonWrap setWidth='80px'></ButtonWrap>
+                <ButtonWrap setWidth='88px' />
+                <ButtonWrap setWidth='80px' />
                 <ButtonWrap>
                     <Button options={optionButton} onClick={handleClickIsShow}>
                         修改试卷结构
                     </Button>
                 </ButtonWrap>
-                {isShow && <Structure onClickClose={handleClickClose}></Structure>}
+                {isShow && <Structure onClickClose={handleClickClose} />}
             </Left>
         </Container>
     )

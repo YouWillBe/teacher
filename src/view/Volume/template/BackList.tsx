@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import { Link } from '@reach/router'
+import { Link } from 'react-router-dom'
 import { TiArrowBackOutline, TiPlus } from 'react-icons/ti'
 
 const Container = styled.div`
@@ -18,7 +18,7 @@ const MyWrap = styled(Link)`
     height: 38px;
     padding: 0 15px;
     line-height: 38px;
-    box-shadow: 0px 6px 5px 0px rgba(59, 141, 242, 0.2);
+    box-shadow: 0 6px 5px 0 rgba(59, 141, 242, 0.2);
     border-radius: 4px;
     border: 1px solid rgba(153, 153, 153, 1);
     display: flex;
@@ -34,7 +34,7 @@ const MyWrap = styled(Link)`
 const MySpan = styled.span`
     letter-spacing: 2px;
     font-size: 16px;
-    font-family: PingFangSC-Regular, PingFangSC;
+    font-family: PingFangSC-Regular, PingFangSC, sans-serif;
     font-weight: 400;
     margin-left: 8px;
 `
@@ -46,7 +46,7 @@ const MyWrap1 = styled.div`
     padding: 0 16px;
     line-height: 40px;
     background-color: rgba(64, 158, 255, 1);
-    box-shadow: 0px 6px 5px 0px rgba(59, 141, 242, 0.2);
+    box-shadow: 0 6px 5px 0 rgba(59, 141, 242, 0.2);
     border-radius: 4px;
     display: flex;
     justify-content: space-evenly;
@@ -57,7 +57,7 @@ const MyWrap1 = styled.div`
 const MySpan1 = styled.span`
     letter-spacing: 2px;
     font-size: 16px;
-    font-family: PingFangSC-Regular, PingFangSC;
+    font-family: PingFangSC-Regular, PingFangSC, sans-serif;
     font-weight: 400;
     margin-right: 8px;
 `
@@ -70,12 +70,12 @@ function BackList(props: IProps) {
     return (
         <Container>
             <MyWrap to='/volume'>
-                <TiArrowBackOutline></TiArrowBackOutline>
+                <TiArrowBackOutline />
                 <MySpan>返回列表</MySpan>
             </MyWrap>
             <MyWrap1 onClick={props.onClickCreateVolumeTemplate}>
                 <MySpan1>添加模板</MySpan1>
-                <TiPlus></TiPlus>
+                <TiPlus />
             </MyWrap1>
         </Container>
     )

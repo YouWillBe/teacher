@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import styled from '@emotion/styled'
 
 interface IOption {
@@ -27,7 +27,7 @@ interface IProps {
     option: IOption
 }
 
-function TypeNumber(props: IProps) {
+const TypeNumber: FC<IProps> = props => {
     return <Container option={props.option}>{props.data.text}</Container>
 }
 

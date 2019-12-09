@@ -1,6 +1,6 @@
 import React, { useState, FC, MouseEvent } from 'react'
 import styled from '@emotion/styled'
-import { navigate } from '@reach/router'
+import { useHistory } from 'react-router-dom'
 import { take } from 'ramda'
 import { FaMinusCircle } from 'react-icons/fa'
 
@@ -11,13 +11,13 @@ const Container = styled.div`
     width: 210px;
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.12) 0px 3px 13px 1px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0 3px 13px 1px;
     cursor: pointer;
     border: 2px solid transparent;
     transition: border-color 0.1s linear;
     &:hover {
         border-color: #3a93df;
-        box-shadow: rgba(16, 36, 94, 0.4) 0px 2px 6px 0px;
+        box-shadow: rgba(16, 36, 94, 0.4) 0 2px 6px 0;
     }
     display: flex;
     flex-direction: column;
@@ -123,6 +123,7 @@ interface ILore {
 }
 
 const VolumeCard: FC<IProps> = props => {
+    const history = useHistory()
     const [showRemove, setShowRemove] = useState(false)
     const [showConfirm, setShowConfirm] = useState(false)
     const handleMouseEnter = () => {
@@ -149,14 +150,14 @@ const VolumeCard: FC<IProps> = props => {
 
     const handleClickLink = () => {
         sessionStorage.removeItem('sessionCurrentType')
-        navigate(`/see/volume/${props.data.id}`)
+        history.push(`/volume/${props.data.id}`)
     }
     return (
         <Container onClick={handleClickLink} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             {showRemove && (
                 <Remove onClick={handleClickRemove}>
-                    {showConfirm && <Popconfirm close={handleCloseConfirm} confirm={handleConfirm}></Popconfirm>}
-                    <FaMinusCircle title='删除试卷'></FaMinusCircle>
+                    {showConfirm && <Popconfirm close={handleCloseConfirm} confirm={handleConfirm} />}
+                    <FaMinusCircle title='删除试卷' />
                 </Remove>
             )}
             <Title title={props.data.name}>{props.data.name}</Title>

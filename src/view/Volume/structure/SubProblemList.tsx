@@ -9,8 +9,7 @@ import Subjective from './Subjective'
 
 const Container = styled.div`
     width: 100%;
-    margin: 0 auto;
-    margin-top: 10px;
+    margin: 10px auto 0;
 `
 
 const ProblemListWrap = styled.div`
@@ -18,7 +17,7 @@ const ProblemListWrap = styled.div`
     width: 100%;
     min-height: 200px;
     max-height: 380px;
-    box-shadow: 0px 2px 4px 0px rgba(157, 228, 255, 0.4);
+    box-shadow: 0 2px 4px 0 rgba(157, 228, 255, 0.4);
     border-radius: 10px;
     padding: 10px;
     margin-top: 10px;
@@ -90,12 +89,12 @@ function SubProblemList(props: IProps) {
                                 key={index}
                                 data={{ ...item, index, name: props.data.name }}
                                 onClickFont={handleClickFont}
-                            ></Subjective>
+                            />
                         ))
                     ) : (
                         <NoData>
                             <FontWrap onClick={() => handleClickFont({ text: '添加', name: props.data.name })}>
-                                <FaPlusCircle title='添加'></FaPlusCircle>
+                                <FaPlusCircle title='添加' />
                             </FontWrap>
                         </NoData>
                     )}
