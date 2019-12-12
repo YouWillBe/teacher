@@ -4,6 +4,7 @@ import { FaTimes } from 'react-icons/fa'
 
 const Container = styled.div`
     position: relative;
+    max-width: 110px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -13,7 +14,7 @@ const Container = styled.div`
 const Text = styled.span<{ closable: boolean }>`
     display: inline-block;
     box-sizing: border-box;
-    max-width: 110px;
+    width: 100%;
     height: 36px;
     line-height: 34px;
     text-align: center;

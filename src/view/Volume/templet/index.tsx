@@ -1,5 +1,5 @@
 import React, { FC, useContext, useEffect, useState } from 'react'
-import { RouteComponentProps } from '@reach/router'
+import { RouteComponentProps, navigate } from '@reach/router'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
 import styled from '@emotion/styled'
@@ -54,13 +54,20 @@ const FooterWrap = styled.div`
     justify-content: center;
 `
 
-const Templet: FC<RouteComponentProps> = () => {
+interface IProps {
+    status: string
+}
+
+const Templet: FC<RouteComponentProps<IProps>> = props => {
     const { volumeStore } = useContext<IStore>(MobXProviderContext)
     const [currentId, setCurrentId] = useState(0)
     const [currentIndex, setCurrentIndex] = useState(0)
 
     useEffect(() => {
         volumeStore.getTemplateList(1)
+        if (props.location!.state.status === 'auto') {
+            setCurrentId(volumeStore.templateObject.id)
+        }
         // eslint-disable-next-line
     }, [])
 
@@ -124,6 +131,9 @@ const Templet: FC<RouteComponentProps> = () => {
 
     //选择模板
     const hanleClickTemplet = (data: any) => {
+        if (props.location!.state.status === 'auto') {
+            volumeStore.templateObject = data
+        }
         setCurrentIndex(data.index)
         if (currentId === data.id) {
             setCurrentId(0)
@@ -150,6 +160,16 @@ const Templet: FC<RouteComponentProps> = () => {
         }
         sessionStorage.removeItem('sessionCurrentType')
         volumeStore.createVolume(data)
+    }
+
+    //生成试卷
+    const handleClickAuto = () => {
+        navigate('/volume/automatic')
+    }
+
+    const optionButton = {
+        bgColor: '#015691',
+        HbgColor: '#186194',
     }
 
     return useObserver(() => {
@@ -180,10 +200,16 @@ const Templet: FC<RouteComponentProps> = () => {
                 )}
                 {currentId !== 0 && (
                     <FooterWrap>
-                        <Button onClick={handleClickNextSave}>
-                            <Span>下一步</Span>
-                            <FaChevronRight title='下一步'></FaChevronRight>
-                        </Button>
+                        {props.location!.state.status === 'auto' ? (
+                            <Button options={optionButton} onClick={handleClickAuto}>
+                                选择完成
+                            </Button>
+                        ) : (
+                            <Button onClick={handleClickNextSave}>
+                                <Span>下一步</Span>
+                                <FaChevronRight title='下一步'></FaChevronRight>
+                            </Button>
+                        )}
                     </FooterWrap>
                 )}
             </Container>

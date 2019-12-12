@@ -79,21 +79,21 @@ function ProblemList(props: IProps) {
         return (volumeStore.volumeVolumeProblemAll as any)[key].length
     }
 
-    const handleClickPrint = () => {
-        var printBox = document.getElementById('printJS-form')
-        //拿到打印的区域的html内容
-        var newContent = printBox!.innerHTML
-        //将旧的页面储存起来，当打印完成后返给给页面。
-        // var oldContent = document.body.innerHTML
-        //赋值给body
-        document.body.innerHTML = newContent
-        //执行window.print打印功能
-        window.print()
-        // 重新加载页面，以刷新数据。以防打印完之后，页面不能操作的问题
-        return false
-        // print({ printable: 'printJS-form', type: 'html', targetStyles: ['*'] })
-        // console.log(printJS('printJS-form', 'html'))
-    }
+    // const handleClickPrint = () => {
+    //     var printBox = document.getElementById('printJS-form')
+    //     //拿到打印的区域的html内容
+    //     var newContent = printBox!.innerHTML
+    //     //将旧的页面储存起来，当打印完成后返给给页面。
+    //     // var oldContent = document.body.innerHTML
+    //     //赋值给body
+    //     document.body.innerHTML = newContent
+    //     //执行window.print打印功能
+    //     window.print()
+    //     // 重新加载页面，以刷新数据。以防打印完之后，页面不能操作的问题
+    //     return false
+    //     // print({ printable: 'printJS-form', type: 'html', targetStyles: ['*'] })
+    //     // console.log(printJS('printJS-form', 'html'))
+    // }
 
     const problemType = (data: any) => {
         let type = [1, 2]

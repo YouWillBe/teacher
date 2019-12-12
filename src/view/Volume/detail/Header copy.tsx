@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
 import styled from '@emotion/styled'
@@ -45,6 +45,33 @@ const TypeWrap1 = styled.div`
 
 function Header() {
     const { volumeStore } = useContext<IStore>(MobXProviderContext)
+    const [typeArr] = useState([
+        {
+            id: 1,
+            text: '单',
+            name: 'choiceProblems',
+        },
+        {
+            id: 2,
+            text: '多',
+            name: 'checkboxProblems',
+        },
+        {
+            id: 3,
+            text: '判',
+            name: 'judgeProblems',
+        },
+        {
+            id: 4,
+            text: '填',
+            name: 'fillingProblems',
+        },
+        {
+            id: 5,
+            text: '答',
+            name: 'shortAnswerProblems',
+        },
+    ])
 
     useEffect(() => {
         let data = sessionStorage.getItem('sessionCurrentType')
@@ -141,12 +168,9 @@ function Header() {
         return (
             <Container>
                 <TypeWrap>
-                    {volumeStore.volumeDetailList.problemTypeIsExit.map((item, index) => (
-                        <ItwmWrap key={index} onClick={() => handleClickType(item.type, item.typeName)}>
-                            <TypeNumber
-                                option={typeOption(item.type)}
-                                data={{ text: item.name.slice(0, 1) }}
-                            ></TypeNumber>
+                    {typeArr.map(item => (
+                        <ItwmWrap key={item.id} onClick={() => handleClickType(item.id, item.name)}>
+                            <TypeNumber option={typeOption(item.id)} data={{ text: item.text }}></TypeNumber>
                         </ItwmWrap>
                     ))}
                 </TypeWrap>

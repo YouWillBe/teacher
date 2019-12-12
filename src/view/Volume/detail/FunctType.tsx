@@ -2,8 +2,8 @@ import React, { useContext, useState } from 'react'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
 import styled from '@emotion/styled'
-import { FaSave, FaExchangeAlt, FaMinusCircle, FaEye, FaChevronLeft, FaChevronRight } from 'react-icons/fa'
-
+import { FaSave, FaExchangeAlt, FaMinusCircle, FaEye } from 'react-icons/fa'
+// FaChevronLeft, FaChevronRight
 import { IStore } from '../../../store'
 import Button from '../../../components/Button'
 import Popconfirm from '../../../components/Popconfirm'
@@ -66,9 +66,9 @@ const PreviewWrap = styled.div`
     margin-right: 20px;
 `
 
-const Right = styled.div`
-    display: flex;
-`
+// const Right = styled.div`
+//     display: flex;
+// `
 interface IProps {
     isShowIcon: boolean
 }
@@ -147,56 +147,55 @@ function FunctType(props: IProps) {
     }
 
     //上一题
-    const handleClickLast = () => {
-        volumeStore.volumeProblem.number = volumeStore.volumeProblem.number - 1
-        console.log(volumeStore.volumeProblem.number)
-        // let typeArr = ['choiceProblems', 'checkboxProblems', 'judgeProblems', 'fillingProblems', 'shortAnswerProblems']
-        // let number = (volumeStore.volumeDetailList as any)[typeArr[volumeStore.volumeProblem.type - 1]][
-        //     volumeStore.volumeProblem.number - 1
-        // ]
-        // sessionStorage.setItem(
-        //     'sessionCurrentType',
-        //     JSON.stringify({
-        //         id: volumeStore.volumeProblem.type,
-        //         name: typeArr[volumeStore.volumeProblem.type - 1],
-        //         number: number.number - 1,
-        //     })
-        // )
-        // volumeStore.currentType.number = number.number - 1
-        // volumeStore.getVolumeProblem(number.id)
-        // console.log(
-        //     1111,
-        //     typeArr[volumeStore.volumeProblem.type - 1],
-        //     number,
-        //     volumeStore.volumeDetailList,
-        //     volumeStore.volumeProblem.number
-        // )
-    }
+    // const handleClickLast = () => {
+    //     volumeStore.volumeProblem.number = volumeStore.volumeProblem.number - 1
+    //     console.log(volumeStore.volumeProblem.number)
+    // let typeArr = ['choiceProblems', 'checkboxProblems', 'judgeProblems', 'fillingProblems', 'shortAnswerProblems']
+    // let number = (volumeStore.volumeDetailList as any)[typeArr[volumeStore.volumeProblem.type - 1]][
+    //     volumeStore.volumeProblem.number - 1
+    // ]
+    // sessionStorage.setItem(
+    //     'sessionCurrentType',
+    //     JSON.stringify({
+    //         id: volumeStore.volumeProblem.type,
+    //         name: typeArr[volumeStore.volumeProblem.type - 1],
+    //         number: number.number - 1,
+    //     })
+    // )
+    // volumeStore.currentType.number = number.number - 1
+    // volumeStore.getVolumeProblem(number.id)
+    // console.log(
+    //     1111,
+    //     typeArr[volumeStore.volumeProblem.type - 1],
+    //     number,
+    //     volumeStore.volumeDetailList,
+    //     volumeStore.volumeProblem.number
+    // )
+    // }
     //下一题
-    const handleClickNext = () => {
-        volumeStore.volumeProblem.number = volumeStore.volumeProblem.number + 1
-        console.log(volumeStore.volumeProblem.number)
-        // let typeArr = ['choiceProblems', 'checkboxProblems', 'judgeProblems', 'fillingProblems', 'shortAnswerProblems']
-        // let number = (volumeStore.volumeDetailList as any)[typeArr[volumeStore.volumeProblem.type - 1]][
-        //     volumeStore.volumeProblem.number
-        // ]
-        // sessionStorage.setItem(
-        //     'sessionCurrentType',
-        //     JSON.stringify({
-        //         id: volumeStore.volumeProblem.type,
-        //         name: typeArr[volumeStore.volumeProblem.type - 1],
-        //         number: number.number,
-        //     })
-        // )
-        // volumeStore.currentType.number = number.number
-        // volumeStore.getVolumeProblem(number.id)
-        // console.log(
-        //     typeArr[volumeStore.volumeProblem.type - 1],
-        //     number,
-        //     volumeStore.volumeDetailList,
-        //     volumeStore.volumeProblem.number
-        // )
-    }
+    // const handleClickNext = () => {
+    //     volumeStore.volumeProblem.number = volumeStore.volumeProblem.number + 1
+    // let typeArr = ['choiceProblems', 'checkboxProblems', 'judgeProblems', 'fillingProblems', 'shortAnswerProblems']
+    // let number = (volumeStore.volumeDetailList as any)[typeArr[volumeStore.volumeProblem.type - 1]][
+    //     volumeStore.volumeProblem.number
+    // ]
+    // sessionStorage.setItem(
+    //     'sessionCurrentType',
+    //     JSON.stringify({
+    //         id: volumeStore.volumeProblem.type,
+    //         name: typeArr[volumeStore.volumeProblem.type - 1],
+    //         number: number.number,
+    //     })
+    // )
+    // volumeStore.currentType.number = number.number
+    // volumeStore.getVolumeProblem(number.id)
+    // console.log(
+    //     typeArr[volumeStore.volumeProblem.type - 1],
+    //     number,
+    //     volumeStore.volumeDetailList,
+    //     volumeStore.volumeProblem.number
+    // )
+    // }
 
     //输入验证
     const checkForm = (data: any) => {
@@ -334,7 +333,7 @@ function FunctType(props: IProps) {
                             </IconWrap>
                         )}
                     </Left>
-                    <Right>
+                    {/* <Right>
                         <ButtonWrap>
                             <Button title='上一题' onClick={handleClickLast}>
                                 <FaChevronLeft />
@@ -345,7 +344,7 @@ function FunctType(props: IProps) {
                                 <FaChevronRight />
                             </Button>
                         </ButtonWrap>
-                    </Right>
+                    </Right> */}
                 </Container>
                 {isPreview && (
                     <Dialog title='预览' onClickClose={handlePreview}>

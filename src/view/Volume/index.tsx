@@ -4,6 +4,7 @@ import { Router, RouteComponentProps } from '@reach/router'
 
 import Volume from './list'
 import Templet from './templet'
+import Automatic from './Automatic'
 
 const RouterWrap = styled(Router)`
     box-sizing: border-box;
@@ -21,6 +22,7 @@ const VolumeIndex: FC<RouteComponentProps> = props => {
         <RouterWrap>
             <Volume path='/'></Volume>
             <Templet path='templet'></Templet>
+            <Automatic path='automatic'></Automatic>
         </RouterWrap>
     )
 }

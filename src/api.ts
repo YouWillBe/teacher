@@ -139,6 +139,7 @@ const volume = {
     getVolumeTemplateDetail: (id: number) => request.get(`/volumes/template-detail/${id}`),
     updateVolumeTemplate: (data: any) => request.put('/volumes/template-update', data),
     createVolume: (data: any) => request.post('/volumes', data),
+    createAutomaticVolume: (data: any) => request.post('/volumes/teacher/automatic-create', data),
     getVolume: (id: number) => request.get(`/volumes/${id}`),
     getVolumeProblem: (id: number) => request.get(`/volumes/problem/${id}`),
     removeVolumeProblem: (data: any) => request.del(`/volumes/problem-delete/${data.volumeId}/${data.id}`),

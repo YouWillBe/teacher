@@ -83,6 +83,11 @@ interface ICreateVolume {
     totalScore: number
 }
 
+interface ICreateAutoVolume {
+    volumesTemplate: ICreateVolume
+    loreIdList: number[]
+}
+
 interface IProblemsType {
     id?: number
     number: number
@@ -91,6 +96,7 @@ interface IProblemsType {
     fraction?: number
 }
 interface IProblemTypeIsExit {
+    typeName: string
     name: string
     type: number
 }
@@ -187,10 +193,12 @@ interface ILoreList1 {
 }
 
 export interface IVolumeStore {
+    selectedAutoPoints: ILore[]
+    selectedAutoPointsId: number[]
     selectedPoints: ILore[]
     selectedPointsId: number[]
     selectPoint(point: ILore): void
-
+    selectAutoPoint(point: ILore): void
     currentType: {
         id: number
         name: string
@@ -209,6 +217,7 @@ export interface IVolumeStore {
     templatePage: number
     templateList: ITemplateList[]
     templateListPage: IVolumePage
+    templateObject: ITemplateList
     getTemplateList(page: number): Promise<void>
     createVolumeTemplate(): Promise<void>
     deleteVolumeTemplate(id: number): Promise<void>
@@ -222,6 +231,7 @@ export interface IVolumeStore {
     updateVolumeTemplate(data: IUpdateVolumeTemplate, text: string): Promise<void>
 
     createVolume(data: ICreateVolume): Promise<void>
+    createAutomaticVolume(data: ICreateAutoVolume): Promise<void>
     updateVolumeName(data: { id: number; name: string }): Promise<void>
 
     volumeDetailListReady: boolean
@@ -290,6 +300,8 @@ let values = Value.fromJSON({
 class VolumeStore implements IVolumeStore {
     @observable currentType = { id: 1, name: 'choiceProblems', number: 1 }
 
+    @observable selectedAutoPoints: ILore[] = []
+    @observable selectedAutoPointsId: number[] = []
     @observable selectedPoints: ILore[] = []
     @observable selectedPointsId: number[] = []
 
@@ -313,6 +325,17 @@ class VolumeStore implements IVolumeStore {
         offset: 0,
     }
     @observable templatePage = 0
+    @observable templateObject: ITemplateList = {
+        checkboxCount: 0,
+        choiceCount: 0,
+        createTime: 0,
+        fillingCount: 0,
+        id: 0,
+        judgeCount: 0,
+        name: '',
+        shortAnswerCount: 0,
+        totalScore: 0,
+    }
 
     @observable templateDetailReady = false
     @observable gettingTemplateDetail = false
@@ -434,6 +457,16 @@ class VolumeStore implements IVolumeStore {
         } else {
             this.selectedPointsId = append(point.id, this.selectedPointsId)
             this.selectedPoints = append(point, this.selectedPoints)
+        }
+    }
+
+    @action selectAutoPoint = (point: ILore) => {
+        if (this.selectedAutoPointsId.includes(point.id)) {
+            this.selectedAutoPointsId = this.selectedAutoPointsId.filter(x => x !== point.id)
+            this.selectedAutoPoints = this.selectedAutoPoints.filter(x => x.id !== point.id)
+        } else {
+            this.selectedAutoPointsId = append(point.id, this.selectedAutoPointsId)
+            this.selectedAutoPoints = append(point, this.selectedAutoPoints)
         }
     }
 
@@ -567,6 +600,17 @@ class VolumeStore implements IVolumeStore {
         } catch (error) {}
     }
 
+    //自动创建试卷
+    @action async createAutomaticVolume(data: ICreateAutoVolume) {
+        try {
+            const res = await api.volume.createAutomaticVolume(data)
+            if (res.success) {
+                Toast.success('创建试卷完成')
+                navigate(`/see/volume/${res.data}`)
+            }
+        } catch (error) {}
+    }
+
     //修改试卷名字
     @action async updateVolumeName(data: { id: number; name: string }) {
         try {
@@ -604,8 +648,13 @@ class VolumeStore implements IVolumeStore {
                 } else if (sessionCurrentType) {
                     let data = JSON.parse(sessionCurrentType)
                     this.getVolumeProblem(res.data[data.name][data.number - 1].id)
-                } else if (res.data.choiceProblems.length) {
-                    this.getVolumeProblem(res.data.choiceProblems[0].id)
+                } else if (res.data.problemTypeIsExit.length) {
+                    this.getVolumeProblem(res.data[typeArr[res.data.problemTypeIsExit[0].type - 1]][0].id)
+                    this.currentType = {
+                        id: res.data.problemTypeIsExit[0].type,
+                        name: res.data.problemTypeIsExit[0].typeName,
+                        number: 1,
+                    }
                 } else {
                     this.volumeProblem = {
                         answer: '',

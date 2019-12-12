@@ -1,12 +1,14 @@
 import React, { FC, useContext, useEffect } from 'react'
-import { RouteComponentProps, Link } from '@reach/router'
+import { RouteComponentProps, Link, navigate } from '@reach/router'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
 import styled from '@emotion/styled'
 import { FaPlus } from 'react-icons/fa'
+import { AiOutlineFileAdd } from 'react-icons/ai'
 
 import { IStore } from '../../../store'
 import Loading from '../../../components/Loading'
+import Button from '../../../components/Button'
 import Paging from '../../../components/Paging'
 import VolumeCard from './VolumeCard'
 import image from '../../../images/blank.png'
@@ -78,20 +80,17 @@ const NewButtonWrap = styled.div`
     display: flex;
     justify-content: flex-end;
     align-items: center;
-`
-const NewButton = styled(Link)`
-    border: 1px solid #999;
-    color: #777;
-    margin-right: 5px;
-    border-radius: 4px;
-    padding: 8px 12px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.1s linear;
-    &:hover {
-        color: #00a6f3;
-        border-color: #00a6f3;
+    svg {
+        font-size: 14px;
+        color: #fff;
     }
+    button:first-of-type {
+        margin-right: 20px;
+    }
+`
+
+const Character = styled.span`
+    margin-right: 8px;
 `
 const Line = styled.div`
     width: 100%;
@@ -120,6 +119,37 @@ const Volume: FC<RouteComponentProps> = () => {
         volumeStore.deleteVolume(id)
     }
 
+    const handleClickLine = (text: string) => {
+        if (text === '手动') {
+            navigate('/volume/templet')
+        } else if (text === '自动') {
+            volumeStore.selectedAutoPoints = []
+            volumeStore.selectedAutoPointsId = []
+            volumeStore.templateObject = {
+                checkboxCount: 0,
+                choiceCount: 0,
+                createTime: 0,
+                fillingCount: 0,
+                id: 0,
+                judgeCount: 0,
+                name: '',
+                shortAnswerCount: 0,
+                totalScore: 0,
+            }
+            navigate('/volume/automatic')
+        }
+    }
+
+    const optionButton = {
+        height: '32px',
+        bgColor: '#005691',
+        HbgColor: '#115b8e',
+    }
+    const optionButton1 = {
+        height: '32px',
+        bgColor: '#409EFF',
+    }
+
     return useObserver(() => {
         if (volumeStore.gettingVolumeList) {
             return <Loading />
@@ -141,7 +171,14 @@ const Volume: FC<RouteComponentProps> = () => {
         return (
             <Wrap>
                 <NewButtonWrap>
-                    <NewButton to='/volume/templet'>添加试卷</NewButton>
+                    <Button options={optionButton} onClick={() => handleClickLine('自动')}>
+                        <Character>自动组卷</Character>
+                        <AiOutlineFileAdd></AiOutlineFileAdd>
+                    </Button>
+                    <Button options={optionButton1} onClick={() => handleClickLine('手动')}>
+                        <Character>手动组卷</Character>
+                        <AiOutlineFileAdd></AiOutlineFileAdd>
+                    </Button>
                 </NewButtonWrap>
                 <Line></Line>
                 <Container>
