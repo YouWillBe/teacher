@@ -1,6 +1,6 @@
 //网络题库
 import React, { FC, useEffect, useContext, useState } from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { RouteComponentProps, navigate } from '@reach/router'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
@@ -8,7 +8,7 @@ import { TiArrowBackOutline, TiEye } from 'react-icons/ti'
 import { MdSave } from 'react-icons/md'
 
 import { IStore } from '../../../store'
-import TopicType from '../list/TopicType'
+import TopicType from '../MyQuestionBank/TopicType'
 import ChoiceProblem from './ChoiceProblem'
 import JudgeProblem from './JudgeProblem'
 import FillingProblem from './FillingProblem'

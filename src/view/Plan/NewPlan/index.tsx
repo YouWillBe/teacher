@@ -1,6 +1,6 @@
 import React, { useState, FC, ChangeEventHandler, useContext } from 'react'
 import { MobXProviderContext } from 'mobx-react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { Link, useHistory } from 'react-router-dom'
 import { Value } from 'slate'
 import { append } from 'ramda'

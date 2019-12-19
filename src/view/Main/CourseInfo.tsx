@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'
-import { Link } from '@reach/router'
+import { Link } from 'react-router-dom'
 
 const Container = styled.div`
     display: flex;
@@ -96,11 +96,11 @@ const CourseInfo: FC<IProps> = props => (
         <CourseWrap>
             <Course>
                 <TagWrap>
-                    <Triangle></Triangle>
-                    <Tag></Tag>
+                    <Triangle />
+                    <Tag />
                 </TagWrap>
                 <Time>周{dayjs(props.date).format('dd　MM-DD')}</Time>
-                <Line></Line>
+                <Line />
                 <Section>
                     {sectionList[props.section]}　第 {props.index} 节
                 </Section>

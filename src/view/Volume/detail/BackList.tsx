@@ -1,5 +1,5 @@
 import React, { useState, ChangeEventHandler, KeyboardEventHandler, FC } from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 import { TiArrowBackOutline, TiPencil } from 'react-icons/ti'
 import { MdSave } from 'react-icons/md'

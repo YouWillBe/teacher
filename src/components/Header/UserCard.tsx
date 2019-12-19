@@ -1,6 +1,6 @@
 import React, { useRef, FC, useContext } from 'react'
 import { Link } from '@reach/router'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import useOnClickOutside from 'use-onclickoutside'
 import { FaUserTie } from 'react-icons/fa'
 import { MobXProviderContext } from 'mobx-react'

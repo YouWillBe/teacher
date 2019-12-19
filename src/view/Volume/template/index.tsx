@@ -1,9 +1,9 @@
 import React, { FC, useContext, useEffect, useState } from 'react'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 import { IStore } from '../../../store'
 import BackList from './BackList'
@@ -73,14 +73,16 @@ const Template: FC = () => {
     //空白模板
     const handleClickBlank = () => {
         sessionStorage.removeItem('sessionCurrentType')
-        volumeStore.createVolume({
-            choiceCount: 0,
-            checkboxCount: 0,
-            judgeCount: 0,
-            fillingCount: 0,
-            shortAnswerCount: 0,
-            totalScore: 0,
-        }).then(res => history.push(`/volume/${res}`))
+        volumeStore
+            .createVolume({
+                choiceCount: 0,
+                checkboxCount: 0,
+                judgeCount: 0,
+                fillingCount: 0,
+                shortAnswerCount: 0,
+                totalScore: 0,
+            })
+            .then(res => history.push(`/volume/${res}`))
     }
 
     //总分页数

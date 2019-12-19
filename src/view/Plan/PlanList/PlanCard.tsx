@@ -1,5 +1,5 @@
 import React, { useState, useRef, FC } from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { take } from 'ramda'
 import useOnClickOutside from 'use-onclickoutside'

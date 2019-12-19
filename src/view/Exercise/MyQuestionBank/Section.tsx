@@ -1,6 +1,6 @@
 //网络题库
 import React, { FC, useContext, useState } from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
 
@@ -37,10 +37,10 @@ const Li = styled.li`
     box-sizing: border-box;
     width: 100%;
     background-color: rgba(255, 255, 255, 0.8);
-    box-shadow: 0px 4px 11px 0px rgba(64, 158, 255, 0.1);
+    box-shadow: 0 4px 11px 0 rgba(64, 158, 255, 0.1);
     border-radius: 4px;
     border: 3px solid rgba(255, 255, 255, 1);
-    margin-top: 20px;
+    margin-bottom: 20px;
     padding: 20px;
 `
 const PagingWrap = styled.div`
@@ -137,7 +137,7 @@ const Section: FC<IProps> = props => {
                 <Container>
                     {exerciseStore.problemList.map((item, index) => (
                         <Li key={item.id}>
-                            <QuestionType data={problemList({ ...item, index })}></QuestionType>
+                            <QuestionType data={problemList({ ...item, index })} />
                         </Li>
                     ))}
                 </Container>
@@ -147,7 +147,7 @@ const Section: FC<IProps> = props => {
                             onChange={handleChangePaging}
                             current={exerciseStore.problemListPage.page}
                             total={Math.ceil(exerciseStore.problemListPage.total / exerciseStore.problemListPage.limit)}
-                        ></Paging>
+                        />
                     </PagingWrap>
                 )}
             </ScrollbarWrap>

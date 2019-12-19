@@ -1,6 +1,6 @@
 import React, { FC, useContext } from 'react'
 import { MobXProviderContext } from 'mobx-react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { RouteComponentProps, Link } from '@reach/router'
 import { useObserver } from 'mobx-react-lite'
 import { Value } from 'slate'

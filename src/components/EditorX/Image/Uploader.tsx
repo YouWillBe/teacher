@@ -1,5 +1,5 @@
 import React, { MouseEvent, ChangeEvent, forwardRef, Ref } from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import Cookies from 'js-cookie'
 import { Editor } from 'slate-react'
 

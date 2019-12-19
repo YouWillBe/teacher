@@ -2,7 +2,7 @@
     已发布试卷 老师已公布答案 点击头像查看信息
 */
 import React, { FC, useContext, useEffect } from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { RouteComponentProps } from '@reach/router'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'

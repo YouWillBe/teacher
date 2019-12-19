@@ -1,6 +1,6 @@
 import React, { useEffect, useState, FC, useContext } from 'react'
 import { MobXProviderContext } from 'mobx-react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { Link, RouteComponentProps, navigate } from '@reach/router'
 import { TiArrowBackOutline } from 'react-icons/ti'
 import { Value } from 'slate'

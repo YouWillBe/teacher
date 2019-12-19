@@ -1,5 +1,5 @@
 import React, { FC, MouseEventHandler } from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import KnowledgePoint from './KnowledgePoint'
 // import Annex from './Annex'
 

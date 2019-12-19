@@ -1,9 +1,9 @@
 import React, { useContext, useState, ChangeEventHandler, KeyboardEventHandler, FC } from 'react'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { FaPen, FaSave } from 'react-icons/fa'
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 import { IStore } from '../../../store'
 import BlockEditSection from './BlockEditSection'

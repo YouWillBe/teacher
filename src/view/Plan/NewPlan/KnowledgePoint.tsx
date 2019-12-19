@@ -1,5 +1,5 @@
 import React, { useState, FC } from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { FaExclamationTriangle, FaTimes } from 'react-icons/fa'
 import PointSelector from '../../../components/PointSelector'
 

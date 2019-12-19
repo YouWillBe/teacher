@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
-import styled from '@emotion/styled'
-import { Link } from '@reach/router'
+import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 const Container = styled.div`
     background-color: #fff;

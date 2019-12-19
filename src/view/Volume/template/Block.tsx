@@ -1,5 +1,5 @@
 import React, { useRef, useState, MouseEvent } from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import useOnClickOutside from 'use-onclickoutside'
 import { FaPen, FaMinusCircle } from 'react-icons/fa'
 

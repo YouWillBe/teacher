@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
 const Container = styled(Link)`
@@ -13,6 +13,7 @@ const Container = styled(Link)`
     align-items: center;
     position: relative;
 `
+
 const Line = styled.span<{ active: boolean }>`
     height: 8px;
     width: 90px;
@@ -22,6 +23,7 @@ const Line = styled.span<{ active: boolean }>`
     transition: background-color 0.1s linear;
     background-color: ${props => (props.active ? '#00a6f3' : '#fff')};
 `
+
 const Text = styled.div<{ active: boolean }>`
     font-size: 22px;
     font-family: PingFangSC, sans-serif;

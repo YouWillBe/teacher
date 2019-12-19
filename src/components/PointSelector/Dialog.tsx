@@ -1,5 +1,5 @@
 import React, { FC, useRef } from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import useOnClickOutside from 'use-onclickoutside'
 import { FaTimes } from 'react-icons/fa'
 

@@ -1,5 +1,5 @@
 import React, { FC, useContext, useState } from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
 

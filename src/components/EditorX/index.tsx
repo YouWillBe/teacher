@@ -1,7 +1,7 @@
 import React, { FC, useState, useRef, KeyboardEvent, MouseEvent } from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { Editor, RenderBlockProps, RenderMarkProps, RenderInlineProps, OnChangeParam, EventHook } from 'slate-react'
-import { Value, Editor as SlateEditor, SchemaProperties, Block } from 'slate'
+import { Value, SchemaProperties, Block } from 'slate'
 import { isKeyHotkey } from 'is-hotkey'
 
 import ToolBar from './ToolBar'
@@ -124,10 +124,10 @@ const EditorX: FC<IProps> = props => {
         event.preventDefault()
         editor.toggleMark(mark)
     }
-    const renderBlock = (props: RenderBlockProps, editor: SlateEditor, next: () => any) => {
+    const renderBlock = (props: RenderBlockProps, editor: Editor, next: () => any) => {
         const { attributes, children, node } = props
         switch (node.type) {
-            case 'bulleted-list':
+            case 'bulleted-MyQuestionBank':
                 return (
                     <ul {...attributes} style={{ padding: '0 0 0 40px', margin: ' 16px 0' }}>
                         {children}
@@ -137,13 +137,13 @@ const EditorX: FC<IProps> = props => {
                 return <h1 {...attributes}>{children}</h1>
             case 'heading-two':
                 return <h2 {...attributes}>{children}</h2>
-            case 'list-item':
+            case 'MyQuestionBank-item':
                 return (
                     <li {...attributes} style={{ listStyleType: 'inherit' }}>
                         {children}
                     </li>
                 )
-            case 'numbered-list':
+            case 'numbered-MyQuestionBank':
                 return <ol {...attributes}>{children}</ol>
             case 'block-quote':
                 return <blockquote {...attributes}>{children}</blockquote>
@@ -152,7 +152,7 @@ const EditorX: FC<IProps> = props => {
                 return next()
         }
     }
-    const renderMark = (props: RenderMarkProps, editor: SlateEditor, next: () => any) => {
+    const renderMark = (props: RenderMarkProps, editor: Editor, next: () => any) => {
         const { children, mark, attributes } = props
 
         switch (mark.type) {
@@ -170,7 +170,7 @@ const EditorX: FC<IProps> = props => {
                 return next()
         }
     }
-    const renderInline = (inlineProps: RenderInlineProps, editor: SlateEditor, next: () => any) => {
+    const renderInline = (inlineProps: RenderInlineProps, editor: Editor, next: () => any) => {
         const { node } = inlineProps
 
         switch (node.type) {
@@ -216,20 +216,20 @@ const EditorX: FC<IProps> = props => {
         const editor = ref.current
         const { value } = editor as Editor
         const { document } = value
-        if (type !== 'bulleted-list' && type !== 'numbered-list') {
+        if (type !== 'bulleted-MyQuestionBank' && type !== 'numbered-MyQuestionBank') {
             const isActive = hasBlock(type)
-            const isList = hasBlock('list-item')
+            const isList = hasBlock('MyQuestionBank-item')
 
             if (isList) {
                 editor!
                     .setBlocks(isActive ? DEFAULT_NODE : type)
-                    .unwrapBlock('bulleted-list')
-                    .unwrapBlock('numbered-list')
+                    .unwrapBlock('bulleted-MyQuestionBank')
+                    .unwrapBlock('numbered-MyQuestionBank')
             } else {
                 editor!.setBlocks(isActive ? DEFAULT_NODE : type)
             }
         } else {
-            const isList = hasBlock('list-item')
+            const isList = hasBlock('MyQuestionBank-item')
             const isType = value.blocks.some(block => {
                 // @ts-ignore
                 return !!document.getClosest(block!.key, parent => parent!.type === type)
@@ -238,12 +238,12 @@ const EditorX: FC<IProps> = props => {
             if (isList && isType) {
                 editor!
                     .setBlocks(DEFAULT_NODE)
-                    .unwrapBlock('bulleted-list')
-                    .unwrapBlock('numbered-list')
+                    .unwrapBlock('bulleted-MyQuestionBank')
+                    .unwrapBlock('numbered-MyQuestionBank')
             } else if (isList) {
-                editor!.unwrapBlock(type === 'bulleted-list' ? 'numbered-list' : 'bulleted-list').wrapBlock(type)
+                editor!.unwrapBlock(type === 'bulleted-MyQuestionBank' ? 'numbered-MyQuestionBank' : 'bulleted-MyQuestionBank').wrapBlock(type)
             } else {
-                editor!.setBlocks('list-item').wrapBlock(type)
+                editor!.setBlocks('MyQuestionBank-item').wrapBlock(type)
             }
         }
     }

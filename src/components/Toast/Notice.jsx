@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { FaTimesCircle, FaInfo, FaCheckCircle, FaExclamationCircle, FaSpinner } from 'react-icons/fa'
 
 const NoticeWrap = styled.div`

@@ -1,11 +1,12 @@
 //网络题库
 import React, { FC } from 'react'
-import styled from '@emotion/styled'
-import { Link, RouteComponentProps } from '@reach/router'
+import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 import { FaPlus } from 'react-icons/fa'
 
 const BlankWrap = styled.div`
-    height: calc(100% - 80px);
+    height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -48,12 +49,12 @@ const ButtonText = styled.div`
     height: 100%;
     line-height: 24px;
 `
-const NoData: FC<RouteComponentProps> = () => {
+const NetExercise: FC = () => {
     return (
         <BlankWrap>
             <BlankImg />
-            <BlankText>还没有题目，请先添加</BlankText>
-            <BlankButton to='/exercise/new' state={{ fromNewsFeed: sessionStorage.getItem('currentType') }}>
+            <BlankText>还没有题目，添加一个吧</BlankText>
+            <BlankButton to='/exercise/new'>
                 <ButtonTag>
                     <FaPlus />
                 </ButtonTag>
@@ -63,4 +64,4 @@ const NoData: FC<RouteComponentProps> = () => {
     )
 }
 
-export default NoData
+export default NetExercise

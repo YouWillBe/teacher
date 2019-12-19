@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { FaPlusCircle, FaMinusCircle } from 'react-icons/fa'
 
 interface IOption {

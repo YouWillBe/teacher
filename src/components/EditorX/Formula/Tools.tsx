@@ -1,5 +1,5 @@
 import React, { FC, MouseEvent } from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import Icon from '../../Icon'
 
 const Container = styled.div`

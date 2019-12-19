@@ -1,5 +1,5 @@
 import React, { FC, MouseEvent } from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 
 export const Container = styled.button<{ active: boolean }>`
     height: 24px;
@@ -11,7 +11,6 @@ export const Container = styled.button<{ active: boolean }>`
     box-shadow: 0 2px 0 rgba(0, 0, 0, 0.015);
     border: 1px solid ${props => (props.active ? '#1890ff' : '#d9d9d9')};
     color: ${props => (props.active ? '#fff' : 'rgba(0, 0, 0, 0.65)')};
-    background-color: #fff;
     touch-action: manipulation;
     font-size: 12px;
     border-radius: 4px;

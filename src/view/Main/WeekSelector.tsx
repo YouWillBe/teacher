@@ -1,6 +1,6 @@
 import React, { FC, useContext } from 'react'
 import { MobXProviderContext } from 'mobx-react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { useObserver } from 'mobx-react-lite'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa'
 
@@ -63,7 +63,6 @@ const Text = styled.div`
     display: flex;
     color: #3a93df;
     font-size: 20px;
-    display: flex;
     justify-content: space-between;
     align-items: center;
 `
@@ -112,7 +111,7 @@ const WeekSelector: FC = () => {
             ) : (
                 <Left title='上一周' onClick={() => classTableStore.previousWeek()}>
                     <Tag>
-                        <FaAngleLeft></FaAngleLeft>
+                        <FaAngleLeft />
                     </Tag>
                     <SmallText>
                         第<SmallNumber>{classTableStore.week - 1}</SmallNumber>周
@@ -132,7 +131,7 @@ const WeekSelector: FC = () => {
                         第<SmallNumber>{classTableStore.week + 1}</SmallNumber>周
                     </SmallText>
                     <Tag>
-                        <FaAngleRight></FaAngleRight>
+                        <FaAngleRight />
                     </Tag>
                 </Right>
             )}

@@ -1,5 +1,5 @@
 import React, { FC, useContext } from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { RouteComponentProps } from '@reach/router'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
@@ -8,7 +8,7 @@ import { Value } from 'slate'
 import { IStore } from '../../../store'
 import Editor from '../../../components/EditorX'
 import Knowledge from '../../../components/Knowledge'
-import OptionD from './OptionD'
+import OptionC from './OptionC'
 import PlusKnowledge from './PlusKnowledge'
 
 const ScrollbarWrap = styled.div`
@@ -70,22 +70,15 @@ const TopicWrap = styled.div`
     flex-grow: 1;
 `
 const OptionWrap = styled.div`
-    display: flex;
-    align-items: center;
     min-height: 60px;
-    padding-left: 20px;
-    font-size: 14px;
-    font-family: PingFangSC, sans-serif;
-    font-weight: 300;
-    color: rgba(51, 51, 51, 1);
-`
-const AnswerWrap = styled.div`
-    min-height: 60px;
-    padding-left: 20px;
-    font-size: 14px;
-    font-family: PingFangSC, sans-serif;
-    font-weight: 300;
-    color: rgba(51, 51, 51, 1);
+    padding-left: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 30px;
+    font-size: 16px;
+    font-family: PingFangSC-Regular, sans-serif;
+    font-weight: 400;
+    color: rgba(7, 41, 121, 1);
 `
 const SolutionWrap = styled.div`
     min-height: 60px;
@@ -99,21 +92,65 @@ const SolutionWrap = styled.div`
 interface Iprops {
     id: string
 }
-const ShortAnswerProblem: FC<RouteComponentProps<Iprops>> = () => {
+
+interface IAnswer {
+    id: number
+    value: Value
+}
+
+const FillingProblem: FC<RouteComponentProps<Iprops>> = () => {
     const { exerciseStore } = useContext<IStore>(MobXProviderContext)
 
     const handleSelectPoint = (data: { id: number; name: string }) => {
         exerciseStore.selectPoint(data)
     }
 
-    //题干
+    //题干/插入空位
     const handleChangeTopic = (value: Value) => {
         exerciseStore.problemData.topic = value
-    }
+        let data: any = {
+            value: value.toJS().document,
+        }
+        let answer: any = []
 
-    //答案
-    const handleChangeAnswer = (value: Value) => {
-        exerciseStore.problemData.answer = value
+        let newData = data.value.nodes.map((item: any) => {
+            return item.nodes.filter((t: any) => t.type === 'space').length
+        })
+        if (newData) {
+            let total = newData.reduce((total: number, num: number) => {
+                return total + num
+            })
+
+            for (let i = 0; i < total; i++) {
+                if (i < exerciseStore.problemData.answer.length) {
+                    answer[i] = {
+                        id: i + 1,
+                        value: exerciseStore.problemData.answer[i].value,
+                    }
+                } else {
+                    answer[i] = {
+                        id: i + 1,
+                        value: Value.fromJSON({
+                            document: {
+                                nodes: [
+                                    {
+                                        object: 'block',
+                                        type: 'paragraph',
+                                        nodes: [
+                                            {
+                                                object: 'text',
+                                                text: '',
+                                            },
+                                        ],
+                                    },
+                                ],
+                            },
+                        }),
+                    }
+                }
+            }
+            exerciseStore.problemData.answer = answer
+        }
     }
 
     //解析
@@ -128,7 +165,7 @@ const ShortAnswerProblem: FC<RouteComponentProps<Iprops>> = () => {
                     <ProblemText>知识点</ProblemText>
                     <KnowledgeWrap>
                         <PlusKnowledge />
-                        {exerciseStore.selectedPoints.map(item => (
+                        {exerciseStore.selectedPoints.map((item) => (
                             <Knowledge key={item.id} data={item} closable={true} onClickDeleted={handleSelectPoint} />
                         ))}
                     </KnowledgeWrap>
@@ -136,23 +173,20 @@ const ShortAnswerProblem: FC<RouteComponentProps<Iprops>> = () => {
                 <Package>
                     <ProblemText>题目</ProblemText>
                     <TopicWrap>
-                        <Editor value={Value.fromJSON(exerciseStore.problemData.topic)} onChange={handleChangeTopic} />
+                        <Editor
+                            value={Value.fromJSON(exerciseStore.problemData.topic)}
+                            onChange={handleChangeTopic}
+                            showVacancy={true}
+                        />
                     </TopicWrap>
                 </Package>
                 <Package>
-                    <ProblemText>数量</ProblemText>
-                    <OptionWrap>
-                        <OptionD />
-                    </OptionWrap>
-                </Package>
-                <Package>
                     <ProblemText>答案</ProblemText>
-                    <AnswerWrap>
-                        <Editor
-                            value={Value.fromJSON(exerciseStore.problemData.answer)}
-                            onChange={handleChangeAnswer}
-                        />
-                    </AnswerWrap>
+                    <OptionWrap>
+                        {exerciseStore.problemData.answer.map((item: IAnswer, index: number) => (
+                            <OptionC key={item.id} data={{ value: Value.fromJSON(item.value), index }} />
+                        ))}
+                    </OptionWrap>
                 </Package>
                 <Package>
                     <ProblemText>解析</ProblemText>
@@ -168,4 +202,4 @@ const ShortAnswerProblem: FC<RouteComponentProps<Iprops>> = () => {
     })
 }
 
-export default ShortAnswerProblem
+export default FillingProblem

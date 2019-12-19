@@ -16,7 +16,6 @@ const App: FC = () => {
                 <Route path='/plan'>
                     <Plan />
                 </Route>
-                {/* todo 处理试卷部分的路由*/}
                 <Route path='/volume'>
                     <Volume />
                 </Route>

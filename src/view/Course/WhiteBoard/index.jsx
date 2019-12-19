@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, useContext } from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { SketchField, Tools } from 'react-sketch'
 import { navigate } from '@reach/router'
 import { MobXProviderContext } from 'mobx-react'

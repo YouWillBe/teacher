@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { FaProjectDiagram } from 'react-icons/fa'
 
 const NoDataWrap = styled.div``

@@ -1,7 +1,7 @@
 import React, { FC, useContext, useState } from 'react'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 
 import { IStore } from '../../../store'
 import TObjective from './TObjective'

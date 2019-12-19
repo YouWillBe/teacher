@@ -1,5 +1,5 @@
 import React, { FC, useContext } from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { RouteComponentProps } from '@reach/router'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
@@ -8,7 +8,7 @@ import { Value } from 'slate'
 import { IStore } from '../../../store'
 import Editor from '../../../components/EditorX'
 import Knowledge from '../../../components/Knowledge'
-import OptionB from './OptionB'
+import OptionD from './OptionD'
 import PlusKnowledge from './PlusKnowledge'
 
 const ScrollbarWrap = styled.div`
@@ -70,9 +70,25 @@ const TopicWrap = styled.div`
     flex-grow: 1;
 `
 const OptionWrap = styled.div`
-    padding-left: 40px;
+    display: flex;
+    align-items: center;
+    min-height: 60px;
+    padding-left: 20px;
+    font-size: 14px;
+    font-family: PingFangSC, sans-serif;
+    font-weight: 300;
+    color: rgba(51, 51, 51, 1);
+`
+const AnswerWrap = styled.div`
+    min-height: 60px;
+    padding-left: 20px;
+    font-size: 14px;
+    font-family: PingFangSC, sans-serif;
+    font-weight: 300;
+    color: rgba(51, 51, 51, 1);
 `
 const SolutionWrap = styled.div`
+    min-height: 60px;
     padding-left: 20px;
     font-size: 14px;
     font-family: PingFangSC, sans-serif;
@@ -83,8 +99,7 @@ const SolutionWrap = styled.div`
 interface Iprops {
     id: string
 }
-
-const JudgeProblem: FC<RouteComponentProps<Iprops>> = () => {
+const ShortAnswerProblem: FC<RouteComponentProps<Iprops>> = () => {
     const { exerciseStore } = useContext<IStore>(MobXProviderContext)
 
     const handleSelectPoint = (data: { id: number; name: string }) => {
@@ -94,6 +109,11 @@ const JudgeProblem: FC<RouteComponentProps<Iprops>> = () => {
     //题干
     const handleChangeTopic = (value: Value) => {
         exerciseStore.problemData.topic = value
+    }
+
+    //答案
+    const handleChangeAnswer = (value: Value) => {
+        exerciseStore.problemData.answer = value
     }
 
     //解析
@@ -120,10 +140,19 @@ const JudgeProblem: FC<RouteComponentProps<Iprops>> = () => {
                     </TopicWrap>
                 </Package>
                 <Package>
-                    <ProblemText>选项</ProblemText>
+                    <ProblemText>数量</ProblemText>
                     <OptionWrap>
-                        <OptionB />
+                        <OptionD />
                     </OptionWrap>
+                </Package>
+                <Package>
+                    <ProblemText>答案</ProblemText>
+                    <AnswerWrap>
+                        <Editor
+                            value={Value.fromJSON(exerciseStore.problemData.answer)}
+                            onChange={handleChangeAnswer}
+                        />
+                    </AnswerWrap>
                 </Package>
                 <Package>
                     <ProblemText>解析</ProblemText>
@@ -139,4 +168,4 @@ const JudgeProblem: FC<RouteComponentProps<Iprops>> = () => {
     })
 }
 
-export default JudgeProblem
+export default ShortAnswerProblem

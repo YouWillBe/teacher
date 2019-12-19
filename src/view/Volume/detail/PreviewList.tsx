@@ -1,7 +1,7 @@
 import React, { useContext, useState, ChangeEventHandler, KeyboardEventHandler } from 'react'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { FiSearch } from 'react-icons/fi'
 
 import { IStore } from '../../../store'

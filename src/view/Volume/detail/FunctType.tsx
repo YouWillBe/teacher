@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { FaSave, FaExchangeAlt, FaMinusCircle, FaEye, FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 
 import { IStore } from '../../../store'

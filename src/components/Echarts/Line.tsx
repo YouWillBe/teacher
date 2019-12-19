@@ -1,5 +1,5 @@
 import React, { useEffect, FC, useRef } from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import Echart from 'echarts/lib/echarts'
 import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/title'

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, FC, useRef } from 'react'
 import { RenderInlineProps } from 'slate-react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import TeX from './Tex'
 
 import Editor from './Editor'

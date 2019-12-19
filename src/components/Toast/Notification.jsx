@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import Notice from './Notice'
 
 const TransitionGroupWrap = styled.div`

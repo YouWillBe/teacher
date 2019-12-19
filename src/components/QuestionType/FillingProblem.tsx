@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { Value } from 'slate'
 import { FaAngleDoubleUp, FaAngleDoubleDown } from 'react-icons/fa'
 

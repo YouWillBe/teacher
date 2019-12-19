@@ -1,5 +1,5 @@
 import React, { useContext, ChangeEventHandler, FC } from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { MobXProviderContext } from 'mobx-react'
 import { FaPlus, FaMinus } from 'react-icons/fa'
 

@@ -1,10 +1,5 @@
 const { override, addBabelPlugin } = require('customize-cra')
 
 module.exports = override(
-    addBabelPlugin([
-        'emotion',
-        {
-            labelFormat: '[filename]-[local]',
-        },
-    ])
+    addBabelPlugin('babel-plugin-styled-components')
 )

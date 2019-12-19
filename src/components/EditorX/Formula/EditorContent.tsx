@@ -1,6 +1,6 @@
 import React, { FC, MouseEvent } from 'react'
 import MathQuill from 'react-mathquill'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 
 const MyMath = styled(MathQuill)`
     font-size: 24px;

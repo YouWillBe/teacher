@@ -1,5 +1,5 @@
 import React, { useState, FC } from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import ReactSlider from 'react-slider'
 import { FaVolumeUp, FaVolumeDown, FaVolumeMute } from 'react-icons/fa'
 

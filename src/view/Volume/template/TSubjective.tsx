@@ -1,5 +1,5 @@
 import React, { useContext, ChangeEvent, FC } from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
 import { FaPlusCircle, FaMinusCircle } from 'react-icons/fa'

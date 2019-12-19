@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { Location, LocationContext } from '@reach/router'
 import { FaEye } from 'react-icons/fa'
 

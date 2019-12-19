@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { navigate } from '@reach/router'
 
 import boy from '../../../images/boy.png'

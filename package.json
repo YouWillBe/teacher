@@ -4,8 +4,6 @@
     "homepage": "https://www.likeyun.net",
     "private": true,
     "dependencies": {
-        "@emotion/core": "^10.0.22",
-        "@emotion/styled": "^10.0.23",
         "@reach/router": "^1.2.1",
         "@types/echarts": "^4.4.1",
         "@types/is-hotkey": "^0.1.1",
@@ -20,11 +18,11 @@
         "@types/react-slider": "^0.8.1",
         "@types/slate": "^0.47.3",
         "@types/slate-react": "^0.22.6",
+        "@types/styled-components": "^4.4.1",
         "axios": "^0.19.0",
         "create-react-class": "^15.6.3",
         "dayjs": "^1.8.17",
         "echarts": "^4.4.0",
-        "emotion-theming": "^10.0.19",
         "is-hotkey": "^0.1.6",
         "js-cookie": "^2.2.1",
         "katex": "^0.11.1",
@@ -47,7 +45,7 @@
         "screenfull": "^5.0.0",
         "slate": "^0.47.9",
         "slate-react": "^0.22.10",
-        "source-map-explorer": "^2.1.1",
+        "styled-components": "^5.0.0-rc.2",
         "ts-optchain": "^0.1.8",
         "typescript": "3.7.2",
         "use-onclickoutside": "^0.3.1"
@@ -73,7 +71,7 @@
         ]
     },
     "devDependencies": {
-        "babel-plugin-emotion": "^10.0.23",
+        "babel-plugin-styled-components": "^1.10.6",
         "customize-cra": "^0.8.0",
         "prettier": "^1.19.1",
         "react-app-rewired": "^2.1.5"

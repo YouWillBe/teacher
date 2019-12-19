@@ -2,7 +2,7 @@ import React, { FC, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 
 import { IStore } from '../../../store'
 import Loading from '../../../components/Loading'

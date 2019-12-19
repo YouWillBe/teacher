@@ -1,5 +1,5 @@
 import React, { forwardRef, Ref, useState, useRef } from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { RenderInlineProps } from 'slate-react'
 import { Resizable, ResizeCallback } from 're-resizable'
 import useOnClickOutside from 'use-onclickoutside'

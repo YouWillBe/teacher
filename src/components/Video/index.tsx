@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState, FC, MouseEventHandler } from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import ReactPlayer from 'react-player'
 import screenfull from 'screenfull'
 import { FaPlayCircle } from 'react-icons/fa'

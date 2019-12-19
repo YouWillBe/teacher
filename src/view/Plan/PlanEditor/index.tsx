@@ -1,6 +1,6 @@
 import React, { useState, useEffect, FC, useContext, ChangeEventHandler } from 'react'
 import { MobXProviderContext } from 'mobx-react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { Link, useParams } from 'react-router-dom'
 import { TiArrowBackOutline, TiEye } from 'react-icons/ti'
 import { MdHistory } from 'react-icons/md'

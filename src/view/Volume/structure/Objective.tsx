@@ -1,5 +1,5 @@
 import React, { useContext, ChangeEvent } from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { MobXProviderContext } from 'mobx-react'
 
 import { IStore } from '../../../store'

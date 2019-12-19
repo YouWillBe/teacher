@@ -1,5 +1,5 @@
-import React, { FC, useContext } from 'react'
-import styled from '@emotion/styled'
+import React, { FC, useContext, useState } from 'react'
+import styled from 'styled-components'
 import { RouteComponentProps } from '@reach/router'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
@@ -8,8 +8,9 @@ import { Value } from 'slate'
 import { IStore } from '../../../store'
 import Editor from '../../../components/EditorX'
 import Knowledge from '../../../components/Knowledge'
-import OptionC from './OptionC'
 import PlusKnowledge from './PlusKnowledge'
+import OptionA from './OptionA'
+import OptionListA from './OptionListA'
 
 const ScrollbarWrap = styled.div`
     box-sizing: border-box;
@@ -61,6 +62,8 @@ const KnowledgeWrap = styled.div`
     margin: 10px 0;
 `
 const TopicWrap = styled.div`
+    /* display: flex;
+    align-items: center; */
     min-height: 60px;
     font-size: 16px;
     font-family: PingFangSC-Light, sans-serif;
@@ -70,18 +73,9 @@ const TopicWrap = styled.div`
     flex-grow: 1;
 `
 const OptionWrap = styled.div`
-    min-height: 60px;
     padding-left: 40px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 30px;
-    font-size: 16px;
-    font-family: PingFangSC-Regular, sans-serif;
-    font-weight: 400;
-    color: rgba(7, 41, 121, 1);
 `
 const SolutionWrap = styled.div`
-    min-height: 60px;
     padding-left: 20px;
     font-size: 14px;
     font-family: PingFangSC, sans-serif;
@@ -93,64 +87,17 @@ interface Iprops {
     id: string
 }
 
-interface IAnswer {
-    id: number
-    value: Value
-}
-
-const FillingProblem: FC<RouteComponentProps<Iprops>> = () => {
+const ChoiceProblem: FC<RouteComponentProps<Iprops>> = () => {
     const { exerciseStore } = useContext<IStore>(MobXProviderContext)
+    const [answerOption] = useState(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'])
 
     const handleSelectPoint = (data: { id: number; name: string }) => {
         exerciseStore.selectPoint(data)
     }
 
-    //题干/插入空位
+    //题干
     const handleChangeTopic = (value: Value) => {
         exerciseStore.problemData.topic = value
-        let data: any = {
-            value: value.toJS().document,
-        }
-        let answer: any = []
-
-        let newData = data.value.nodes.map((item: any) => {
-            return item.nodes.filter((t: any) => t.type === 'space').length
-        })
-        if (newData) {
-            let total = newData.reduce((total: number, num: number) => {
-                return total + num
-            })
-
-            for (let i = 0; i < total; i++) {
-                if (i < exerciseStore.problemData.answer.length) {
-                    answer[i] = {
-                        id: i + 1,
-                        value: exerciseStore.problemData.answer[i].value,
-                    }
-                } else {
-                    answer[i] = {
-                        id: i + 1,
-                        value: Value.fromJSON({
-                            document: {
-                                nodes: [
-                                    {
-                                        object: 'block',
-                                        type: 'paragraph',
-                                        nodes: [
-                                            {
-                                                object: 'text',
-                                                text: '',
-                                            },
-                                        ],
-                                    },
-                                ],
-                            },
-                        }),
-                    }
-                }
-            }
-            exerciseStore.problemData.answer = answer
-        }
     }
 
     //解析
@@ -165,7 +112,7 @@ const FillingProblem: FC<RouteComponentProps<Iprops>> = () => {
                     <ProblemText>知识点</ProblemText>
                     <KnowledgeWrap>
                         <PlusKnowledge />
-                        {exerciseStore.selectedPoints.map((item) => (
+                        {exerciseStore.selectedPoints.map(item => (
                             <Knowledge key={item.id} data={item} closable={true} onClickDeleted={handleSelectPoint} />
                         ))}
                     </KnowledgeWrap>
@@ -173,21 +120,21 @@ const FillingProblem: FC<RouteComponentProps<Iprops>> = () => {
                 <Package>
                     <ProblemText>题目</ProblemText>
                     <TopicWrap>
-                        <Editor
-                            value={Value.fromJSON(exerciseStore.problemData.topic)}
-                            onChange={handleChangeTopic}
-                            showVacancy={true}
-                        />
+                        <Editor value={Value.fromJSON(exerciseStore.problemData.topic)} onChange={handleChangeTopic} />
                     </TopicWrap>
                 </Package>
                 <Package>
-                    <ProblemText>答案</ProblemText>
+                    <ProblemText>选项</ProblemText>
                     <OptionWrap>
-                        {exerciseStore.problemData.answer.map((item: IAnswer, index: number) => (
-                            <OptionC key={item.id} data={{ value: Value.fromJSON(item.value), index }} />
-                        ))}
+                        <OptionA />
                     </OptionWrap>
                 </Package>
+                {exerciseStore.problemData.option.map((item: any, index: number) => (
+                    <Package key={index}>
+                        <ProblemText>{answerOption[index]}</ProblemText>
+                        <OptionListA key={index + 'a'} data={{ value: item.value, index }} />
+                    </Package>
+                ))}
                 <Package>
                     <ProblemText>解析</ProblemText>
                     <SolutionWrap>
@@ -202,4 +149,4 @@ const FillingProblem: FC<RouteComponentProps<Iprops>> = () => {
     })
 }
 
-export default FillingProblem
+export default ChoiceProblem

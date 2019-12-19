@@ -1,5 +1,5 @@
 import React, { useState, useRef, FC, useContext, useEffect } from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
 import { FaUserTie } from 'react-icons/fa'

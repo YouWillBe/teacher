@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { FaSpinner } from 'react-icons/fa'
-import { keyframes } from '@emotion/core'
+import { keyframes } from 'styled-components'
 
 const spin = keyframes`
     0% {

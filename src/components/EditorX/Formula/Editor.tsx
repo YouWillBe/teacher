@@ -1,6 +1,6 @@
 import React, { FC, useRef, useState } from 'react'
 import useOnClickOutside from 'use-onclickoutside'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 
 import Tools from './Tools'
 import EditorContent from './EditorContent'

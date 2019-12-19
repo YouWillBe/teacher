@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useContext, useState, ChangeEventHandler, KeyboardEventHandler } from 'react'
-import styled from '@emotion/styled'
-import { RouteComponentProps } from '@reach/router'
+import styled from 'styled-components'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
 import { FiSearch } from 'react-icons/fi'
@@ -8,26 +7,23 @@ import { FiSearch } from 'react-icons/fi'
 import { IStore } from '../../../store'
 import TopicType from './TopicType'
 import Section from './Section'
-import NoData from '../net/NoData'
+import NoData from '../NetQuestionBank/NoData'
 import Loading from '../../../components/Loading'
 
 const Container = styled.div`
     width: 100%;
     height: 100%;
 `
-
-const Header = styled.header`
+const Header = styled.div`
     box-sizing: border-box;
     display: flex;
-    height: 80px;
     align-items: center;
     justify-content: space-between;
-    padding: 0 20px;
+    padding: 12px 20px;
 `
 const TypeWrap = styled.ul`
     display: flex;
     width: 100%;
-    height: 40px;
 `
 const SearchWrap = styled.div`
     margin-right: 10px;
@@ -35,31 +31,28 @@ const SearchWrap = styled.div`
 `
 const FontWrap = styled.div`
     position: absolute;
-    top: 50%;
     left: 10px;
-    transform: translateY(-50%);
-    svg {
-        color: #979797;
-        font-size: 20px;
-    }
+    height: 100%;
+    color: #979797;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
 `
 
 const Input = styled.input`
-    width: 300px;
-    height: 40px;
+    width: 150px;
     background: rgba(255, 255, 255, 1);
-    box-shadow: 0px 4px 6px 0px rgba(88, 96, 247, 0.1);
-    border-radius: 10px;
+    border-radius: 6px;
     outline: none;
-    border: 1px solid #fff;
-    padding-left: 40px;
+    border: 1px solid #eee;
+    padding: 8px 12px 8px 40px;
 `
 interface ITopicTypeArr {
     id: string
     name: string
 }
 
-const NetExercise: FC<RouteComponentProps> = props => {
+const MyQuestionBank: FC = () => {
     const { exerciseStore } = useContext<IStore>(MobXProviderContext)
     const [typeArr] = useState([
         {
@@ -132,7 +125,7 @@ const NetExercise: FC<RouteComponentProps> = props => {
     }
 
     const handleKeyDownEdit: KeyboardEventHandler = event => {
-        if (event.which === 13) {
+        if(event.which === 13) {
             let datas = {
                 limit: 10,
                 page: 1,
@@ -166,28 +159,24 @@ const NetExercise: FC<RouteComponentProps> = props => {
                                 currentType,
                             }}
                             onClickType={handleClickTypeLink}
-                        ></TopicType>
+                        />
                     </TypeWrap>
                     <SearchWrap>
                         <FontWrap>
-                            <FiSearch></FiSearch>
+                            <FiSearch />
                         </FontWrap>
                         <Input
                             value={keyWord}
                             placeholder='搜索知识点'
                             onChange={handleChangeKeyWord}
                             onKeyDown={handleKeyDownEdit}
-                        ></Input>
+                        />
                     </SearchWrap>
                 </Header>
-                {exerciseStore.problemList.length < 1 ? (
-                    <NoData></NoData>
-                ) : (
-                    <Section currentType={currentType}></Section>
-                )}
+                {exerciseStore.problemList.length < 1 ? <NoData /> : <Section currentType={currentType} />}
             </Container>
         )
     })
 }
 
-export default NetExercise
+export default MyQuestionBank
