@@ -63,6 +63,7 @@ const ButtonWrap = styled.div`
 `
 
 interface IProps {
+    isSaveNext?: boolean
     onClickClose(): void
 }
 
@@ -185,11 +186,13 @@ function BlockEdit(props: IProps) {
                                 <FaSave></FaSave>保存
                             </Button>
                         </ButtonWrap>
-                        <ButtonWrap>
-                            <Button onClick={() => handleClickClose('保存并下一步')}>
-                                <FaSave></FaSave>保存并下一步
-                            </Button>
-                        </ButtonWrap>
+                        {!props.isSaveNext && (
+                            <ButtonWrap>
+                                <Button onClick={() => handleClickClose('保存并下一步')}>
+                                    <FaSave></FaSave>保存并下一步
+                                </Button>
+                            </ButtonWrap>
+                        )}
                     </FunctWrap>
                 </Header>
                 <BlockEditSection totalScore={totalScore}></BlockEditSection>

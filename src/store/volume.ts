@@ -507,6 +507,7 @@ class VolumeStore implements IVolumeStore {
                 limit: 3,
             })
             if (res.success) {
+                this.templateObject = res.data[0]
                 this.templateList = res.data
                 this.templateListPage = res.page
                 this.templatePage = page

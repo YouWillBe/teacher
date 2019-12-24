@@ -29,7 +29,7 @@ export interface IPointStore {
 
 class PointStore implements IPointStore {
     @observable points: Point[] = []
-     localTag: number[] = []
+    localTag: number[] = []
     @observable tags: Tag[] = []
     @observable currentTag: number = 0
     @observable tagReady: boolean = false
@@ -53,10 +53,9 @@ class PointStore implements IPointStore {
         if (!this.localTag.includes(tagId)) {
             this.pointReady = false
             const res = await api.point.getPoints({ id: tagId })
-            console.log(res)
             if (res.success) {
-                this.localTag =  append(tagId,this.localTag)
-                this.points = append({pid: tagId, lores: res.data}, this.points)
+                this.localTag = append(tagId, this.localTag)
+                this.points = append({ pid: tagId, lores: res.data }, this.points)
                 this.currentPoints = res.data
                 this.pointReady = true
             }

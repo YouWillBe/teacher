@@ -1,5 +1,5 @@
 import React, { FC, useContext, useEffect, useState } from 'react'
-import { RouteComponentProps, navigate } from '@reach/router'
+import { RouteComponentProps } from '@reach/router'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
 import styled from '@emotion/styled'
@@ -65,9 +65,6 @@ const Templet: FC<RouteComponentProps<IProps>> = props => {
 
     useEffect(() => {
         volumeStore.getTemplateList(1)
-        if (props.location!.state.status === 'auto') {
-            setCurrentId(volumeStore.templateObject.id)
-        }
         // eslint-disable-next-line
     }, [])
 
@@ -162,16 +159,6 @@ const Templet: FC<RouteComponentProps<IProps>> = props => {
         volumeStore.createVolume(data)
     }
 
-    //生成试卷
-    const handleClickAuto = () => {
-        navigate('/volume/automatic')
-    }
-
-    const optionButton = {
-        bgColor: '#015691',
-        HbgColor: '#186194',
-    }
-
     return useObserver(() => {
         return (
             <Container>
@@ -198,20 +185,12 @@ const Templet: FC<RouteComponentProps<IProps>> = props => {
                         <FaChevronRight title='下一页'></FaChevronRight>
                     </ChevronRight>
                 )}
-                {currentId !== 0 && (
-                    <FooterWrap>
-                        {props.location!.state.status === 'auto' ? (
-                            <Button options={optionButton} onClick={handleClickAuto}>
-                                选择完成
-                            </Button>
-                        ) : (
-                            <Button onClick={handleClickNextSave}>
-                                <Span>下一步</Span>
-                                <FaChevronRight title='下一步'></FaChevronRight>
-                            </Button>
-                        )}
-                    </FooterWrap>
-                )}
+                <FooterWrap>
+                    <Button onClick={handleClickNextSave}>
+                        <Span>下一步</Span>
+                        <FaChevronRight title='下一步'></FaChevronRight>
+                    </Button>
+                </FooterWrap>
             </Container>
         )
     })

@@ -1,5 +1,5 @@
-import React, { FC, useContext, useState } from 'react'
-import { RouteComponentProps, navigate } from '@reach/router'
+import React, { FC, useEffect, useContext, useState } from 'react'
+import { RouteComponentProps } from '@reach/router'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
 import styled from '@emotion/styled'
@@ -7,8 +7,9 @@ import styled from '@emotion/styled'
 import { IStore } from '../../../store'
 import Block from '../templet/Block'
 import Button from '../../../components/Button'
-import PointSelector from '../../../components/PointSelector'
+import LoreList from '../../../components/PointSelector/LoreList'
 import Knowledge from '../../../components/Knowledge'
+import noEntry from '../../../images/noEntry.png'
 
 const Container = styled.div`
     width: 1260px;
@@ -26,12 +27,42 @@ const Left = styled.div`
     box-shadow: 0px 4px 11px 0px rgba(64, 158, 255, 0.1);
     border-radius: 4px;
 `
-const ButtonWrap = styled.div`
+const LoreListWrap = styled.div`
+    padding-right: 10px;
+    border: 1px solid rgba(217, 217, 217, 1);
+    border-radius: 4px;
+`
+const LoreListWrap1 = styled.div`
+    max-height: 480px;
+    overflow-y: auto;
+    &::-webkit-scrollbar-button {
+        background-color: #fff;
+    }
+    &::-webkit-scrollbar {
+        background-color: #fff;
+        width: 8px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: rgba(66, 88, 99, 0.4);
+        border-radius: 10px;
+    }
+    &::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background-color: #ddd;
+    }
+`
+const Title = styled.div`
+    font-size: 16px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 500;
+    color: rgba(51, 51, 51, 1);
     margin-bottom: 20px;
 `
 const PointsWrap = styled.ul`
     box-sizing: border-box;
     width: 100%;
+    min-height: 180px;
+    margin-bottom: 20px;
     display: flex;
     flex-wrap: wrap;
     border-radius: 4px;
@@ -41,22 +72,59 @@ const PointsWrap = styled.ul`
 const PointsItem = styled.li``
 
 const NoData = styled.div`
-    height: 100%;
+    position: relative;
+    box-sizing: border-box;
+    height: 180px;
     display: flex;
     align-items: center;
     justify-content: center;
+    background: url(${noEntry}) no-repeat center;
+    border-radius: 4px;
+    border: 1px solid #d9d9d9;
+    margin-bottom: 20px;
 `
-
+const NoLoreText = styled.div`
+    position: absolute;
+    right: 220px;
+    font-size: 14px;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    color: rgba(153, 153, 153, 1);
+`
 const Right = styled.div`
     box-sizing: border-box;
     padding: 20px;
-    height: 312px;
     box-shadow: 0px 4px 11px 0px rgba(64, 158, 255, 0.1);
     border-radius: 4px;
 `
+const BlockWrap = styled.div`
+    margin-bottom: 20px;
+`
+const NoVolume = styled.div`
+    display: flex;
+    box-sizing: border-box;
+    height: 100%;
+`
+const VolumeImg = styled.div`
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    background: url(${noEntry}) no-repeat center;
+`
+
+const NoVolumeText = styled.div`
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    color: rgba(153, 153, 153, 1);
+`
 const FooterWrap = styled.div`
     width: 100%;
-    height: 260px;
+    margin-top: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -69,19 +137,12 @@ interface IPoint {
 
 const Automatic: FC<RouteComponentProps> = () => {
     const { volumeStore } = useContext<IStore>(MobXProviderContext)
-    const [isShowKnowledge, setIsShowKnowledge] = useState(false)
     const [currentId, setCurrentId] = useState(0)
 
-    //打开弹窗
-    const handleClickKnowledge = () => {
-        setIsShowKnowledge(true)
-        volumeStore.getLoreList()
-    }
-
-    //关闭弹窗
-    const handleClickClose = () => {
-        setIsShowKnowledge(false)
-    }
+    useEffect(() => {
+        volumeStore.getTemplateList(1)
+        // eslint-disable-next-line
+    }, [])
 
     //知识点
     const handleSelectPoint = (point: IPoint) => {
@@ -98,6 +159,7 @@ const Automatic: FC<RouteComponentProps> = () => {
         if (currentId === data.id) {
             setCurrentId(0)
         } else {
+            volumeStore.templateObject = data
             setCurrentId(data.id)
         }
     }
@@ -105,11 +167,6 @@ const Automatic: FC<RouteComponentProps> = () => {
     //编辑模板
     const handleClickTempletEdit = (id: number) => {
         volumeStore.getVolumeTemplateDetail(id)
-    }
-
-    //
-    const handleClickLine = () => {
-        navigate('/volume/templet', { state: { status: 'auto' } })
     }
 
     //生成试卷
@@ -130,11 +187,6 @@ const Automatic: FC<RouteComponentProps> = () => {
         volumeStore.createAutomaticVolume(data)
     }
 
-    const optionButton = {
-        height: '32px',
-        bgColor: '#409EFF',
-    }
-
     const optionButton1 = {
         bgColor: '#015691',
         HbgColor: '#186194',
@@ -145,13 +197,9 @@ const Automatic: FC<RouteComponentProps> = () => {
             <Container>
                 <Wrap>
                     <Left>
+                        <Title>选择知识点范围</Title>
                         {volumeStore.selectedAutoPoints.length ? (
                             <>
-                                <ButtonWrap>
-                                    <Button options={optionButton} onClick={handleClickKnowledge}>
-                                        选择知识点
-                                    </Button>
-                                </ButtonWrap>
                                 <PointsWrap>
                                     {volumeStore.selectedAutoPoints.map(item => (
                                         <PointsItem key={item.id}>
@@ -166,33 +214,39 @@ const Automatic: FC<RouteComponentProps> = () => {
                             </>
                         ) : (
                             <NoData>
-                                <Button options={optionButton} onClick={handleClickKnowledge}>
-                                    选择知识点
-                                </Button>
+                                <NoLoreText>点击下面添加知识点</NoLoreText>
                             </NoData>
                         )}
+                        <LoreListWrap>
+                            <LoreListWrap1>
+                                <LoreList
+                                    isSelected={true}
+                                    selectedPoints={volumeStore.selectedAutoPoints}
+                                    selectPoint={handleSelectPoint}
+                                    selectedPointsId={volumeStore.selectedAutoPointsId}
+                                ></LoreList>
+                            </LoreListWrap1>
+                        </LoreListWrap>
                     </Left>
                     <Right>
-                        {volumeStore.templateObject.id ? (
-                            <>
-                                <ButtonWrap>
-                                    <Button options={optionButton} onClick={handleClickLine}>
-                                        选择模板
-                                    </Button>
-                                </ButtonWrap>
-                                <Block
-                                    data={{ ...volumeStore.templateObject, index: 0, currentId }}
-                                    deleteVolumeTemplate={handleDeleteVolumeTemplate}
-                                    onClickTemplet={hanleClickTemplet}
-                                    onClickTempletEdit={handleClickTempletEdit}
-                                ></Block>
-                            </>
+                        <Title>选择试卷模板</Title>
+                        {volumeStore.templateList.length ? (
+                            volumeStore.templateList.slice(0, 3).map((item, index) => (
+                                <BlockWrap key={item.id}>
+                                    <Block
+                                        isSaveNext={true}
+                                        data={{ ...item, index, currentId: volumeStore.templateObject.id }}
+                                        deleteVolumeTemplate={handleDeleteVolumeTemplate}
+                                        onClickTemplet={hanleClickTemplet}
+                                        onClickTempletEdit={handleClickTempletEdit}
+                                    ></Block>
+                                </BlockWrap>
+                            ))
                         ) : (
-                            <NoData>
-                                <Button options={optionButton} onClick={handleClickLine}>
-                                    选择模板
-                                </Button>
-                            </NoData>
+                            <NoVolume>
+                                <VolumeImg></VolumeImg>
+                                <NoVolumeText>点击下面添加知识点</NoVolumeText>
+                            </NoVolume>
                         )}
                     </Right>
                 </Wrap>
@@ -203,14 +257,6 @@ const Automatic: FC<RouteComponentProps> = () => {
                         </Button>
                     </FooterWrap>
                 ) : null}
-                {isShowKnowledge && (
-                    <PointSelector
-                        selectedPoints={volumeStore.selectedAutoPoints}
-                        onClose={handleClickClose}
-                        selectPoint={handleSelectPoint}
-                        selectedPointsId={volumeStore.selectedAutoPointsId}
-                    />
-                )}
             </Container>
         )
     })

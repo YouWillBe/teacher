@@ -179,6 +179,7 @@ interface IData {
 }
 
 interface IProps {
+    isSaveNext?: boolean
     data: IData
     deleteVolumeTemplate(id: number): void
     onClickTemplet(data: IData): void
@@ -280,7 +281,7 @@ function BackList(props: IProps) {
             </Package>
             {isSwitch && (
                 <Dialog title='编辑' onClickClose={handleClickEdit}>
-                    <BlockEdit onClickClose={handleClickEdit}></BlockEdit>
+                    <BlockEdit onClickClose={handleClickEdit} isSaveNext={props.isSaveNext}></BlockEdit>
                 </Dialog>
             )}
         </Container>
