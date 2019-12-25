@@ -12,17 +12,18 @@ const Wrap = styled.div<{ active: boolean }>`
     height: 100%;
     position: relative;
     top: 1px;
-    background-color: #fff;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid transparent;
-    border-color: ${props => props.active ? '#e9e9e9' : 'transparent'};
-    border-bottom-color: ${props => props.active ? 'transparent' : '#e9e9e9'};
+    border-width: 1px;
+    border-style: solid;
+    border-color: ${props => props.active ? '#ccc' : 'transparent'};
+    border-bottom-color: ${props => props.active ? '#f5f5f5' : '#ccc'};
     transition: all 0.1s linear;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
+    //background-color: ${props => props.active ? '#fff' : '#f5f5f5'};
 `
 
 interface IProps {

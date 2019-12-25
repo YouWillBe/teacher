@@ -1,4 +1,3 @@
-//网络题库
 import React, { FC, useContext, useState } from 'react'
 import styled from 'styled-components'
 import { MobXProviderContext } from 'mobx-react'
@@ -7,6 +6,8 @@ import { useObserver } from 'mobx-react-lite'
 import { IStore } from '../../../store'
 import QuestionType from '../../../components/QuestionType'
 import Paging from '../../../components/Paging'
+import NoData from '../NetQuestionBank/NoData'
+import Loading from '../../../components/Loading'
 
 const ScrollbarWrap = styled.div`
     box-sizing: border-box;
@@ -46,9 +47,6 @@ const Li = styled.li`
 const PagingWrap = styled.div`
     margin-bottom: 20px;
 `
-interface IProps {
-    currentType: string
-}
 interface ILoreList {
     id: number
     name: string
@@ -67,27 +65,9 @@ interface IProblemList {
     showEditPick?: number | 0
 }
 
-const Section: FC<IProps> = props => {
+const List: FC = () => {
     const { exerciseStore } = useContext<IStore>(MobXProviderContext)
     const [answerOption] = useState(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'])
-
-    //分页
-    const handleChangePaging = (value: number) => {
-        let data = {
-            page: value,
-            limit: 10,
-            type: Number(props.currentType),
-            field: 'entry_time',
-            order: 'desc',
-        }
-        exerciseStore.problemListPage.page = value
-        if (props.currentType === '0') {
-            delete data.type
-            exerciseStore.getProblemList(data)
-        } else {
-            exerciseStore.getProblemTypeList(data)
-        }
-    }
 
     //处理数据
     const problemList = (data: IProblemList) => {
@@ -103,10 +83,7 @@ const Section: FC<IProps> = props => {
                 data.option = JSON.parse(data.option)
             }
             data.option.map((item: any, index: number) => {
-                item.statu = false
-                if (data.answer === answerOption[index]) {
-                    item.statu = true
-                }
+                item.statu = data.answer === answerOption[index]
                 return item
             })
         } else if (data.type === 2) {
@@ -132,6 +109,11 @@ const Section: FC<IProps> = props => {
     }
 
     return useObserver(() => {
+        if (exerciseStore.gettingProblemList) {
+            return <Loading />
+        } else if (exerciseStore.problemList.length < 1) {
+            return <NoData />
+        }
         return (
             <ScrollbarWrap>
                 <Container>
@@ -144,7 +126,7 @@ const Section: FC<IProps> = props => {
                 {exerciseStore.problemListPage.total > 10 && (
                     <PagingWrap>
                         <Paging
-                            onChange={handleChangePaging}
+                            onChange={(page: number) => exerciseStore.changePage(page)}
                             current={exerciseStore.problemListPage.page}
                             total={Math.ceil(exerciseStore.problemListPage.total / exerciseStore.problemListPage.limit)}
                         />
@@ -155,4 +137,4 @@ const Section: FC<IProps> = props => {
     })
 }
 
-export default Section
+export default List

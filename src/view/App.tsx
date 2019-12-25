@@ -19,7 +19,7 @@ const App: FC = () => {
                 <Route path='/volume'>
                     <Volume />
                 </Route>
-                {/* todo 处理题库部分的路由*/}
+                {/* todo 处理题库部分的路由 */}
                 <Route path='/exercise'>
                     <Exercise />
                 </Route>

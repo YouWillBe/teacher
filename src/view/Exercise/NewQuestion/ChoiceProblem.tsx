@@ -7,15 +7,12 @@ import { Value } from 'slate'
 
 import { IStore } from '../../../store'
 import Editor from '../../../components/EditorX'
-import Knowledge from '../../../components/Knowledge'
-import PlusKnowledge from './PlusKnowledge'
 import OptionA from './OptionA'
 import OptionListA from './OptionListA'
 
 const ScrollbarWrap = styled.div`
     box-sizing: border-box;
     width: 100%;
-    height: 100%;
     overflow-y: auto;
     padding: 0 20px 20px;
     &::-webkit-scrollbar-button {
@@ -52,18 +49,7 @@ const ProblemText = styled.div`
     font-weight: 500;
     color: rgba(58, 147, 223, 1);
 `
-
-const KnowledgeWrap = styled.div`
-    padding-left: 40px;
-    min-height: 60px;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    margin: 10px 0;
-`
 const TopicWrap = styled.div`
-    /* display: flex;
-    align-items: center; */
     min-height: 60px;
     font-size: 16px;
     font-family: PingFangSC-Light, sans-serif;
@@ -108,15 +94,6 @@ const ChoiceProblem: FC<RouteComponentProps<Iprops>> = () => {
     return useObserver(() => {
         return (
             <ScrollbarWrap>
-                <Package>
-                    <ProblemText>知识点</ProblemText>
-                    <KnowledgeWrap>
-                        <PlusKnowledge />
-                        {exerciseStore.selectedPoints.map(item => (
-                            <Knowledge key={item.id} data={item} closable={true} onClickDeleted={handleSelectPoint} />
-                        ))}
-                    </KnowledgeWrap>
-                </Package>
                 <Package>
                     <ProblemText>题目</ProblemText>
                     <TopicWrap>

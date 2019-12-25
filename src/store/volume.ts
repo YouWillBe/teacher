@@ -733,7 +733,7 @@ class VolumeStore implements IVolumeStore {
     @action async getProblemTypeList(data: IGetProblemList) {
         this.gettingProblemList = true
         try {
-            const res = await api.exercise.getProblemTypeList(data)
+            const res = await api.exercise.getProblemList(data)
             if (res.success) {
                 this.problemList = res.data
                 this.problemListPage = res.page

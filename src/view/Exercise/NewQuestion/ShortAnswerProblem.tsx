@@ -125,15 +125,6 @@ const ShortAnswerProblem: FC<RouteComponentProps<Iprops>> = () => {
         return (
             <ScrollbarWrap>
                 <Package>
-                    <ProblemText>知识点</ProblemText>
-                    <KnowledgeWrap>
-                        <PlusKnowledge />
-                        {exerciseStore.selectedPoints.map(item => (
-                            <Knowledge key={item.id} data={item} closable={true} onClickDeleted={handleSelectPoint} />
-                        ))}
-                    </KnowledgeWrap>
-                </Package>
-                <Package>
                     <ProblemText>题目</ProblemText>
                     <TopicWrap>
                         <Editor value={Value.fromJSON(exerciseStore.problemData.topic)} onChange={handleChangeTopic} />

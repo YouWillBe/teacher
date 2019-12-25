@@ -1,6 +1,6 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC } from 'react'
 import styled from 'styled-components'
-import { useHistory, useParams, useLocation, NavLink, Switch, Route } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 
 import Nav from './Nav'
 import Header from '../../components/Header'
@@ -16,6 +16,7 @@ const Wrap = styled.div`
     padding-top: 80px;
     padding-bottom: 20px;
     position: relative;
+    background-color: #f5f5f5;
 `
 
 const Container = styled.div`
@@ -29,46 +30,7 @@ const Container = styled.div`
     position: relative;
 `
 
-const ExerciseIndex: FC = props => {
-    // const [exerciseArr] = useState([
-    //     {
-    //         id: 1,
-    //         name: '我的题库',
-    //         url: '/exercise',
-    //     },
-    //     {
-    //         id: 2,
-    //         name: '网络题库',
-    //         url: '/exercise/NetQuestionBank',
-    //     },
-    //     {
-    //         id: 3,
-    //         name: '添加题目',
-    //         url: '/exercise/new',
-    //     },
-    // ])
-    // const [pathName, setPathName] = useState('/exercise')
-    //
-    // useEffect(() => {
-    //     if (props.location) {
-    //         let value = props.location.pathname.split('/')
-    //         if (Number(value[2])) {
-    //             setPathName('/' + value[1])
-    //         } else {
-    //             setPathName(props.location.pathname)
-    //         }
-    //     }
-    //     // eslint-disable-next-line
-    // }, [props.location!.pathname])
-    //
-    // //跳转路由
-    // const handleClickLink = (data: any) => {
-    //     navigate(data.url, {
-    //         state: {
-    //             myExercise: true,
-    //         },
-    //     })
-    // }
+const ExerciseIndex: FC = () => {
     return (
         <Wrap>
             <Header />
@@ -78,19 +40,14 @@ const ExerciseIndex: FC = props => {
                     <Route path='/exercise/net'>
                         <NetQuestionBank />
                     </Route>
+                    <Route path='/exercise/new'>
+                        <NewQuestion />
+                    </Route>
                     <Route path='/exercise'>
                         <MyQuestionBank />
                     </Route>
                 </Switch>
             </Container>
-            {/*<Container myHeight={props.location!.pathname === '/exercise/new'}>*/}
-            {/*    <RouterWrap>*/}
-            {/*        <Exercise path='/' />*/}
-            {/*        <NetExercise path='NetQuestionBank' />*/}
-            {/*        <NewExercise path='new' />*/}
-            {/*        <NewExercise path=':id' />*/}
-            {/*    </RouterWrap>*/}
-            {/*</Container>*/}
         </Wrap>
     )
 }

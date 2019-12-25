@@ -60,6 +60,7 @@ interface IProps {
     data: IData
     closable?: boolean
     onClickDeleted?(data: IData): void
+    className?: string
 }
 
 const Knowledge: FC<IProps> = props => {
@@ -69,7 +70,7 @@ const Knowledge: FC<IProps> = props => {
         }
     }
     return (
-        <Container>
+        <Container className={props.className}>
             <Text title={props.data.name} closable={props.closable || false}>
                 {props.data.name}
             </Text>

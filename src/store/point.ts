@@ -53,7 +53,6 @@ class PointStore implements IPointStore {
         if (!this.localTag.includes(tagId)) {
             this.pointReady = false
             const res = await api.point.getPoints({ id: tagId })
-            console.log(res)
             if (res.success) {
                 this.localTag =  append(tagId,this.localTag)
                 this.points = append({pid: tagId, lores: res.data}, this.points)

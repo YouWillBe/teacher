@@ -5,6 +5,7 @@ import { append } from 'ramda'
 import Toast from '../components/Toast'
 
 import api from '../api'
+
 interface ILoreList {
     id: number
     name: string
@@ -29,7 +30,7 @@ interface IProblemListPage {
 interface IGetProblemList {
     limit: number
     page: number
-    type?: number
+    type: number
     keyword?: string
 }
 
@@ -93,12 +94,15 @@ let values = Value.fromJSON({
 export interface IExerciseStore {
     currentAnswer: ICurrentAnswer[]
 
+    questionListInitialized: boolean
+    currentType: number
+    changeCurrentType(index: number): Promise<void>
+    changePage(page: number): Promise<void>
+    initialQuestionList(): Promise<void>
     problemListReady: boolean
     gettingProblemList: boolean
     problemList: IProblemList[]
     problemListPage: IProblemListPage
-    getProblemList(data: IGetProblemList): Promise<void>
-    getProblemTypeList(data: IGetProblemList): Promise<void>
 
     problemReady: boolean
     gettingProblem: boolean
@@ -126,6 +130,8 @@ class ExerciseStore implements IExerciseStore {
 
     @observable currentAnswer: ICurrentAnswer[] = []
 
+    @observable currentType = 0
+    @observable questionListInitialized = false
     @observable problemListReady = false
     @observable gettingProblemList = false
     @observable problemList: IProblemList[] = []
@@ -168,32 +174,55 @@ class ExerciseStore implements IExerciseStore {
         }
     }
 
-    //题库列表
-    @action async getProblemList(data: IGetProblemList) {
-        this.gettingProblemList = true
+    // 初始化我的题库列表
+    @action async initialQuestionList() {
         try {
-            const res = await api.exercise.getProblemList(data)
+            const data = {
+                limit: 10,
+                page: 1,
+            }
+            const res = await api.exercise.getProblemList(
+                this.currentType === 0 ? data : { ...data, type: this.currentType }
+            )
             if (res.success) {
                 this.problemList = res.data
                 this.problemListPage = res.page
-                this.gettingProblemList = false
-                this.problemListReady = true
+                this.questionListInitialized = true
             }
         } catch (error) {}
     }
 
-    //题库类型
-    @action async getProblemTypeList(data: IGetProblemList) {
+    // 改变我的题库列表过滤类型
+    @action async changeCurrentType(index: number) {
+        this.currentType = index
+        const data = {
+            limit: 10,
+            page: 1,
+        }
         this.gettingProblemList = true
-        try {
-            const res = await api.exercise.getProblemTypeList(data)
-            if (res.success) {
-                this.problemList = res.data
-                this.problemListPage = res.page
-                this.gettingProblemList = false
-                this.problemListReady = true
-            }
-        } catch (error) {}
+        const res = await api.exercise.getProblemList(index === 0 ? data : { ...data, type: index })
+        if (res.success) {
+            this.problemList = res.data
+            this.problemListPage = res.page
+            this.gettingProblemList = false
+        }
+    }
+
+    // 改变我的题库列表当前页数
+    @action async changePage(page: number) {
+        const data = {
+            limit: 10,
+            page: page,
+        }
+        this.gettingProblemList = true
+        const res = await api.exercise.getProblemList(
+            this.currentType === 0 ? data : { ...data, type: this.currentType }
+        )
+        if (res.success) {
+            this.problemList = res.data
+            this.problemListPage = res.page
+            this.gettingProblemList = false
+        }
     }
 
     //题库单题查看

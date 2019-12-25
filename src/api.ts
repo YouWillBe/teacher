@@ -153,8 +153,7 @@ const volume = {
 }
 
 const exercise = {
-    getProblemList: (data: any) => request.get('/problem-lists', data),
-    getProblemTypeList: (data: any) => request.get('/problem-type-lists', data),
+    getProblemList: (data: any) => request.get('/problem-type-lists', data),
     getProblem: (id: number) => request.get(`/problems/${id}`),
     addProblem: (data: any) => request.post('/problems', data),
     editProblem: (data: any) => request.put('/problems/update', data),
