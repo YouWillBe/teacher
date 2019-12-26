@@ -5,17 +5,25 @@ import { useObserver } from 'mobx-react-lite'
 
 import { IStore } from '../../store'
 
+import getScrollBarWidth from '../../utils/getScrollBarWidth'
+
 const LoreListWrap = styled.div`
     display: flex;
     height: 100%;
     width: 100%;
     justify-content: space-between;
 `
-const TagWrap = styled.div`
+const TagWrapWindow = styled.div`
     width: 180px;
     height: 100%;
     border-right: 1px solid rgba(151, 151, 151, 0.3);
     flex-shrink: 0;
+    overflow-x: hidden;
+`
+const TagWrap = styled.div`
+    height: 100%;
+    width: calc(100% + ${getScrollBarWidth()}px);
+    overflow-y: scroll;
 `
 const Tag = styled.div<{ checked: boolean }>`
     box-sizing: border-box;
@@ -38,10 +46,16 @@ const Tag = styled.div<{ checked: boolean }>`
         color: rgba(58, 147, 223, 1);
     }
 `
-const Center = styled.div`
+const CenterWindow = styled.div`
     flex-grow: 1;
-    padding-left: 6px;
-    padding-right: 6px;
+    overflow-x: hidden;
+    margin-left: 6px;
+    margin-right: 6px;
+`
+const Center = styled.div`
+    height: 100%;
+    width: calc(100% + ${getScrollBarWidth()}px);
+    overflow-y: scroll;
 `
 const Header = styled.div`
     height: 40px;
@@ -85,13 +99,19 @@ const NoData = styled.div`
     font-weight: 400;
     color: rgba(153, 153, 153, 1);
 `
-const Right = styled.div`
+const RightWindow = styled.div`
     height: 100%;
     width: 180px;
     flex-shrink: 0;
     border-left: 1px solid rgba(151, 151, 151, 0.3);
     padding-left: 15px;
-    padding-right: 15px;
+    margin-right: 15px;
+    overflow-x: hidden;
+`
+const Right = styled.div`
+    height: 100%;
+    width: calc(100% + ${getScrollBarWidth()}px);
+    overflow-y: scroll;
 `
 const Added = styled.div`
     height: 40px;
@@ -150,52 +170,58 @@ const PointSelector: FC<IProps> = props => {
     }, [])
     return useObserver(() => (
         <LoreListWrap>
-            <TagWrap>
-                {pointStore.tagReady
-                    ? pointStore.tags.map(item => (
-                          <Tag
-                              key={item.id}
-                              checked={pointStore.currentTag === item.id}
-                              onClick={() => handleClickTag(item.id)}
-                          >
-                              {item.name}
-                          </Tag>
-                      ))
-                    : 'loading'}
-            </TagWrap>
-            <Center>
-                {pointStore.currentPoints.map(item => (
-                    <Fragment key={item.id}>
-                        <Header>{item.name}</Header>
-                        <Section>
-                            {item.children ? (
-                                item.children.map(t => (
-                                    <Span
-                                        key={t.id}
-                                        onClick={() => props.selectPoint(t)}
-                                        selected={props.selectedPointsId.includes(t.id)}
-                                    >
-                                        {t.name}
-                                    </Span>
-                                ))
-                            ) : (
-                                <NoData>暂无知识点</NoData>
-                            )}
-                        </Section>
-                    </Fragment>
-                ))}
-            </Center>
+            <TagWrapWindow>
+                <TagWrap>
+                    {pointStore.tagReady
+                        ? pointStore.tags.map(item => (
+                              <Tag
+                                  key={item.id}
+                                  checked={pointStore.currentTag === item.id}
+                                  onClick={() => handleClickTag(item.id)}
+                              >
+                                  {item.name}
+                              </Tag>
+                          ))
+                        : 'loading'}
+                </TagWrap>
+            </TagWrapWindow>
+            <CenterWindow>
+                <Center>
+                    {pointStore.currentPoints.map(item => (
+                        <Fragment key={item.id}>
+                            <Header>{item.name}</Header>
+                            <Section>
+                                {item.children ? (
+                                    item.children.map(t => (
+                                        <Span
+                                            key={t.id}
+                                            onClick={() => props.selectPoint(t)}
+                                            selected={props.selectedPointsId.includes(t.id)}
+                                        >
+                                            {t.name}
+                                        </Span>
+                                    ))
+                                ) : (
+                                    <NoData>暂无知识点</NoData>
+                                )}
+                            </Section>
+                        </Fragment>
+                    ))}
+                </Center>
+            </CenterWindow>
             {!props.isSelected && (
-                <Right>
-                    <Added>已添加的知识点</Added>
-                    <>
-                        {props.selectedPoints.map(item => (
-                            <Point key={item.id} onClick={() => props.selectPoint(item)} title={item.name}>
-                                {item.name}
-                            </Point>
-                        ))}
-                    </>
-                </Right>
+                <RightWindow>
+                    <Right>
+                        <Added>已添加的知识点</Added>
+                        <>
+                            {props.selectedPoints.map(item => (
+                                <Point key={item.id} onClick={() => props.selectPoint(item)} title={item.name}>
+                                    {item.name}
+                                </Point>
+                            ))}
+                        </>
+                    </Right>
+                </RightWindow>
             )}
         </LoreListWrap>
     ))
