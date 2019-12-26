@@ -38,9 +38,14 @@ const FormulaEditor: FC<IProps> = ({ close, latex, setLatex }) => {
 
     const ref = useRef(null)
     useOnClickOutside(ref, close)
-    const handleClick = (cmd: string) => {
-        // @ts-ignore
-        mathQuill.write(cmd)
+    const handleClick = (cmd: string, type: string) => {
+        if (type === 'write') {
+            // @ts-ignore
+            mathQuill.write(cmd)
+        } else {
+            // @ts-ignore
+            mathQuill.cmd(cmd)
+        }
     }
     return (
         <Container>

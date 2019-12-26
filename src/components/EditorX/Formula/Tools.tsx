@@ -118,27 +118,30 @@ const arr2 = [
     { name: 'varnothing', cmd: '\\varnothing', type: 'write', title: '空集' },
     { name: 'cap', cmd: '\\cap', type: 'write', title: '交集' },
     { name: 'cup', cmd: '\\cup', type: 'write', title: '并集' },
+    { name: 'infinitas', cmd: '\\infty', type: 'write', title: '无穷' },
 ]
 const arr3 = [
-    { name: 'frac', cmd: '\\frac', type: 'write', title: '分式' },
-    { name: 'sprt', cmd: '\\sqrt', type: 'write', title: '平方根' },
+    { name: 'frac', cmd: '\\frac', type: 'cmd', title: '分式' },
+    { name: 'sprt', cmd: '\\sqrt', type: 'cmd', title: '平方根' },
     { name: 'sprt-n', cmd: '\\nthroot[n]x', type: 'write', title: '开方' },
-    { name: 'underline', cmd: '_', type: 'write', title: '下标' },
-    { name: 'vec', cmd: '\\vec', type: 'write', title: '向量' },
-    { name: 'bar', cmd: '\\bar', type: 'write', title: '平均数' },
-    { name: 'sum', cmd: '\\sum', type: 'write', title: '求和' },
-    { name: 'prod', cmd: '\\prod', type: 'write', title: '求积' },
-    { name: 'int', cmd: '\\int', type: 'write', title: '积分' },
+    { name: 'underline', cmd: '_', type: 'cmd', title: '下标' },
+    { name: 'vec', cmd: '\\vec', type: 'cmd', title: '向量' },
+    { name: 'bar', cmd: '\\bar', type: 'cmd', title: '平均数' },
+    { name: 'sum', cmd: '\\sum_{i=1}^n', type: 'write', title: '求和' },
+    { name: 'prod', cmd: '\\prod_{i=1}^n', type: 'write', title: '求积' },
+    { name: 'int', cmd: '\\int_{-n}^{n}', type: 'write', title: '积分' },
+    { name: 'limit', cmd: '\\lim_{n \\to \\infty}x_n', type: 'write', title: '极限' },
 ]
 
 interface IProps {
-    click(cmd: string): void
+    click(cmd: string, type: string): void
 }
 
 const App: FC<IProps> = props => {
-    const handleClick = (event: MouseEvent, cmd: string) => {
+    const handleClick = (event: MouseEvent, cmd: string, type: string) => {
         event.preventDefault()
-        props.click(cmd)
+        event.stopPropagation()
+        props.click(cmd, type)
     }
     return (
         <Container>
@@ -146,7 +149,7 @@ const App: FC<IProps> = props => {
                 <Label>希腊字母</Label>
                 <LetterContent>
                     {arr1.map(x => (
-                        <Button onMouseDown={event => handleClick(event, x.cmd)} key={x.name} title={x.title}>
+                        <Button onMouseDown={event => handleClick(event, x.cmd, x.type)} key={x.name} title={x.title}>
                             <Icon name={`#icon-${x.name}`} />
                         </Button>
                     ))}
@@ -156,7 +159,7 @@ const App: FC<IProps> = props => {
                 <FormLable>常用符号</FormLable>
                 <FormContent>
                     {arr2.map(x => (
-                        <Button key={x.name} onMouseDown={event => handleClick(event, x.cmd)} title={x.title}>
+                        <Button key={x.name} onMouseDown={event => handleClick(event, x.cmd, x.type)} title={x.title}>
                             <Icon name={`#icon-${x.name}`} />
                         </Button>
                     ))}
@@ -166,7 +169,7 @@ const App: FC<IProps> = props => {
                 <FormLable>常用形式</FormLable>
                 <FormContent>
                     {arr3.map(x => (
-                        <Button key={x.name} onMouseDown={event => handleClick(event, x.cmd)} title={x.title}>
+                        <Button key={x.name} onMouseDown={event => handleClick(event, x.cmd, x.type)} title={x.title}>
                             <Icon name={`#icon-${x.name}`} />
                         </Button>
                     ))}

@@ -8,7 +8,7 @@ const Container = styled.div`
     top: 20px;
     right: 30px;
     width: 230px;
-    z-index: 100;
+    z-index: 11;
 `
 const Save = styled.div`
     height: 50px;
@@ -34,10 +34,14 @@ interface IProps {
     onSave: MouseEventHandler
 }
 
-const Addon: FC<IProps> = ({selectPoint, selectedPoints, selectedPointsId, canSave, onSave}) => {
+const Addon: FC<IProps> = ({ selectPoint, selectedPoints, selectedPointsId, canSave, onSave }) => {
     return (
         <Container>
-            <KnowledgePoint selectPoint={selectPoint} selectedPointsId={selectedPointsId} selectedPoints={selectedPoints} />
+            <KnowledgePoint
+                selectPoint={selectPoint}
+                selectedPointsId={selectedPointsId}
+                selectedPoints={selectedPoints}
+            />
             {/* <Annex /> */}
             {canSave && <Save onClick={onSave}>保存</Save>}
         </Container>

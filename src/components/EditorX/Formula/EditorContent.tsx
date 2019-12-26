@@ -11,8 +11,9 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     & > .mq-editable-field {
-        border: none;
+        border: 1px solid #ccc;
         padding: 8px;
+        border-radius: 4px;
     }
 `
 interface IProps {
@@ -28,11 +29,6 @@ const App: FC<IProps> = ({ latex, setLatex, setMathQuill }) => {
     const handleMathQuillDidMount = (mathField: any) => {
         setMathQuill(mathField)
     }
-    // useImperativeHandle(ref, () => ({
-    //     runCmd(command: string) {
-    //         mathQuill.cmd(command)
-    //     },
-    // }))
     const handleClick = (event: MouseEvent) => {
         event.preventDefault()
         event.stopPropagation()
