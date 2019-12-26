@@ -1,18 +1,14 @@
 import React, { FC, useContext, useEffect } from 'react'
 import { MobXProviderContext } from 'mobx-react'
 import styled from 'styled-components'
-import { RouteComponentProps } from '@reach/router'
 import { useObserver } from 'mobx-react-lite'
 import { Value } from 'slate'
 import { FaSpinner } from 'react-icons/fa'
+import { useParams } from 'react-router-dom'
 
 import { IStore } from '../../../store'
 import PlanSelector from './PlanSelector'
 import Editor from '../../../components/EditorX'
-
-interface IParams {
-    courseId: string
-}
 
 const Container = styled.div`
     width: 100%;
@@ -49,14 +45,15 @@ const Spinner = styled.div`
     align-items: center;
 `
 
-const Plan: FC<RouteComponentProps<IParams>> = props => {
+const Plan: FC = () => {
+    const { courseId } = useParams()
     const { coursePlanStore } = useContext<IStore>(MobXProviderContext)
     useEffect(() => {
-        coursePlanStore.getPlan(props.courseId as string)
+        coursePlanStore.getPlan(courseId as string)
         // eslint-disable-next-line
     }, [])
     const handleClick = (id: number) => {
-        props.courseId && coursePlanStore.bindingPlan(props.courseId, id)
+        coursePlanStore.bindingPlan(courseId as string, id)
     }
     return useObserver(() => {
         if (!coursePlanStore.planReady || coursePlanStore.gettingPlan) {

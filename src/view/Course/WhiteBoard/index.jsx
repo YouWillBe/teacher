@@ -1,9 +1,9 @@
 import React, { useRef, useState, useEffect, useContext } from 'react'
 import styled from 'styled-components'
 import { SketchField, Tools } from 'react-sketch'
-import { navigate } from '@reach/router'
 import { MobXProviderContext } from 'mobx-react'
 import { useObserver } from 'mobx-react-lite'
+import { useParams, useHistory } from 'react-router-dom'
 
 import Loading from '../../../components/Loading'
 
@@ -14,7 +14,9 @@ const Container = styled.div`
     height: 100%;
 `
 
-const WhiteBoard = props => {
+const WhiteBoard = () => {
+    const { courseId } = useParams()
+    const history = useHistory()
     const ref = useRef(null)
     const [currentTool, setCurrentTool] = useState(Tools.Pencil)
     const [currentColor, setCurrentColor] = useState('#000')
@@ -38,13 +40,13 @@ const WhiteBoard = props => {
 
     const handleSave = () => {
         courseIndexStore.upsertWhiteBoard({
-            courseId: props.courseId,
+            courseId: courseId,
             content: JSON.stringify(ref.current.toJSON()),
         })
     }
 
     const handleExit = () => {
-        navigate(`/course/${props.courseId}/plan`)
+        history.push(`/course/${courseId}/plan`)
     }
 
     const handleAddText = () => {
@@ -76,7 +78,7 @@ const WhiteBoard = props => {
     const { courseIndexStore } = useContext(MobXProviderContext)
 
     useEffect(() => {
-        courseIndexStore.getWhiteBoard(props.courseId)
+        courseIndexStore.getWhiteBoard(courseId)
         // eslint-disable-next-line
     }, [])
 

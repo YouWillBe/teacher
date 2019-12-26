@@ -23,7 +23,7 @@ interface IParams {
 const Course: FC<RouteComponentProps<IParams>> = props => {
     return (
         <Content>
-            <Index path='/'>{props.children}</Index>
+            {/* <Index path='/'>{props.children}</Index> */}
             <PreviewAnnounced path='preview/:studentTestId/' />
             <ClassTestAnnounced path='classTest/:studentTestId/' />
             <ExaminationAnnounced path='examination/:studentTestId/' />

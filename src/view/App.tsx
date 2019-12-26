@@ -31,7 +31,7 @@ const App: FC = () => {
                     <Knowledge />
                 </Route>
                 {/* todo 处理课程部分的路由*/}
-                <Route path='/course'>
+                <Route path='/course/:courseId'>
                     <Course />
                 </Route>
                 <Route path='/'>

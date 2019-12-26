@@ -1,19 +1,15 @@
 import React, { FC, useContext, useEffect } from 'react'
 import { MobXProviderContext } from 'mobx-react'
 import styled from 'styled-components'
-import { RouteComponentProps, navigate } from '@reach/router'
 import { useObserver } from 'mobx-react-lite'
+import { useParams, useHistory } from 'react-router-dom'
+
 import { IStore } from '../../../store'
 
 import NoPreparation from './no-preparation.png'
 import Button from '../../../components/Button'
 import Loading from '../../../components/Loading'
 import ReadOnly from './ReadOnly'
-
-interface IParams {
-    courseId: string
-    currentStatu: number
-}
 
 const Container = styled.div`
     width: 100%;
@@ -34,18 +30,20 @@ const Img = styled.div`
     margin-bottom: 54px;
 `
 
-const Preparation: FC<RouteComponentProps<IParams>> = props => {
+const Preparation: FC = props => {
+    const { courseId } = useParams()
+    const history = useHistory()
     const { coursePreparationStore } = useContext<IStore>(MobXProviderContext)
 
     useEffect(() => {
         if (coursePreparationStore.currentStatu) {
-            props.courseId && coursePreparationStore.getPreparation(props.courseId)
+            coursePreparationStore.getPreparation(courseId as string)
         }
         // eslint-disable-next-line
     }, [])
 
     const handleClickLink = () => {
-        navigate('preparation/new')
+        history.push(`/course/${courseId}/preparation/new`)
     }
 
     const optionButton = {
@@ -66,7 +64,7 @@ const Preparation: FC<RouteComponentProps<IParams>> = props => {
                 </Container>
             )
         } else {
-            return <ReadOnly courseId={props.courseId} />
+            return <ReadOnly courseId={courseId} />
         }
     })
 }
